@@ -18,6 +18,9 @@ _CALCBENCH_API_URL_BASE = "https://www.calcbench.com/api/{0}"
 _SESSION = None
 
 def _calcbench_session():
+    if not (_CALCBENCH_PASSWORD and _CALCBENCH_USER_NAME):
+        raise ValueError("No credentials supplied, either call set_credentials or set \
+CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
     global _SESSION
     if not _SESSION:
         _SESSION = requests.Session()
@@ -26,7 +29,9 @@ def _calcbench_session():
                    'strng' : _CALCBENCH_PASSWORD, 
                    'rememberMe' : 'true'},
                   verify=False)
-        assert r.text == 'true', 'login failed'
+        r.raise_for_status()
+        if r.text != 'true':
+            raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
     return _SESSION
 
 def set_credentials(cb_username, cb_password):
@@ -34,8 +39,11 @@ def set_credentials(cb_username, cb_password):
     
     username is the email address you use to login to calcbench.com.
     '''
+    global _CALCBENCH_USER_NAME
+    global _CALCBENCH_PASSWORD
     _CALCBENCH_USER_NAME = cb_username
     _CALCBENCH_PASSWORD = cb_password
+    _calcbench_session() #Make sure credentials work.
 
 def normalized_data(company_identifiers, 
                     metrics, 
