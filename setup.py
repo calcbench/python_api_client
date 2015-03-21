@@ -15,5 +15,6 @@ setup(name='calcbench',
       author_email='andrew@calcbench.com',
       license='Apache2',
       keywords='finance accounting SEC 10-(K|Q)',
-      install_requires=['pandas', 'requests']
+      install_requires=['pandas', 'requests'],
+      packages=['calcbench'],
       )
