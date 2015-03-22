@@ -9,4 +9,11 @@ You can get a free two week Calcbench trial @ https://www.calcbench.com/join.
 
 Your Calcbench username (your email) and Calcbench password are your credentials for this package.
 
+See examples @ http://blog.calcbench.com/post/114062921353/calcbench-python-client.
+
+The client returns data in Pandas DataFrames.
+
+To install the client using pip use: 
+    pip install git+git://github.com/calcbench/python_api_client.git
+
 This is a work in progress.  Let me know if you have suggestions or encounter bugs let me know, andrew@calcbench.com.
