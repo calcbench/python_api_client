@@ -51,7 +51,21 @@ def normalized_data(company_identifiers,
                     start_period,
                     end_year,
                     end_period):
-    '''Normalized data.'''
+    '''Normalized data.
+    
+    Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
+    
+    Args:
+        company_identifiers: a sequence of tickers, eg ['msft', 'goog', 'appl']
+        metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
+        start_year: first year of data to get
+        start_period: first quarter to get, for annual data pass 0
+        end_year: last year of data to get
+        end_period: last_quarter to get, for annual data pass 0
+    
+    Returns:
+        A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
+    '''
     url = _CALCBENCH_API_URL_BASE.format("/NormalizedValues")
     payload = {"start_year" : start_year,
            'start_period' : start_period,
