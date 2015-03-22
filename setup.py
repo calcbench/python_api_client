@@ -9,11 +9,12 @@ Created on Mar 18, 2015
 from setuptools import setup
 
 setup(name='calcbench', 
-      version='0.0.1', 
+      version='0.0.2', 
       description='Client for Calcbench data.', 
       author='Andrew Kittredge',
       author_email='andrew@calcbench.com',
       license='Apache2',
       keywords='finance accounting SEC 10-(K|Q)',
-      install_requires=['pandas', 'requests']
+      install_requires=['pandas', 'requests'],
+      packages=['calcbench'],
       )
