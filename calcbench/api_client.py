@@ -28,7 +28,7 @@ CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
                   {'email' : _CALCBENCH_USER_NAME, 
                    'strng' : _CALCBENCH_PASSWORD, 
                    'rememberMe' : 'true'},
-                  verify=False)
+                  verify=True)
         r.raise_for_status()
         if r.text != 'true':
             raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
