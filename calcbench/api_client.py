@@ -23,8 +23,8 @@ def _calcbench_session():
 CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
     global _SESSION
     if not _SESSION:
-        _SESSION = requests.Session()
-        r = _SESSION.post('https://www.calcbench.com/account/LogOnAjax', 
+        _session = requests.Session()
+        r = _session.post('https://www.calcbench.com/account/LogOnAjax', 
                   {'email' : _CALCBENCH_USER_NAME, 
                    'strng' : _CALCBENCH_PASSWORD, 
                    'rememberMe' : 'true'},
@@ -32,6 +32,8 @@ CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
         r.raise_for_status()
         if r.text != 'true':
             raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
+        else:
+            _SESSION = _session
     return _SESSION
 
 def set_credentials(cb_username, cb_password):
