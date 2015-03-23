@@ -13,7 +13,7 @@ See examples @ http://blog.calcbench.com/post/114062921353/calcbench-python-clie
 
 The client returns data in Pandas DataFrames.
 
-To install the client using pip use: 
+To install the client with pip use: 
 
     pip install git+git://github.com/calcbench/python_api_client.git
     
