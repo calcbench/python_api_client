@@ -5,7 +5,7 @@ A Python client for Calcbench's API.
 
 Calcbench normalizes the data XBRL tagged accounting metrics in the 10-K and 10-Q documents public companies file the with SEC.  If you are spending a lot of time on Edgar and know some Python this package might make your life easier.
 
-You can get a free two week Calcbench trial @ https://www.calcbench.com/join.
+Get a free two week Calcbench trial @ https://www.calcbench.com/join.
 
 Your Calcbench username (your email) and Calcbench password are your credentials for this package.
 
@@ -17,7 +17,7 @@ To install the client with pip use:
 
     pip install git+git://github.com/calcbench/python_api_client.git
     
-You need to set your Caclbench password you can either set CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables or call 
+To set your credentials either set CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables or call 
 
     calcbench.set_credentials({calcbench_username}, {calcbench_password})
     
