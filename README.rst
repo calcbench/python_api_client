@@ -28,4 +28,4 @@ To get normalized data call `get_normalized_data`, for instance
 Company identifiers, tickers in most cases, can be retrieved by Standard Industrial Classification (SIC) code or index, for instance
     
     calcbench.tickers(index='DJIA')
-This is a work in progress.  Let me know if you have suggestions or encounter bugs let me know, andrew@calcbench.com.
+This is a work in progress.  Let me know if you have suggestions or encounter bugs, andrew@calcbench.com.
