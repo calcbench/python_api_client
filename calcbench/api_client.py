@@ -14,6 +14,7 @@ import pandas as pd
 _CALCBENCH_USER_NAME = os.environ.get("CALCBENCH_USERNAME")
 _CALCBENCH_PASSWORD = os.environ.get("CALCBENCH_PASSWORD")
 _CALCBENCH_API_URL_BASE = "https://www.calcbench.com/api/{0}"
+_SSL_VERIFY = True
 
 _SESSION = None
 
@@ -28,7 +29,7 @@ CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
                   {'email' : _CALCBENCH_USER_NAME, 
                    'strng' : _CALCBENCH_PASSWORD, 
                    'rememberMe' : 'true'},
-                  verify=True)
+                  verify=_SSL_VERIFY)
         r.raise_for_status()
         if r.text != 'true':
             raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
@@ -79,7 +80,8 @@ def normalized_data(company_identifiers,
     response = _calcbench_session().post(
                                     url,
                                     data=json.dumps(payload), 
-                                    headers={'content-type' : 'application/json'}
+                                    headers={'content-type' : 'application/json'},
+                                    verify=_SSL_VERIFY
                                     )
     response.raise_for_status()
     data = response.json()
@@ -114,6 +116,18 @@ def _build_annual_period(data_point):
     
 def tickers(SIC_code=None, index=None):
     '''Return a list of tickers in the peer-group'''
+    companies = _companies(SIC_code, index)
+    tickers = [co['ticker'] for co in companies]
+    return tickers
+
+def companies(SIC_code=None, index=None):
+    '''Return a DataFrame with company details'''
+    companies = _companies(SIC_code, index)
+    return pd.DataFrame(companies)
+    
+def _companies(SIC_code, index):
+    if not(SIC_code or index):
+        raise ValueError('Must supply SIC_code or index')    
     if index:
         if index not in ("SP500", "DJIA"):
             raise ValueError("index must be either 'SP500' or 'DJIA'")
@@ -121,15 +135,12 @@ def tickers(SIC_code=None, index=None):
     else:
         query = "siccodes={0}".format(SIC_code)
     url = _CALCBENCH_API_URL_BASE.format("companies?" + query)
-    r = _calcbench_session().get(url)
+    r = _calcbench_session().get(url, verify=_SSL_VERIFY)
     r.raise_for_status()
-    tickers = r.json()
-    tickers = [co['ticker'] for co in tickers]
-    return tickers
-
-
+    return r.json()
+    
 if __name__ == '__main__':
-    print(tickers(index="DJIA"))
+    print(companies(index="DJIA"))
     data = normalized_data(company_identifiers=['ibm', 'msft'], 
                           metrics=['revenue', 'assets', ],
                           start_year=2010,
