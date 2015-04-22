@@ -1,2 +1,2 @@
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 from .api_client import normalized_data, tickers, set_credentials, companies

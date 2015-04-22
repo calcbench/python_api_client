@@ -9,7 +9,7 @@ Created on Mar 18, 2015
 from setuptools import setup
 
 setup(name='calcbench', 
-      version='0.0.3', 
+      version='0.0.4', 
       description='Client for Calcbench data.', 
       author='Andrew Kittredge',
       author_email='andrew@calcbench.com',

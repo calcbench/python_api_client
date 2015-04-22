@@ -14,18 +14,19 @@ import pandas as pd
 _CALCBENCH_USER_NAME = os.environ.get("CALCBENCH_USERNAME")
 _CALCBENCH_PASSWORD = os.environ.get("CALCBENCH_PASSWORD")
 _CALCBENCH_API_URL_BASE = "https://www.calcbench.com/api/{0}"
+_CALCBENCH_LOGON_URL = 'https://www.calcbench.com/account/LogOnAjax'
 _SSL_VERIFY = True
 
 _SESSION = None
 
-def _calcbench_session():
-    if not (_CALCBENCH_PASSWORD and _CALCBENCH_USER_NAME):
-        raise ValueError("No credentials supplied, either call set_credentials or set \
-CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
+def _calcbench_session():  
     global _SESSION
     if not _SESSION:
+        if not (_CALCBENCH_PASSWORD and _CALCBENCH_USER_NAME):
+            raise ValueError("No credentials supplied, either call set_credentials or set \
+CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
         _session = requests.Session()
-        r = _session.post('https://www.calcbench.com/account/LogOnAjax', 
+        r = _session.post(_CALCBENCH_LOGON_URL, 
                   {'email' : _CALCBENCH_USER_NAME, 
                    'strng' : _CALCBENCH_PASSWORD, 
                    'rememberMe' : 'true'},
@@ -114,33 +115,36 @@ def _build_annual_period(data_point):
     return pd.Period(year=data_point.pop('calendar_year'), freq='a')
 
     
-def tickers(SIC_code=None, index=None):
+def tickers(SIC_codes=[], index=None):
     '''Return a list of tickers in the peer-group'''
-    companies = _companies(SIC_code, index)
+    companies = _companies(SIC_codes, index)
     tickers = [co['ticker'] for co in companies]
     return tickers
 
-def companies(SIC_code=None, index=None):
+def companies(SIC_codes=[], index=None):
     '''Return a DataFrame with company details'''
-    companies = _companies(SIC_code, index)
+    companies = _companies(SIC_codes, index)
     return pd.DataFrame(companies)
     
-def _companies(SIC_code, index):
-    if not(SIC_code or index):
+def _companies(SIC_codes, index):
+    if not(SIC_codes or index):
         raise ValueError('Must supply SIC_code or index')    
     if index:
         if index not in ("SP500", "DJIA"):
             raise ValueError("index must be either 'SP500' or 'DJIA'")
         query = "index={0}".format(index)
     else:
-        query = "siccodes={0}".format(SIC_code)
+        query = '&'.join("SICCodes={0}".format(SIC_code) for SIC_code in SIC_codes)
     url = _CALCBENCH_API_URL_BASE.format("companies?" + query)
     r = _calcbench_session().get(url, verify=_SSL_VERIFY)
     r.raise_for_status()
     return r.json()
     
 if __name__ == '__main__':
-    print(companies(index="DJIA"))
+    _CALCBENCH_API_URL_BASE = 'https://localhost:444/api/{0}'
+    _CALCBENCH_LOGON_URL = 'https://localhost:444/account/LogOnAjax'
+    _SSL_VERIFY = False
+    print(companies(SIC_codes=[7372, 'asdf']))
     data = normalized_data(company_identifiers=['ibm', 'msft'], 
                           metrics=['revenue', 'assets', ],
                           start_year=2010,
