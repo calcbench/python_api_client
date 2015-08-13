@@ -143,9 +143,9 @@ def _companies(SIC_codes, index):
     return r.json()
     
 if __name__ == '__main__':
-    _CALCBENCH_API_URL_BASE = 'https://localhost:444/api/{0}'
-    _CALCBENCH_LOGON_URL = 'https://localhost:444/account/LogOnAjax'
-    _SSL_VERIFY = False
+    dow_tickers = tickers(index="DJIA")
+    metrics = ['netincome', 'paymentsofdividends', "PaymentsForRepurchaseOfCommonStock", "ProceedsFromIssuanceOfCommonStock"]
+    data = normalized_data(company_identifiers=dow_tickers, metrics=metrics, start_year=2009, start_period=0, end_year=2015, end_period=0)
     print(companies(SIC_codes=[7372, 'asdf']))
     data = normalized_data(company_identifiers=['ibm', 'msft'], 
                           metrics=['revenue', 'assets', ],
