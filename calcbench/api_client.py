@@ -86,6 +86,8 @@ def normalized_data(company_identifiers,
                                     )
     response.raise_for_status()
     data = response.json()
+    if not data:
+        return pd.DataFrame()
     quarterly = start_period and end_period
     if quarterly:
         build_period = _build_quarter_period
