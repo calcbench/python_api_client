@@ -49,7 +49,8 @@ def set_credentials(cb_username, cb_password):
     _CALCBENCH_PASSWORD = cb_password
     _calcbench_session() #Make sure credentials work.
 
-def normalized_data(company_identifiers, 
+
+def normalized(company_identifiers, 
                     metrics, 
                     start_year, 
                     start_period,
@@ -60,7 +61,7 @@ def normalized_data(company_identifiers,
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
     
     Args:
-        company_identifiers: a sequence of tickers, eg ['msft', 'goog', 'appl']
+        company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
         metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
         start_year: first year of data to get
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
@@ -71,7 +72,7 @@ def normalized_data(company_identifiers,
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
 
-    data = normalized_data_raw(company_identifiers, metrics, start_year, start_period, end_year, end_period)
+    data = normalized_raw(company_identifiers, metrics, start_year, start_period, end_year, end_period)
     if not data:
         return pd.DataFrame()
     quarterly = start_period and end_period
@@ -93,8 +94,9 @@ def normalized_data(company_identifiers,
     data = data[metrics]
     return data
 
+normalized_data = normalized # used to call it normalized_data.
 
-def normalized_data_raw(company_identifiers, 
+def normalized_raw(company_identifiers, 
                     metrics, 
                     start_year, 
                     start_period,
@@ -106,7 +108,7 @@ def normalized_data_raw(company_identifiers,
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
     
     Args:
-        company_identifiers: a sequence of tickers, eg ['msft', 'goog', 'appl']
+        company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
         metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
         start_year: first year of data to get
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
@@ -154,6 +156,71 @@ def normalized_data_raw(company_identifiers,
     data = response.json()
     return data
 
+
+def as_reported_raw(company_identifier, 
+                     statement_type, 
+                     period_type='annual', 
+                     all_periods=False, 
+                     descending_dates=False):
+    '''
+    As-Reported Data.
+    
+    Get statements as reported by the filing company.  
+    
+    Args:
+        company_identifier: a ticker or a CIK code, eg 'msft'
+        statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
+        period_type: either 'annual' or 'quarterly'
+        all_periods: get all history or only the last four.
+        descending_dates: return columns in oldest -> newest order.
+        
+    Returns:
+        An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
+        The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
+        The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.
+         
+         Example:
+             {
+                "entity_name": "Microsoft Corp",
+                "name": "INCOME STATEMENTS",
+                "period_type": 2,
+                "columns": [
+                            {"fiscal_period": "Y 2008",
+                            "period_start": "2007-07-01",
+                            "period_end": "2008-06-30",
+                            "instant": false
+                        },...],
+                "line_items" : [
+                            {"label": "Revenue",
+                            "local_name": "SalesRevenueNet",
+                            "tree_depth": 3,
+                            "is_subtotal": false,
+                            "facts": [
+                                {
+                                    "fact_id": 5849672,
+                                    "unit_of_measure": "USD",
+                                    "effective_value": 60420000000,
+                                    "format_type": "currency",
+                                    "text_fact_id": 5849351
+                                },...]}
+                    ...]
+                }        
+    '''
+    url = _CALCBENCH_API_URL_BASE.format("asReported")
+    payload = {'companyIdentifier' : company_identifier,
+               'statementType' : statement_type,
+               'periodType' : period_type,
+               'allPeriods' : all_periods,
+               'descendingDates' : descending_dates}
+    response = _calcbench_session().get(url, 
+                                        params=payload, 
+                                        headers={'content-type' : 'application/json'}, 
+                                        verify=_SSL_VERIFY)
+    response.raise_for_status()
+    data = response.json()
+    return data
+    
+    
 def _build_quarter_period(data_point):
     return pd.Period(year=data_point.pop('calendar_year'),
                      quarter=data_point.pop('calendar_period'),
@@ -190,10 +257,6 @@ def _companies(SIC_codes, index):
     return r.json()
     
 if __name__ == '__main__':
-    dow_tickers = tickers(index="DJIA")
-    metrics = ['netincome', 'paymentsofdividends', "PaymentsForRepurchaseOfCommonStock", "ProceedsFromIssuanceOfCommonStock"]
-    data = normalized_data(company_identifiers=dow_tickers, metrics=metrics, start_year=2009, start_period=0, end_year=2015, end_period=0)
-    print(companies(SIC_codes=[7372, 'asdf']))
     data = normalized_data(company_identifiers=['ibm', 'msft'], 
                           metrics=['revenue', 'assets', ],
                           start_year=2010,
