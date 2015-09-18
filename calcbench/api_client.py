@@ -50,7 +50,7 @@ def set_credentials(cb_username, cb_password):
     _calcbench_session() #Make sure credentials work.
 
 
-def normalized(company_identifiers, 
+def normalized_dataframe(company_identifiers, 
                     metrics, 
                     start_year, 
                     start_period,
@@ -94,7 +94,7 @@ def normalized(company_identifiers,
     data = data[metrics]
     return data
 
-normalized_data = normalized # used to call it normalized_data.
+normalized_data = normalized_dataframe # used to call it normalized_data.
 
 def normalized_raw(company_identifiers, 
                     metrics, 
@@ -221,6 +221,51 @@ def as_reported_raw(company_identifier,
     return data
     
     
+def breakouts_raw(company_identifiers=None, metrics=[], start_year=None, 
+                 start_period=None, end_year=None, end_period=None, period_type='annual'):
+    '''
+    Breakouts
+    
+    Get breakouts/segments, see https://www.calcbench.com/breakout.
+    
+    Args:
+        company_identifiers : list of tickers or CIK codes
+        metrics : list of breakouts, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName".
+        start_year: first year of data to get
+        start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+        end_year: last year of data to get
+        end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
+        period_type: quarterly or annual, only applicable when other period data not supplied.
+        
+    Returns:
+        A list of breakout points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will \
+        be a the formatted value and the unformatted value denote by _effvalue.  The label dimension label associated with the values.
+        
+        
+    '''
+    if len(metrics) == 0:
+        raise(ValueError("Need to supply at least one breakout."))
+    if period_type not in ('annual', 'quarterly'):
+        raise(ValueError("period_type must be in ('annual', 'quarterly')"))
+    payload = {'companiesParameters' : {'entireUniverse' : len(company_identifiers) == 0,
+                                       'companyIdentifiers' : company_identifiers},
+              'periodParameters' : {'year' : start_year,
+                                    'period' : start_period,
+                                    'endYear' : end_year,
+                                    'endPeriod' : end_period,
+                                    'periodType' : period_type},
+              'pageParameters' : {'metrics' : metrics}}
+    url = _CALCBENCH_API_URL_BASE.format('breakouts')
+    response = _calcbench_session().post(url,
+                                         data=json.dumps(payload),
+                                         headers={'content-type' : 'application/json'},
+                                         verify=_SSL_VERIFY)
+    response.raise_for_status()
+    data = response.json()
+    return data
+    
+    
+    
 def _build_quarter_period(data_point):
     return pd.Period(year=data_point.pop('calendar_year'),
                      quarter=data_point.pop('calendar_period'),
@@ -255,6 +300,16 @@ def _companies(SIC_codes, index):
     r = _calcbench_session().get(url, verify=_SSL_VERIFY)
     r.raise_for_status()
     return r.json()
+    
+    
+def _test_locally():
+    global _CALCBENCH_API_URL_BASE
+    global _CALCBENCH_LOGON_URL
+    global _SSL_VERIFY
+    _CALCBENCH_API_URL_BASE = "https://localhost:444/api/{0}"
+    _CALCBENCH_LOGON_URL = 'https://localhost:444/account/LogOnAjax'
+    _SSL_VERIFY = False    
+    print(breakouts_raw(['msft'], ['operatingSegmentRevenue']))
     
 if __name__ == '__main__':
     data = normalized_data(company_identifiers=['ibm', 'msft'], 
