@@ -63,29 +63,15 @@ def normalized_data(company_identifiers,
         company_identifiers: a sequence of tickers, eg ['msft', 'goog', 'appl']
         metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
         start_year: first year of data to get
-        start_period: first quarter to get, for annual data pass 0
+        start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         end_year: last year of data to get
-        end_period: last_quarter to get, for annual data pass 0
+        end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
     
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
-    url = _CALCBENCH_API_URL_BASE.format("/NormalizedValues")
-    payload = {"start_year" : start_year,
-           'start_period' : start_period,
-           'end_year' : end_year,
-           'end_period' : end_period,
-           'company_identifiers' : company_identifiers,
-           'metrics' : metrics,
-           }
-    response = _calcbench_session().post(
-                                    url,
-                                    data=json.dumps(payload), 
-                                    headers={'content-type' : 'application/json'},
-                                    verify=_SSL_VERIFY
-                                    )
-    response.raise_for_status()
-    data = response.json()
+
+    data = normalized_data_raw(company_identifiers, metrics, start_year, start_period, end_year, end_period)
     if not data:
         return pd.DataFrame()
     quarterly = start_period and end_period
@@ -105,6 +91,67 @@ def normalized_data(company_identifiers,
     data = data.unstack('metric')['value']
     data = data.unstack('ticker')
     data = data[metrics]
+    return data
+
+
+def normalized_data_raw(company_identifiers, 
+                    metrics, 
+                    start_year, 
+                    start_period,
+                    end_year,
+                    end_period):
+    '''
+    Normalized data.
+    
+    Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
+    
+    Args:
+        company_identifiers: a sequence of tickers, eg ['msft', 'goog', 'appl']
+        metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
+        start_year: first year of data to get
+        start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+        end_year: last year of data to get
+        end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+        
+    Returns:
+        A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
+        
+        For example
+            [
+                {
+                    "ticker": "MSFT",
+                    "calendar_year": 2010,
+                    "calendar_period": 1,
+                    "metric": "revenue",
+                    "value": 14503000000
+                },
+                {
+                    "ticker": "MSFT",
+                    "calendar_year": 2010,
+                    "calendar_period": 2,
+                    "metric": "revenue",
+                    "value": 16039000000
+                },
+            ]
+    '''
+    
+        
+    url = _CALCBENCH_API_URL_BASE.format("/NormalizedValues")
+    payload = {"start_year" : start_year,
+           'start_period' : start_period,
+           'end_year' : end_year,
+           'end_period' : end_period,
+           'company_identifiers' : company_identifiers,
+           'metrics' : metrics,
+           }
+    response = _calcbench_session().post(
+                                    url,
+                                    data=json.dumps(payload), 
+                                    headers={'content-type' : 'application/json'},
+                                    verify=_SSL_VERIFY
+                                    )
+    response.raise_for_status()
+    data = response.json()
     return data
 
 def _build_quarter_period(data_point):
