@@ -83,7 +83,10 @@ def normalized_dataframe(company_identifiers,
     for d in data:                          
         d['period'] = build_period(d)
         d['ticker'] = d['ticker'].upper()
-
+        try:
+            d['value'] = float(d['value'])
+        except ValueError:
+            pass
         
     data = pd.DataFrame(data)
     data.set_index(keys=['ticker', 'metric', 'period'],
