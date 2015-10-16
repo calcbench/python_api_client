@@ -62,12 +62,11 @@ def normalized_dataframe(company_identifiers,
     
     Args:
         company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
-        metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
-        start_year: first year of data to get
+        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/excel#availableMetrics eg. ['revenue', 'accountsreceivable']
+        start_year: first year of data
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-        end_year: last year of data to get
+        end_year: last year of data
         end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-    
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
@@ -109,10 +108,10 @@ def normalized_raw(company_identifiers,
     
     Args:
         company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
-        metrics: a sequence of metrics, eg. ['revenue', 'accountsreceivable']
-        start_year: first year of data to get
+        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/excel#availableMetrics eg. ['revenue', 'accountsreceivable']
+        start_year: first year of data
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-        end_year: last year of data to get
+        end_year: last year of data
         end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         
     Returns:
@@ -165,13 +164,13 @@ def as_reported_raw(company_identifier,
     '''
     As-Reported Data.
     
-    Get statements as reported by the filing company.  
+    Get statements as reported by the filing company
     
     Args:
         company_identifier: a ticker or a CIK code, eg 'msft'
         statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
         period_type: either 'annual' or 'quarterly'
-        all_periods: get all history or only the last four.
+        all_periods: get all history or only the last four, True or False.
         descending_dates: return columns in oldest -> newest order.
         
     Returns:
@@ -239,7 +238,7 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
         
     Returns:
         A list of breakout points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will \
-        be a the formatted value and the unformatted value denote by _effvalue.  The label dimension label associated with the values.
+        be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
         
         
     '''
@@ -276,25 +275,26 @@ def _build_annual_period(data_point):
     return pd.Period(year=data_point.pop('calendar_year'), freq='a')
 
     
-def tickers(SIC_codes=[], index=None):
+def tickers(SIC_codes=[], index=None, all_companies=False):
     '''Return a list of tickers in the peer-group'''
-    companies = _companies(SIC_codes, index)
+    companies = _companies(SIC_codes, index, all_companies)
     tickers = [co['ticker'] for co in companies]
     return tickers
 
-def companies(SIC_codes=[], index=None):
+def companies(SIC_codes=[], index=None, all_companies=False):
     '''Return a DataFrame with company details'''
-    companies = _companies(SIC_codes, index)
+    companies = _companies(SIC_codes, index, all_companies)
     return pd.DataFrame(companies)
     
-def _companies(SIC_codes, index):
-    if not(SIC_codes or index):
-        raise ValueError('Must supply SIC_code or index')    
+def _companies(SIC_codes, index, all_companies=False):
+    if not(SIC_codes or index or all_companies):
+        raise ValueError('Must supply SIC_code or index')
+    query = "universe=true"  
     if index:
         if index not in ("SP500", "DJIA"):
             raise ValueError("index must be either 'SP500' or 'DJIA'")
         query = "index={0}".format(index)
-    else:
+    elif SIC_codes:
         query = '&'.join("SICCodes={0}".format(SIC_code) for SIC_code in SIC_codes)
     url = _CALCBENCH_API_URL_BASE.format("companies?" + query)
     r = _calcbench_session().get(url, verify=_SSL_VERIFY)
@@ -308,7 +308,8 @@ def _test_locally():
     global _SSL_VERIFY
     _CALCBENCH_API_URL_BASE = "https://localhost:444/api/{0}"
     _CALCBENCH_LOGON_URL = 'https://localhost:444/account/LogOnAjax'
-    _SSL_VERIFY = False    
+    _SSL_VERIFY = False
+    print(companies(all_companies=True))
     print(breakouts_raw(['msft'], ['operatingSegmentRevenue']))
     
 if __name__ == '__main__':
