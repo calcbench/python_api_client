@@ -145,7 +145,7 @@ def normalized_raw(company_identifiers,
            'start_period' : start_period,
            'end_year' : end_year,
            'end_period' : end_period,
-           'company_identifiers' : company_identifiers,
+           'company_identifiers' : list(company_identifiers),
            'metrics' : metrics,
            }
     response = _calcbench_session().post(
