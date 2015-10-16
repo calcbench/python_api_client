@@ -275,19 +275,19 @@ def _build_annual_period(data_point):
     return pd.Period(year=data_point.pop('calendar_year'), freq='a')
 
     
-def tickers(SIC_codes=[], index=None, all_companies=False):
+def tickers(SIC_codes=[], index=None, universe=False):
     '''Return a list of tickers in the peer-group'''
-    companies = _companies(SIC_codes, index, all_companies)
+    companies = _companies(SIC_codes, index, universe)
     tickers = [co['ticker'] for co in companies]
     return tickers
 
-def companies(SIC_codes=[], index=None, all_companies=False):
+def companies(SIC_codes=[], index=None, universe=False):
     '''Return a DataFrame with company details'''
-    companies = _companies(SIC_codes, index, all_companies)
+    companies = _companies(SIC_codes, index, universe)
     return pd.DataFrame(companies)
     
-def _companies(SIC_codes, index, all_companies=False):
-    if not(SIC_codes or index or all_companies):
+def _companies(SIC_codes, index, universe=False):
+    if not(SIC_codes or index or universe):
         raise ValueError('Must supply SIC_code or index')
     query = "universe=true"  
     if index:
