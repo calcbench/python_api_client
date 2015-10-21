@@ -11,51 +11,55 @@ import requests
 import json
 import pandas as pd
 
-_CALCBENCH_USER_NAME = os.environ.get("CALCBENCH_USERNAME")
-_CALCBENCH_PASSWORD = os.environ.get("CALCBENCH_PASSWORD")
-_CALCBENCH_API_URL_BASE = "https://www.calcbench.com/api/{0}"
-_CALCBENCH_LOGON_URL = 'https://www.calcbench.com/account/LogOnAjax'
-_SSL_VERIFY = True
 
-_SESSION = None
+SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
+                 'calcbench_password' : os.environ.get("CALCBENCH_PASSWORD"),
+                 'api_url_base' : "https://www.calcbench.com/api/{0}",
+                 'logon_url' : 'https://www.calcbench.com/account/LogOnAjax',
+                 'ssl_verify' : True,
+                 'session' : None,
+                 }
+
 
 def _calcbench_session():  
-    global _SESSION
-    if not _SESSION:
-        if not (_CALCBENCH_PASSWORD and _CALCBENCH_USER_NAME):
+    session = SESSION_STUFF.get('session')
+    if not session:
+        user_name = SESSION_STUFF.get('calcbench_user_name')
+        password = SESSION_STUFF.get('calcbench_password')
+        if not (user_name and password):
             raise ValueError("No credentials supplied, either call set_credentials or set \
 CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
-        _session = requests.Session()
-        r = _session.post(_CALCBENCH_LOGON_URL, 
-                  {'email' : _CALCBENCH_USER_NAME, 
-                   'strng' : _CALCBENCH_PASSWORD, 
+        session = requests.Session()
+        r = session.post(SESSION_STUFF['logon_url'], 
+                  {'email' : user_name, 
+                   'strng' : password, 
                    'rememberMe' : 'true'},
-                  verify=_SSL_VERIFY)
+                  verify=SESSION_STUFF['ssl_verify'])
         r.raise_for_status()
         if r.text != 'true':
             raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
         else:
-            _SESSION = _session
-    return _SESSION
+            SESSION_STUFF['session'] = session
+            
+    return session
 
 def set_credentials(cb_username, cb_password):
     '''Set your calcbench credentials.
     
     username is the email address you use to login to calcbench.com.
     '''
-    global _CALCBENCH_USER_NAME
-    global _CALCBENCH_PASSWORD
-    _CALCBENCH_USER_NAME = cb_username
-    _CALCBENCH_PASSWORD = cb_password
+    SESSION_STUFF['calcbench_user_name'] = cb_username
+    SESSION_STUFF['calcbench_password'] = cb_password
     _calcbench_session() #Make sure credentials work.
 
 
-def normalized_dataframe(company_identifiers, 
-                    metrics, 
-                    start_year, 
-                    start_period,
-                    end_year,
-                    end_period):
+def normalized_dataframe(company_identifiers=[], 
+                    metrics=[], 
+                    start_year=None, 
+                    start_period=None,
+                    end_year=None,
+                    end_period=None,
+                    entire_universe=False):
     '''Normalized data.
     
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
@@ -71,7 +75,8 @@ def normalized_dataframe(company_identifiers,
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
 
-    data = normalized_raw(company_identifiers, metrics, start_year, start_period, end_year, end_period)
+    data = normalized_raw(company_identifiers, metrics, start_year,
+                          start_period, end_year, end_period, entire_universe)
     if not data:
         return pd.DataFrame()
     quarterly = start_period and end_period
@@ -91,19 +96,32 @@ def normalized_dataframe(company_identifiers,
     data = pd.DataFrame(data)
     data.set_index(keys=['ticker', 'metric', 'period'],
                    inplace=True)
-    data = data.unstack('metric')['value']
-    data = data.unstack('ticker')
+    data = data.unstack('ticker')['value']
     data = data[metrics]
     return data
 
+    
+    
+def _build_quarter_period(data_point):
+    return pd.Period(year=data_point.pop('calendar_year'),
+                     quarter=data_point.pop('calendar_period'),
+                     freq='q')
+
+def _build_annual_period(data_point):
+    data_point.pop('calendar_period')
+    return pd.Period(year=data_point.pop('calendar_year'), freq='a')
+
+    
+
 normalized_data = normalized_dataframe # used to call it normalized_data.
 
-def normalized_raw(company_identifiers, 
-                    metrics, 
-                    start_year, 
-                    start_period,
-                    end_year,
-                    end_period):
+def normalized_raw(company_identifiers=[], 
+                    metrics=[], 
+                    start_year=None, 
+                    start_period=None,
+                    end_year=None,
+                    end_period=None,
+                    entire_universe=False):
     '''
     Normalized data.
     
@@ -138,21 +156,24 @@ def normalized_raw(company_identifiers,
                 },
             ]
     '''
+    if bool(company_identifiers) == entire_universe:
+        raise ValueError("Must pass either company_identifiers or entire_universe=True")
     
         
-    url = _CALCBENCH_API_URL_BASE.format("/NormalizedValues")
+    url = SESSION_STUFF['api_url_base'].format("/NormalizedValues")
     payload = {"start_year" : start_year,
            'start_period' : start_period,
            'end_year' : end_year,
            'end_period' : end_period,
            'company_identifiers' : list(company_identifiers),
            'metrics' : metrics,
+           'entire_universe' : entire_universe
            }
     response = _calcbench_session().post(
                                     url,
                                     data=json.dumps(payload), 
                                     headers={'content-type' : 'application/json'},
-                                    verify=_SSL_VERIFY
+                                    verify=SESSION_STUFF['ssl_verify']
                                     )
     response.raise_for_status()
     data = response.json()
@@ -208,7 +229,7 @@ def as_reported_raw(company_identifier,
                     ...]
                 }        
     '''
-    url = _CALCBENCH_API_URL_BASE.format("asReported")
+    url = SESSION_STUFF['api_url_base'].format("asReported")
     payload = {'companyIdentifier' : company_identifier,
                'statementType' : statement_type,
                'periodType' : period_type,
@@ -217,7 +238,7 @@ def as_reported_raw(company_identifier,
     response = _calcbench_session().get(url, 
                                         params=payload, 
                                         headers={'content-type' : 'application/json'}, 
-                                        verify=_SSL_VERIFY)
+                                        verify=SESSION_STUFF['ssl_verify'])
     response.raise_for_status()
     data = response.json()
     return data
@@ -257,40 +278,29 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
                                     'endPeriod' : end_period,
                                     'periodType' : period_type},
               'pageParameters' : {'metrics' : metrics}}
-    url = _CALCBENCH_API_URL_BASE.format('breakouts')
+    url = SESSION_STUFF['api_url_base'].format('breakouts')
     response = _calcbench_session().post(url,
                                          data=json.dumps(payload),
                                          headers={'content-type' : 'application/json'},
-                                         verify=_SSL_VERIFY)
+                                         verify=SESSION_STUFF['ssl_verify'])
     response.raise_for_status()
     data = response.json()
     return data
     
-    
-    
-def _build_quarter_period(data_point):
-    return pd.Period(year=data_point.pop('calendar_year'),
-                     quarter=data_point.pop('calendar_period'),
-                     freq='q')
 
-def _build_annual_period(data_point):
-    data_point.pop('calendar_period')
-    return pd.Period(year=data_point.pop('calendar_year'), freq='a')
-
-    
 def tickers(SIC_codes=[], index=None, universe=False):
     '''Return a list of tickers in the peer-group'''
     companies = _companies(SIC_codes, index, universe)
     tickers = [co['ticker'] for co in companies]
     return tickers
 
-def companies(SIC_codes=[], index=None, universe=False):
+def companies(SIC_codes=[], index=None, entire_universe=False):
     '''Return a DataFrame with company details'''
-    companies = _companies(SIC_codes, index, universe)
+    companies = _companies(SIC_codes, index, entire_universe)
     return pd.DataFrame(companies)
     
-def _companies(SIC_codes, index, universe=False):
-    if not(SIC_codes or index or universe):
+def _companies(SIC_codes, index, entire_universe=False):
+    if not(SIC_codes or index or entire_universe):
         raise ValueError('Must supply SIC_code or index')
     query = "universe=true"  
     if index:
@@ -299,24 +309,30 @@ def _companies(SIC_codes, index, universe=False):
         query = "index={0}".format(index)
     elif SIC_codes:
         query = '&'.join("SICCodes={0}".format(SIC_code) for SIC_code in SIC_codes)
-    url = _CALCBENCH_API_URL_BASE.format("companies?" + query)
-    r = _calcbench_session().get(url, verify=_SSL_VERIFY)
+    url = SESSION_STUFF['api_url_base'].format("companies?" + query)
+    r = _calcbench_session().get(url, verify=SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
     return r.json()
     
     
 def _test_locally():
-    global _CALCBENCH_API_URL_BASE
-    global _CALCBENCH_LOGON_URL
-    global _SSL_VERIFY
-    _CALCBENCH_API_URL_BASE = "https://localhost:444/api/{0}"
-    _CALCBENCH_LOGON_URL = 'https://localhost:444/account/LogOnAjax'
-    _SSL_VERIFY = False
-    print(companies(all_companies=True))
+    SESSION_STUFF['api_url_base'] = "https://localhost:444/api/{0}"
+    SESSION_STUFF['logon_url'] = 'https://localhost:444/account/LogOnAjax'
+    SESSION_STUFF['ssl_verify'] = False
+        
+        
+    normalized_data(entire_universe=True, 
+                          metrics=['revenue', 'assets', ],
+                          start_year=2010,
+                          start_period=1,
+                          end_year=2014,
+                          end_period=4)
+    print(companies(entire_universe=True))
     print(breakouts_raw(['msft'], ['operatingSegmentRevenue']))
     
 if __name__ == '__main__':
-    data = normalized_data(company_identifiers=['ibm', 'msft'], 
+    _test_locally()
+    data = normalized_data(entire_universe=True, 
                           metrics=['revenue', 'assets', ],
                           start_year=2010,
                           start_period=1,
