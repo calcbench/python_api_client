@@ -11,7 +11,6 @@ Your Calcbench username (your email) and Calcbench password are your credentials
 
 See examples @ https://www.calcbench.com/home/api
 
-The client returns data in Pandas DataFrames.
 
 To install the client with pip use: 
 

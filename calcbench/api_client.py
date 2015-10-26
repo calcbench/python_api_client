@@ -96,7 +96,8 @@ def normalized_dataframe(company_identifiers=[],
     data = pd.DataFrame(data)
     data.set_index(keys=['ticker', 'metric', 'period'],
                    inplace=True)
-    data = data.unstack('ticker')['value']
+    data = data.unstack('metric')['value']
+    data = data.unstack('ticker')
     data = data[metrics]
     return data
 
@@ -313,6 +314,9 @@ def _companies(SIC_codes, index, entire_universe=False):
     r = _calcbench_session().get(url, verify=SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
     return r.json()
+
+def companies_raw(SIC_codes=[], index=None, entire_universe=False):
+    return _companies(SIC_codes, index, entire_universe)
     
     
 def _test_locally():
