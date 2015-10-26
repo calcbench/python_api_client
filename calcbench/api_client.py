@@ -10,6 +10,7 @@ import os
 import requests
 import json
 import pandas as pd
+import re
 
 
 SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
@@ -98,7 +99,14 @@ def normalized_dataframe(company_identifiers=[],
                    inplace=True)
     data = data.unstack('metric')['value']
     data = data.unstack('ticker')
-    data = data[metrics]
+    try:
+        data = data[metrics]
+    except KeyError as e:
+        if "not in index" in str(e):
+            raise KeyError('{0}, metrics are case sensitive.'.format(e))
+        else:
+            raise e
+
     return data
 
     
@@ -325,7 +333,7 @@ def _test_locally():
     SESSION_STUFF['ssl_verify'] = False
         
         
-    normalized_data(entire_universe=True, 
+    normalized_data(company_identifiers=['msft', 'orcl'], 
                           metrics=['revenue', 'assets', ],
                           start_year=2010,
                           start_period=1,
