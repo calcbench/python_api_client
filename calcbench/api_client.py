@@ -60,7 +60,8 @@ def normalized_dataframe(company_identifiers=[],
                     start_period=None,
                     end_year=None,
                     end_period=None,
-                    entire_universe=False):
+                    entire_universe=False,
+                    filing_accession_number=None):
     '''Normalized data.
     
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
@@ -71,13 +72,16 @@ def normalized_dataframe(company_identifiers=[],
         start_year: first year of data
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         end_year: last year of data
-        end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+        end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
+        entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
+        accession_id: Filing Accession ID from the SEC's Edgar system.
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
 
     data = normalized_raw(company_identifiers, metrics, start_year,
-                          start_period, end_year, end_period, entire_universe)
+                          start_period, end_year, end_period, entire_universe,
+                          filing_accession_number)
     if not data:
         return pd.DataFrame()
     quarterly = start_period and end_period
@@ -118,13 +122,14 @@ def _build_annual_period(data_point):
 
 normalized_data = normalized_dataframe # used to call it normalized_data.
 
-def normalized_raw(company_identifiers=[], 
-                    metrics=[], 
-                    start_year=None, 
+def normalized_raw(company_identifiers=[],
+                    metrics=[],
+                    start_year=None,
                     start_period=None,
                     end_year=None,
                     end_period=None,
-                    entire_universe=False):
+                    entire_universe=False,
+                    filing_accession_number=None):
     '''
     Normalized data.
     
@@ -137,6 +142,8 @@ def normalized_raw(company_identifiers=[],
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         end_year: last year of data
         end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+        entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
+        accession_id: Filing Accession ID from the SEC's Edgar system.
         
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
@@ -159,9 +166,11 @@ def normalized_raw(company_identifiers=[],
                 },
             ]
     '''
-    if bool(company_identifiers) == entire_universe:
-        raise ValueError("Must pass either company_identifiers or entire_universe=True")
+    if [bool(company_identifiers), bool(entire_universe), bool(filing_accession_number)].count(True) != 1:
+        raise ValueError("Must pass either company_identifiers and accession id or entire_universe=True")
     
+    if filing_accession_number and any([company_identifiers, start_year, start_period, end_year, end_period, entire_universe]):
+        raise ValueError("Accession IDs are specific to a filing, no other qualifiers make sense.")
         
     url = SESSION_STUFF['api_url_base'].format("/NormalizedValues")
     payload = {"start_year" : start_year,
@@ -170,7 +179,8 @@ def normalized_raw(company_identifiers=[],
            'end_period' : end_period,
            'company_identifiers' : list(company_identifiers),
            'metrics' : metrics,
-           'entire_universe' : entire_universe
+           'entire_universe' : entire_universe,
+           'filing_accession_number' : filing_accession_number,
            }
     response = _calcbench_session().post(
                                     url,
@@ -291,34 +301,39 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
     return data
     
 
-def tickers(SIC_codes=[], index=None, universe=False):
+def tickers(SIC_codes=[], index=None, company_identifiers=[], universe=False):
     '''Return a list of tickers in the peer-group'''
-    companies = _companies(SIC_codes, index, universe)
+    companies = _companies(SIC_codes, index, company_identifiers, universe)
     tickers = [co['ticker'] for co in companies]
     return tickers
 
-def companies(SIC_codes=[], index=None, entire_universe=False):
+def companies(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     '''Return a DataFrame with company details'''
-    companies = _companies(SIC_codes, index, entire_universe)
+    companies = _companies(SIC_codes, index, company_identifiers, entire_universe)
     return pd.DataFrame(companies)
     
-def _companies(SIC_codes, index, entire_universe=False):
-    if not(SIC_codes or index or entire_universe):
-        raise ValueError('Must supply SIC_code or index')
-    query = "universe=true"  
+def _companies(SIC_code, index, company_identifiers, entire_universe=False):
+    if not(SIC_code or index or entire_universe or company_identifiers):
+        raise ValueError('Must supply SIC_code, index or company_identifiers or entire_univers.')
+    payload = {}
+ 
     if index:
         if index not in ("SP500", "DJIA"):
             raise ValueError("index must be either 'SP500' or 'DJIA'")
-        query = "index={0}".format(index)
-    elif SIC_codes:
-        query = '&'.join("SICCodes={0}".format(SIC_code) for SIC_code in SIC_codes)
-    url = SESSION_STUFF['api_url_base'].format("companies?" + query)
-    r = _calcbench_session().get(url, verify=SESSION_STUFF['ssl_verify'])
+        payload['index'] = index
+    elif SIC_code:
+        payload['SICCodes'] = SIC_code
+    elif company_identifiers:
+        payload['companyIdentifiers'] = ','.join(company_identifiers)
+    else:
+        payload['universe'] = True
+    url = SESSION_STUFF['api_url_base'].format("companies")
+    r = _calcbench_session().get(url, params=payload, verify=SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
     return r.json()
 
-def companies_raw(SIC_codes=[], index=None, entire_universe=False):
-    return _companies(SIC_codes, index, entire_universe)
+def companies_raw(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
+    return _companies(SIC_codes, index, company_identifiers, entire_universe)
     
     
 def _test_locally():
