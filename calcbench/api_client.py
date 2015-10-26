@@ -10,7 +10,7 @@ import os
 import requests
 import json
 import pandas as pd
-import re
+
 
 
 SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
@@ -99,13 +99,7 @@ def normalized_dataframe(company_identifiers=[],
                    inplace=True)
     data = data.unstack('metric')['value']
     data = data.unstack('ticker')
-    try:
-        data = data[metrics]
-    except KeyError as e:
-        if "not in index" in str(e):
-            raise KeyError('{0}, metrics are case sensitive.'.format(e))
-        else:
-            raise e
+    data = data[metrics]
 
     return data
 
