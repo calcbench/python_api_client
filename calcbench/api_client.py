@@ -348,5 +348,3 @@ if __name__ == '__main__':
                           end_year=2014,
                           end_period=0)
     print(data)
-    #print(data)
- 
