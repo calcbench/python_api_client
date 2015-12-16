@@ -17,9 +17,12 @@ class Normalized(unittest.TestCase):
         self.calcbench_session = get_test_session()  
     
     @staticmethod
-    def normalized_point_sort_key(data_point): 
-        return tuple(data_point[key] for key in ('ticker', 'metric', 'calendar_year', 'calendar_period'))
+    def normalized_point_sort_key(data_point, period_type='calendar'):
+        return tuple(data_point[key] for key in ('ticker', 'metric', '{0}_year'.format(period_type), '{0}_period'.format(period_type)))
 
+    @staticmethod
+    def normalized_point_sort_key_fiscal(data_point):
+        return Normalized.normalized_point_sort_key(data_point, 'fiscal')
     
     @staticmethod
     def get_data(payload):
@@ -49,11 +52,20 @@ class Normalized(unittest.TestCase):
         payload = {"start_year" : 2002, "start_period" : 0, "end_year" : 2015, "end_period" : 0, "company_identifiers" : ["msft"], "metrics" : ["assetturn"], "use_fiscal_periods" : False}
         data = self.get_data(payload)
         expected_data = json.loads('''
-        [{"metric":"assetturn","ticker":"MSFT","value":"0.75","calendar_year":2008,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":"0.73","calendar_year":2009,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":"0.64","calendar_year":2010,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":"0.61","calendar_year":2011,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":"0.55","calendar_year":2012,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":"0.50","calendar_year":2013,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":"0.53","calendar_year":2014,"calendar_period":0}]
+       [{"metric":"assetturn","ticker":"MSFT","value":0.75026900,"calendar_year":2008,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.72560400,"calendar_year":2009,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.64342600,"calendar_year":2010,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.60791900,"calendar_year":2011,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.54657300,"calendar_year":2012,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.50371800,"calendar_year":2013,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.53103100,"calendar_year":2014,"calendar_period":0}]
         ''')
         self.assertListEqual(sorted(expected_data, key=self.normalized_point_sort_key), sorted(data, key=self.normalized_point_sort_key))
         
-        
+    def testClientCase(self):
+        payload = {"point_in_time": False,   "filing_accession_number": "0000950103-15-008508", "metrics": [ "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesFutureCashInflows", "SalesReturnsAllowancesAndDiscounts", "TreasuryStockShares", "PrepaidRent", "period_end","ProvedReservesOil","Revenue"]}
+        data = self.get_data(payload)
+        expected_data = json.loads('''
+                [{"metric":"Revenue","ticker":"SHPG","value":1655000000.00000000,"fiscal_year":2015,"fiscal_period":3},{"metric":"period_end","ticker":"SHPG","value":"2015-09-30","fiscal_year":2015,"fiscal_period":3},{"metric":"TreasuryStockShares","ticker":"SHPG","value":9700000.00000000,"fiscal_year":2015,"fiscal_period":3}]
+        ''')
+        self.assertListEqual(sorted(expected_data, key=Normalized.normalized_point_sort_key_fiscal), 
+                                    sorted(data, key=Normalized.normalized_point_sort_key_fiscal),
+                             "Client Case Failed.")
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
