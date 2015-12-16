@@ -90,7 +90,7 @@ def normalized_dataframe(company_identifiers=[],
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
-    data = normalized_raw(company_identifiers, metrics, start_year,
+    data = normalized_raw(list(company_identifiers), metrics, start_year,
                           start_period, end_year, end_period, entire_universe,
                           filing_accession_number)
     if not data:
@@ -178,7 +178,6 @@ def normalized_raw(company_identifiers=[],
                 },
             ]
     '''
-    
     if [bool(company_identifiers), bool(entire_universe), bool(filing_accession_number)].count(True) != 1:
         raise ValueError("Must pass either company_identifiers and accession id or entire_universe=True")
     
