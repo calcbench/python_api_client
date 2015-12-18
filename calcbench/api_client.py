@@ -53,7 +53,11 @@ def _json_POST(end_point, payload):
                                         data=json.dumps(payload),
                                         headers={'content-type' : 'application/json'},
                                         verify=_SESSION_STUFF['ssl_verify'])
-    response.raise_for_status()
+    try:
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print(response.content)
+        raise e
     return response.json()
 
 def set_credentials(cb_username, cb_password):
