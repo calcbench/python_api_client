@@ -25,8 +25,8 @@ class Normalized(unittest.TestCase):
         return Normalized.normalized_point_sort_key(data_point, 'fiscal')
     
     @staticmethod
-    def get_data(payload):
-        return cb.api_client._json_POST("normalizedvalues", payload)
+    def get_data(payload, endpoint="normalizedvalues"):
+        return cb.api_client._json_POST(endpoint, payload)
 
     def testNormalizedDateRangeAnnualTrace(self):
         payload = {"start_year"  : 2014, "start_period" :  1, "end_year" : 2014, "end_period" : 4,
@@ -65,7 +65,31 @@ class Normalized(unittest.TestCase):
         self.assertListEqual(sorted(expected_data, key=Normalized.normalized_point_sort_key_fiscal), 
                                     sorted(data, key=Normalized.normalized_point_sort_key_fiscal),
                              "Client Case Failed.")
-
+        
+    def testSICCodes(self):
+        pharma_SIC_code = 6798
+        peer_group_tickers = cb.companies(SIC_codes=[pharma_SIC_code]).ticker
+        z_score_metrics = ['CurrentAssets',
+                   'CurrentLiabilities', 
+                   'Assets', 
+                   'RetainedEarnings', 
+                   'EBIT', 
+                   'MarketCapAtEndOfPeriod',
+                   'Liabilities',
+                   'Revenue']
+        cb.normalized_dataframe(company_identifiers=peer_group_tickers, 
+                                           metrics=z_score_metrics, 
+                                           start_year=2009, start_period=1, 
+                                           end_year=2014, end_period=4)
+        
+    def testXBRLTags(self):
+        payload = {"start_year" : 2012, "start_period" : 1, "end_year" : 2014, "end_period" : 3,"company_identifiers" : ["orcl"], "metrics" : ["Revenues"], "include_trace" : True}
+        data = self.get_data(payload, "xbrltagvalues")
+        expected_data = json.loads('''
+        [{"metric":"Revenues","ticker":"ORCL","value":9039000000.00000000,"calendar_year":2012,"calendar_period":1},{"metric":"Revenues","ticker":"ORCL","value":0.0,"calendar_year":2012,"calendar_period":2},{"metric":"Revenues","ticker":"ORCL","value":8181000000.00000000,"calendar_year":2012,"calendar_period":3},{"metric":"Revenues","ticker":"ORCL","value":9094000000.00000000,"calendar_year":2012,"calendar_period":4},{"metric":"Revenues","ticker":"ORCL","value":8958000000.00000000,"calendar_year":2013,"calendar_period":1},{"metric":"Revenues","ticker":"ORCL","value":0.0,"calendar_year":2013,"calendar_period":2},{"metric":"Revenues","ticker":"ORCL","value":8372000000.00000000,"calendar_year":2013,"calendar_period":3},{"metric":"Revenues","ticker":"ORCL","value":9275000000.00000000,"calendar_year":2013,"calendar_period":4},{"metric":"Revenues","ticker":"ORCL","value":9307000000.00000000,"calendar_year":2014,"calendar_period":1},{"metric":"Revenues","ticker":"ORCL","value":0.0,"calendar_year":2014,"calendar_period":2},{"metric":"Revenues","ticker":"ORCL","value":8596000000.00000000,"calendar_year":2014,"calendar_period":3}]
+        ''')
+        self.assertListEqual(sorted(data, key=Normalized.normalized_point_sort_key), 
+                             sorted(expected_data, key=Normalized.normalized_point_sort_key), "XBRL Tags case failed")
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
