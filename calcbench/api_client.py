@@ -44,8 +44,14 @@ CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
         if r.text != 'true':
             raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
         else:
-            _SESSION_STUFF['session'] = session            
+            _SESSION_STUFF['session'] = session
     return session
+
+def _rig_for_testing():
+    _SESSION_STUFF['api_url_base'] = 'https://localhost:444/api/{0}'
+    _SESSION_STUFF['logon_url'] = 'https://localhost:444/account/LogOnAjax'
+    _SESSION_STUFF['ssl_verify'] = False
+    _SESSION_STUFF['session'] = None
 
 def _json_POST(end_point, payload):
     url = _SESSION_STUFF['api_url_base'].format(end_point)
@@ -335,8 +341,34 @@ def _companies(SIC_code, index, company_identifiers, entire_universe=False):
 
 def companies_raw(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     return _companies(SIC_codes, index, company_identifiers, entire_universe)
+
+def company_footnotes(ticker, period_type=None, year=None, 
+                        statement_type=None, accession_id=None):
+    
+    payload = {'companyIdentifier' : ticker}
+    if period_type:
+        payload['periodType'] = period_type
+    if year:
+        payload['year'] = year
+    if statement_type:
+        payload['statementType'] = statement_type
+    if accession_id:
+        payload['accessionID'] = accession_id
+    url = _SESSION_STUFF['api_url_base'].format('companyDisclosures')
+    r = _calcbench_session().get(url, params=payload, verify=_SESSION_STUFF['ssl_verify'])
+    r.raise_for_status()
+    return r.json()
+                          
+def footnote_text(calcbench_network_id):
+    url = _SESSION_STUFF['api_url_base'].format('disclosure')
+    r = _calcbench_session().get(url, params={'networkID': calcbench_network_id}, verify=_SESSION_STUFF['ssl_verify'])
+    r.raise_for_status()
+    return r.json()
     
 if __name__ == '__main__':
+    
+    footnote_text(25975228)
+    company_footnotes(ticker='msft')
     data = normalized_data(entire_universe=True, 
                           metrics=['current_assets', 
                    'current_liabilities', 
