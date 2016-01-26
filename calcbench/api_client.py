@@ -342,18 +342,15 @@ def _companies(SIC_code, index, company_identifiers, entire_universe=False):
 def companies_raw(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     return _companies(SIC_codes, index, company_identifiers, entire_universe)
 
-def company_footnotes(ticker, period_type=None, year=None, 
-                        statement_type=None, accession_id=None):
+def company_footnotes(ticker, period=None, year=None, statement_type=None):
     
     payload = {'companyIdentifier' : ticker}
-    if period_type:
-        payload['periodType'] = period_type
+    if period:
+        payload['period'] = period
     if year:
         payload['year'] = year
     if statement_type:
         payload['statementType'] = statement_type
-    if accession_id:
-        payload['accessionID'] = accession_id
     url = _SESSION_STUFF['api_url_base'].format('companyDisclosures')
     r = _calcbench_session().get(url, params=payload, verify=_SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
