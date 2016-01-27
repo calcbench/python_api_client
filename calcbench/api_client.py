@@ -342,8 +342,7 @@ def _companies(SIC_code, index, company_identifiers, entire_universe=False):
 def companies_raw(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     return _companies(SIC_codes, index, company_identifiers, entire_universe)
 
-def company_footnotes(ticker, period=None, year=None, statement_type=None):
-    
+def company_disclosures(ticker, period=None, year=None, statement_type=None):    
     payload = {'companyIdentifier' : ticker}
     if period:
         payload['period'] = period
@@ -356,16 +355,16 @@ def company_footnotes(ticker, period=None, year=None, statement_type=None):
     r.raise_for_status()
     return r.json()
                           
-def footnote_text(calcbench_network_id):
+def disclosure_text(network_id):
     url = _SESSION_STUFF['api_url_base'].format('disclosure')
-    r = _calcbench_session().get(url, params={'networkID': calcbench_network_id}, verify=_SESSION_STUFF['ssl_verify'])
+    r = _calcbench_session().get(url, params={'networkID': network_id}, verify=_SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
     return r.json()
     
 if __name__ == '__main__':
     
-    footnote_text(25975228)
-    company_footnotes(ticker='msft')
+    disclosure_text(25975228)
+    company_disclosures(ticker='msft')
     data = normalized_data(entire_universe=True, 
                           metrics=['current_assets', 
                    'current_liabilities', 
