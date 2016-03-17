@@ -5,20 +5,23 @@ Created on Dec 7, 2015
 
 This file covers the server, not the client
 '''
+
 import unittest
-from tests import get_test_session
+#from tests import get_test_session
 import calcbench as cb
 import json
 
 HOST = 'localhost:444'
 class Normalized(unittest.TestCase):
     def setUp(self):
-        #self.prod_session = cb.api_client._calcbench_session()
-        self.calcbench_session = get_test_session()  
+        self.calcbench_session = get_test_session()
     
     @staticmethod
     def normalized_point_sort_key(data_point, period_type='calendar'):
-        return tuple(data_point[key] for key in ('ticker', 'metric', '{0}_year'.format(period_type), '{0}_period'.format(period_type)))
+        return tuple(data_point[key] for key in ('ticker', 
+                                                 'metric', 
+                                                 '{0}_year'.format(period_type), 
+                                                 '{0}_period'.format(period_type)))
 
     @staticmethod
     def normalized_point_sort_key_fiscal(data_point):
@@ -37,7 +40,9 @@ class Normalized(unittest.TestCase):
         """)
                          
         
-        self.assertListEqual(sorted(data, key=self.normalized_point_sort_key), sorted(expected_data, key=self.normalized_point_sort_key), "Date Range Annual Failed")
+        self.assertListEqual(sorted(data, key=self.normalized_point_sort_key), 
+                             sorted(expected_data, key=self.normalized_point_sort_key), 
+                             "Date Range Annual Failed")
 
     def testNormalizedDatePeriodBackQuarterlyTrace(self):
         payload = {"period_type" : "quarterly", "periods_back" : 4, "company_identifiers" : ["msft"], "metrics" : ["revenue", "taxespayable"], 'include_trace' : True}
@@ -54,7 +59,8 @@ class Normalized(unittest.TestCase):
         expected_data = json.loads('''
        [{"metric":"assetturn","ticker":"MSFT","value":0.75026900,"calendar_year":2008,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.72560400,"calendar_year":2009,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.64342600,"calendar_year":2010,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.60791900,"calendar_year":2011,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.54657300,"calendar_year":2012,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.50371800,"calendar_year":2013,"calendar_period":0},{"metric":"assetturn","ticker":"MSFT","value":0.53103100,"calendar_year":2014,"calendar_period":0}]
         ''')
-        self.assertListEqual(sorted(expected_data, key=self.normalized_point_sort_key), sorted(data, key=self.normalized_point_sort_key))
+        self.assertListEqual(sorted(expected_data, key=self.normalized_point_sort_key), 
+                             sorted(data, key=self.normalized_point_sort_key))
         
     def testClientCase(self):
         payload = {"point_in_time": False,   "filing_accession_number": "0000950103-15-008508", "metrics": [ "DiscountedFutureNetCashFlowsRelatingToProvedOilAndGasReservesFutureCashInflows", "SalesReturnsAllowancesAndDiscounts", "TreasuryStockShares", "PrepaidRent", "period_end","ProvedReservesOil","Revenue"]}
@@ -77,6 +83,7 @@ class Normalized(unittest.TestCase):
                    'MarketCapAtEndOfPeriod',
                    'Liabilities',
                    'Revenue']
+        
         cb.normalized_dataframe(company_identifiers=peer_group_tickers, 
                                            metrics=z_score_metrics, 
                                            start_year=2009, start_period=1, 
@@ -90,6 +97,7 @@ class Normalized(unittest.TestCase):
         ''')
         self.assertListEqual(sorted(data, key=Normalized.normalized_point_sort_key), 
                              sorted(expected_data, key=Normalized.normalized_point_sort_key), "XBRL Tags case failed")
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
