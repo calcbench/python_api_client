@@ -307,9 +307,9 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
     return _json_POST('breakouts', payload)
     
 
-def tickers(SIC_codes=[], index=None, company_identifiers=[], universe=False):
+def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     '''Return a list of tickers in the peer-group'''
-    companies = _companies(SIC_codes, index, company_identifiers, universe)
+    companies = _companies(SIC_codes, index, company_identifiers, entire_universe)
     tickers = [co['ticker'] for co in companies]
     return tickers
 
@@ -358,6 +358,12 @@ def company_disclosures(ticker, period=None, year=None, statement_type=None):
 def disclosure_text(network_id):
     url = _SESSION_STUFF['api_url_base'].format('disclosure')
     r = _calcbench_session().get(url, params={'networkID': network_id}, verify=_SESSION_STUFF['ssl_verify'])
+    r.raise_for_status()
+    return r.json()
+
+def available_metrics():
+    url = _SESSION_STUFF['api_url_base'].format('availableMetrics')
+    r = _calcbench_session().get(url, verify=_SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
     return r.json()
     
