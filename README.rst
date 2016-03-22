@@ -39,6 +39,7 @@ Company identifiers, tickers in most cases, can be retrieved by Standard Industr
 Search for footnotes/disclosures, for instance to search for "going concern" in coal company filings:
 
 	coal_companies = cb.tickers(SIC_codes=[1200])
+	
 	cb.text_search(company_identifiers=coal_companies, full_text_search_term='"going concern"', year=2015, period=0)
 	
 This is a work in progress.  Let me know if you have suggestions or encounter bugs, andrew@calcbench.com.
