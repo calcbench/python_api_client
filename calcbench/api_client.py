@@ -48,8 +48,8 @@ CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
     return session
 
 def _rig_for_testing():
-    _SESSION_STUFF['api_url_base'] = 'https://localhost:444/api/{0}'
-    _SESSION_STUFF['logon_url'] = 'https://localhost:444/account/LogOnAjax'
+    _SESSION_STUFF['api_url_base'] = 'https://localhost/api/{0}'
+    _SESSION_STUFF['logon_url'] = 'https://localhost/account/LogOnAjax'
     _SESSION_STUFF['ssl_verify'] = False
     _SESSION_STUFF['session'] = None
 
@@ -305,7 +305,45 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
                                     'periodType' : period_type},
               'pageParameters' : {'metrics' : metrics}}
     return _json_POST('breakouts', payload)
+
+def text_search(company_identifiers=None, full_text_search_term=None, 
+                year=None, period=0, period_type='annual', all_footnotes=False):        
+    '''
+    Footnotes and other text
     
+    Search for footnotes and other , see https://www.calcbench.com/footnote.
+    
+    Args:
+        company_identifiers : list of tickers or CIK codes
+        start_year: first year of data to get
+        start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+        end_year: last year of data to get
+        end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
+        period_type: quarterly or annual, only applicable when other period data not supplied.
+        
+    Returns:
+        A list of text documents (footnotes)
+        
+        
+    '''
+    if not any([full_text_search_term, all_footnotes]):
+        raise(ValueError("Need to supply at least one search parameter."))
+    if period_type not in ('annual', 'quarterly'):
+        raise(ValueError("period_type must be in ('annual', 'quarterly'))"))
+    payload = {'companiesParameters' : {'entireUniverse' : len(company_identifiers) == 0,
+                                        'companyIdentifiers' : company_identifiers},
+               'periodParameters' : {'year' : year,
+                                     'period' : period,
+                                     'periodType' : period_type},
+               'pageParameters' : {'fullTextQuery' : full_text_search_term,
+                                   'allFootnotes' : all_footnotes}}
+    more_results = True
+    while more_results:
+        results = _json_POST('footnoteSearch', payload)
+        for result in results['footnotes']:
+            yield result
+        payload['pageParameters']['startEntityID'] = results['nextGroupStartEntityID']
+        more_results = results['moreResults']
 
 def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     '''Return a list of tickers in the peer-group'''
@@ -368,9 +406,9 @@ def available_metrics():
     return r.json()
     
 if __name__ == '__main__':
-    
-    disclosure_text(25975228)
-    company_disclosures(ticker='msft')
+    _rig_for_testing()
+    print(text_search(company_identifiers=['msft'], full_text_search_term='revenue', year=2014, period=0))
+
     data = normalized_data(entire_universe=True, 
                           metrics=['current_assets', 
                    'current_liabilities', 
