@@ -33,7 +33,7 @@ def _calcbench_session():
         password = _SESSION_STUFF.get('calcbench_password')
         if not (user_name and password):
             raise ValueError("No credentials supplied, either call set_credentials or set \
-CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
+                                CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
         session = requests.Session()
         r = session.post(_SESSION_STUFF['logon_url'],
                   {'email' : user_name, 
@@ -47,9 +47,9 @@ CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
             _SESSION_STUFF['session'] = session
     return session
 
-def _rig_for_testing():
-    _SESSION_STUFF['api_url_base'] = 'https://localhost/api/{0}'
-    _SESSION_STUFF['logon_url'] = 'https://localhost/account/LogOnAjax'
+def _rig_for_testing(domain='localhost:444'):
+    _SESSION_STUFF['api_url_base'] = 'https://' + domain + '/api/{0}'
+    _SESSION_STUFF['logon_url'] = 'https://' + domain + '/account/LogOnAjax'
     _SESSION_STUFF['ssl_verify'] = False
     _SESSION_STUFF['session'] = None
 
@@ -83,7 +83,8 @@ def normalized_dataframe(company_identifiers=[],
                     end_year=None,
                     end_period=None,
                     entire_universe=False,
-                    filing_accession_number=None):
+                    filing_accession_number=None,
+                    point_in_time=False):
     '''Normalized data.
     
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
@@ -100,9 +101,15 @@ def normalized_dataframe(company_identifiers=[],
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
-    data = normalized_raw(list(company_identifiers), metrics, start_year,
-                          start_period, end_year, end_period, entire_universe,
-                          filing_accession_number)
+    data = normalized_raw(list(company_identifiers), 
+                          metrics, 
+                          start_year,
+                          start_period, 
+                          end_year, 
+                          end_period, 
+                          entire_universe,
+                          filing_accession_number,
+                          point_in_time)
     if not data:
         return pd.DataFrame()
     quarterly = start_period and end_period
@@ -128,6 +135,14 @@ def normalized_dataframe(company_identifiers=[],
     data.set_index(keys=['ticker', 'metric', 'period'],
                    inplace=True)
     data = data.unstack('metric')['value']
+    for column_name in data.columns.values:
+        #Try to make the columns the right type
+        try:
+            data[column_name] = pd.to_numeric(data[column_name], errors='raise')
+        except ValueError:
+            if 'date' in column_name.lower():
+                data[column_name] = pd.to_datetime(data[column_name], errors='coerce')
+            
     data = data.unstack('ticker')
     data = data[list(metrics_found)]
 
@@ -151,7 +166,8 @@ def normalized_raw(company_identifiers=[],
                     end_year=None,
                     end_period=None,
                     entire_universe=False,
-                    filing_accession_number=None):
+                    filing_accession_number=None,
+                    point_in_time=False):
     '''
     Normalized data.
     
@@ -202,6 +218,7 @@ def normalized_raw(company_identifiers=[],
            'metrics' : metrics,
            'entire_universe' : entire_universe,
            'filing_accession_number' : filing_accession_number,
+           'point_in_time' : point_in_time
            }
     return _json_POST("NormalizedValues", payload)
 
@@ -407,6 +424,11 @@ def available_metrics():
     
 if __name__ == '__main__':
     _rig_for_testing()
+    dow = tickers(index='DJIA')
+    normalized_dataframe(company_identifiers=dow, 
+                         metrics=['filing_date', 'revenue', 'marketcapatendofperiod'], 
+                         start_year=2009, start_period=0, 
+                         end_year=2016, end_period=0)
     print(text_search(company_identifiers=['msft'], full_text_search_term='revenue', year=2014, period=0))
 
     data = normalized_data(entire_universe=True, 
