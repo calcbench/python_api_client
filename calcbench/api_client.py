@@ -126,7 +126,7 @@ def normalized_dataframe(company_identifiers=[],
             d['value'] = float(d['value'])
         except ValueError:
             pass
-        metrics_found.add(d['metric']) 
+        metrics_found.add(d['metric'])
     
     missing_metrics = set(metrics) - metrics_found
     if missing_metrics:
@@ -144,7 +144,7 @@ def normalized_dataframe(company_identifiers=[],
                 data[column_name] = pd.to_datetime(data[column_name], errors='coerce')
             
     data = data.unstack('ticker')
-    data = data[list(metrics_found)]
+    data = data[[metric for metric in metrics if metric in metrics_found]]
 
     return data
     
