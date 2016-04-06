@@ -101,15 +101,15 @@ def normalized_dataframe(company_identifiers=[],
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
-    data = normalized_raw(list(company_identifiers), 
-                          metrics, 
-                          start_year,
-                          start_period, 
-                          end_year, 
-                          end_period, 
-                          entire_universe,
-                          filing_accession_number,
-                          point_in_time)
+    data = normalized_raw(company_identifiers=list(company_identifiers), 
+                          metrics=metrics, 
+                          start_year=start_year,
+                          start_period=start_period, 
+                          end_year=end_year, 
+                          end_period=end_period, 
+                          entire_universe=entire_universe,
+                          point_in_time=point_in_time,
+                          filing_accession_number=filing_accession_number)
     if not data:
         return pd.DataFrame()
     quarterly = start_period and end_period
@@ -167,7 +167,8 @@ def normalized_raw(company_identifiers=[],
                     end_period=None,
                     entire_universe=False,
                     filing_accession_number=None,
-                    point_in_time=False):
+                    point_in_time=False,
+                    include_trace=False):
     '''
     Normalized data.
     
@@ -182,6 +183,7 @@ def normalized_raw(company_identifiers=[],
         end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
         accession_id: Filing Accession ID from the SEC's Edgar system.
+        include_trace: Include the facts used to calculate the normalized value.
         
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
@@ -218,7 +220,8 @@ def normalized_raw(company_identifiers=[],
            'metrics' : metrics,
            'entire_universe' : entire_universe,
            'filing_accession_number' : filing_accession_number,
-           'point_in_time' : point_in_time
+           'point_in_time' : point_in_time,
+           'include_trace' : include_trace,
            }
     return _json_POST("NormalizedValues", payload)
 
