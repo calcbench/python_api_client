@@ -11,4 +11,6 @@ from .api_client import (normalized_data,
                          company_disclosures, 
                          disclosure_text, 
                          available_metrics, 
-                         text_search)
+                         text_search,
+                         filings,
+                         )

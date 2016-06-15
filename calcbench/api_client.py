@@ -424,6 +424,12 @@ def available_metrics():
     r = _calcbench_session().get(url, verify=_SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
     return r.json()
+
+def filings(company_identifier, include_non_xbrl=True):
+    url = _SESSION_STUFF['api_url_base'].format('filings')
+    r = _calcbench_session().get(url, params={'companyIdentifier' : company_identifier})
+    r.raise_for_status()
+    return r.json()
     
 if __name__ == '__main__':
     _rig_for_testing()
