@@ -1,4 +1,4 @@
-__version__ = '0.0.8'
+__version__ = '0.1.0'
 from .api_client import (normalized_data, 
                          normalized_dataframe, 
                          tickers, 
@@ -13,4 +13,6 @@ from .api_client import (normalized_data,
                          available_metrics, 
                          text_search,
                          filings,
+                         mapped_raw,
+                         point_in_time,
                          )
