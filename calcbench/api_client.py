@@ -12,6 +12,7 @@ import json
 import warnings
 try:
     import pandas as pd  
+    import numpy as np
 except ImportError:
     "Can't find pandas, won't be able to use the funtions that return dataframes."
     pass
@@ -47,11 +48,14 @@ def _calcbench_session():
             _SESSION_STUFF['session'] = session
     return session
 
-def _rig_for_testing(domain='localhost:444'):
+def _rig_for_testing(domain='localhost:444', suppress_http_warnings=True):
     _SESSION_STUFF['api_url_base'] = 'https://' + domain + '/api/{0}'
     _SESSION_STUFF['logon_url'] = 'https://' + domain + '/account/LogOnAjax'
     _SESSION_STUFF['ssl_verify'] = False
     _SESSION_STUFF['session'] = None
+    if suppress_http_warnings:
+        from requests.packages.urllib3.exceptions import InsecureRequestWarning
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 def _json_POST(end_point, payload):
     url = _SESSION_STUFF['api_url_base'].format(end_point)
@@ -111,6 +115,7 @@ def normalized_dataframe(company_identifiers=[],
                           point_in_time=point_in_time,
                           filing_accession_number=filing_accession_number)
     if not data:
+        warnings.warn("No data found")
         return pd.DataFrame()
     quarterly = start_period and end_period
     if quarterly:
@@ -142,9 +147,11 @@ def normalized_dataframe(company_identifiers=[],
         except ValueError:
             if 'date' in column_name.lower():
                 data[column_name] = pd.to_datetime(data[column_name], errors='coerce')
-            
+        
+    for missing_metric in missing_metrics:
+        data[missing_metric] = np.nan # We want columns for every requested metric.     
     data = data.unstack('ticker')
-    data = data[[metric for metric in metrics if metric in metrics_found]]
+    #data = data[[metric for metric in metrics if metric in metrics_found]]  I don't know what this was doing, akittredge August 2016
 
     return data
     
@@ -155,7 +162,7 @@ def _build_quarter_period(data_point):
 
 def _build_annual_period(data_point):
     data_point.pop('calendar_period')
-    return pd.Period(year=data_point.pop('calendar_year'), freq='a')   
+    return pd.Period(year=data_point.pop('calendar_year'), freq='a')
 
 normalized_data = normalized_dataframe # used to call it normalized_data.
 
@@ -225,6 +232,22 @@ def normalized_raw(company_identifiers=[],
            }
     return _json_POST("NormalizedValues", payload)
 
+def point_in_time(company_identifiers=[], all_footnotes=False):
+    '''
+    Just for point-in-time footnotes now.
+    '''
+    data = mapped_raw(company_identifiers=company_identifiers, 
+                      all_footnotes=all_footnotes, 
+                      point_in_time=True)
+    return pd.DataFrame(data)
+
+def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False):
+    payload = {
+               'companiesParameters' : {'companyIdentifiers' : company_identifiers},
+               'periodParameters' : {}, 
+               'pageParameters' : {'pointInTime' : point_in_time, 'allFootnotes' : all_footnotes}
+            }
+    return _json_POST("mappedData", payload)
 
 def as_reported_raw(company_identifier, 
                      statement_type, 
@@ -432,12 +455,13 @@ def filings(company_identifier, include_non_xbrl=True):
     return r.json()
     
 if __name__ == '__main__':
-    _rig_for_testing()
-    dow = tickers(index='DJIA')
-    normalized_dataframe(company_identifiers=dow, 
-                         metrics=['filing_date', 'revenue', 'marketcapatendofperiod'], 
+    #_rig_for_testing()
+    #dow = tickers(index='DJIA')
+    normalized_dataframe(company_identifiers=['msft', 'twtr'], 
+                         metrics=['revenue', 'tradingsecurities'], 
                          start_year=2009, start_period=0, 
                          end_year=2016, end_period=0)
+    exit()
     print(text_search(company_identifiers=['msft'], full_text_search_term='revenue', year=2014, period=0))
 
     data = normalized_data(entire_universe=True, 
