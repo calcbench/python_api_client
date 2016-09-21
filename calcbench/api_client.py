@@ -232,21 +232,25 @@ def normalized_raw(company_identifiers=[],
            }
     return _json_POST("NormalizedValues", payload)
 
-def point_in_time(company_identifiers=[], all_footnotes=False):
+def point_in_time(company_identifiers=[], all_footnotes=False, update_date=None):
     '''
     Just for point-in-time footnotes now.
     '''
     data = mapped_raw(company_identifiers=company_identifiers, 
                       all_footnotes=all_footnotes, 
-                      point_in_time=True)
+                      point_in_time=True,
+                      update_date=update_date)
     return pd.DataFrame(data)
 
-def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False):
+def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, update_date=None):
     payload = {
                'companiesParameters' : {'companyIdentifiers' : company_identifiers},
-               'periodParameters' : {}, 
                'pageParameters' : {'pointInTime' : point_in_time, 'allFootnotes' : all_footnotes}
             }
+    period_parameters = {}
+    if update_date:
+        period_parameters = {'updateDate' : update_date.isoformat()}
+    payload['periodParameters'] = period_parameters
     return _json_POST("mappedData", payload)
 
 def as_reported_raw(company_identifier, 
