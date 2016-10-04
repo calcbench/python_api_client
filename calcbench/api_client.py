@@ -232,22 +232,28 @@ def normalized_raw(company_identifiers=[],
            }
     return _json_POST("NormalizedValues", payload)
 
-def point_in_time(company_identifiers=[], all_footnotes=False, update_date=None):
+def point_in_time(company_identifiers=[], all_footnotes=False, update_date=None, metrics=[], all_history=False):
     '''
     Just for point-in-time footnotes now.
     '''
     data = mapped_raw(company_identifiers=company_identifiers, 
                       all_footnotes=all_footnotes, 
                       point_in_time=True,
-                      update_date=update_date)
-    return pd.DataFrame(data)
+                      update_date=update_date,
+                      metrics=metrics,
+                      all_history=all_history)
+    data = pd.DataFrame(data)
+    
+    return data.sort_values(['ticker', 'metric', 'calendar_year', 'calendar_period'])
 
-def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, update_date=None):
+def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, update_date=None, metrics=[], all_history=False):
     payload = {
                'companiesParameters' : {'companyIdentifiers' : company_identifiers},
-               'pageParameters' : {'pointInTime' : point_in_time, 'allFootnotes' : all_footnotes}
+               'pageParameters' : {'pointInTime' : point_in_time, 
+                                   'allFootnotes' : all_footnotes, 
+                                   'metrics' : metrics}
             }
-    period_parameters = {}
+    period_parameters = {'allHistory' : all_history}
     if update_date:
         period_parameters = {'updateDate' : update_date.isoformat()}
     payload['periodParameters'] = period_parameters
