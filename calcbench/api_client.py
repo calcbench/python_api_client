@@ -10,6 +10,7 @@ import os
 import requests
 import json
 import warnings
+
 try:
     import pandas as pd  
     import numpy as np
@@ -232,7 +233,8 @@ def normalized_raw(company_identifiers=[],
            }
     return _json_POST("NormalizedValues", payload)
 
-def point_in_time(company_identifiers=[], all_footnotes=False, update_date=None, metrics=[], all_history=False):
+def point_in_time(company_identifiers=[], all_footnotes=False, 
+                  update_date=None, metrics=[], all_history=False):
     '''
     Just for point-in-time footnotes now.
     '''
@@ -242,11 +244,15 @@ def point_in_time(company_identifiers=[], all_footnotes=False, update_date=None,
                       update_date=update_date,
                       metrics=metrics,
                       all_history=all_history)
+    if not data:
+        return pd.DataFrame()
     data = pd.DataFrame(data)
-    
-    return data.sort_values(['ticker', 'metric', 'calendar_year', 'calendar_period'])
+    data.calendar_period = data.calendar_period.astype('category', categories=[1, 2, 3, 4, 0], ordered=True) # So annual is last in sorting.
+    data.fiscal_period = data.fiscal_period.astype('category', categories=[1, 2, 3, 4, 0], ordered=True) 
+    return data.sort_values(['ticker', 'metric', 'calendar_year', 'calendar_period']).reset_index(drop=True)
 
-def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, update_date=None, metrics=[], all_history=False):
+def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, 
+               update_date=None, metrics=[], all_history=False):
     payload = {
                'companiesParameters' : {'companyIdentifiers' : company_identifiers},
                'pageParameters' : {'pointInTime' : point_in_time, 
