@@ -234,7 +234,8 @@ def normalized_raw(company_identifiers=[],
     return _json_POST("NormalizedValues", payload)
 
 def point_in_time(company_identifiers=[], all_footnotes=False, 
-                  update_date=None, metrics=[], all_history=False):
+                  update_date=None, metrics=[], all_history=False,
+                  entire_universe=False):
     '''
     Just for point-in-time footnotes now.
     '''
@@ -243,7 +244,8 @@ def point_in_time(company_identifiers=[], all_footnotes=False,
                       point_in_time=True,
                       update_date=update_date,
                       metrics=metrics,
-                      all_history=all_history)
+                      all_history=all_history,
+                      entire_universe=entire_universe)
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
@@ -252,16 +254,16 @@ def point_in_time(company_identifiers=[], all_footnotes=False,
     return data.sort_values(['ticker', 'metric', 'calendar_year', 'calendar_period']).reset_index(drop=True)
 
 def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, 
-               update_date=None, metrics=[], all_history=False):
+               update_date=None, metrics=[], all_history=False, entire_universe=False):
     payload = {
-               'companiesParameters' : {'companyIdentifiers' : company_identifiers},
+               'companiesParameters' : {'companyIdentifiers' : company_identifiers, 'entireUniverse' :  entire_universe},
                'pageParameters' : {'pointInTime' : point_in_time, 
                                    'allFootnotes' : all_footnotes, 
-                                   'metrics' : metrics}
+                                   'metrics' : metrics},
             }
     period_parameters = {'allHistory' : all_history}
     if update_date:
-        period_parameters = {'updateDate' : update_date.isoformat()}
+        period_parameters['updateDate'] = update_date.isoformat()
     payload['periodParameters'] = period_parameters
     return _json_POST("mappedData", payload)
 
@@ -477,6 +479,9 @@ if __name__ == '__main__':
                          metrics=['revenue', 'tradingsecurities'], 
                          start_year=2009, start_period=0, 
                          end_year=2016, end_period=0)
+    import datetime
+    _rig_for_testing()
+    point_in_time(metrics=['revenue', 'tradingsecurities'], update_date=datetime.date(2016, 10, 7 ), entire_universe=True, all_history=True)
     exit()
     print(text_search(company_identifiers=['msft'], full_text_search_term='revenue', year=2014, period=0))
 
