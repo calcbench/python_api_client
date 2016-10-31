@@ -23,6 +23,7 @@ _SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
                  'calcbench_password' : os.environ.get("CALCBENCH_PASSWORD"),
                  'api_url_base' : "https://www.calcbench.com/api/{0}",
                  'logon_url' : 'https://www.calcbench.com/account/LogOnAjax',
+                 'domain' : 'https://www.calcbench.com/{0}',
                  'ssl_verify' : True,
                  'session' : None,
                  }
@@ -52,6 +53,7 @@ def _calcbench_session():
 def _rig_for_testing(domain='localhost:444', suppress_http_warnings=True):
     _SESSION_STUFF['api_url_base'] = 'https://' + domain + '/api/{0}'
     _SESSION_STUFF['logon_url'] = 'https://' + domain + '/account/LogOnAjax'
+    _SESSION_STUFF['domain'] = 'https://' + domain
     _SESSION_STUFF['ssl_verify'] = False
     _SESSION_STUFF['session'] = None
     if suppress_http_warnings:
@@ -367,8 +369,9 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
               'pageParameters' : {'metrics' : metrics}}
     return _json_POST('breakouts', payload)
 
-def text_search(company_identifiers=None, full_text_search_term=None, 
-                year=None, period=0, period_type='annual', all_footnotes=False):        
+def document_search(company_identifiers=None, full_text_search_term=None, 
+                  year=None, period=0, period_type='annual', 
+                  all_footnotes=False, document_type=None):        
     '''
     Footnotes and other text
     
@@ -387,7 +390,7 @@ def text_search(company_identifiers=None, full_text_search_term=None,
         
         
     '''
-    if not any([full_text_search_term, all_footnotes]):
+    if not any([full_text_search_term, all_footnotes, document_type]):
         raise(ValueError("Need to supply at least one search parameter."))
     if period_type not in ('annual', 'quarterly'):
         raise(ValueError("period_type must be in ('annual', 'quarterly'))"))
@@ -397,7 +400,8 @@ def text_search(company_identifiers=None, full_text_search_term=None,
                                      'period' : period,
                                      'periodType' : period_type},
                'pageParameters' : {'fullTextQuery' : full_text_search_term,
-                                   'allFootnotes' : all_footnotes}}
+                                   'allFootnotes' : all_footnotes,
+                                   'footnoteType' : document_type}}
     more_results = True
     while more_results:
         results = _json_POST('footnoteSearch', payload)
@@ -405,6 +409,16 @@ def text_search(company_identifiers=None, full_text_search_term=None,
             yield result
         payload['pageParameters']['startEntityID'] = results['nextGroupStartEntityID']
         more_results = results['moreResults']
+        
+def document_contents(blob_id, SEC_ID, SEC_URL=None):
+    url = _SESSION_STUFF['domain'].format('query/disclosureBySECLink')
+    payload = {'blobid' : blob_id, 'secid' : SEC_ID, 'url' : SEC_URL}
+    response = _calcbench_session().get(url,
+                                        params=payload,
+                                        headers={'content-type': 'application/json'},
+                                        verify=_SESSION_STUFF['ssl_verify'])
+    response.raise_for_status()
+    return response.json()['blobs'][0]
 
 def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     '''Return a list of tickers in the peer-group'''
@@ -473,18 +487,17 @@ def filings(company_identifier, include_non_xbrl=True):
     return r.json()
     
 if __name__ == '__main__':
-    #_rig_for_testing()
-    #dow = tickers(index='DJIA')
-    normalized_dataframe(company_identifiers=['msft', 'twtr'], 
-                         metrics=['revenue', 'tradingsecurities'], 
-                         start_year=2009, start_period=0, 
-                         end_year=2016, end_period=0)
-    import datetime
-    _rig_for_testing()
-    point_in_time(metrics=['revenue', 'tradingsecurities'], update_date=datetime.date(2016, 10, 7 ), entire_universe=True, all_history=True)
-    exit()
-    print(text_search(company_identifiers=['msft'], full_text_search_term='revenue', year=2014, period=0))
 
+    #_rig_for_testing()
+    
+    metrics = [
+    'revenue', 
+    'netincome',
+    'cash'
+]
+
+    print(document_contents(blob_id='326149_section270', SEC_ID=326149))
+    
     data = normalized_data(entire_universe=True, 
                           metrics=['current_assets', 
                    'current_liabilities', 
