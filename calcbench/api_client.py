@@ -369,9 +369,14 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
               'pageParameters' : {'metrics' : metrics}}
     return _json_POST('breakouts', payload)
 
-def document_search(company_identifiers=None, full_text_search_term=None, 
-                  year=None, period=0, period_type='annual', 
-                  all_footnotes=False, document_type=None):        
+def document_search(company_identifiers=None, 
+                    full_text_search_term=None,
+                    year=None, 
+                    period=0, 
+                    period_type='annual',                 
+                    all_footnotes=False, 
+                    document_type=None,
+                    block_tag_name=None,):        
     '''
     Footnotes and other text
     
@@ -390,7 +395,7 @@ def document_search(company_identifiers=None, full_text_search_term=None,
         
         
     '''
-    if not any([full_text_search_term, all_footnotes, document_type]):
+    if not any([full_text_search_term, all_footnotes, document_type, block_tag_name]):
         raise(ValueError("Need to supply at least one search parameter."))
     if period_type not in ('annual', 'quarterly'):
         raise(ValueError("period_type must be in ('annual', 'quarterly'))"))
@@ -401,14 +406,14 @@ def document_search(company_identifiers=None, full_text_search_term=None,
                                      'periodType' : period_type},
                'pageParameters' : {'fullTextQuery' : full_text_search_term,
                                    'allFootnotes' : all_footnotes,
-                                   'footnoteType' : document_type}}
-    more_results = True
-    while more_results:
+                                   'footnoteType' : document_type,
+                                   'footnoteTag' : block_tag_name}}
+    results = {'moreResults' : True}
+    while results['moreResults']:
         results = _json_POST('footnoteSearch', payload)
         for result in results['footnotes']:
             yield result
         payload['pageParameters']['startEntityID'] = results['nextGroupStartEntityID']
-        more_results = results['moreResults']
         
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
     url = _SESSION_STUFF['domain'].format('query/disclosureBySECLink')
@@ -419,6 +424,16 @@ def document_contents(blob_id, SEC_ID, SEC_URL=None):
                                         verify=_SESSION_STUFF['ssl_verify'])
     response.raise_for_status()
     return response.json()['blobs'][0]
+
+def tag_contents(accession_id, block_tag_name):
+    url = _SESSION_STUFF['domain'].format('query/disclosuresByTag')
+    payload = {'accession_ids' : accession_id, 'block_tag_name' : block_tag_name}
+    response = _calcbench_session().get(url, 
+                                        params=payload,
+                                        headers={'content-type' : 'application/json'},
+                                        verify=_SESSION_STUFF['ssl_verify'])
+    response.raise_for_status()
+    return response.json()[0]['blobs'][0]
 
 def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
     '''Return a list of tickers in the peer-group'''
