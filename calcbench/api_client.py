@@ -91,7 +91,9 @@ def normalized_dataframe(company_identifiers=[],
                     end_period=None,
                     entire_universe=False,
                     filing_accession_number=None,
-                    point_in_time=False):
+                    point_in_time=False,
+                    update_date=None,
+                    all_history=False):
     '''Normalized data.
     
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
@@ -116,7 +118,9 @@ def normalized_dataframe(company_identifiers=[],
                           end_period=end_period, 
                           entire_universe=entire_universe,
                           point_in_time=point_in_time,
-                          filing_accession_number=filing_accession_number)
+                          filing_accession_number=filing_accession_number,
+                          update_date=update_date,
+                          all_history=all_history)
     if not data:
         warnings.warn("No data found")
         return pd.DataFrame()
@@ -130,7 +134,7 @@ def normalized_dataframe(company_identifiers=[],
     for d in data:                          
         d['period'] = build_period(d)
         d['ticker'] = d['ticker'].upper()
-        try:
+        try: # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
             d['value'] = float(d['value'])
         except ValueError:
             pass
@@ -154,7 +158,6 @@ def normalized_dataframe(company_identifiers=[],
     for missing_metric in missing_metrics:
         data[missing_metric] = np.nan # We want columns for every requested metric.     
     data = data.unstack('ticker')
-    #data = data[[metric for metric in metrics if metric in metrics_found]]  I don't know what this was doing, akittredge August 2016
 
     return data
     
@@ -178,7 +181,9 @@ def normalized_raw(company_identifiers=[],
                     entire_universe=False,
                     filing_accession_number=None,
                     point_in_time=False,
-                    include_trace=False):
+                    include_trace=False,
+                    update_date=None,
+                    all_history=False):
     '''
     Normalized data.
     
@@ -221,8 +226,19 @@ def normalized_raw(company_identifiers=[],
     
     if filing_accession_number and any([company_identifiers, start_year, start_period, end_year, end_period, entire_universe]):
         raise ValueError("Accession IDs are specific to a filing, no other qualifiers make sense.")
-        
-    payload = {"start_year" : start_year,
+    payload = {'pageParameters' : {'metrics' : metrics, 'includeTrace' : include_trace, 'pointInTime' : point_in_time,
+                                   },
+               'periodParameters' : {'year' : start_year, 
+                                     'period' : start_period, 
+                                     'endYear' : end_year, 
+                                     'endPeriod' : end_period, 
+                                     'allHistory' : all_history, 'updateDate' : update_date and update_date.isoformat(),
+                                     },
+               'companiesParameters' : {'entireUniverse' : entire_universe, 
+                                        'companyIdentifiers' : list(company_identifiers),
+                                        }
+               }
+    payloadOld = {"start_year" : start_year,
            'start_period' : start_period,
            'end_year' : end_year,
            'end_period' : end_period,
@@ -233,7 +249,7 @@ def normalized_raw(company_identifiers=[],
            'point_in_time' : point_in_time,
            'include_trace' : include_trace,
            }
-    return _json_POST("NormalizedValues", payload)
+    return _json_POST("mappedData", payload)
 
 def point_in_time(company_identifiers=[], all_footnotes=False, 
                   update_date=None, metrics=[], all_history=False,
@@ -495,6 +511,15 @@ def available_metrics():
     r.raise_for_status()
     return r.json()
 
+def business_combinations(company_identifiers):
+    payload = {
+               'companiesParameters' : {'companyIdentifiers' : company_identifiers},
+               'pageParameters' : {},
+            }
+    period_parameters = {}
+    payload['periodParameters'] = period_parameters
+    return _json_POST('businessCombinations', payload)
+
 def filings(company_identifier, include_non_xbrl=True):
     url = _SESSION_STUFF['api_url_base'].format('filings')
     r = _calcbench_session().get(url, params={'companyIdentifier' : company_identifier})
@@ -503,27 +528,24 @@ def filings(company_identifier, include_non_xbrl=True):
     
 if __name__ == '__main__':
 
-    #_rig_for_testing()
-    
-    metrics = [
-    'revenue', 
-    'netincome',
-    'cash'
-]
-
-    print(document_contents(blob_id='326149_section270', SEC_ID=326149))
-    
-    data = normalized_data(entire_universe=True, 
-                          metrics=['current_assets', 
-                   'current_liabilities', 
-                   'assets', 
-                   'retained_earnings', 
-                   'ebit', 
-                   'MarketCapAtEndOfPeriod',
-                  'liabilites',
-                  'revenue'],
-                          start_year=2010,
-                          start_period=0,
-                          end_year=2014,
-                          end_period=0)
+    _rig_for_testing()
+    import datetime
+    income_statement_metrics = [
+    'Revenue',
+    'CostOfRevenue',
+    'GrossProfit',
+    'SGAExpense',
+    'OperatingExpenses',
+    'OperatingIncome',
+    'EBIT',
+    'InterestExpense',
+    'IncomeTaxes',
+    'NetIncome'
+    ]
+    #print(document_contents(blob_id='326149_section270', SEC_ID=326149))
+    normalized_dataframe(entire_universe=True, metrics=income_statement_metrics, update_date=datetime.date(2017, 1, 23), all_history=True)
+    data = normalized_raw(entire_universe=True, 
+                          metrics=['Revenue'],
+                          update_date=datetime.date(2017, 1, 23),
+                          all_history=True)
     print(data)
