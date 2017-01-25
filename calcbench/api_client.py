@@ -124,6 +124,7 @@ def normalized_dataframe(company_identifiers=[],
     if not data:
         warnings.warn("No data found")
         return pd.DataFrame()
+    
     quarterly = start_period and end_period
     if quarterly:
         build_period = _build_quarter_period
@@ -146,7 +147,14 @@ def normalized_dataframe(company_identifiers=[],
     data = pd.DataFrame(data)
     data.set_index(keys=['ticker', 'metric', 'period'],
                    inplace=True)
-    data = data.unstack('metric')['value']
+    
+    try:
+        data = data.unstack('metric')['value']
+    except ValueError as e:
+        if str(e) == 'Index contains duplicate entries, cannot reshape':
+            print('Duplicate values', data[data.index.duplicated()])
+        raise
+    
     for column_name in data.columns.values:
         #Try to make the columns the right type
         try:
