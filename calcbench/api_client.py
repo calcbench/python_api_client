@@ -92,8 +92,7 @@ def normalized_dataframe(company_identifiers=[],
                     entire_universe=False,
                     filing_accession_number=None,
                     point_in_time=False,
-                    update_date=None,
-                    all_history=False):
+                    ):
     '''Normalized data.
     
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
@@ -119,8 +118,7 @@ def normalized_dataframe(company_identifiers=[],
                           entire_universe=entire_universe,
                           point_in_time=point_in_time,
                           filing_accession_number=filing_accession_number,
-                          update_date=update_date,
-                          all_history=all_history)
+                          )
     if not data:
         warnings.warn("No data found")
         return pd.DataFrame()
