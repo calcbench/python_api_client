@@ -15,7 +15,7 @@ try:
     import pandas as pd  
     import numpy as np
 except ImportError:
-    "Can't find pandas, won't be able to use the funtions that return dataframes."
+    "Can't find pandas, won't be able to use the functions that return DataFrames."
     pass
 
 
@@ -238,23 +238,14 @@ def normalized_raw(company_identifiers=[],
                                      'period' : start_period, 
                                      'endYear' : end_year, 
                                      'endPeriod' : end_period, 
-                                     'allHistory' : all_history, 'updateDate' : update_date and update_date.isoformat(),
+                                     'allHistory' : all_history, 
+                                     'updateDate' : update_date and update_date.isoformat(),
                                      },
                'companiesParameters' : {'entireUniverse' : entire_universe, 
                                         'companyIdentifiers' : list(company_identifiers),
                                         }
                }
-    payloadOld = {"start_year" : start_year,
-           'start_period' : start_period,
-           'end_year' : end_year,
-           'end_period' : end_period,
-           'company_identifiers' : list(company_identifiers),
-           'metrics' : metrics,
-           'entire_universe' : entire_universe,
-           'filing_accession_number' : filing_accession_number,
-           'point_in_time' : point_in_time,
-           'include_trace' : include_trace,
-           }
+
     return _json_POST("mappedData", payload)
 
 def point_in_time(company_identifiers=[], all_footnotes=False, 
@@ -526,16 +517,25 @@ def business_combinations(company_identifiers):
     payload['periodParameters'] = period_parameters
     return _json_POST('businessCombinations', payload)
 
-def filings(company_identifier, include_non_xbrl=True):
-    url = _SESSION_STUFF['api_url_base'].format('filings')
-    r = _calcbench_session().get(url, params={'companyIdentifier' : company_identifier})
-    r.raise_for_status()
-    return r.json()
-    
-if __name__ == '__main__':
+def filings(company_identifiers=[], entire_universe=False, include_non_xbrl=True, received_date=None):
+    return _json_POST('filingsV2', {
+                                    'companiesParameters' : {'companyIdentifiers' : list(company_identifiers), 'entireUniverse' : entire_universe},
+                                    'pageParameters' : {'includeNonXBRL' : include_non_xbrl},
+                                    'periodParameters' : {'updateDate' : received_date and received_date.isoformat()},
+                                    })
 
-    _rig_for_testing()
+
+if __name__ == '__main__':
     import datetime
+    pit_columns = ['CIK', 'calendar_period', 'calendar_year', 'date_reported',  
+           'fiscal_period', 'fiscal_year', 'metric', 'revision_number','ticker', 'value']
+    metrics = available_metrics()
+    face_metrics = [m['metric'] for m in metrics['face']]
+    yesterday = datetime.date(2017, 4, 7)
+    yesterday_data = point_in_time(metrics=face_metrics, update_date=yesterday, entire_universe=True, all_history=True)[pit_columns]
+    yesterday_data[(yesterday_data.metric == 'EPSDiluted') & (yesterday_data.ticker == 'GETH')]
+    _rig_for_testing()
+
     income_statement_metrics = [
     'Revenue',
     'CostOfRevenue',
