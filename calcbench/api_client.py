@@ -53,7 +53,7 @@ def _calcbench_session():
 def _rig_for_testing(domain='localhost:444', suppress_http_warnings=True):
     _SESSION_STUFF['api_url_base'] = 'https://' + domain + '/api/{0}'
     _SESSION_STUFF['logon_url'] = 'https://' + domain + '/account/LogOnAjax'
-    _SESSION_STUFF['domain'] = 'https://' + domain
+    _SESSION_STUFF['domain'] = 'https://' + domain + '/{0}'
     _SESSION_STUFF['ssl_verify'] = False
     _SESSION_STUFF['session'] = None
     if suppress_http_warnings:
@@ -526,32 +526,11 @@ def filings(company_identifiers=[], entire_universe=False, include_non_xbrl=True
 
 
 if __name__ == '__main__':
-    import datetime
-    pit_columns = ['CIK', 'calendar_period', 'calendar_year', 'date_reported',  
-           'fiscal_period', 'fiscal_year', 'metric', 'revision_number','ticker', 'value']
-    metrics = available_metrics()
-    face_metrics = [m['metric'] for m in metrics['face']]
-    yesterday = datetime.date(2017, 4, 7)
-    yesterday_data = point_in_time(metrics=face_metrics, update_date=yesterday, entire_universe=True, all_history=True)[pit_columns]
-    yesterday_data[(yesterday_data.metric == 'EPSDiluted') & (yesterday_data.ticker == 'GETH')]
+    tickers = ['mmm']
     _rig_for_testing()
-
-    income_statement_metrics = [
-    'Revenue',
-    'CostOfRevenue',
-    'GrossProfit',
-    'SGAExpense',
-    'OperatingExpenses',
-    'OperatingIncome',
-    'EBIT',
-    'InterestExpense',
-    'IncomeTaxes',
-    'NetIncome'
-    ]
-    #print(document_contents(blob_id='326149_section270', SEC_ID=326149))
-    normalized_dataframe(entire_universe=True, metrics=income_statement_metrics, update_date=datetime.date(2017, 1, 23), all_history=True)
-    data = normalized_raw(entire_universe=True, 
-                          metrics=['Revenue'],
-                          update_date=datetime.date(2017, 1, 23),
-                          all_history=True)
-    print(data)
+    Management_Discussion_and_Analysis_Document_Type = 1110
+    found_documents = document_search(company_identifiers=tickers, 
+                                         document_type=Management_Discussion_and_Analysis_Document_Type, 
+                                         year=2016, period=0)
+    for found_document in found_documents:
+        document_contents(blob_id=found_document['blob_id'], SEC_ID=found_document['sec_filing_id'])
