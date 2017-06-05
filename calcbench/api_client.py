@@ -389,7 +389,9 @@ def document_search(company_identifiers=None,
                     period_type='annual',                 
                     all_footnotes=False, 
                     document_type=None,
-                    block_tag_name=None,):        
+                    block_tag_name=None,
+                    entire_universe=False,
+                    ):        
     '''
     Footnotes and other text
     
@@ -412,7 +414,9 @@ def document_search(company_identifiers=None,
         raise(ValueError("Need to supply at least one search parameter."))
     if period_type not in ('annual', 'quarterly'):
         raise(ValueError("period_type must be in ('annual', 'quarterly'))"))
-    payload = {'companiesParameters' : {'entireUniverse' : len(company_identifiers) == 0,
+    if not (company_identifiers or entire_universe):
+        raise(ValueError("Need to supply company_identifiers or entire_universe=True"))
+    payload = {'companiesParameters' : {'entireUniverse' : entire_universe,
                                         'companyIdentifiers' : company_identifiers},
                'periodParameters' : {'year' : year,
                                      'period' : period,
