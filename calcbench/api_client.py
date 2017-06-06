@@ -430,7 +430,7 @@ def document_search(company_identifiers=None,
         results = _json_POST('footnoteSearch', payload)
         for result in results['footnotes']:
             yield result
-        payload['pageParameters']['startEntityID'] = results['nextGroupStartEntityID']
+        payload['pageParameters']['startOffset'] = results['nextGroupStartOffset']
         
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
     url = _SESSION_STUFF['domain'].format('query/disclosureBySECLink')
@@ -538,3 +538,4 @@ if __name__ == '__main__':
                                          year=2016, period=0)
     for found_document in found_documents:
         document_contents(blob_id=found_document['blob_id'], SEC_ID=found_document['sec_filing_id'])
+
