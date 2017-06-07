@@ -386,11 +386,12 @@ def document_search(company_identifiers=None,
                     full_text_search_term=None,
                     year=None, 
                     period=0, 
-                    period_type='annual',                 
+                    period_type=None,                 
                     all_footnotes=False, 
                     document_type=None,
                     block_tag_name=None,
                     entire_universe=False,
+                    use_fiscal_period=False,
                     ):        
     '''
     Footnotes and other text
@@ -406,25 +407,29 @@ def document_search(company_identifiers=None,
         period_type: quarterly or annual, only applicable when other period data not supplied.
         
     Returns:
-        A list of text documents (footnotes)
-        
+        A list of text documents (footnotes)        
         
     '''
     if not any([full_text_search_term, all_footnotes, document_type, block_tag_name]):
         raise(ValueError("Need to supply at least one search parameter."))
-    if period_type not in ('annual', 'quarterly'):
-        raise(ValueError("period_type must be in ('annual', 'quarterly'))"))
     if not (company_identifiers or entire_universe):
         raise(ValueError("Need to supply company_identifiers or entire_universe=True"))
+    period_type = period_type or 'annual' if period in (0, 'Y') else 'quarterly'
     payload = {'companiesParameters' : {'entireUniverse' : entire_universe,
-                                        'companyIdentifiers' : company_identifiers},
+                                        'companyIdentifiers' : company_identifiers,
+                                        },
                'periodParameters' : {'year' : year,
                                      'period' : period,
-                                     'periodType' : period_type},
+                                     'periodType' : period_type,
+                                     'useFiscalPeriod' : use_fiscal_period,
+                                     },
                'pageParameters' : {'fullTextQuery' : full_text_search_term,
                                    'allFootnotes' : all_footnotes,
                                    'footnoteType' : document_type,
-                                   'footnoteTag' : block_tag_name}}
+                                   'footnoteTag' : block_tag_name,
+                                   }
+               }
+    
     results = {'moreResults' : True}
     while results['moreResults']:
         results = _json_POST('footnoteSearch', payload)
@@ -530,12 +535,12 @@ def filings(company_identifiers=[], entire_universe=False, include_non_xbrl=True
 
 
 if __name__ == '__main__':
-    tickers = ['mmm']
+    tickers = ['msft']
     _rig_for_testing()
     Management_Discussion_and_Analysis_Document_Type = 1110
     found_documents = document_search(company_identifiers=tickers, 
                                          document_type=Management_Discussion_and_Analysis_Document_Type, 
-                                         year=2016, period=0)
+                                         year=2016, period=1)
     for found_document in found_documents:
         document_contents(blob_id=found_document['blob_id'], SEC_ID=found_document['sec_filing_id'])
 
