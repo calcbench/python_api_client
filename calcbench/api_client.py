@@ -400,14 +400,13 @@ def document_search(company_identifiers=None,
     
     Args:
         company_identifiers : list of tickers or CIK codes
-        start_year: first year of data to get
-        start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
-        end_year: last year of data to get
-        end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
+        year: Year to get data for
+        period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
         period_type: quarterly or annual, only applicable when other period data not supplied.
+        document_type: integer for Calcbench document type, Business Description:1100, Risk Factors:1110, Unresolved Comments:1120, Properties:1200, Legal Proceedings:1300, Executive Officers:2410, Defaults:2300, Market For Equity:2500, Selected Data:2600, MD&A:2700, Market Risk:2710, Auditor's Report:2810, Auditor Changes/Disagreements:2900, Controls And Procedures:2910, Other Information:2920, Corporate Governance:3100, Security Ownership:3120, Relationships:3130
         
     Returns:
-        A list of text documents (footnotes)        
+        A list of text documents
         
     '''
     if not any([full_text_search_term, all_footnotes, document_type, block_tag_name]):
