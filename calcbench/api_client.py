@@ -531,6 +531,12 @@ def filings(company_identifiers=[], entire_universe=False, include_non_xbrl=True
                                     'pageParameters' : {'includeNonXBRL' : include_non_xbrl},
                                     'periodParameters' : {'updateDate' : received_date and received_date.isoformat()},
                                     })
+    
+def document_types():
+    url = _SESSION_STUFF['api_url_base'].format('documentTypes')
+    r = _calcbench_session().get(url, verify=_SESSION_STUFF['ssl_verify'])
+    r.raise_for_status()
+    return r.json()
 
 
 if __name__ == '__main__':
