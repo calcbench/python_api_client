@@ -92,6 +92,8 @@ def normalized_dataframe(company_identifiers=[],
                     entire_universe=False,
                     filing_accession_number=None,
                     point_in_time=False,
+                    year=None,
+                    period=None
                     ):
     '''Normalized data.
     
@@ -106,6 +108,8 @@ def normalized_dataframe(company_identifiers=[],
         end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
         entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
         accession_id: Filing Accession ID from the SEC's Edgar system.
+        year: Get data for a single year, defaults to annual data.
+        period_type: One of ['Q1', 'Q2', 'Q3', 'Q4', 'Y', '1H', '3QCUM', 1, 2, 3, 4, 0, 5, 6]
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
@@ -118,6 +122,8 @@ def normalized_dataframe(company_identifiers=[],
                           entire_universe=entire_universe,
                           point_in_time=point_in_time,
                           filing_accession_number=filing_accession_number,
+                          year=year,
+                          period=period,
                           )
     if not data:
         warnings.warn("No data found")
@@ -190,7 +196,10 @@ def normalized_raw(company_identifiers=[],
                     point_in_time=False,
                     include_trace=False,
                     update_date=None,
-                    all_history=False):
+                    all_history=False,
+                    year=None,
+                    period=None,
+                    ):
     '''
     Normalized data.
     
@@ -206,6 +215,8 @@ def normalized_raw(company_identifiers=[],
         entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
         accession_id: Filing Accession ID from the SEC's Edgar system.
         include_trace: Include the facts used to calculate the normalized value.
+        year: Get data for a single year, defaults to annual data.
+        period_type: One of ['Q1', 'Q2', 'Q3', 'Q4', 'Y', '1H', '3QCUM', 1, 2, 3, 4, 0, 5, 6]
         
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
@@ -231,8 +242,20 @@ def normalized_raw(company_identifiers=[],
     if [bool(company_identifiers), bool(entire_universe), bool(filing_accession_number)].count(True) != 1:
         raise ValueError("Must pass either company_identifiers and accession id or entire_universe=True")
     
-    if filing_accession_number and any([company_identifiers, start_year, start_period, end_year, end_period, entire_universe]):
+    if filing_accession_number and any([company_identifiers, start_year, start_period, end_year, end_period, entire_universe, year, period]):
         raise ValueError("Accession IDs are specific to a filing, no other qualifiers make sense.")
+    if year:
+        if start_year or end_year:
+            raise ValueError("Use year for a single period.  start_year and end_year for ranges.")
+        start_year = end_year = year
+    if period:
+        if start_period or end_period:
+            raise ValueError("Use period for a single period.  start_period and end_period are for ranges.")
+        if period not in ('Y', 0) and (start_year or end_year):
+            raise ValueError('With start_year or end_year only annual period works')
+            
+        start_period = end_period = period
+        
     payload = {'pageParameters' : {'metrics' : metrics, 'includeTrace' : include_trace, 'pointInTime' : point_in_time,
                                    },
                'periodParameters' : {'year' : start_year, 
@@ -249,8 +272,11 @@ def normalized_raw(company_identifiers=[],
 
     return _json_POST("mappedData", payload)
 
-def point_in_time(company_identifiers=[], all_footnotes=False, 
-                  update_date=None, metrics=[], all_history=False,
+def point_in_time(company_identifiers=[], 
+                  all_footnotes=False, 
+                  update_date=None, 
+                  metrics=[], 
+                  all_history=False,
                   entire_universe=False):
     '''
     Just for point-in-time footnotes now.
