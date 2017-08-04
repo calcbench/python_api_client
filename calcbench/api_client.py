@@ -177,6 +177,7 @@ def _build_annual_period(data_point):
     return pd.Period(year=data_point.pop('calendar_year'), freq='a')
 
 normalized_data = normalized_dataframe # used to call it normalized_data.
+standardized_data = normalized_dataframe # Now it's called standardized data
 
 def normalized_raw(company_identifiers=[],
                     metrics=[],

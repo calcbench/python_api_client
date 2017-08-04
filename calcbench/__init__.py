@@ -1,6 +1,7 @@
 __version__ = '0.1.3'
 from .api_client import (normalized_data, 
                          normalized_dataframe, 
+                         standardized_data,
                          tickers, 
                          set_credentials, 
                          companies, 
