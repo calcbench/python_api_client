@@ -466,11 +466,24 @@ def document_search(company_identifiers=None,
         
 class DocumentSearchResults(dict):
     def get_contents(self):
-        return document_contents(blob_id=self['blob_id'], SEC_ID=self['sec_filing_id'])
+        if self.get('network_id'):
+            return document_contents_by_network_id(self['network_id'])
+        else:            
+            return document_contents(blob_id=self['blob_id'], SEC_ID=self['sec_filing_id'])
     
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
     url = _SESSION_STUFF['domain'].format('query/disclosureBySECLink')
     payload = {'blobid' : blob_id, 'secid' : SEC_ID, 'url' : SEC_URL}
+    response = _calcbench_session().get(url,
+                                        params=payload,
+                                        headers={'content-type': 'application/json'},
+                                        verify=_SESSION_STUFF['ssl_verify'])
+    response.raise_for_status()
+    return response.json()['blobs'][0]
+
+def document_contents_by_network_id(network_id):
+    url = _SESSION_STUFF['domain'].format('query/disclosureByNetworkIDOBJ')
+    payload = {'nid' : network_id}
     response = _calcbench_session().get(url,
                                         params=payload,
                                         headers={'content-type': 'application/json'},
@@ -572,12 +585,7 @@ def document_types():
 
 
 if __name__ == '__main__':
-    tickers = ['msft']
-    _rig_for_testing()
-    Management_Discussion_and_Analysis_Document_Type = 1110
-    found_documents = document_search(company_identifiers=tickers, 
-                                         document_type=Management_Discussion_and_Analysis_Document_Type, 
-                                         year=2016, period=1)
-    for found_document in found_documents:
-        document_contents(blob_id=found_document['blob_id'], SEC_ID=found_document['sec_filing_id'])
-
+    doc_types = document_types()
+    commitment_and_contigency_id = [d for d in doc_types['disclosures'] if d['name'] == 'CommitmentAndContingencies'][0]['arcrole']
+    GPS_commitments_and_contigencies = list(document_search(company_identifiers=['GPS'], document_type=2700, year=2016, period=0))[0]
+    print(GPS_commitments_and_contigencies.get_contents())
