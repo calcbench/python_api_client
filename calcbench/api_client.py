@@ -419,6 +419,7 @@ def document_search(company_identifiers=None,
                     block_tag_name=None,
                     entire_universe=False,
                     use_fiscal_period=False,
+                    document_name=None,
                     ):        
     '''
     Footnotes and other text
@@ -431,12 +432,12 @@ def document_search(company_identifiers=None,
         period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
         period_type: quarterly or annual, only applicable when other period data not supplied.
         document_type: integer for Calcbench document type, Business Description:1100, Risk Factors:1110, Unresolved Comments:1120, Properties:1200, Legal Proceedings:1300, Executive Officers:2410, Defaults:2300, Market For Equity:2500, Selected Data:2600, MD&A:2700, Market Risk:2710, Auditor's Report:2810, Auditor Changes/Disagreements:2900, Controls And Procedures:2910, Other Information:2920, Corporate Governance:3100, Security Ownership:3120, Relationships:3130
-        
+        document_name: string for disclosure name, for example CommitmentAndContingencies.  Call document_types() for the whole list.
     Returns:
         A list of text documents
         
     '''
-    if not any([full_text_search_term, all_footnotes, document_type, block_tag_name]):
+    if not any([full_text_search_term, all_footnotes, document_type, block_tag_name, document_name]):
         raise(ValueError("Need to supply at least one search parameter."))
     if not (company_identifiers or entire_universe):
         raise(ValueError("Need to supply company_identifiers or entire_universe=True"))
@@ -453,6 +454,7 @@ def document_search(company_identifiers=None,
                                    'allFootnotes' : all_footnotes,
                                    'footnoteType' : document_type,
                                    'footnoteTag' : block_tag_name,
+                                   'disclosureName' : document_name,
                                    }
                }
     
@@ -585,7 +587,8 @@ def document_types():
 
 
 if __name__ == '__main__':
-    doc_types = document_types()
-    commitment_and_contigency_id = [d for d in doc_types['disclosures'] if d['name'] == 'CommitmentAndContingencies'][0]['arcrole']
-    GPS_commitments_and_contigencies = list(document_search(company_identifiers=['GPS'], document_type=2700, year=2016, period=0))[0]
+    _rig_for_testing(domain='localhost')
+    GPS_commitments_and_contigencies = list(document_search(company_identifiers=['GPS'], 
+                                                            document_name='XCommitmentAndContingencies', 
+                                                            year=2016, period=0))[0]
     print(GPS_commitments_and_contigencies.get_contents())
