@@ -26,6 +26,7 @@ _SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
                  'domain' : 'https://www.calcbench.com/{0}',
                  'ssl_verify' : True,
                  'session' : None,
+                 'timeout' : 60 * 10,  # ten minute content request timeout, by default
                  }
 
 
@@ -42,7 +43,8 @@ def _calcbench_session():
                   {'email' : user_name, 
                    'strng' : password, 
                    'rememberMe' : 'true'},
-                  verify=_SESSION_STUFF['ssl_verify'])
+                  verify=_SESSION_STUFF['ssl_verify'],
+                  timeout=_SESSION_STUFF['timeout'])
         r.raise_for_status()
         if r.text != 'true':
             raise ValueError('Incorrect Credentials, use the email and password you use to login to Calcbench.')
@@ -65,7 +67,8 @@ def _json_POST(end_point, payload):
     response = _calcbench_session().post(url,
                                         data=json.dumps(payload),
                                         headers={'content-type' : 'application/json'},
-                                        verify=_SESSION_STUFF['ssl_verify'])
+                                        verify=_SESSION_STUFF['ssl_verify'],
+                                        timeout=_SESSION_STUFF['timeout'])
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
@@ -479,7 +482,8 @@ def document_contents(blob_id, SEC_ID, SEC_URL=None):
     response = _calcbench_session().get(url,
                                         params=payload,
                                         headers={'content-type': 'application/json'},
-                                        verify=_SESSION_STUFF['ssl_verify'])
+                                        verify=_SESSION_STUFF['ssl_verify'],
+                                        timeout=_SESSION_STUFF['timeout'])
     response.raise_for_status()
     return response.json()['blobs'][0]
 
@@ -489,7 +493,9 @@ def document_contents_by_network_id(network_id):
     response = _calcbench_session().get(url,
                                         params=payload,
                                         headers={'content-type': 'application/json'},
-                                        verify=_SESSION_STUFF['ssl_verify'])
+                                        verify=_SESSION_STUFF['ssl_verify'],
+                                        timeout=_SESSION_STUFF['timeout'])
+
     response.raise_for_status()
     return response.json()['blobs'][0]
 
@@ -587,8 +593,8 @@ def document_types():
 
 
 if __name__ == '__main__':
-    _rig_for_testing(domain='localhost')
+    #_rig_for_testing(domain='localhost')
     GPS_commitments_and_contigencies = list(document_search(company_identifiers=['GPS'], 
-                                                            document_name='XCommitmentAndContingencies', 
+                                                            document_name='CommitmentAndContingencies', 
                                                             year=2016, period=0))[0]
     print(GPS_commitments_and_contigencies.get_contents())
