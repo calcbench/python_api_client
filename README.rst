@@ -43,3 +43,8 @@ Search for footnotes/disclosures, for instance to search for "going concern" in 
 	cb.text_search(company_identifiers=coal_companies, full_text_search_term='"going concern"', year=2015, period=0)
 	
 This is a work in progress.  Let me know if you have suggestions or encounter bugs, andrew@calcbench.com.
+
+Credit
+======
+https://github.com/calcbench/python_api_client/commit/6c2312525fa365acc91bd8e979037fc2492845f3   https://github.com/someben
+
