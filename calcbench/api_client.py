@@ -173,13 +173,18 @@ def normalized_dataframe(company_identifiers=[],
     for missing_metric in missing_metrics:
         data[missing_metric] = np.nan # We want columns for every requested metric.     
     data = data.unstack('ticker')
-
     return data
     
 def _build_quarter_period(data_point):
-    return pd.Period(year=data_point.pop('calendar_year'),
-                     quarter=data_point.pop('calendar_period'),
-                     freq='q')
+    try:
+        return pd.Period(year=data_point.pop('calendar_year'),
+                 quarter=data_point.pop('calendar_period'),
+                 freq='q')
+    except ValueError:
+        # DEI points (entity_name) etc, don't have periods.
+        return pd.Period()      
+
+
 
 def _build_annual_period(data_point):
     data_point.pop('calendar_period')
@@ -594,7 +599,9 @@ def document_types():
 
 if __name__ == '__main__':
     #_rig_for_testing(domain='localhost')
-    GPS_commitments_and_contigencies = list(document_search(company_identifiers=['GPS'], 
-                                                            document_name='CommitmentAndContingencies', 
-                                                            year=2016, period=0))[0]
-    print(GPS_commitments_and_contigencies.get_contents())
+    normalized_dataframe(company_identifiers=['ibm'],
+    metrics=['entity_name'],
+    start_year=2010,
+    start_period=1,
+    end_year=2016,
+    end_period=4)
