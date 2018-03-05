@@ -26,7 +26,7 @@ _SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
                  'domain' : 'https://www.calcbench.com/{0}',
                  'ssl_verify' : True,
                  'session' : None,
-                 'timeout' : 60 * 10,  # ten minute content request timeout, by default
+                 'timeout' : 60 * 20,  # twenty minute content request timeout, by default
                  }
 
 
@@ -96,7 +96,9 @@ def normalized_dataframe(company_identifiers=[],
                     filing_accession_number=None,
                     point_in_time=False,
                     year=None,
-                    period=None
+                    period=None,
+                    all_history=False,
+                    period_type=None
                     ):
     '''Normalized data.
     
@@ -112,10 +114,12 @@ def normalized_dataframe(company_identifiers=[],
         entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
         accession_id: Filing Accession ID from the SEC's Edgar system.
         year: Get data for a single year, defaults to annual data.
-        period_type: One of ['Q1', 'Q2', 'Q3', 'Q4', 'Y', '1H', '3QCUM', 1, 2, 3, 4, 0, 5, 6]
+        period_type: Either "annual" or "quarterly".
     Returns:
         A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
     '''
+    if all_history and not period_type:
+        raise ValueError('For all history you must specify a period_type')
     data = normalized_raw(company_identifiers=list(company_identifiers), 
                           metrics=metrics, 
                           start_year=start_year,
@@ -127,12 +131,14 @@ def normalized_dataframe(company_identifiers=[],
                           filing_accession_number=filing_accession_number,
                           year=year,
                           period=period,
+                          all_history=all_history,
+                          period_type=period_type
                           )
     if not data:
         warnings.warn("No data found")
         return pd.DataFrame()
     
-    quarterly = start_period and end_period
+    quarterly = (start_period and end_period) or period_type == 'quarterly'
     if quarterly:
         build_period = _build_quarter_period
     else:
@@ -207,6 +213,7 @@ def normalized_raw(company_identifiers=[],
                     all_history=False,
                     year=None,
                     period=None,
+                    period_type=None,
                     ):
     '''
     Normalized data.
@@ -224,7 +231,7 @@ def normalized_raw(company_identifiers=[],
         accession_id: Filing Accession ID from the SEC's Edgar system.
         include_trace: Include the facts used to calculate the normalized value.
         year: Get data for a single year, defaults to annual data.
-        period_type: One of ['Q1', 'Q2', 'Q3', 'Q4', 'Y', '1H', '3QCUM', 1, 2, 3, 4, 0, 5, 6]
+        period_type: Either "annual" or "quarterly"
         
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
@@ -263,15 +270,34 @@ def normalized_raw(company_identifiers=[],
             raise ValueError('With start_year or end_year only annual period works')
             
         start_period = end_period = period
+    if period_type and period_type not in ('annual', 'quarterly'):
+        raise ValueError('period_type must be either "annual" or "quarterly"')
         
+    try:
+        start_year = int(start_year)
+    except ValueError:
+        pass
+    try:
+        start_period = int(start_period)
+    except ValueError:
+        pass
+    try:
+        end_year = int(end_year)
+    except ValueError:
+        pass
+    try:
+        end_period = int(end_period)
+    except ValueError:
+        pass
     payload = {'pageParameters' : {'metrics' : metrics, 'includeTrace' : include_trace, 'pointInTime' : point_in_time,
                                    },
                'periodParameters' : {'year' : start_year, 
                                      'period' : start_period, 
-                                     'endYear' : end_year, 
+                                     'endYear' : end_year,
                                      'endPeriod' : end_period, 
                                      'allHistory' : all_history, 
                                      'updateDate' : update_date and update_date.isoformat(),
+                                     'periodType' : period_type,
                                      },
                'companiesParameters' : {'entireUniverse' : entire_universe, 
                                         'companyIdentifiers' : list(company_identifiers),
@@ -428,6 +454,7 @@ def document_search(company_identifiers=None,
                     entire_universe=False,
                     use_fiscal_period=False,
                     document_name=None,
+                    all_history=False,
                     ):        
     '''
     Footnotes and other text
@@ -457,6 +484,7 @@ def document_search(company_identifiers=None,
                                      'period' : period,
                                      'periodType' : period_type,
                                      'useFiscalPeriod' : use_fiscal_period,
+                                     'allHistory' : all_history,
                                      },
                'pageParameters' : {'fullTextQuery' : full_text_search_term,
                                    'allFootnotes' : all_footnotes,
@@ -598,7 +626,11 @@ def document_types():
 
 
 if __name__ == '__main__':
-    #_rig_for_testing(domain='localhost')
+    _rig_for_testing()
+    year = 2017
+    period = 4
+    metrics = ['revenue', 'netincome', 'cash']
+    earnings_indicator_data = normalized_data(metrics=metrics, start_year=2010, start_period=4, end_year=year, end_period=period, company_identifiers=['msft', 'orcl'])
     normalized_dataframe(company_identifiers=['ibm'],
     metrics=['entity_name'],
     start_year=2010,
