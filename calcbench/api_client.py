@@ -476,7 +476,8 @@ def document_search(company_identifiers=None,
         raise(ValueError("Need to supply at least one search parameter."))
     if not (company_identifiers or entire_universe):
         raise(ValueError("Need to supply company_identifiers or entire_universe=True"))
-    period_type = period_type or 'annual' if period in (0, 'Y') else 'quarterly'
+    if not all_history:        
+        period_type = period_type or 'annual' if period in (0, 'Y') else 'quarterly'
     payload = {'companiesParameters' : {'entireUniverse' : entire_universe,
                                         'companyIdentifiers' : company_identifiers,
                                         },
