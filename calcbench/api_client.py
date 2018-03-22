@@ -275,19 +275,19 @@ def normalized_raw(company_identifiers=[],
         
     try:
         start_year = int(start_year)
-    except ValueError:
+    except (ValueError, TypeError):
         pass
     try:
         start_period = int(start_period)
-    except ValueError:
+    except (ValueError, TypeError):
         pass
     try:
         end_year = int(end_year)
-    except ValueError:
+    except (ValueError, TypeError):
         pass
     try:
         end_period = int(end_period)
-    except ValueError:
+    except (ValueError, TypeError):
         pass
     payload = {'pageParameters' : {'metrics' : metrics, 'includeTrace' : include_trace, 'pointInTime' : point_in_time,
                                    },
