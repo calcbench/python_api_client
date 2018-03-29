@@ -407,7 +407,7 @@ def as_reported_raw(company_identifier,
     return data
     
     
-def breakouts_raw(company_identifiers=None, metrics=[], start_year=None, 
+def dimensional_raw(company_identifiers=None, metrics=[], start_year=None, 
                  start_period=None, end_year=None, end_period=None, period_type='annual'):
     '''
     Breakouts
@@ -433,28 +433,31 @@ def breakouts_raw(company_identifiers=None, metrics=[], start_year=None,
         raise(ValueError("Need to supply at least one breakout."))
     if period_type not in ('annual', 'quarterly'):
         raise(ValueError("period_type must be in ('annual', 'quarterly')"))
+
     payload = {'companiesParameters' : {'entireUniverse' : len(company_identifiers) == 0,
                                        'companyIdentifiers' : company_identifiers},
-              'periodParameters' : {'year' : start_year,
+              'periodParameters' : {'year' : end_year or start_year, 
                                     'period' : start_period,
-                                    'endYear' : end_year,
-                                    'endPeriod' : end_period,
-                                    'periodType' : period_type},
-              'pageParameters' : {'metrics' : metrics}}
-    return _json_POST('breakouts', payload)
+                                    'endYear' : start_year,
+                                    'periodType' : period_type,
+                                    'asOriginallyReported' : False},
+              'pageParameters' : {'metrics' : metrics,
+                                  'dimensionName' : 'Segment',
+                                  'AsOriginallyReported': False}}
+    return _json_POST('dimensionalData', payload)
 
 def document_search(company_identifiers=None, 
                     full_text_search_term=None,
                     year=None, 
                     period=0, 
-                    period_type=None,                 
-                    all_footnotes=False, 
+                    period_type=None,
                     document_type=None,
                     block_tag_name=None,
                     entire_universe=False,
                     use_fiscal_period=False,
                     document_name=None,
                     all_history=False,
+                    updated_from=None,
                     ):        
     '''
     Footnotes and other text
@@ -468,15 +471,16 @@ def document_search(company_identifiers=None,
         period_type: quarterly or annual, only applicable when other period data not supplied.
         document_type: integer for Calcbench document type, Business Description:1100, Risk Factors:1110, Unresolved Comments:1120, Properties:1200, Legal Proceedings:1300, Executive Officers:2410, Defaults:2300, Market For Equity:2500, Selected Data:2600, MD&A:2700, Market Risk:2710, Auditor's Report:2810, Auditor Changes/Disagreements:2900, Controls And Procedures:2910, Other Information:2920, Corporate Governance:3100, Security Ownership:3120, Relationships:3130
         document_name: string for disclosure name, for example CommitmentAndContingencies.  Call document_types() for the whole list.
+        updated_from: date, include filings from this date and after.
     Returns:
         A list of text documents
         
     '''
-    if not any([full_text_search_term, all_footnotes, document_type, block_tag_name, document_name]):
+    if not any([full_text_search_term, document_type, block_tag_name, document_name]):
         raise(ValueError("Need to supply at least one search parameter."))
     if not (company_identifiers or entire_universe):
         raise(ValueError("Need to supply company_identifiers or entire_universe=True"))
-    if not all_history:        
+    if not all_history:
         period_type = period_type or 'annual' if period in (0, 'Y') else 'quarterly'
     payload = {'companiesParameters' : {'entireUniverse' : entire_universe,
                                         'companyIdentifiers' : company_identifiers,
@@ -486,9 +490,9 @@ def document_search(company_identifiers=None,
                                      'periodType' : period_type,
                                      'useFiscalPeriod' : use_fiscal_period,
                                      'allHistory' : all_history,
+                                     'updatedFrom' : updated_from and updated_from.isoformat(), 
                                      },
                'pageParameters' : {'fullTextQuery' : full_text_search_term,
-                                   'allFootnotes' : all_footnotes,
                                    'footnoteType' : document_type,
                                    'footnoteTag' : block_tag_name,
                                    'disclosureName' : document_name,
@@ -627,6 +631,14 @@ def document_types():
 
 
 if __name__ == '__main__':
+    tickers = tickers(index='DJIA')
+    print(dimensional_raw(company_identifiers=tickers, 
+                 metrics=['GeographicalSegmentRevenue', 'GeographicalSegmentGeographicalIncome'],
+                start_year=2010,
+                end_year=2017,
+                start_period=0,
+                end_period=0))
+    exit()
     _rig_for_testing()
     year = 2017
     period = 4
