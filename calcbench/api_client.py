@@ -554,12 +554,12 @@ def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=Fa
     return tickers
 
 
-def companies(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
+def companies(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False, include_most_recent_filing_dates=False):
     '''Return a DataFrame with company details'''
-    companies = _companies(SIC_codes, index, company_identifiers, entire_universe)
+    companies = _companies(SIC_codes, index, company_identifiers, entire_universe, include_most_recent_filing_dates)
     return pd.DataFrame(companies)
     
-def _companies(SIC_code, index, company_identifiers, entire_universe=False):
+def _companies(SIC_code, index, company_identifiers, entire_universe=False, include_most_recent_filing_dates=False):
     if not(SIC_code or index or entire_universe or company_identifiers):
         raise ValueError('Must supply SIC_code, index or company_identifiers or entire_univers.')
     payload = {}
@@ -574,6 +574,7 @@ def _companies(SIC_code, index, company_identifiers, entire_universe=False):
         payload['companyIdentifiers'] = ','.join(company_identifiers)
     else:
         payload['universe'] = True
+    payload['includeMostRecentFilingExtras'] = include_most_recent_filing_dates
     url = _SESSION_STUFF['api_url_base'].format("companies")
     r = _calcbench_session().get(url, params=payload, verify=_SESSION_STUFF['ssl_verify'])
     r.raise_for_status()
