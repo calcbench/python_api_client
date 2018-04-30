@@ -39,6 +39,8 @@ def _calcbench_session():
             raise ValueError("No credentials supplied, either call set_credentials or set \
                                 CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables.")
         session = requests.Session()
+        if _SESSION_STUFF.get('proxies'):
+            session.proxies.update(_SESSION_STUFF['proxies'])
         r = session.post(_SESSION_STUFF['logon_url'],
                   {'email' : user_name, 
                    'strng' : password, 
@@ -84,7 +86,9 @@ def set_credentials(cb_username, cb_password):
     _SESSION_STUFF['calcbench_user_name'] = cb_username
     _SESSION_STUFF['calcbench_password'] = cb_password
     _calcbench_session() #Make sure credentials work.
-
+    
+def set_proxies(proxies):
+    _SESSION_STUFF['proxies'] = proxies
 
 def normalized_dataframe(company_identifiers=[], 
                     metrics=[], 
@@ -458,6 +462,7 @@ def document_search(company_identifiers=None,
                     document_name=None,
                     all_history=False,
                     updated_from=None,
+                    batch_size=100,
                     ):        
     '''
     Footnotes and other text
@@ -496,6 +501,7 @@ def document_search(company_identifiers=None,
                                    'footnoteType' : document_type,
                                    'footnoteTag' : block_tag_name,
                                    'disclosureName' : document_name,
+                                   'limit' : batch_size
                                    }
                }
     
