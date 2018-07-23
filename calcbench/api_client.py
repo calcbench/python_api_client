@@ -310,6 +310,7 @@ def normalized_raw(company_identifiers=[],
 
     return _json_POST("mappedData", payload)
 
+
 def point_in_time(company_identifiers=[], 
                   all_footnotes=False, 
                   update_date=None, 
@@ -319,6 +320,8 @@ def point_in_time(company_identifiers=[],
     '''
     Just for point-in-time footnotes now.
     '''
+
+
     data = mapped_raw(company_identifiers=company_identifiers, 
                       all_footnotes=all_footnotes, 
                       point_in_time=True,
@@ -329,15 +332,16 @@ def point_in_time(company_identifiers=[],
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
-    data.calendar_period = data.calendar_period.astype('category', categories=[1, 2, 3, 4, 0], ordered=True) # So annual is last in sorting.
-    data.fiscal_period = data.fiscal_period.astype('category', categories=[1, 2, 3, 4, 0], ordered=True) 
+    period_number = pd.api.types.CategoricalDtype(categories=[1, 2, 3, 4, 5, 6, 0], ordered=True) # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
+    data.calendar_period = data.calendar_period.astype(period_number)
+    data.fiscal_period = data.fiscal_period.astype(period_number) 
     return data.sort_values(['ticker', 'metric', 'calendar_year', 'calendar_period']).reset_index(drop=True)
 
 def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, 
                update_date=None, metrics=[], all_history=False, entire_universe=False):
     payload = {
                'companiesParameters' : {'companyIdentifiers' : company_identifiers, 'entireUniverse' :  entire_universe},
-               'pageParameters' : {'pointInTime' : point_in_time, 
+               'pageParameters' : {'pointInTime' : point_in_time,
                                    'allFootnotes' : all_footnotes, 
                                    'metrics' : metrics},
             }
