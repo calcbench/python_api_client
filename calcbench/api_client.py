@@ -640,8 +640,14 @@ def document_types():
     r.raise_for_status()
     return r.json()
 
-
+def html_diff(html_1, html_2):
+    '''Diff two pieces of html and return a html diff'''
+    return _json_POST('textDiff', {'html1': html_1,
+                                   'html2': html_2
+                                   })
 if __name__ == '__main__':
+    print(html_diff('some html', 'some other html'))
+    exit()
     tickers = tickers(index='DJIA')
     print(dimensional_raw(company_identifiers=tickers, 
                  metrics=['GeographicalSegmentRevenue', 'GeographicalSegmentGeographicalIncome'],
