@@ -333,9 +333,13 @@ def point_in_time(company_identifiers=[],
         return pd.DataFrame()
     data = pd.DataFrame(data)
     period_number = pd.api.types.CategoricalDtype(categories=[1, 2, 3, 4, 5, 6, 0], ordered=True) # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
-    data.calendar_period = data.calendar_period.astype(period_number)
-    data.fiscal_period = data.fiscal_period.astype(period_number) 
-    return data.sort_values(['ticker', 'metric', 'calendar_year', 'calendar_period']).reset_index(drop=True)
+    sort_columns = ['ticker', 'metric']
+    if 'calendar_period' in data.columns:
+        data.calendar_period = data.calendar_period.astype(period_number)
+        sort_columns.extend(['calendar_year', 'calendar_period'])
+    if 'fiscal_period' in data.columns:        
+        data.fiscal_period = data.fiscal_period.astype(period_number) 
+    return data.sort_values(sort_columns).reset_index(drop=True)
 
 def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, 
                update_date=None, metrics=[], all_history=False, entire_universe=False):
@@ -647,23 +651,4 @@ def html_diff(html_1, html_2):
                                    })
 if __name__ == '__main__':
     print(html_diff('some html', 'some other html'))
-    exit()
-    tickers = tickers(index='DJIA')
-    print(dimensional_raw(company_identifiers=tickers, 
-                 metrics=['GeographicalSegmentRevenue', 'GeographicalSegmentGeographicalIncome'],
-                start_year=2010,
-                end_year=2017,
-                start_period=0,
-                end_period=0))
-    exit()
-    _rig_for_testing()
-    year = 2017
-    period = 4
-    metrics = ['revenue', 'netincome', 'cash']
-    earnings_indicator_data = normalized_data(metrics=metrics, start_year=2010, start_period=4, end_year=year, end_period=period, company_identifiers=['msft', 'orcl'])
-    normalized_dataframe(company_identifiers=['ibm'],
-    metrics=['entity_name'],
-    start_year=2010,
-    start_period=1,
-    end_year=2016,
-    end_period=4)
+
