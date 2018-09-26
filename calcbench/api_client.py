@@ -163,8 +163,7 @@ def normalized_dataframe(company_identifiers=[],
         warnings.warn("Did not find metrics {0}".format(missing_metrics))
     data = pd.DataFrame(data)
     data.set_index(keys=['ticker', 'metric', 'period'],
-                   inplace=True)
-    
+                   inplace=True)    
     try:
         data = data.unstack('metric')['value']
     except ValueError as e:
@@ -471,6 +470,7 @@ def document_search(company_identifiers=None,
                     all_history=False,
                     updated_from=None,
                     batch_size=100,
+                    sub_divide=False
                     ):        
     '''
     Footnotes and other text
@@ -485,8 +485,9 @@ def document_search(company_identifiers=None,
         document_type: integer for Calcbench document type, Business Description:1100, Risk Factors:1110, Unresolved Comments:1120, Properties:1200, Legal Proceedings:1300, Executive Officers:2410, Defaults:2300, Market For Equity:2500, Selected Data:2600, MD&A:2700, Market Risk:2710, Auditor's Report:2810, Auditor Changes/Disagreements:2900, Controls And Procedures:2910, Other Information:2920, Corporate Governance:3100, Security Ownership:3120, Relationships:3130
         document_name: string for disclosure name, for example CommitmentAndContingencies.  Call document_types() for the whole list.
         updated_from: date, include filings from this date and after.
+        sub_divide: return the document split into sections based on headers.
     Returns:
-        A list of text documents
+        Yields document search results
         
     '''
     if not any([full_text_search_term, document_type, block_tag_name, document_name]):
@@ -509,7 +510,8 @@ def document_search(company_identifiers=None,
                                    'footnoteType' : document_type,
                                    'footnoteTag' : block_tag_name,
                                    'disclosureName' : document_name,
-                                   'limit' : batch_size
+                                   'limit' : batch_size,
+                                   'subDivide' : sub_divide,
                                    }
                }
     
@@ -525,7 +527,7 @@ class DocumentSearchResults(dict):
     def get_contents(self):
         if self.get('network_id'):
             return document_contents_by_network_id(self['network_id'])
-        else:            
+        else:
             return document_contents(blob_id=self['blob_id'], SEC_ID=self['sec_filing_id'])
     
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
