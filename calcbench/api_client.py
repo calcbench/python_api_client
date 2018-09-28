@@ -225,7 +225,7 @@ def normalized_raw(company_identifiers=[],
     
     Args:
         company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
-        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/excel#availableMetrics eg. ['revenue', 'accountsreceivable']
+        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
         start_year: first year of data
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         end_year: last year of data
