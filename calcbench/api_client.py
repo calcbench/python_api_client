@@ -193,8 +193,6 @@ def _build_quarter_period(data_point):
         # DEI points (entity_name) etc, don't have periods.
         return pd.Period()      
 
-
-
 def _build_annual_period(data_point):
     data_point.pop('calendar_period')
     return pd.Period(year=data_point.pop('calendar_year'), freq='a')
@@ -315,9 +313,14 @@ def point_in_time(company_identifiers=[],
                   update_date=None, 
                   metrics=[], 
                   all_history=False,
-                  entire_universe=False):
+                  entire_universe=False,
+                  start_year=None,
+                  start_period=None,
+                  end_year=None,
+                  end_period=None,
+                  period_type=None):
     '''
-    Just for point-in-time footnotes now.
+    Point-in-Time Data
     '''
 
 
@@ -327,7 +330,12 @@ def point_in_time(company_identifiers=[],
                       update_date=update_date,
                       metrics=metrics,
                       all_history=all_history,
-                      entire_universe=entire_universe)
+                      entire_universe=entire_universe,
+                      start_year=start_year,
+                      start_period=start_period,
+                      end_year=end_year,
+                      end_period=end_period,
+                      period_type=period_type)
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
@@ -340,15 +348,37 @@ def point_in_time(company_identifiers=[],
         data.fiscal_period = data.fiscal_period.astype(period_number) 
     return data.sort_values(sort_columns).reset_index(drop=True)
 
-def mapped_raw(company_identifiers=[], all_footnotes=False, point_in_time=False, 
-               update_date=None, metrics=[], all_history=False, entire_universe=False):
+def mapped_raw(company_identifiers=[], 
+               all_footnotes=False, 
+               point_in_time=False, 
+               update_date=None, 
+               metrics=[], 
+               all_history=False, 
+               entire_universe=False,
+               start_year=None,
+               end_year=None,
+               start_period=None,
+               end_period=None, 
+               period_type=None):
     payload = {
-               'companiesParameters' : {'companyIdentifiers' : company_identifiers, 'entireUniverse' :  entire_universe},
-               'pageParameters' : {'pointInTime' : point_in_time,
-                                   'allFootnotes' : all_footnotes, 
-                                   'metrics' : metrics},
+               'companiesParameters' : {
+                   'companyIdentifiers' : company_identifiers, 
+                   'entireUniverse' :  entire_universe
+               },
+               'pageParameters' : {
+                   'pointInTime' : point_in_time,                                   
+                   'allFootnotes' : all_footnotes, 
+                   'metrics' : metrics
+               },
             }
-    period_parameters = {'allHistory' : all_history}
+    period_parameters = {
+        'allHistory' : all_history,
+        'year' : start_year,
+        'endYear': end_year,
+        'period' : start_period,
+        'endPeriod' : end_period,
+        'periodType' : period_type
+        }
     if update_date:
         period_parameters['updateDate'] = update_date.isoformat()
     payload['periodParameters'] = period_parameters
@@ -652,5 +682,10 @@ def html_diff(html_1, html_2):
                                    'html2': html_2
                                    })
 if __name__ == '__main__':
-    print(html_diff('some html', 'some other html'))
+    _rig_for_testing()
+    point_in_time(metrics=['revenue'], 
+                  company_identifiers=['zn', 'zom'], 
+                  start_year=2016, 
+                  end_year=2018, 
+                  period_type='combined')
 
