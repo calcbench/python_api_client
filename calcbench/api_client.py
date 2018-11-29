@@ -154,7 +154,7 @@ def normalized_dataframe(company_identifiers=[],
         d['ticker'] = d['ticker'].upper()
         try: # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
             d['value'] = float(d['value'])
-        except ValueError:
+        except (ValueError, KeyError):
             pass
         metrics_found.add(d['metric'])
     
@@ -500,7 +500,8 @@ def document_search(company_identifiers=None,
                     all_history=False,
                     updated_from=None,
                     batch_size=100,
-                    sub_divide=False
+                    sub_divide=False,
+                    all_documents=False,
                     ):        
     '''
     Footnotes and other text
@@ -516,11 +517,12 @@ def document_search(company_identifiers=None,
         document_name: string for disclosure name, for example CommitmentAndContingencies.  Call document_types() for the whole list.
         updated_from: date, include filings from this date and after.
         sub_divide: return the document split into sections based on headers.
+        all_documents: all of the documents for a single company/period.
     Returns:
         Yields document search results
         
     '''
-    if not any([full_text_search_term, document_type, block_tag_name, document_name]):
+    if not any([full_text_search_term, document_type, block_tag_name, document_name, all_documents]):
         raise(ValueError("Need to supply at least one search parameter."))
     if not (company_identifiers or entire_universe):
         raise(ValueError("Need to supply company_identifiers or entire_universe=True"))
@@ -542,6 +544,7 @@ def document_search(company_identifiers=None,
                                    'disclosureName' : document_name,
                                    'limit' : batch_size,
                                    'subDivide' : sub_divide,
+                                   'allFootnotes': all_documents
                                    }
                }
     
@@ -682,10 +685,12 @@ def html_diff(html_1, html_2):
                                    'html2': html_2
                                    })
 if __name__ == '__main__':
+    import datetime
+    pit_columns = ['CIK', 'calendar_period', 'calendar_year', 'date_reported', 
+               'fiscal_period', 'fiscal_year', 'metric', 'revision_number','ticker', 'value']
+    metrics = available_metrics()
+    face_metrics = [m['metric'] for m in metrics['face'] if m['section'] and m['section'] != 'docEntityInfo']
     _rig_for_testing()
-    point_in_time(metrics=['revenue'], 
-                  company_identifiers=['zn', 'zom'], 
-                  start_year=2016, 
-                  end_year=2018, 
-                  period_type='combined')
-
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=3)
+    yesterday_data = point_in_time(metrics=face_metrics, update_date=yesterday, entire_universe=True, all_history=True)[pit_columns]
+    #standardized_data(entire_universe=True, metrics=['city', 'country'], year=2017)
