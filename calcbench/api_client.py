@@ -307,7 +307,6 @@ def normalized_raw(company_identifiers=[],
 
     return _json_POST("mappedData", payload)
 
-
 def point_in_time(company_identifiers=[], 
                   all_footnotes=False, 
                   update_date=None, 
@@ -318,7 +317,8 @@ def point_in_time(company_identifiers=[],
                   start_period=None,
                   end_year=None,
                   end_period=None,
-                  period_type=None):
+                  period_type=None,
+                  use_fiscal_period=False):
     '''
     Point-in-Time Data
     '''
@@ -335,7 +335,8 @@ def point_in_time(company_identifiers=[],
                       start_period=start_period,
                       end_year=end_year,
                       end_period=end_period,
-                      period_type=period_type)
+                      period_type=period_type,
+                      use_fiscal_period=use_fiscal_period)
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
@@ -359,7 +360,8 @@ def mapped_raw(company_identifiers=[],
                end_year=None,
                start_period=None,
                end_period=None, 
-               period_type=None):
+               period_type=None,
+               use_fiscal_period=False):
     payload = {
                'companiesParameters' : {
                    'companyIdentifiers' : company_identifiers, 
@@ -377,8 +379,9 @@ def mapped_raw(company_identifiers=[],
         'endYear': end_year,
         'period' : start_period,
         'endPeriod' : end_period,
-        'periodType' : period_type
-        }
+        'periodType' : period_type,
+        'useFiscalPeriod': use_fiscal_period
+    }
     if update_date:
         period_parameters['updateDate'] = update_date.isoformat()
     payload['periodParameters'] = period_parameters
@@ -554,8 +557,7 @@ def document_search(company_identifiers=None,
         for result in results['footnotes']:
             yield DocumentSearchResults(result)
         payload['pageParameters']['startOffset'] = results['nextGroupStartOffset']
-        
-        
+       
 class DocumentSearchResults(dict):
     def get_contents(self):
         if self.get('network_id'):
@@ -601,7 +603,6 @@ def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=Fa
     companies = _companies(SIC_codes, index, company_identifiers, entire_universe)
     tickers = [co['ticker'] for co in companies]
     return tickers
-
 
 def companies(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False, include_most_recent_filing_dates=False):
     '''Return a DataFrame with company details'''

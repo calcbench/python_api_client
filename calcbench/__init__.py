@@ -21,4 +21,5 @@ from .api_client import (normalized_data,
                          tag_contents,
                          business_combinations,
                          document_types,
+                         html_diff
                          )
