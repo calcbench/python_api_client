@@ -12,7 +12,7 @@ import json
 import warnings
 
 try:
-    import pandas as pd  
+    import pandas as pd
     import numpy as np
 except ImportError:
     "Can't find pandas, won't be able to use the functions that return DataFrames."

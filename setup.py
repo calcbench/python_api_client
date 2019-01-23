@@ -17,4 +17,8 @@ setup(name='calcbench',
       keywords='finance accounting SEC 10-(K|Q)',
       install_requires=['requests'],
       packages=['calcbench'],
+      extras_require={
+            'Pandas':['Pandas'],
+            'Listener':['azure-servicebus==0.21.1']
+                  }
       )
