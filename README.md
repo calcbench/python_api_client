@@ -25,27 +25,41 @@ To set your credentials either set `CALCBENCH_USERNAME` and `CALCBENCH_PASSWORD`
 Example Jupyter notebooks @ https://github.com/calcbench/notebooks.
 
 ### Standardized Data
-To get standardized data call `normalized_dataframe`, for instance:
 
-    calcbench.normalized_dataframe(company_identifiers=['msft', 'ibm'], metrics=['revenue', 'assets'], start_year=2010, start_period=1, end_year=2014, end_period=4)
+The data behind https://www.calcbench.com/multi
+
+    calcbench.standardized_data(company_identifiers=['msft', 'ibm'], metrics=['revenue', 'assets'], start_year=2010, start_period=1, end_year=2014, end_period=4)
     
-To get 'As Reported' statements, call `as_reported_raw`, for instance:
+### As-Reported Face Statement
+
+The data behind https://www.calcbench.com/detail
 
 	calcbench.as_reported('msft', 'income')
 	
-To get breakout/segments call `breakouts_raw`, for instance:
-
-	calcbench.breakouts_raw(company_identifiers=['MSFT', 'AXP'], metrics=['operatingSegmentRevenue', 'operatingSegmentAssets'])
-
-Company identifiers, tickers in most cases, can be retrieved by Standard Industrial Classification (SIC) code or index, for instance
+### Tickers
+Company identifiers, tickers in most cases, can be retrieved by Standard Industrial Classification (SIC) code or Index
     
     calcbench.tickers(index='DJIA')
 
-Search for footnotes/disclosures, for instance to search for "going concern" in coal company filings:
+### Disclosures
+
+Search for disclosures, for instance to search for "going concern" in coal company filings:
 
 	coal_companies = cb.tickers(SIC_codes=[1200])
 	
 	cb.text_search(company_identifiers=coal_companies, full_text_search_term='"going concern"', year=2015, period=0)
+
+### New Filings Push Notification
+
+Be notified when Calcbench has processed new filings.
+
+Requires Calcbench to generate a subscription for you.
+
+    pip install 'azure-servicebus==0.21.1'
+
+Then
+
+    calcbench.handle_filings(lambda filing: print(filing), {service bus subscription})
 
 ## Support
 
