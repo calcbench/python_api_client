@@ -24,4 +24,4 @@ from .api_client import (normalized_data,
                          html_diff
                          )
 
-from .listener import (handle_new_calcbench_filings)
+from .listener import (handle_filings)

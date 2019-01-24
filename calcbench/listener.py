@@ -13,10 +13,10 @@ import warnings
 
 TOPIC = 'filings'
 
-def handle_new_calcbench_filings(handler, #type: ()->void
-                                subscription,  
-                                readonly_shared_access_key_value="Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=", 
-                                service_bus_namespace='calcbench'):
+def handle_filings(handler, #type: ()->void
+                    subscription,  
+                    readonly_shared_access_key_value="Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=", 
+                    service_bus_namespace='calcbench'):
     
     bus_service = ServiceBusService(service_namespace=service_bus_namespace,
                                     shared_access_key_name="public",
