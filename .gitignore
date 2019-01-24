@@ -1,3 +1,5 @@
 __pycache__
 .project
 .pydevproject
+calcbench.egg-info/
+dist/

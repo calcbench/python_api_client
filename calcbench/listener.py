@@ -7,7 +7,7 @@ except ImportError:
     pass
 
 import json
-import dateutil.parser as dp
+
 from datetime import datetime, timezone
 import warnings
 
@@ -19,9 +19,8 @@ def handle_new_calcbench_filings(handler, #type: ()->void
                                 service_bus_namespace='calcbench'):
     
     bus_service = ServiceBusService(service_namespace=service_bus_namespace,
-                                shared_access_key_name="public",
-                                shared_access_key_value=readonly_shared_access_key_value
-                                )
+                                    shared_access_key_name="public",
+                                    shared_access_key_value=readonly_shared_access_key_value)
     while True:
         try:
             message = bus_service.receive_subscription_message(TOPIC, subscription)

@@ -9,7 +9,7 @@ Created on Mar 18, 2015
 from setuptools import setup
 
 setup(name='calcbench', 
-      version='0.1.3', 
+      version='1.0.0', 
       description='Client for Calcbench data.', 
       author='Andrew Kittredge',
       author_email='andrew@calcbench.com',
@@ -20,5 +20,5 @@ setup(name='calcbench',
       extras_require={
             'Pandas':['Pandas'],
             'Listener':['azure-servicebus==0.21.1']
-                  }
+            }
       )
