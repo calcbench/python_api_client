@@ -25,7 +25,7 @@ Example Jupyter notebooks @ https://github.com/calcbench/notebooks.
 
 ### Standardized Data
 
-The data behind https://www.calcbench.com/multi.  A list of all metrics is @ https://www.calcbench.com/home/standardizedmetrics.
+The data behind https://www.calcbench.com/multi.  List of all metrics @ https://www.calcbench.com/home/standardizedmetrics.
 
     calcbench.standardized_data(company_identifiers=['msft', 'ibm'], metrics=['revenue', 'assets'], start_year=2010, start_period=1, end_year=2014, end_period=4)
     
@@ -65,5 +65,4 @@ Then
 andrew@calcbench.com
 
 ## Credit
-@someben https://github.com/calcbench/python_api_client/commit/6c2312525fa365acc91bd8e979037fc2492845f3   
-
+@someben https://github.com/calcbench/python_api_client/commit/6c2312525fa365acc91bd8e979037fc2492845f3
