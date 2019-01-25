@@ -7,8 +7,6 @@ except ImportError:
     pass
 
 import json
-
-from datetime import datetime, timezone
 import warnings
 
 TOPIC = 'filings'
