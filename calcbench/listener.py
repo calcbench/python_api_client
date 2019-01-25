@@ -27,7 +27,7 @@ def handle_filings(handler, #type: ()->void
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception as e:
-            warnings.warn(e)
+            warnings.warn(str(e))
         else:
             if(message.body):
                 try:
@@ -35,4 +35,4 @@ def handle_filings(handler, #type: ()->void
                     handler(filing)
                     message.delete()
                 except Exception as e:
-                    warnings.warn(e)
+                    warnings.warn(str(e))
