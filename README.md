@@ -1,6 +1,5 @@
 # Calcbench API Client
 
-
 A Python client for Calcbench's API.
 
 Calcbench is an interface to the XBRL encoded 10-(K|Q) documents public companies file on the SEC's Edgar system.
@@ -26,7 +25,7 @@ Example Jupyter notebooks @ https://github.com/calcbench/notebooks.
 
 ### Standardized Data
 
-The data behind https://www.calcbench.com/multi
+The data behind https://www.calcbench.com/multi.  A list of all metrics is @ https://www.calcbench.com/home/standardizedmetrics.
 
     calcbench.standardized_data(company_identifiers=['msft', 'ibm'], metrics=['revenue', 'assets'], start_year=2010, start_period=1, end_year=2014, end_period=4)
     
@@ -43,6 +42,8 @@ Company identifiers, tickers in most cases, can be retrieved by Standard Industr
 
 ### Disclosures
 
+The data behind https://www.calcbench.com/disclosures
+
 Search for disclosures, for instance to search for "going concern" in coal company filings:
 
 	coal_companies = cb.tickers(SIC_codes=[1200])
@@ -53,9 +54,7 @@ Search for disclosures, for instance to search for "going concern" in coal compa
 
 Be notified when Calcbench has processed new filings.
 
-Requires Calcbench to generate a subscription for you.
-
-    pip install 'azure-servicebus==0.21.1'
+Requires Calcbench to generate a subscription for you and installing the `azure-servicebus` package
 
 Then
 
