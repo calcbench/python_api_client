@@ -215,6 +215,7 @@ def normalized_raw(company_identifiers=[],
                     year=None,
                     period=None,
                     period_type=None,
+                    include_preliminary=False,
                     ):
     '''
     Normalized data.
@@ -233,6 +234,7 @@ def normalized_raw(company_identifiers=[],
         include_trace: Include the facts used to calculate the normalized value.
         year: Get data for a single year, defaults to annual data.
         period_type: Either "annual" or "quarterly"
+        include_preliminary: Include data from non-XBRL 8-Ks and press releases from the wires.
         
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
@@ -273,6 +275,9 @@ def normalized_raw(company_identifiers=[],
         start_period = end_period = period
     if period_type and period_type not in ('annual', 'quarterly'):
         raise ValueError('period_type must be either "annual" or "quarterly"')
+
+    if include_preliminary and not point_in_time:
+        raise ValueError('include_preliminary only works for PIT')
         
     try:
         start_year = int(start_year)
@@ -290,7 +295,10 @@ def normalized_raw(company_identifiers=[],
         end_period = int(end_period)
     except (ValueError, TypeError):
         pass
-    payload = {'pageParameters' : {'metrics' : metrics, 'includeTrace' : include_trace, 'pointInTime' : point_in_time,
+    payload = {'pageParameters' : {'metrics' : metrics, 
+                                    'includeTrace' : include_trace, 
+                                    'pointInTime' : point_in_time,
+                                    'includePreliminary': include_preliminary
                                    },
                'periodParameters' : {'year' : start_year, 
                                      'period' : start_period, 
@@ -318,7 +326,9 @@ def point_in_time(company_identifiers=[],
                   end_year=None,
                   end_period=None,
                   period_type=None,
-                  use_fiscal_period=False):
+                  use_fiscal_period=False,
+                  include_preliminary=False,
+                  all_face=True):
     '''
     Point-in-Time Data
     '''
@@ -336,7 +346,9 @@ def point_in_time(company_identifiers=[],
                       end_year=end_year,
                       end_period=end_period,
                       period_type=period_type,
-                      use_fiscal_period=use_fiscal_period)
+                      use_fiscal_period=use_fiscal_period,
+                      include_preliminary=include_preliminary,
+                      all_face=all_face)
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
@@ -361,7 +373,9 @@ def mapped_raw(company_identifiers=[],
                start_period=None,
                end_period=None, 
                period_type=None,
-               use_fiscal_period=False):
+               use_fiscal_period=False,
+               include_preliminary=False,
+               all_face=False):
     payload = {
                'companiesParameters' : {
                    'companyIdentifiers' : company_identifiers, 
@@ -370,7 +384,9 @@ def mapped_raw(company_identifiers=[],
                'pageParameters' : {
                    'pointInTime' : point_in_time,                                   
                    'allFootnotes' : all_footnotes, 
-                   'metrics' : metrics
+                   'allface': all_face,
+                   'metrics' : metrics,
+                   'includePreliminary': include_preliminary
                },
             }
     period_parameters = {
@@ -686,12 +702,9 @@ def html_diff(html_1, html_2):
                                    'html2': html_2
                                    })
 if __name__ == '__main__':
-    import datetime
-    pit_columns = ['CIK', 'calendar_period', 'calendar_year', 'date_reported', 
-               'fiscal_period', 'fiscal_year', 'metric', 'revision_number','ticker', 'value']
-    metrics = available_metrics()
-    face_metrics = [m['metric'] for m in metrics['face'] if m['section'] and m['section'] != 'docEntityInfo']
-    _rig_for_testing()
-    yesterday = datetime.datetime.now() - datetime.timedelta(days=3)
-    yesterday_data = point_in_time(metrics=face_metrics, update_date=yesterday, entire_universe=True, all_history=True)[pit_columns]
-    #standardized_data(entire_universe=True, metrics=['city', 'country'], year=2017)
+    dow_30 = tickers(index='DJIA')
+    docs = document_search(company_identifiers=dow_30, year=2017, period=0, document_type='Risk Factors', sub_divide=True)
+    for doc in docs:
+        doc.get_contents()
+    _rig_for_testing(domain='localhost')
+    print(point_in_time(metrics=['revenue'], company_identifiers=[6204], all_history=True, include_preliminary=True))
