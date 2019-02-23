@@ -328,7 +328,7 @@ def point_in_time(company_identifiers=[],
                   period_type=None,
                   use_fiscal_period=False,
                   include_preliminary=False,
-                  all_face=True):
+                  all_face=False):
     '''
     Point-in-Time Data
     '''
@@ -378,7 +378,7 @@ def mapped_raw(company_identifiers=[],
                all_face=False):
     payload = {
                'companiesParameters' : {
-                   'companyIdentifiers' : company_identifiers, 
+                   'companyIdentifiers' : list(company_identifiers), 
                    'entireUniverse' :  entire_universe
                },
                'pageParameters' : {
@@ -676,18 +676,41 @@ def available_metrics():
 
 def business_combinations(company_identifiers):
     payload = {
-               'companiesParameters' : {'companyIdentifiers' : company_identifiers},
+               'companiesParameters' : {
+                   'companyIdentifiers' : company_identifiers
+                   },
                'pageParameters' : {},
             }
     period_parameters = {}
     payload['periodParameters'] = period_parameters
     return _json_POST('businessCombinations', payload)
 
-def filings(company_identifiers=[], entire_universe=False, include_non_xbrl=True, received_date=None):
+def filings(company_identifiers=[], # type: str[]
+            entire_universe=False,  # type: bool
+            include_non_xbrl=True,  # type: bool
+            received_date=None, # type: Date
+            start_date=None, # type: date
+            end_date=None, # type: date
+            filing_types=[], # type: str[]
+            ):
+    
+    
     return _json_POST('filingsV2', {
-                                    'companiesParameters' : {'companyIdentifiers' : list(company_identifiers), 'entireUniverse' : entire_universe},
-                                    'pageParameters' : {'includeNonXBRL' : include_non_xbrl},
-                                    'periodParameters' : {'updateDate' : received_date and received_date.isoformat()},
+                                    'companiesParameters' : {
+                                        'companyIdentifiers' : list(company_identifiers), 
+                                        'entireUniverse' : entire_universe
+                                        },
+                                    'pageParameters' : {
+                                        'includeNonXBRL' : include_non_xbrl,
+                                        'filingTypes' : filing_types,
+                                        },
+                                    'periodParameters' : {
+                                        'updateDate' : received_date and received_date.isoformat(),
+                                        'dateRange' : start_date and end_date and {
+                                            'startDate' : start_date.isoformat(), 
+                                            'endDate' : end_date.isoformat()
+                                            }
+                                        },
                                     })
     
 def document_types():
@@ -702,9 +725,6 @@ def html_diff(html_1, html_2):
                                    'html2': html_2
                                    })
 if __name__ == '__main__':
-    dow_30 = tickers(index='DJIA')
-    docs = document_search(company_identifiers=dow_30, year=2017, period=0, document_type='Risk Factors', sub_divide=True)
-    for doc in docs:
-        doc.get_contents()
+    import datetime
     _rig_for_testing(domain='localhost')
-    print(point_in_time(metrics=['revenue'], company_identifiers=[6204], all_history=True, include_preliminary=True))
+    filings(entire_universe=True, start_date=datetime.date(2019, 1, 1), end_date=datetime.date.today(), filing_types=[") 'select * from secfilings'"])
