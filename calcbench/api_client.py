@@ -110,7 +110,7 @@ def normalized_dataframe(company_identifiers=[],
     
     Args:
         company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
-        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/excel#availableMetrics eg. ['revenue', 'accountsreceivable']
+        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
         start_year: first year of data
         start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
         end_year: last year of data
@@ -201,7 +201,7 @@ normalized_data = normalized_dataframe # used to call it normalized_data.
 standardized_data = normalized_dataframe # Now it's called standardized data
 
 def normalized_raw(company_identifiers=[],
-                    metrics=[],
+                    metrics=[], # type str[] Full list of metrics is @ https://www.calcbench.com/home/standardizedmetrics
                     start_year=None,
                     start_period=None,
                     end_year=None,
@@ -234,7 +234,7 @@ def normalized_raw(company_identifiers=[],
         include_trace: Include the facts used to calculate the normalized value.
         year: Get data for a single year, defaults to annual data.
         period_type: Either "annual" or "quarterly"
-        include_preliminary: Include data from non-XBRL 8-Ks and press releases from the wires.
+        include_preliminary: Include data from non-XBRL 8-Ks and press releases.
         
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
@@ -352,7 +352,9 @@ def point_in_time(company_identifiers=[],
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
-    period_number = pd.api.types.CategoricalDtype(categories=[1, 2, 3, 4, 5, 6, 0], ordered=True) # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
+
+    period_number = pd.api.types.CategoricalDtype(categories=[1, 2, 3, 4, 5, 6, 0], 
+                                                    ordered=True) # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
     sort_columns = ['ticker', 'metric']
     if 'calendar_period' in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)
