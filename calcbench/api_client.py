@@ -604,7 +604,8 @@ def document_contents_by_network_id(network_id):
                                         timeout=_SESSION_STUFF['timeout'])
 
     response.raise_for_status()
-    return response.json()['blobs'][0]
+    blobs = response.json()['blobs']
+    return blobs[0] if len(blobs) else ''
 
 def tag_contents(accession_id, block_tag_name):
     url = _SESSION_STUFF['domain'].format('query/disclosuresByTag')
@@ -727,6 +728,9 @@ def html_diff(html_1, html_2):
                                    'html2': html_2
                                    })
 if __name__ == '__main__':
+
     import datetime
     _rig_for_testing(domain='localhost')
+    docs = list(document_search(company_identifiers=['cpf'], document_name="CommitmentAndContingencies", all_history=True))
+    [d.get_contents() for d in docs]
     filings(entire_universe=True, start_date=datetime.date(2019, 1, 1), end_date=datetime.date.today(), filing_types=[") 'select * from secfilings'"])
