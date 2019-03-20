@@ -10,6 +10,7 @@ import os
 import requests
 import json
 import warnings
+from datetime import datetime
 
 try:
     import pandas as pd
@@ -18,6 +19,10 @@ except ImportError:
     "Can't find pandas, won't be able to use the functions that return DataFrames."
     pass
 
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    pass
 
 _SESSION_STUFF = {'calcbench_user_name' : os.environ.get("CALCBENCH_USERNAME"),
                  'calcbench_password' : os.environ.get("CALCBENCH_PASSWORD"),
@@ -578,10 +583,26 @@ def document_search(company_identifiers=None,
        
 class DocumentSearchResults(dict):
     def get_contents(self):
+        '''Content of the document, with the filers HTML'''
         if self.get('network_id'):
             return document_contents_by_network_id(self['network_id'])
         else:
             return document_contents(blob_id=self['blob_id'], SEC_ID=self['sec_filing_id'])
+
+    def get_contents_text(self):
+        '''Contents of the HTML of the document'''
+        BeautifulSoup(self.get_contents(), 'html.parser').text
+
+    @property
+    def date_reported(self):
+        '''Time (EST) the document was available from Calcbench'''
+        timestamp = self['date_reported']
+        # We did not always have milliseconds
+        try:
+            return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")    
+        except ValueError:
+            return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")     
+
     
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
     url = _SESSION_STUFF['domain'].format('query/disclosureBySECLink')
