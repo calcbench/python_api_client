@@ -591,7 +591,7 @@ class DocumentSearchResults(dict):
 
     def get_contents_text(self):
         '''Contents of the HTML of the document'''
-        BeautifulSoup(self.get_contents(), 'html.parser').text
+        return BeautifulSoup(self.get_contents(), 'html.parser').text
 
     @property
     def date_reported(self):
