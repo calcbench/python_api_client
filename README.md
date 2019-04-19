@@ -8,7 +8,7 @@ Calcbench is an interface to the XBRL encoded 10-(K|Q) documents public companie
 
 Pip Installation
 
-    pip install git+git://github.com/calcbench/python_api_client.git
+    pip install calcbench-api-client
     
 ## Credentials
 
