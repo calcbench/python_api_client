@@ -4,3 +4,5 @@ __pycache__
 calcbench.egg-info/
 dist/
 _build/
+*.egg-info/
+build/
