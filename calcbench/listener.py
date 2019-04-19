@@ -21,7 +21,7 @@ def handle_filings(handler, #type: ()->void
                                     shared_access_key_value=readonly_shared_access_key_value)
     while True:
         try:
-            message = bus_service.receive_subscription_message(TOPIC, subscription)
+            message = bus_service.receive_subscription_message(TOPIC, subscription, peek_lock=True)
         except (KeyboardInterrupt, SystemExit):
             raise
         except Exception as e:
