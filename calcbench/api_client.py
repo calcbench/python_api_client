@@ -267,16 +267,18 @@ def normalized_raw(company_identifiers=[],
     
     if filing_accession_number and any([company_identifiers, start_year, start_period, end_year, end_period, entire_universe, year, period]):
         raise ValueError("Accession IDs are specific to a filing, no other qualifiers make sense.")
-    if year:
-        if start_year or end_year:
-            raise ValueError("Use year for a single period.  start_year and end_year for ranges.")
-        start_year = end_year = year
+
     if period is not None:
         if start_period or end_period:
             raise ValueError("Use period for a single period.  start_period and end_period are for ranges.")
         if period not in ('Y', 0) and (start_year or end_year):
             raise ValueError('With start_year or end_year only annual period works')            
         start_period = end_period = period
+        
+    if year:
+        if start_year or end_year:
+            raise ValueError("Use year for a single period.  start_year and end_year for ranges.")
+        start_year = end_year = year
 
     if period_type and period_type not in ('annual', 'quarterly'):
         raise ValueError('period_type must be either "annual" or "quarterly"')
