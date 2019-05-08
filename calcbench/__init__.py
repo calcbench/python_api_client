@@ -22,7 +22,7 @@ from .api_client import (normalized_data,
                          business_combinations,
                          document_types,
                          html_diff,
-                         press_release_data_raw,
+                         press_release_raw,
                          )
 
 from .listener import (handle_filings)

@@ -751,7 +751,7 @@ def html_diff(html_1, html_2):
                                    'html2': html_2
                                    })
 
-def press_release_data_raw(company_identifiers, year, period):
+def press_release_raw(company_identifiers, year, period, match_to_previous_period=False, standardize_beginning_of_period=False):
     payload = {
         'companiesParameters': {
             'companyIdentifiers': list(company_identifiers)
@@ -759,10 +759,14 @@ def press_release_data_raw(company_identifiers, year, period):
         'periodParameters': {
             'year': year,
             'period': period
+        },
+        'pageParameters': {
+            'matchToPreviousPeriod': match_to_previous_period,
+            'standardizeBOPPeriods': standardize_beginning_of_period
         }
     }
     return _json_POST('pressReleaseData', payload)
 
 if __name__ == '__main__':    
     _rig_for_testing(domain='localhost')
-    press_release_data_raw(['msft'], 2017, 0)
+    press_release_raw(['msft'], 2017, 0)
