@@ -750,10 +750,19 @@ def html_diff(html_1, html_2):
     return _json_POST('textDiff', {'html1': html_1,
                                    'html2': html_2
                                    })
-if __name__ == '__main__':
 
-    import datetime
+def press_release_data_raw(company_identifiers, year, period):
+    payload = {
+        'companiesParameters': {
+            'companyIdentifiers': list(company_identifiers)
+        },
+        'periodParameters': {
+            'year': year,
+            'period': period
+        }
+    }
+    return _json_POST('pressReleaseData', payload)
+
+if __name__ == '__main__':    
     _rig_for_testing(domain='localhost')
-    docs = list(document_search(company_identifiers=['cpf'], document_name="CommitmentAndContingencies", all_history=True))
-    [d.get_contents() for d in docs]
-    filings(entire_universe=True, start_date=datetime.date(2019, 1, 1), end_date=datetime.date.today(), filing_types=[") 'select * from secfilings'"])
+    press_release_data_raw(['msft'], 2017, 0)
