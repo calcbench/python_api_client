@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 try:
-    from azure.servicebus import ServiceBusService, Message
+    from azure.servicebus import Message
+    from azure.servicebus.control_client import ServiceBusService
 except ImportError:
     "Will not be able to use the listener"
     pass

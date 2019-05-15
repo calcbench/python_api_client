@@ -19,7 +19,7 @@ setup(name='calcbench_api_client',
       packages=['calcbench'],
       extras_require={
             'Pandas':['Pandas'],
-            'Listener':['azure-servicebus==0.21.1']
+            'Listener':['azure-servicebus==0.50.0']
             },
       url="https://github.com/calcbench/python_api_client",
       long_description="A client for Calcbench's API.  www.calcbench.com/api"
