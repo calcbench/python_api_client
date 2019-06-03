@@ -6,3 +6,4 @@ dist/
 _build/
 *.egg-info/
 build/
+calcbench.ini
