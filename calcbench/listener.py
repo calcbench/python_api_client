@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 try:
-    from azure.servicebus import Message
-    from azure.servicebus.control_client import ServiceBusService
+    from azure.servicebus import ServiceBusClient
 except ImportError:
     "Will not be able to use the listener"
     pass
@@ -13,25 +12,26 @@ import warnings
 TOPIC = 'filings'
 
 def handle_filings(handler, #type: ()->void
-                    subscription,  
-                    readonly_shared_access_key_value="Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=", 
-                    service_bus_namespace='calcbench'):
-    
-    bus_service = ServiceBusService(service_namespace=service_bus_namespace,
-                                    shared_access_key_name="public",
-                                    shared_access_key_value=readonly_shared_access_key_value)
-    while True:
+                    connection_string,
+                    subscription):
+    sb_client = ServiceBusClient.from_connection_string(connection_string)
+    subscription = sb_client.get_subscription(TOPIC, subscription)
+    for message in subscription.get_receiver():
         try:
-            message = bus_service.receive_subscription_message(TOPIC, subscription, peek_lock=True)
-        except (KeyboardInterrupt, SystemExit):
-            raise
+            handler(message)
+            message.complete()
         except Exception as e:
             warnings.warn(str(e))
-        else:
-            if(message.body):
-                try:
-                    filing = json.loads(message.body)
-                    handler(filing)
-                    message.delete()
-                except Exception as e:
-                    warnings.warn(str(e))
+
+if __name__ == "__main__":
+    import configparser
+    config = configparser.ConfigParser()
+    config.read('calcbench.ini')
+    subscription = config['ServiceBus']['subscription']
+    def filing_handler(filing):
+        print(filing)
+
+    handle_filings(filing_handler, 
+    connection_string="Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=iyg1HHDSe7lXfNeuRX3ZzuATXgCrga0edFgdXh0GC0s=",
+    subscription="andrew_test")
+    
