@@ -23,29 +23,31 @@ TOPIC = "filings"
 def handle_filings(
     handler,  # type: ()->void
     connection_string,
-    subscription,
+    subscription_name,
+    filter_expression="1=1",
 ):
     sb_client = ServiceBusClient.from_connection_string(connection_string)
-    subscription = sb_client.get_subscription(TOPIC, subscription)
+    subscription = sb_client.get_subscription(TOPIC, subscription_name)
+    create_filter(
+        sb_client.mgmt_client,
+        subscription_name=subscription_name,
+        filter_expression=filter_expression,
+    )
+
     for message in subscription.get_receiver():
         try:
-            handler(message)
+            filing = json.loads(b"".join(message.body))
+            handler(filing)
             message.complete()
         except Exception as e:
             warnings.warn(str(e))
 
 
-def create_filter(
-    service_namespace,
-    shared_access_key_name,
-    shared_access_key_value,
-    subscription_name,
-    filter_expression,
-):
-    bus_service = ServiceBusService(
-        service_namespace=service_namespace,
-        shared_access_key_name=shared_access_key_name,
-        shared_access_key_value=shared_access_key_value,
+def create_filter(bus_service, subscription_name, filter_expression):
+    bus_service.delete_rule(
+        topic_name=TOPIC,
+        subscription_name=subscription_name,
+        rule_name=DEFAULT_RULE_NAME,
     )
     existing_rules = bus_service.list_rules(
         topic_name=TOPIC, subscription_name=subscription_name
@@ -67,26 +69,32 @@ def create_filter(
 
 if __name__ == "__main__":
     import configparser
+    from api_client import point_in_time
 
     config = configparser.ConfigParser()
     config.read("calcbench.ini")
     subscription = config["ServiceBus"]["Subscription"]
     connection_string = config["ServiceBus"]["ConnectionString"]
-    service_namespace = config["ServiceBus"]["ServiceNamespace"]
-    shared_access_key_name = config["ServiceBus"]["SharedAccessKeyName"]
-    shared_access_key_value = config["ServiceBus"]["SharedAccessKeyValue"]
 
     def filing_handler(filing):
-        print(filing)
+        year = filing["fiscal_year"]
+        period = filing["fiscal_period"]
+        ticker = filing["ticker"]
+        data = point_in_time(
+            company_identifiers=[ticker],
+            start_year=year,
+            start_period=period,
+            end_year=year,
+            end_period=period,
+            use_fiscal_period=True,
+            all_face=True,
+            all_footnotes=True,
+        )
+        print(data)
 
-    create_filter(
-        service_namespace=service_namespace,
-        shared_access_key_name=shared_access_key_name,
-        shared_access_key_value=shared_access_key_value,
-        subscription_name=subscription,
-        filter_expression="FilingType = 'eightk_earningsPressRelease'",
-    )
     handle_filings(
-        filing_handler, connection_string=connection_string, subscription=subscription
+        filing_handler,
+        connection_string=connection_string,
+        subscription_name=subscription,
+        filter_expression="FilingType = 'annualQuarterlyReport'",
     )
-
