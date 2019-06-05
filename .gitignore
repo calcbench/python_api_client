@@ -7,3 +7,5 @@ _build/
 *.egg-info/
 build/
 calcbench.ini
+.vscode/settings.json
+.vscode/launch.json
