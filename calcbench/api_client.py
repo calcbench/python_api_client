@@ -168,7 +168,7 @@ def normalized_dataframe(company_identifiers=[],
         warnings.warn("Did not find metrics {0}".format(missing_metrics))
     data = pd.DataFrame(data)
     data.set_index(keys=['ticker', 'metric', 'period'],
-                   inplace=True)    
+                   inplace=True)
     try:
         data = data.unstack('metric')['value']
     except ValueError as e:
@@ -335,7 +335,8 @@ def point_in_time(company_identifiers=[],
                   period_type=None,
                   use_fiscal_period=False,
                   include_preliminary=False,
-                  all_face=False):
+                  all_face=False,
+                  include_xbrl=True):
     '''
     Point-in-Time Data
     '''
@@ -355,7 +356,8 @@ def point_in_time(company_identifiers=[],
                       period_type=period_type,
                       use_fiscal_period=use_fiscal_period,
                       include_preliminary=include_preliminary,
-                      all_face=all_face)
+                      all_face=all_face,
+                      include_xbrl=include_xbrl)
     if not data:
         return pd.DataFrame()
     data = pd.DataFrame(data)
@@ -366,7 +368,7 @@ def point_in_time(company_identifiers=[],
     if 'calendar_period' in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)
         sort_columns.extend(['calendar_year', 'calendar_period'])
-    if 'fiscal_period' in data.columns:        
+    if 'fiscal_period' in data.columns:
         data.fiscal_period = data.fiscal_period.astype(period_number) 
     return data.sort_values(sort_columns).reset_index(drop=True)
 
@@ -384,7 +386,8 @@ def mapped_raw(company_identifiers=[],
                period_type=None,
                use_fiscal_period=False,
                include_preliminary=False,
-               all_face=False):
+               all_face=False, 
+               include_xbrl=True):
     payload = {
                'companiesParameters' : {
                    'companyIdentifiers' : list(company_identifiers), 
@@ -405,7 +408,8 @@ def mapped_raw(company_identifiers=[],
         'period' : start_period,
         'endPeriod' : end_period,
         'periodType' : period_type,
-        'useFiscalPeriod': use_fiscal_period
+        'useFiscalPeriod': use_fiscal_period,
+        'includeXBRL': include_xbrl
     }
     if update_date:
         period_parameters['updateDate'] = update_date.isoformat()
@@ -530,7 +534,7 @@ def document_search(company_identifiers=None,
                     batch_size=100,
                     sub_divide=False,
                     all_documents=False,
-                    ):        
+                    ):
     '''
     Footnotes and other text
     
