@@ -122,6 +122,7 @@ def normalized_dataframe(
     period=None,
     all_history=False,
     period_type=None,
+    trace_hyperlinks=False,
 ):
     """Normalized data.
     
@@ -156,7 +157,7 @@ def normalized_dataframe(
         year=year,
         period=period,
         all_history=all_history,
-        period_type=period_type,
+        period_type=period_type
     )
     if not data:
         warnings.warn("No data found")
@@ -173,7 +174,10 @@ def normalized_dataframe(
         d["period"] = build_period(d)
         d["ticker"] = d["ticker"].upper()
         try:  # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
-            d["value"] = float(d["value"])
+            value = float(d["value"])
+            if trace_hyperlinks:              
+                value =  '=HYPERLINK("https://www.calcbench.com/benchmark/traceValueExcelV2?metric={metric}&cid={ticker}&year={fiscal_year}&period={fiscal_period}&useFiscalPeriod=True&showLinks=true", {value})'.format(**d)             
+            d["value"] = value
         except (ValueError, KeyError):
             pass
         metrics_found.add(d["metric"])
@@ -918,6 +922,5 @@ def press_release_raw(
 
 
 if __name__ == "__main__":
-    _rig_for_testing(domain="localhost")
-    press_release_raw(["msft"], 2017, 0)
-
+    d = standardized_data(company_identifiers=['msft', 'orcl'], metrics=['DerivativeNotionalAmount', 'revenue'], start_year=2017, end_year=2017, period_type='annual', trace_urls=True)
+    print(d)
