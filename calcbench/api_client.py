@@ -615,6 +615,30 @@ def dimensional_raw(
     return _json_POST("dimensionalData", payload)
 
 
+def document_dataframe(company_identifiers=[], disclosure_names=[], all_history=False):
+    docs = list(
+        document_search(
+            company_identifiers=company_identifiers,
+            disclosure_names=disclosure_names,
+            all_history=True,
+            use_fiscal_period=True,
+        )
+    )
+    period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
+    for doc in docs:
+        doc["period"] = pd.Period(
+            year=doc["fiscal_year"], quarter=period_map[doc["fiscal_period"]], freq="q"
+        )
+        doc["ticker"] = doc["ticker"].upper()
+        doc["value"] = True
+    return (
+        pd.DataFrame(docs)
+        .set_index(keys=["ticker", "disclosure_type_name", "period"])
+        .unstack("disclosure_type_name")["value"]
+        .unstack("ticker")
+    )
+
+
 def document_search(
     company_identifiers=None,
     full_text_search_term=None,
@@ -631,6 +655,7 @@ def document_search(
     batch_size=100,
     sub_divide=False,
     all_documents=False,
+    disclosure_names=[],
 ):
     """
     Footnotes and other text
@@ -658,6 +683,7 @@ def document_search(
             block_tag_name,
             document_name,
             all_documents,
+            disclosure_names,
         ]
     ):
         raise (ValueError("Need to supply at least one search parameter."))
@@ -686,6 +712,7 @@ def document_search(
             "limit": batch_size,
             "subDivide": sub_divide,
             "allFootnotes": all_documents,
+            "disclosureNames": disclosure_names,
         },
     }
 
@@ -935,18 +962,12 @@ def press_release_raw(
 
 
 if __name__ == "__main__":
-    standardized_data(
-        metrics=["assets"],
-        all_history=True,
-        period_type="quarterly",
-        company_identifiers=["msft"],
-        use_fiscal_period=False,
+    list(
+        document_search(
+            company_identifiers=["dst"],
+            document_names=["Risk Factors", "Management's Discussion And Analysis"],
+            all_history=True,
+            use_fiscal_period=True,
+        )
     )
-    standardized_data(
-        metrics=["assets"],
-        all_history=True,
-        period_type="quarterly",
-        company_identifiers=["msft"],
-        use_fiscal_period=True,
-    )
-    print(d)
+
