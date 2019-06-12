@@ -123,6 +123,7 @@ def normalized_dataframe(
     all_history=False,
     period_type=None,
     trace_hyperlinks=False,
+    use_fiscal_period=False,
 ):
     """Normalized data.
     
@@ -158,6 +159,7 @@ def normalized_dataframe(
         period=period,
         all_history=all_history,
         period_type=period_type,
+        use_fiscal_period=use_fiscal_period,
     )
     if not data:
         warnings.warn("No data found")
@@ -171,7 +173,7 @@ def normalized_dataframe(
 
     metrics_found = set()
     for d in data:
-        d["period"] = build_period(d)
+        d["period"] = build_period(d, use_fiscal_period)
         d["ticker"] = d["ticker"].upper()
         try:  # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
             value = float(d["value"])
@@ -210,11 +212,15 @@ def normalized_dataframe(
     return data
 
 
-def _build_quarter_period(data_point):
+def _build_quarter_period(data_point, use_fiscal_period):
     try:
         return pd.Period(
-            year=data_point.pop("calendar_year"),
-            quarter=data_point.pop("calendar_period"),
+            year=data_point.pop(
+                "fiscal_year" if use_fiscal_period else "calendar_year"
+            ),
+            quarter=data_point.pop(
+                "fiscal_period" if use_fiscal_period else "calendar_period"
+            ),
             freq="q",
         )
     except ValueError:
@@ -222,9 +228,12 @@ def _build_quarter_period(data_point):
         return pd.Period()
 
 
-def _build_annual_period(data_point):
-    data_point.pop("calendar_period")
-    return pd.Period(year=data_point.pop("calendar_year"), freq="a")
+def _build_annual_period(data_point, use_fiscal_period):
+    data_point.pop("fiscal_period" if use_fiscal_period else "calendar_period")
+    return pd.Period(
+        year=data_point.pop("fiscal_year" if use_fiscal_period else "calendar_year"),
+        freq="a",
+    )
 
 
 normalized_data = normalized_dataframe  # used to call it normalized_data.
@@ -248,6 +257,7 @@ def normalized_raw(
     period=None,
     period_type=None,
     include_preliminary=False,
+    use_fiscal_period=False,
 ):
     """
     Normalized data.
@@ -367,6 +377,7 @@ def normalized_raw(
             "allHistory": all_history,
             "updateDate": update_date and update_date.isoformat(),
             "periodType": period_type,
+            "useFiscalPeriod": use_fiscal_period,
         },
         "companiesParameters": {
             "entireUniverse": entire_universe,
@@ -924,12 +935,18 @@ def press_release_raw(
 
 
 if __name__ == "__main__":
-    d = standardized_data(
-        company_identifiers=["msft", "orcl"],
-        metrics=["DerivativeNotionalAmount", "revenue"],
-        start_year=2017,
-        end_year=2017,
-        period_type="annual",
-        trace_urls=True,
+    standardized_data(
+        metrics=["assets"],
+        all_history=True,
+        period_type="quarterly",
+        company_identifiers=["msft"],
+        use_fiscal_period=False,
+    )
+    standardized_data(
+        metrics=["assets"],
+        all_history=True,
+        period_type="quarterly",
+        company_identifiers=["msft"],
+        use_fiscal_period=True,
     )
     print(d)
