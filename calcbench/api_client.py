@@ -91,7 +91,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
 def _add_backoff(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-
         if _SESSION_STUFF["enable_backoff"]:
             return backoff.on_exception(
                 backoff.expo,
@@ -684,20 +683,22 @@ def document_dataframe(
     )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
     for doc in docs:
-        doc["period"] = pd.Period(
-            year=doc["fiscal_year"], quarter=period_map[doc["fiscal_period"]], freq="q"
-        )
+        period_year = doc["fiscal_year"]
+        if period in ("Y", 0):
+            p = pd.Period(year=period_year, freq="a")
+        else:
+            p = pd.Period(
+                year=period_year,
+                quarter=period_map[doc["fiscal_period"]],
+                freq="q",
+            )
+        doc["period"] = p
         doc["ticker"] = doc["ticker"].upper()
         doc["value"] = doc
     data = pd.DataFrame(docs)
     data = data.set_index(keys=["ticker", "disclosure_type_name", "period"])
     data = data.loc[~data.index.duplicated()]  # There can be duplicates
-    try:
-        data = data.unstack("disclosure_type_name")["value"]
-    except ValueError as e:
-        if str(e) == "Index contains duplicate entries, cannot reshape":
-            print("Duplicate values", data[data.index.duplicated()])
-        raise
+    data = data.unstack("disclosure_type_name")["value"]
     data = data.unstack("ticker")
     data = data.fillna(False)
     return data
@@ -1008,6 +1009,11 @@ def press_release_raw(
 
 if __name__ == "__main__":
     from tqdm import tqdm
-    document_dataframe(company_identifiers=['', 'TWOU', 'DDD', 'EGHT', 'ATEN'], 
-                                disclosure_names=["Management's Discussion And Analysis", "Risk Factors"],
-                                year=2017, period="Y")
+
+    document_dataframe(
+        company_identifiers=["", "TWOU", "DDD", "EGHT", "ATEN"],
+        disclosure_names=["Management's Discussion And Analysis", "Risk Factors"],
+        year=2017,
+        period="Y",
+    )
+
