@@ -13,6 +13,7 @@ import warnings
 from datetime import datetime
 from functools import wraps
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -43,7 +44,6 @@ _SESSION_STUFF = {
     "session": None,
     "timeout": 60 * 20,  # twenty minute content request timeout, by default
     "enable_backoff": False,
-
 }
 
 
@@ -150,7 +150,6 @@ def set_credentials(cb_username, cb_password):
 
 def enable_backoff(backoff_on=True):
     _SESSION_STUFF["enable_backoff"] = backoff_on
-
 
 
 def set_proxies(proxies):
@@ -665,15 +664,22 @@ def dimensional_raw(
 
 
 def document_dataframe(
-    company_identifiers=[], disclosure_names=[], all_history=False, progress_bar=None
+    company_identifiers=[],
+    disclosure_names=[],
+    all_history=False,
+    year=None,
+    period=None,
+    progress_bar=None,
 ):
     docs = list(
         document_search(
             company_identifiers=company_identifiers,
             disclosure_names=disclosure_names,
-            all_history=True,
+            all_history=all_history,
             use_fiscal_period=True,
             progress_bar=progress_bar,
+            year=year,
+            period=period,
         )
     )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
@@ -682,7 +688,7 @@ def document_dataframe(
             year=doc["fiscal_year"], quarter=period_map[doc["fiscal_period"]], freq="q"
         )
         doc["ticker"] = doc["ticker"].upper()
-        doc["value"] = True
+        doc["value"] = doc
     data = pd.DataFrame(docs)
     data = data.set_index(keys=["ticker", "disclosure_type_name", "period"])
     data = data.loc[~data.index.duplicated()]  # There can be duplicates
@@ -778,8 +784,8 @@ def document_search(
     results = {"moreResults": True}
     while results["moreResults"]:
         results = _json_POST("footnoteSearch", payload)
-        disclosures = results['footnotes']
-        if progress_bar:
+        disclosures = results["footnotes"]
+        if progress_bar is not None:
             progress_bar.update(len(disclosures))
         for result in disclosures:
             yield DocumentSearchResults(result)
@@ -1002,16 +1008,6 @@ def press_release_raw(
 
 if __name__ == "__main__":
     from tqdm import tqdm
-    import logging
-
-    tickers = tickers(index="DJIA")
-    logging.getLogger("backoff").addHandler(logging.StreamHandler())
-    # enable_backoff()
-    list(
-        document_search(
-            company_identifiers=tickers,
-            disclosure_names=["Risk Factors", "Management's Discussion And Analysis"],
-            all_history=True,
-        )
-    )
-
+    document_dataframe(company_identifiers=['', 'TWOU', 'DDD', 'EGHT', 'ATEN'], 
+                                disclosure_names=["Management's Discussion And Analysis", "Risk Factors"],
+                                year=2017, period="Y")
