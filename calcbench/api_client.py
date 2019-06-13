@@ -11,6 +11,10 @@ import requests
 import json
 import warnings
 from datetime import datetime
+from functools import wraps
+import logging
+logger = logging.getLogger(__name__)
+
 
 try:
     import pandas as pd
@@ -24,6 +28,11 @@ try:
 except ImportError:
     pass
 
+try:
+    import backoff
+except ImportError:
+    pass
+
 _SESSION_STUFF = {
     "calcbench_user_name": os.environ.get("CALCBENCH_USERNAME"),
     "calcbench_password": os.environ.get("CALCBENCH_PASSWORD"),
@@ -33,6 +42,8 @@ _SESSION_STUFF = {
     "ssl_verify": True,
     "session": None,
     "timeout": 60 * 20,  # twenty minute content request timeout, by default
+    "enable_backoff": False,
+
 }
 
 
@@ -77,6 +88,24 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
+def _add_backoff(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+
+        if _SESSION_STUFF["enable_backoff"]:
+            return backoff.on_exception(
+                backoff.expo,
+                requests.exceptions.RequestException,
+                max_tries=8,
+                logger=logger,
+            )(f)(*args, **kwargs)
+        else:
+            return f(*args, **kwargs)
+
+    return wrapper
+
+
+@_add_backoff
 def _json_POST(end_point, payload):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
     response = _calcbench_session().post(
@@ -94,6 +123,21 @@ def _json_POST(end_point, payload):
     return response.json()
 
 
+@_add_backoff
+def _json_GET(path, params):
+    url = _SESSION_STUFF["domain"].format(path)
+    response = _calcbench_session().get(
+        url,
+        params=params,
+        headers={"content-type": "application/json"},
+        verify=_SESSION_STUFF["ssl_verify"],
+        timeout=_SESSION_STUFF["timeout"],
+    )
+
+    response.raise_for_status()
+    return response.json()
+
+
 def set_credentials(cb_username, cb_password):
     """Set your calcbench credentials.
     
@@ -102,6 +146,11 @@ def set_credentials(cb_username, cb_password):
     _SESSION_STUFF["calcbench_user_name"] = cb_username
     _SESSION_STUFF["calcbench_password"] = cb_password
     _calcbench_session()  # Make sure credentials work.
+
+
+def enable_backoff(backoff_on=True):
+    _SESSION_STUFF["enable_backoff"] = backoff_on
+
 
 
 def set_proxies(proxies):
@@ -615,13 +664,16 @@ def dimensional_raw(
     return _json_POST("dimensionalData", payload)
 
 
-def document_dataframe(company_identifiers=[], disclosure_names=[], all_history=False):
+def document_dataframe(
+    company_identifiers=[], disclosure_names=[], all_history=False, progress_bar=None
+):
     docs = list(
         document_search(
             company_identifiers=company_identifiers,
             disclosure_names=disclosure_names,
             all_history=True,
             use_fiscal_period=True,
+            progress_bar=progress_bar,
         )
     )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
@@ -631,12 +683,18 @@ def document_dataframe(company_identifiers=[], disclosure_names=[], all_history=
         )
         doc["ticker"] = doc["ticker"].upper()
         doc["value"] = True
-    return (
-        pd.DataFrame(docs)
-        .set_index(keys=["ticker", "disclosure_type_name", "period"])
-        .unstack("disclosure_type_name")["value"]
-        .unstack("ticker")
-    )
+    data = pd.DataFrame(docs)
+    data = data.set_index(keys=["ticker", "disclosure_type_name", "period"])
+    data = data.loc[~data.index.duplicated()]  # There can be duplicates
+    try:
+        data = data.unstack("disclosure_type_name")["value"]
+    except ValueError as e:
+        if str(e) == "Index contains duplicate entries, cannot reshape":
+            print("Duplicate values", data[data.index.duplicated()])
+        raise
+    data = data.unstack("ticker")
+    data = data.fillna(False)
+    return data
 
 
 def document_search(
@@ -656,6 +714,7 @@ def document_search(
     sub_divide=False,
     all_documents=False,
     disclosure_names=[],
+    progress_bar=None,
 ):
     """
     Footnotes and other text
@@ -719,8 +778,12 @@ def document_search(
     results = {"moreResults": True}
     while results["moreResults"]:
         results = _json_POST("footnoteSearch", payload)
-        for result in results["footnotes"]:
+        disclosures = results['footnotes']
+        if progress_bar:
+            progress_bar.update(len(disclosures))
+        for result in disclosures:
             yield DocumentSearchResults(result)
+
         payload["pageParameters"]["startOffset"] = results["nextGroupStartOffset"]
 
 
@@ -750,46 +813,22 @@ class DocumentSearchResults(dict):
 
 
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
-    url = _SESSION_STUFF["domain"].format("query/disclosureBySECLink")
     payload = {"blobid": blob_id, "secid": SEC_ID, "url": SEC_URL}
-    response = _calcbench_session().get(
-        url,
-        params=payload,
-        headers={"content-type": "application/json"},
-        verify=_SESSION_STUFF["ssl_verify"],
-        timeout=_SESSION_STUFF["timeout"],
-    )
-    response.raise_for_status()
-    return response.json()["blobs"][0]
+    json = _json_GET("query/disclosureBySECLink", payload)
+    return json["blobs"][0]
 
 
 def document_contents_by_network_id(network_id):
-    url = _SESSION_STUFF["domain"].format("query/disclosureByNetworkIDOBJ")
     payload = {"nid": network_id}
-    response = _calcbench_session().get(
-        url,
-        params=payload,
-        headers={"content-type": "application/json"},
-        verify=_SESSION_STUFF["ssl_verify"],
-        timeout=_SESSION_STUFF["timeout"],
-    )
-
-    response.raise_for_status()
-    blobs = response.json()["blobs"]
+    json = _json_GET("query/disclosureByNetworkIDOBJ", payload)
+    blobs = json["blobs"]
     return blobs[0] if len(blobs) else ""
 
 
 def tag_contents(accession_id, block_tag_name):
-    url = _SESSION_STUFF["domain"].format("query/disclosuresByTag")
     payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
-    response = _calcbench_session().get(
-        url,
-        params=payload,
-        headers={"content-type": "application/json"},
-        verify=_SESSION_STUFF["ssl_verify"],
-    )
-    response.raise_for_status()
-    return response.json()[0]["blobs"][0]
+    json = _json_GET("query/disclosuresByTag", payload)
+    return json[0]["blobs"][0]
 
 
 def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
@@ -962,12 +1001,17 @@ def press_release_raw(
 
 
 if __name__ == "__main__":
+    from tqdm import tqdm
+    import logging
+
+    tickers = tickers(index="DJIA")
+    logging.getLogger("backoff").addHandler(logging.StreamHandler())
+    # enable_backoff()
     list(
         document_search(
-            company_identifiers=["dst"],
-            document_names=["Risk Factors", "Management's Discussion And Analysis"],
+            company_identifiers=tickers,
+            disclosure_names=["Risk Factors", "Management's Discussion And Analysis"],
             all_history=True,
-            use_fiscal_period=True,
         )
     )
 

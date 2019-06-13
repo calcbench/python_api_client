@@ -25,6 +25,7 @@ from .api_client import (
     html_diff,
     press_release_raw,
     document_dataframe,
+    enable_backoff,
 )
 
 from .listener import handle_filings
