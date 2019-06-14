@@ -117,7 +117,7 @@ def _json_POST(end_point, payload):
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        print(response.content)
+        logger.exception('Exception params {0}'.format(payload))
         raise e
     return response.json()
 
@@ -669,6 +669,7 @@ def document_dataframe(
     year=None,
     period=None,
     progress_bar=None,
+    period_type=None
 ):
     docs = list(
         document_search(
@@ -679,12 +680,13 @@ def document_dataframe(
             progress_bar=progress_bar,
             year=year,
             period=period,
+            period_type=period_type
         )
     )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
     for doc in docs:
         period_year = doc["fiscal_year"]
-        if period in ("Y", 0):
+        if period in ("Y", 0) or period_type == 'annual':
             p = pd.Period(year=period_year, freq="a")
         else:
             p = pd.Period(
@@ -700,7 +702,6 @@ def document_dataframe(
     data = data.loc[~data.index.duplicated()]  # There can be duplicates
     data = data.unstack("disclosure_type_name")["value"]
     data = data.unstack("ticker")
-    data = data.fillna(False)
     return data
 
 
@@ -1008,12 +1009,18 @@ def press_release_raw(
 
 
 if __name__ == "__main__":
-    from tqdm import tqdm
-
-    document_dataframe(
-        company_identifiers=["", "TWOU", "DDD", "EGHT", "ATEN"],
-        disclosure_names=["Management's Discussion And Analysis", "Risk Factors"],
-        year=2017,
-        period="Y",
-    )
-
+    import calcbench as cb
+    cb.enable_backoff()
+    import pandas as pd
+    import numpy as np
+    import logging
+    from tqdm import tqdm, tqdm_notebook
+    logging.getLogger().setLevel(logging.DEBUG)
+    tickers = list(pd.read_excel(r"C:\Users\Andrew Kittredge\Downloads\R3000 Constituents_Historical_2009_2018.xlsx").TICKER)
+    docs = pd.DataFrame()
+    for ticker_chunk in tqdm(np.array_split(tickers, int(len(tickers) / 30))):
+        docs = docs.append(cb.document_dataframe(disclosure_names=['Risk Factors', "Management's Discussion And Analysis"], 
+                                    company_identifiers=list(ticker_chunk),
+                                    all_history=True,
+                                    period_type='annual'))
+    docs = docs.applymap(lambda d: bool(d))
