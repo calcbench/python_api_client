@@ -696,9 +696,10 @@ def document_dataframe(
             )
         doc["period"] = p
         doc["ticker"] = doc["ticker"].upper()
-        doc["value"] = doc
+        doc["value"] = True
     data = pd.DataFrame(docs)
     data = data.set_index(keys=["ticker", "disclosure_type_name", "period"])
+    data = data.reindex()
     data = data.loc[~data.index.duplicated()]  # There can be duplicates
     data = data.unstack("disclosure_type_name")["value"]
     data = data.unstack("ticker")
@@ -761,7 +762,6 @@ def document_search(
     payload = {
         "companiesParameters": {
             "entireUniverse": entire_universe,
-            "companyIdentifiers": company_identifiers,
         },
         "periodParameters": {
             "year": year,
@@ -782,7 +782,18 @@ def document_search(
             "disclosureNames": disclosure_names,
         },
     }
+    if company_identifiers:
+        chunk_size = 30        
+        for i in range(0, len(company_identifiers), chunk_size):
+            payload['companiesParameters']['companyIdentifiers'] = company_identifiers[i: i + chunk_size]
+            for r in _document_search_results(payload, progress_bar=progress_bar):
+                yield r
+    else:
+        for r in _document_search_results(payload, progress_bar=progress_bar):
+            yield r
 
+
+def _document_search_results(payload, progress_bar=None):
     results = {"moreResults": True}
     while results["moreResults"]:
         results = _json_POST("footnoteSearch", payload)
@@ -791,8 +802,8 @@ def document_search(
             progress_bar.update(len(disclosures))
         for result in disclosures:
             yield DocumentSearchResults(result)
-
         payload["pageParameters"]["startOffset"] = results["nextGroupStartOffset"]
+    payload["pageParameters"]["startOffset"] = None
 
 
 class DocumentSearchResults(dict):
@@ -1016,11 +1027,7 @@ if __name__ == "__main__":
     import logging
     from tqdm import tqdm, tqdm_notebook
     logging.getLogger().setLevel(logging.DEBUG)
-    tickers = list(pd.read_excel(r"C:\Users\Andrew Kittredge\Downloads\R3000 Constituents_Historical_2009_2018.xlsx").TICKER)
-    docs = pd.DataFrame()
-    for ticker_chunk in tqdm(np.array_split(tickers, int(len(tickers) / 30))):
-        docs = docs.append(cb.document_dataframe(disclosure_names=['Risk Factors', "Management's Discussion And Analysis"], 
-                                    company_identifiers=list(ticker_chunk),
-                                    all_history=True,
-                                    period_type='annual'))
-    docs = docs.applymap(lambda d: bool(d))
+    cb.document_dataframe(disclosure_names=['Risk Factors', "Management's Discussion And Analysis"], 
+                                 company_identifiers=['msft', 'orcl'],
+                                 all_history=True,
+                                 period_type='annual')
