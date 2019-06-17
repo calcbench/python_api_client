@@ -696,10 +696,9 @@ def document_dataframe(
             )
         doc["period"] = p
         doc["ticker"] = doc["ticker"].upper()
-        doc["value"] = True
+        doc["value"] = doc
     data = pd.DataFrame(docs)
     data = data.set_index(keys=["ticker", "disclosure_type_name", "period"])
-    data = data.reindex()
     data = data.loc[~data.index.duplicated()]  # There can be duplicates
     data = data.unstack("disclosure_type_name")["value"]
     data = data.unstack("ticker")
