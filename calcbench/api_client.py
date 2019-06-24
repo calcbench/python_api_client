@@ -117,7 +117,7 @@ def _json_POST(end_point, payload):
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        logger.exception('Exception params {0}'.format(payload))
+        logger.exception('Exception {0}, {1}'.format(end_point, payload))
         raise e
     return response.json()
 
@@ -132,7 +132,11 @@ def _json_GET(path, params):
         verify=_SESSION_STUFF["ssl_verify"],
         timeout=_SESSION_STUFF["timeout"],
     )
-
+    try:
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        logger.exception('Exception {0}, {1}'.format(path, params))
+        raise e
     response.raise_for_status()
     return response.json()
 
