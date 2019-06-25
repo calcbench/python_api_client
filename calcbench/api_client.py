@@ -117,7 +117,7 @@ def _json_POST(end_point, payload):
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        logger.exception('Exception {0}, {1}'.format(end_point, payload))
+        logger.exception("Exception {0}, {1}".format(end_point, payload))
         raise e
     return response.json()
 
@@ -135,7 +135,7 @@ def _json_GET(path, params):
     try:
         response.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        logger.exception('Exception {0}, {1}'.format(path, params))
+        logger.exception("Exception {0}, {1}".format(path, params))
         raise e
     response.raise_for_status()
     return response.json()
@@ -673,7 +673,7 @@ def document_dataframe(
     year=None,
     period=None,
     progress_bar=None,
-    period_type=None
+    period_type=None,
 ):
     docs = list(
         document_search(
@@ -684,19 +684,17 @@ def document_dataframe(
             progress_bar=progress_bar,
             year=year,
             period=period,
-            period_type=period_type
+            period_type=period_type,
         )
     )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
     for doc in docs:
         period_year = doc["fiscal_year"]
-        if period in ("Y", 0) or period_type == 'annual':
+        if period in ("Y", 0) or period_type == "annual":
             p = pd.Period(year=period_year, freq="a")
         else:
             p = pd.Period(
-                year=period_year,
-                quarter=period_map[doc["fiscal_period"]],
-                freq="q",
+                year=period_year, quarter=period_map[doc["fiscal_period"]], freq="q"
             )
         doc["period"] = p
         doc["ticker"] = doc["ticker"].upper()
@@ -763,9 +761,7 @@ def document_search(
     if not all_history:
         period_type = period_type or "annual" if period in (0, "Y") else "quarterly"
     payload = {
-        "companiesParameters": {
-            "entireUniverse": entire_universe,
-        },
+        "companiesParameters": {"entireUniverse": entire_universe},
         "periodParameters": {
             "year": year,
             "period": period,
@@ -786,9 +782,11 @@ def document_search(
         },
     }
     if company_identifiers:
-        chunk_size = 30        
+        chunk_size = 30
         for i in range(0, len(company_identifiers), chunk_size):
-            payload['companiesParameters']['companyIdentifiers'] = company_identifiers[i: i + chunk_size]
+            payload["companiesParameters"]["companyIdentifiers"] = company_identifiers[
+                i : i + chunk_size
+            ]
             for r in _document_search_results(payload, progress_bar=progress_bar):
                 yield r
     else:
@@ -1022,15 +1020,27 @@ def press_release_raw(
     return _json_POST("pressReleaseData", payload)
 
 
+def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
+    payload = {
+        "companiesParameters": {
+            "companyIdentifiers": company_identifiers,
+            "entireUniverse": entire_universe,
+        },
+        "pageParameters": {"clauses": clauses},
+    }
+    results = _json_POST("rawXBRLData", payload)
+    for result in results:
+        if result["dimension_string"]:
+            result["dimensions"] = {
+                d.split(":")[0]: d.split(":")[1]
+                for d in result["dimension_string"].split(",")
+            }
+        else:
+            result["dimensions"] = []
+    return results
+
+
 if __name__ == "__main__":
-    import calcbench as cb
-    cb.enable_backoff()
-    import pandas as pd
-    import numpy as np
-    import logging
-    from tqdm import tqdm, tqdm_notebook
-    logging.getLogger().setLevel(logging.DEBUG)
-    cb.document_dataframe(disclosure_names=['Risk Factors', "Management's Discussion And Analysis"], 
-                                 company_identifiers=['msft', 'orcl'],
-                                 all_history=True,
-                                 period_type='annual')
+    clauses = [{"value": "Revenues", "parameter": "XBRLtag", "operator": 10}]
+    print(raw_xbrl_raw(company_identifiers=["mmm"], clauses=clauses))
+

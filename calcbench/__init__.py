@@ -26,6 +26,7 @@ from .api_client import (
     press_release_raw,
     document_dataframe,
     enable_backoff,
+    raw_xbrl_raw,
 )
 
 from .listener import handle_filings
