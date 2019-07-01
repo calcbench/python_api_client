@@ -245,7 +245,8 @@ def normalized_dataframe(
         data = data.unstack("metric")["value"]
     except ValueError as e:
         if str(e) == "Index contains duplicate entries, cannot reshape":
-            print("Duplicate values", data[data.index.duplicated()])
+            duplicates = data[data.index.duplicated()]["value"]
+            logger.error("Duplicate values \n {0}".format(duplicates))
         raise
 
     for column_name in data.columns.values:
@@ -850,9 +851,17 @@ def tag_contents(accession_id, block_tag_name):
     return json[0]["blobs"][0]
 
 
-def tickers(SIC_codes=[], index=None, company_identifiers=[], entire_universe=False):
+def tickers(
+    SIC_codes=[],
+    index=None,
+    company_identifiers=[],
+    entire_universe=False,
+    NAICS_codes=[],
+):
     """Return a list of tickers in the peer-group"""
-    companies = _companies(SIC_codes, index, company_identifiers, entire_universe)
+    companies = _companies(
+        SIC_codes, index, company_identifiers, entire_universe, NAICS_codes=NAICS_codes
+    )
     tickers = [co["ticker"] for co in companies]
     return tickers
 
@@ -863,6 +872,7 @@ def companies(
     company_identifiers=[],
     entire_universe=False,
     include_most_recent_filing_dates=False,
+    NAICS_codes=[],
 ):
     """Return a DataFrame with company details"""
     companies = _companies(
@@ -871,6 +881,7 @@ def companies(
         company_identifiers,
         entire_universe,
         include_most_recent_filing_dates,
+        NAICS_codes=NAICS_codes,
     )
     return pd.DataFrame(companies)
 
@@ -881,10 +892,11 @@ def _companies(
     company_identifiers,
     entire_universe=False,
     include_most_recent_filing_dates=False,
+    NAICS_codes=None,
 ):
-    if not (SIC_code or index or entire_universe or company_identifiers):
+    if not (SIC_code or index or entire_universe or company_identifiers, NAICS_codes):
         raise ValueError(
-            "Must supply SIC_code, index or company_identifiers or entire_univers."
+            "Must supply SIC_code, NAICS_codes, index or company_identifiers or entire_univers."
         )
     payload = {}
 
@@ -894,6 +906,8 @@ def _companies(
         payload["index"] = index
     elif SIC_code:
         payload["SICCodes"] = SIC_code
+    elif NAICS_codes:
+        payload["NAICSCodes"] = NAICS_codes
     elif company_identifiers:
         payload["companyIdentifiers"] = ",".join(company_identifiers)
     else:
@@ -1040,6 +1054,31 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    clauses = [{"value": "Revenues", "parameter": "XBRLtag", "operator": 10}]
-    print(raw_xbrl_raw(company_identifiers=["mmm"], clauses=clauses))
+    year = 2018
+    # 0 for annual data, 1,2,3,4 for quarterly data
+    period = 0
+    info = [
+        "entity_name",
+        "sic_code",
+        "sic_category",
+        "City",
+        "Country",
+        "State",
+        "Zip",
+        "naics",
+        "is_ifrs",
+        "sec_html_url",
+        "earnings_release_url",
+        "proxy_url",
+        "FiscalYearEndDate",
+        "primary_currency",
+    ]
+    standardized_data(
+        company_identifiers=["emgc"],
+        metrics=["is_ifrs"],
+        start_year=year,
+        end_year=year,
+        period_type="annual",
+        trace_hyperlinks=False,
+    )
 
