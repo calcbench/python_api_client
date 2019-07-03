@@ -84,7 +84,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -674,6 +673,7 @@ def document_dataframe(
     period=None,
     progress_bar=None,
     period_type=None,
+    identifier_key='ticker'
 ):
     docs = list(
         document_search(
@@ -693,17 +693,24 @@ def document_dataframe(
         if period in ("Y", 0) or period_type == "annual":
             p = pd.Period(year=period_year, freq="a")
         else:
-            p = pd.Period(
-                year=period_year, quarter=period_map[doc["fiscal_period"]], freq="q"
-            )
+            try:
+                quarter = period_map[doc['fiscal_period']]
+            except KeyError:
+                # This happens for non-XBRL companies
+                logger.info('Strange period for {ticker}'.format(**doc))
+                p = None
+            else:
+                p = pd.Period(
+                    year=period_year, quarter=quarter, freq="q"
+                )
         doc["period"] = p
-        doc["ticker"] = doc["ticker"].upper()
+        doc[identifier_key] = doc[identifier_key].upper()
         doc["value"] = doc
     data = pd.DataFrame(docs)
-    data = data.set_index(keys=["ticker", "disclosure_type_name", "period"])
+    data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])
     data = data.loc[~data.index.duplicated()]  # There can be duplicates
     data = data.unstack("disclosure_type_name")["value"]
-    data = data.unstack("ticker")
+    data = data.unstack(identifier_key)
     return data
 
 
@@ -883,8 +890,11 @@ def companies(
         include_most_recent_filing_dates,
         NAICS_codes=NAICS_codes,
     )
-    return pd.DataFrame(companies)
-
+    
+    companies = pd.DataFrame(companies)
+    for column in ['first_filing', 'most_recent_filing', 'most_recent_full_year_end']:
+        companies[column] = pd.to_datetime(companies[column], errors='coerce')
+    return companies
 
 def _companies(
     SIC_code,
@@ -913,13 +923,7 @@ def _companies(
     else:
         payload["universe"] = True
     payload["includeMostRecentFilingExtras"] = include_most_recent_filing_dates
-    url = _SESSION_STUFF["api_url_base"].format("companies")
-    r = _calcbench_session().get(
-        url, params=payload, verify=_SESSION_STUFF["ssl_verify"]
-    )
-    r.raise_for_status()
-    return r.json()
-
+    return _json_GET("api/companies", payload)
 
 def companies_raw(
     SIC_codes=[], index=None, company_identifiers=[], entire_universe=False
@@ -1054,31 +1058,7 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    year = 2018
-    # 0 for annual data, 1,2,3,4 for quarterly data
-    period = 0
-    info = [
-        "entity_name",
-        "sic_code",
-        "sic_category",
-        "City",
-        "Country",
-        "State",
-        "Zip",
-        "naics",
-        "is_ifrs",
-        "sec_html_url",
-        "earnings_release_url",
-        "proxy_url",
-        "FiscalYearEndDate",
-        "primary_currency",
-    ]
-    standardized_data(
-        company_identifiers=["emgc"],
-        metrics=["is_ifrs"],
-        start_year=year,
-        end_year=year,
-        period_type="annual",
-        trace_hyperlinks=False,
-    )
-
+    print(list(document_search(document_type=2700, 
+    company_identifiers=['0001609727'], 
+    all_history=True, 
+    period_type='Combined')))
