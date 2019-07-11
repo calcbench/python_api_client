@@ -456,7 +456,9 @@ def point_in_time(
     include_xbrl=True,
 ):
     """
-    Point-in-Time Data
+    Point-in-Time Data.
+
+    Standardized data with a timestamp when it was published by Calcbench
     """
 
     data = mapped_raw(

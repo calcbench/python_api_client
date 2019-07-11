@@ -22,3 +22,7 @@ Indices and tables
 .. automodule:: calcbench
 
 .. autofunction:: calcbench.set_credentials
+.. autofunction:: calcbench.standardized_data
+.. autofunciton:: calcbench.point_in_time
+.. autofunction:: calcbench.document_dataframe
+.. autofunction:: calcbench.document_search

@@ -50,6 +50,54 @@
 <p>username is the email address you use to login to calcbench.com.</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="calcbench.standardized_data">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">standardized_data</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">filing_accession_number=None</em>, <em class="sig-param">point_in_time=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">trace_hyperlinks=False</em>, <em class="sig-param">use_fiscal_period=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized data.</p>
+<p>Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>company_identifiers: a sequence of tickers (or CIK codes), eg [‘msft’, ‘goog’, ‘appl’]
+metrics: a sequence of metrics, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a> eg. [‘revenue’, ‘accountsreceivable’]
+start_year: first year of data
+start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+end_year: last year of data
+end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
+entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
+accession_id: Filing Accession ID from the SEC’s Edgar system.
+year: Get data for a single year, defaults to annual data.
+period_type: Either “annual” or “quarterly”.</p>
+</dd>
+<dt>Returns:</dt><dd><p>A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.document_dataframe">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.document_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="calcbench.document_search">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">document_search</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=None</em>, <em class="sig-param">full_text_search_term=None</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=0</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">document_type=None</em>, <em class="sig-param">block_tag_name=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">document_name=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">updated_from=None</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">sub_divide=False</em>, <em class="sig-param">all_documents=False</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">progress_bar=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.document_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Footnotes and other text</p>
+<p>Search for footnotes and other , see <a class="reference external" href="https://www.calcbench.com/footnote">https://www.calcbench.com/footnote</a>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>company_identifiers : list of tickers or CIK codes
+year: Year to get data for
+period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+period_type: quarterly or annual, only applicable when other period data not supplied.
+document_type: integer for Calcbench document type, Business Description:1100, Risk Factors:1110, Unresolved Comments:1120, Properties:1200, Legal Proceedings:1300, Executive Officers:2410, Defaults:2300, Market For Equity:2500, Selected Data:2600, MD&amp;A:2700, Market Risk:2710, Auditor’s Report:2810, Auditor Changes/Disagreements:2900, Controls And Procedures:2910, Other Information:2920, Corporate Governance:3100, Security Ownership:3120, Relationships:3130
+document_name: string for disclosure name, for example CommitmentAndContingencies.  Call document_types() for the whole list.
+updated_from: date, include filings from this date and after.
+sub_divide: return the document split into sections based on headers.
+all_documents: all of the documents for a single company/period.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Yields document search results</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
