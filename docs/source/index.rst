@@ -27,3 +27,4 @@ Indices and tables
 .. autofunction:: calcbench.document_dataframe
 .. autofunction:: calcbench.document_search
 .. autoclass:: calcbench.DocumentSearchResults
+.. autofunction:: calcbench.handle_filings
