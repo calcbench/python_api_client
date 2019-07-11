@@ -28,7 +28,7 @@ def handle_filings(
 ):
     sb_client = ServiceBusClient.from_connection_string(connection_string)
     subscription = sb_client.get_subscription(TOPIC, subscription_name)
-    create_filter(
+    _create_filter(
         sb_client.mgmt_client,
         subscription_name=subscription_name,
         filter_expression=filter_expression,
@@ -43,7 +43,7 @@ def handle_filings(
             warnings.warn(str(e))
 
 
-def create_filter(bus_service, subscription_name, filter_expression):
+def _create_filter(bus_service, subscription_name, filter_expression):
     bus_service.delete_rule(
         topic_name=TOPIC,
         subscription_name=subscription_name,
