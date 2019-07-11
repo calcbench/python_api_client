@@ -84,6 +84,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -675,7 +676,7 @@ def document_dataframe(
     period=None,
     progress_bar=None,
     period_type=None,
-    identifier_key='ticker'
+    identifier_key="ticker",
 ):
     docs = list(
         document_search(
@@ -696,15 +697,13 @@ def document_dataframe(
             p = pd.Period(year=period_year, freq="a")
         else:
             try:
-                quarter = period_map[doc['fiscal_period']]
+                quarter = period_map[doc["fiscal_period"]]
             except KeyError:
                 # This happens for non-XBRL companies
-                logger.info('Strange period for {ticker}'.format(**doc))
+                logger.info("Strange period for {ticker}".format(**doc))
                 p = None
             else:
-                p = pd.Period(
-                    year=period_year, quarter=quarter, freq="q"
-                )
+                p = pd.Period(year=period_year, quarter=quarter, freq="q")
         doc["period"] = p
         doc[identifier_key] = doc[identifier_key].upper()
         doc["value"] = doc
@@ -892,11 +891,12 @@ def companies(
         include_most_recent_filing_dates,
         NAICS_codes=NAICS_codes,
     )
-    
+
     companies = pd.DataFrame(companies)
-    for column in ['first_filing', 'most_recent_filing', 'most_recent_full_year_end']:
-        companies[column] = pd.to_datetime(companies[column], errors='coerce')
+    for column in ["first_filing", "most_recent_filing", "most_recent_full_year_end"]:
+        companies[column] = pd.to_datetime(companies[column], errors="coerce")
     return companies
+
 
 def _companies(
     SIC_code,
@@ -926,6 +926,7 @@ def _companies(
         payload["universe"] = True
     payload["includeMostRecentFilingExtras"] = include_most_recent_filing_dates
     return _json_GET("api/companies", payload)
+
 
 def companies_raw(
     SIC_codes=[], index=None, company_identifiers=[], entire_universe=False
@@ -1060,7 +1061,14 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    print(list(document_search(document_type=2700, 
-    company_identifiers=['0001609727'], 
-    all_history=True, 
-    period_type='Combined')))
+    print(
+        list(
+            document_search(
+                document_type=2700,
+                company_identifiers=["0001609727"],
+                all_history=True,
+                period_type="Combined",
+            )
+        )
+    )
+

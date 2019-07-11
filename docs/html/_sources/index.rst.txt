@@ -18,3 +18,12 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. automodule:: calcbench
+
+.. autofunction:: calcbench.set_credentials
+.. autofunction:: calcbench.standardized_data
+.. autofunction:: calcbench.point_in_time
+.. autofunction:: calcbench.document_dataframe
+.. autofunction:: calcbench.document_search
+.. autoclass:: calcbench.DocumentSearchResults

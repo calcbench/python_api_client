@@ -1,3 +1,6 @@
+"""
+Client for the Calcbench API
+"""
 __version__ = "1.4.1"
 from .api_client import (
     normalized_data,
@@ -27,6 +30,7 @@ from .api_client import (
     document_dataframe,
     enable_backoff,
     raw_xbrl_raw,
+    DocumentSearchResults,
 )
 
 from .listener import handle_filings
