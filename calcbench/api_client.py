@@ -13,7 +13,6 @@ import warnings
 from datetime import datetime
 from functools import wraps
 import logging
-
 logger = logging.getLogger(__name__)
 
 
@@ -140,10 +139,15 @@ def _json_GET(path, params):
     return response.json()
 
 
-def set_credentials(cb_username, cb_password):
+def set_credentials(cb_username, cb_password):    
     """Set your calcbench credentials.
+
+    Call this before any other Calcbench functions.
+
+    Alternatively set the CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables
     
-    username is the email address you use to login to calcbench.com.
+    :param str cb_username: Your calcbench.com email address
+    :param str cb_password: Your calcbench.com password
     """
     _SESSION_STUFF["calcbench_user_name"] = cb_username
     _SESSION_STUFF["calcbench_password"] = cb_password
@@ -175,23 +179,22 @@ def normalized_dataframe(
     trace_hyperlinks=False,
     use_fiscal_period=False,
 ):
-    """Normalized data.
+    """Standardized Data.
     
-    Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
+    Metrics are standardized by economic concept and time period.  The data behind the multi-company page, https://www.calcbench.com/multi.
     
-    Args:
-        company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
-        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
-        start_year: first year of data
-        start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-        end_year: last year of data
-        end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
-        entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
-        accession_id: Filing Accession ID from the SEC's Edgar system.
-        year: Get data for a single year, defaults to annual data.
-        period_type: Either "annual" or "quarterly".
-    Returns:
-        A Pandas.Dataframe with the periods as the index and columns indexed by metric and ticker
+    :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
+    :param sequence metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
+    :param int start_year: first year of data
+    :param int start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+    :param int end_year: last year of data
+    :param int end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
+    :param bool entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
+    :param int accession_id: Filing Accession ID from the SEC's Edgar system.
+    :param int year: Get data for a single year, defaults to annual data.
+    :param str period_type: Either "annual" or "quarterly".
+    :return: Dataframe with the periods as the index and columns indexed by metric and ticker
+    :rtype: pandas.Dataframe
     """
     if all_history and not period_type:
         raise ValueError("For all history you must specify a period_type")
@@ -311,7 +314,7 @@ def normalized_raw(
     use_fiscal_period=False,
 ):
     """
-    Normalized data.
+    Standardized data.
     
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
     
