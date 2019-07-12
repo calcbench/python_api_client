@@ -13,6 +13,7 @@ import warnings
 from datetime import datetime
 from functools import wraps
 import logging
+
 logger = logging.getLogger(__name__)
 
 
@@ -139,7 +140,7 @@ def _json_GET(path, params):
     return response.json()
 
 
-def set_credentials(cb_username, cb_password):    
+def set_credentials(cb_username, cb_password):
     """Set your calcbench credentials.
 
     Call this before any other Calcbench functions.
@@ -181,7 +182,9 @@ def normalized_dataframe(
 ):
     """Standardized Data.
     
-    Metrics are standardized by economic concept and time period.  The data behind the multi-company page, https://www.calcbench.com/multi.
+    Metrics are standardized by economic concept and time period.  
+    
+    The data behind the multi-company page, https://www.calcbench.com/multi.
     
     :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param sequence metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
@@ -194,7 +197,7 @@ def normalized_dataframe(
     :param int year: Get data for a single year, defaults to annual data.
     :param str period_type: Either "annual" or "quarterly".
     :return: Dataframe with the periods as the index and columns indexed by metric and ticker
-    :rtype: pandas.Dataframe
+    :rtype: Dataframe
     """
     if all_history and not period_type:
         raise ValueError("For all history you must specify a period_type")
@@ -459,8 +462,7 @@ def point_in_time(
     all_face=False,
     include_xbrl=True,
 ):
-    """
-    Point-in-Time Data.
+    """Point-in-Time Data.
 
     Standardized data with a timestamp when it was published by Calcbench
     """
@@ -631,7 +633,7 @@ def dimensional_raw(
     Get breakouts/segments, see https://www.calcbench.com/breakout.
     
     Args:
-        company_identifiers : list of tickers or CIK codes
+        company_identifiers : list of tickers or CIK codes, eg. ['msft', 'goog', 'appl', '0000066740']
         metrics : list of breakouts, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName".
         start_year: first year of data to get
         start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
@@ -681,6 +683,23 @@ def document_dataframe(
     period_type=None,
     identifier_key="ticker",
 ):
+    '''Disclosures/Footnotes in a DataFrame
+
+    document_dataframe(company_identifiers=["msft", "goog"], all_history=True, disclosure_names=["Management's Discussion And Analysis", "Risk Factors"]).fillna(False).applymap(lambda document: document and len(document.get_contents_text().split()))
+
+    :param list(str) company_identifiers: list of tickers or CIK codes
+    :params list(str) disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
+    :param bool all_history: Search all time periods
+    :param int year: The year to search
+    :param int period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param str period_type: "quarterly" or "annual", only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param tqdm.tqdm progress_bar: Pass a tqdm progress bar to keep an eye on things.
+    :param string identifier_key: "ticker" or "CIK", how to index the returned DataFrame.
+    :return: A DataFrame indexed by document name -> company identifier.
+    :rtyte: pandas.DataFrame
+
+    '''
+
     docs = list(
         document_search(
             company_identifiers=company_identifiers,
@@ -740,21 +759,22 @@ def document_search(
     """
     Footnotes and other text
     
-    Search for footnotes and other , see https://www.calcbench.com/footnote.
+    Search for footnotes and other sections of 10-K, see https://www.calcbench.com/footnote.
     
-    Args:
-        company_identifiers : list of tickers or CIK codes
-        year: Year to get data for
-        period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
-        period_type: quarterly or annual, only applicable when other period data not supplied.
-        document_type: integer for Calcbench document type, Business Description:1100, Risk Factors:1110, Unresolved Comments:1120, Properties:1200, Legal Proceedings:1300, Executive Officers:2410, Defaults:2300, Market For Equity:2500, Selected Data:2600, MD&A:2700, Market Risk:2710, Auditor's Report:2810, Auditor Changes/Disagreements:2900, Controls And Procedures:2910, Other Information:2920, Corporate Governance:3100, Security Ownership:3120, Relationships:3130
-        document_name: string for disclosure name, for example CommitmentAndContingencies.  Call document_types() for the whole list.
-        updated_from: date, include filings from this date and after.
-        sub_divide: return the document split into sections based on headers.
-        all_documents: all of the documents for a single company/period.
-    Returns:
-        Yields document search results
-        
+    :param list(str) company_identifiers: list of tickers or CIK codes
+    :param int year: Year to get data for
+    :param int period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param str period_type: "quarterly" or "annual", only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param list(str) document_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors'] 
+    :param bool all_history: Search all time periods
+    :param datetime.date updated_from: date, include filings from this date and after.
+    :param bool sub_divide: return the document split into sections based on headers.
+    :param bool all_documents: all of the documents for a single company/period.
+    :param bool entire_universe: Search all companies
+    :param tqdm.tqdm progress_bar: Pass a tqdm progress bar to keep an eye on things.
+    :return: A generator of DocumentSearchResults
+    :rtype: generator(DocumentSearchResults)
+
     """
     if not any(
         [
@@ -822,7 +842,7 @@ class DocumentSearchResults(dict):
     def get_contents(self):
         """Content of the document, with the filers HTML"""
         if self.get("network_id"):
-            return document_contents_by_network_id(self["network_id"])
+            return _document_contents_by_network_id(self["network_id"])
         else:
             return document_contents(
                 blob_id=self["blob_id"], SEC_ID=self["sec_filing_id"]
@@ -849,7 +869,7 @@ def document_contents(blob_id, SEC_ID, SEC_URL=None):
     return json["blobs"][0]
 
 
-def document_contents_by_network_id(network_id):
+def _document_contents_by_network_id(network_id):
     payload = {"nid": network_id}
     json = _json_GET("query/disclosureByNetworkIDOBJ", payload)
     blobs = json["blobs"]
@@ -869,7 +889,15 @@ def tickers(
     entire_universe=False,
     NAICS_codes=[],
 ):
-    """Return a list of tickers in the peer-group"""
+    """Get tickers
+    
+    :param list(int) SIC_codes: Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]
+    :param str index: 'DJIA' or 'SP500'
+    :param bool entire_universe: all of the companies in the Calcbench database
+    :param list(int) NAICS_codes: Sequence of NAICS codes
+    :return: list of tickers
+    :rtype: list(str)
+    """
     companies = _companies(
         SIC_codes, index, company_identifiers, entire_universe, NAICS_codes=NAICS_codes
     )
@@ -885,7 +913,15 @@ def companies(
     include_most_recent_filing_dates=False,
     NAICS_codes=[],
 ):
-    """Return a DataFrame with company details"""
+    """Return a DataFrame with company details
+    
+    :param list(int) SIC_codes: Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]
+    :param str index: 'DJIA' or 'SP500'
+    :param bool entire_universe: all of the companies in the Calcbench database
+    :param list(int) NAICS_codes: Sequence of NAICS codes
+    :return: Dataframe with data about companies
+    :rtype: pandas.Dataframe
+    """
     companies = _companies(
         SIC_codes,
         index,
@@ -988,6 +1024,11 @@ def filings(
     end_date=None,  # type: date
     filing_types=[],  # type: str[]
 ):
+    '''SEC filings
+
+    https://www.calcbench.com/filings
+
+    '''
 
     return _json_POST(
         "filingsV2",
