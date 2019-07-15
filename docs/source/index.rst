@@ -3,14 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Calcbench API Client's documentation!
+Calcbench Python API Client
 ================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-
+   getting-started
 
 Indices and tables
 ==================
@@ -19,9 +19,13 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. autofunction:: calcbench.set_credentials
+Numeric Data
+============
 .. autofunction:: calcbench.standardized_data
 .. autofunction:: calcbench.point_in_time
+
+Disclosures
+===========
 .. autofunction:: calcbench.document_dataframe
 .. autofunction:: calcbench.document_search
 .. autoclass:: calcbench.DocumentSearchResults

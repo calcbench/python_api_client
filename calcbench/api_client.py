@@ -145,7 +145,7 @@ def set_credentials(cb_username, cb_password):
 
     Call this before any other Calcbench functions.
 
-    Alternatively set the CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables
+    Alternatively set the ``CALCBENCH_USERNAME`` and ``CALCBENCH_PASSWORD`` environment variables
     
     :param str cb_username: Your calcbench.com email address
     :param str cb_password: Your calcbench.com password
@@ -161,6 +161,16 @@ def set_credentials(cb_username, cb_password):
 
 
 def enable_backoff(backoff_on=True):
+    """Re-try failed requests with exponential back-off
+
+    Requires the backoff package. ``pip install backoff``
+
+    If processes make many requests failures are inevitable.  Call this to retry failed requests.
+
+    Usage::
+        >>> calcbench.enable_backoff()
+    """
+
     _SESSION_STUFF["enable_backoff"] = backoff_on
 
 
@@ -204,7 +214,7 @@ def normalized_dataframe(
     :return: Dataframe with the periods as the index and columns indexed by metric and ticker
     :rtype: Dataframe
 
-    Usage::      
+    Usage::
 
       >>> calcbench.standardized_data(company_identifiers=['msft', 'goog'], metrics=['revenue', 'assets'], all_history=True, period_type='annual')
 
@@ -698,7 +708,7 @@ def document_dataframe(
     period_type=None,
     identifier_key="ticker",
 ):
-    '''Disclosures/Footnotes in a DataFrame
+    """Disclosures/Footnotes in a DataFrame
 
     :param list(str) company_identifiers: list of tickers or CIK codes
     :param list(str) disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
@@ -718,7 +728,7 @@ def document_dataframe(
       >>> data = data.fillna(false)
       >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
       
-    '''
+    """
 
     docs = list(
         document_search(
@@ -1058,11 +1068,11 @@ def filings(
     end_date=None,  # type: date
     filing_types=[],  # type: str[]
 ):
-    '''SEC filings
+    """SEC filings
 
     https://www.calcbench.com/filings
 
-    '''
+    """
 
     return _json_POST(
         "filingsV2",
@@ -1140,6 +1150,14 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
 if __name__ == "__main__":
     import tqdm
-    sp500= tickers(index='SP500')
+
+    sp500 = tickers(index="SP500")
     with tqdm.tqdm() as progress_bar:
-        risk_factors = list(document_search(company_identifiers=sp500, disclosure_names=['Risk Factors'], all_history=True))
+        risk_factors = list(
+            document_search(
+                company_identifiers=sp500,
+                disclosure_names=["Risk Factors"],
+                all_history=True,
+            )
+        )
+

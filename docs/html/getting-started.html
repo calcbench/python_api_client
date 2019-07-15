@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting Started &#8212; Calcbench API Client  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Calcbench Python API Client" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-the-client">
+<span id="install"></span><h2>Installing the Client<a class="headerlink" href="#installing-the-client" title="Permalink to this headline">¶</a></h2>
+<p>Install the Calcbench client from pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install calcbench-api-client
+</pre></div>
+</div>
+</div>
+<div class="section" id="obtain-credentials">
+<h2>Obtain Credentials<a class="headerlink" href="#obtain-credentials" title="Permalink to this headline">¶</a></h2>
+<p>The API uses the same credentials as calcbench.com.  If you do not have Calcbench credentials you can sign up for free two-week trial &#64; <a class="reference external" href="https://www.calcbench.com/join">https://www.calcbench.com/join</a>.
+Talk to us before you start coding, Calcbench data is not free.</p>
+</div>
+<div class="section" id="set-credentials">
+<h2>Set Credentials<a class="headerlink" href="#set-credentials" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="calcbench.set_credentials">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">set_credentials</code><span class="sig-paren">(</span><em class="sig-param">cb_username</em>, <em class="sig-param">cb_password</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.set_credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set your calcbench credentials.</p>
+<p>Call this before any other Calcbench functions.</p>
+<p>Alternatively set the <code class="docutils literal notranslate"><span class="pre">CALCBENCH_USERNAME</span></code> and <code class="docutils literal notranslate"><span class="pre">CALCBENCH_PASSWORD</span></code> environment variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cb_username</strong> (<em>str</em>) – Your calcbench.com email address</p></li>
+<li><p><strong>cb_password</strong> (<em>str</em>) – Your calcbench.com password</p></li>
+</ul>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">set_credentials</span><span class="p">(</span><span class="s2">&quot;andrew@calcbench.com&quot;</span><span class="p">,</span> <span class="s2">&quot;NotMyRealPassword&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.enable_backoff">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">enable_backoff</code><span class="sig-paren">(</span><em class="sig-param">backoff_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.enable_backoff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-try failed requests with exponential back-off</p>
+<p>Requires the backoff package. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">backoff</span></code></p>
+<p>If processes make many requests failures are inevitable.  Call this to retry failed requests.</p>
+<dl>
+<dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">enable_backoff</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-the-client">Installing the Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#obtain-credentials">Obtain Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#set-credentials">Set Credentials</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Calcbench Python API Client</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Andrew Kittredge.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/getting-started.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
