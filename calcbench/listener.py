@@ -26,6 +26,36 @@ def handle_filings(
     subscription_name,
     filter_expression="1=1",
 ):
+    """Listen for new filings from Calcbench
+
+    Pass in a function that process each filing.
+
+    Usage::
+        >>> def filing_handler(filing):
+        >>>     year = filing["fiscal_year"]
+        >>>     period = filing["fiscal_period"]
+        >>>     ticker = filing["ticker"]
+        >>>     data = point_in_time(
+        >>>             company_identifiers=[ticker],
+        >>>             start_year=year,
+        >>>             start_period=period,
+        >>>             end_year=year,
+        >>>             end_period=period,
+        >>>             use_fiscal_period=True,
+        >>>             all_face=True,
+        >>>             all_footnotes=True,
+        >>>             )
+        >>>    print(data)
+        >>>
+        >>> handle_filings(
+        >>>     filing_handler,
+        >>>     connection_string=connection_string,
+        >>>     subscription_name=subscription,
+        >>>     filter_expression="FilingType = 'annualQuarterlyReport'",
+        >>> )
+
+
+    """
     sb_client = ServiceBusClient.from_connection_string(connection_string)
     subscription = sb_client.get_subscription(TOPIC, subscription_name)
     _create_filter(

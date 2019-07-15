@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Numeric Data &#8212; Calcbench API Client  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Getting Started" href="getting-started.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="numeric-data">
+<h1>Numeric Data<a class="headerlink" href="#numeric-data" title="Permalink to this headline">¶</a></h1>
+<p>Calcbench extracts all of the GAAP numbers in section 8, face statments and footnotes, of the 10-K/Qs.</p>
+<div class="section" id="standardized">
+<h2>Standardized<a class="headerlink" href="#standardized" title="Permalink to this headline">¶</a></h2>
+<p>Calcbench standardizes +1000 metrics to handle differences filers’s tagging.  The list of stardized points is &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
+<dl class="function">
+<dt id="calcbench.standardized_data">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">standardized_data</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">filing_accession_number=None</em>, <em class="sig-param">point_in_time=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">trace_hyperlinks=False</em>, <em class="sig-param">use_fiscal_period=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardized Data.</p>
+<p>Metrics are standardized by economic concept and time period.</p>
+<p>The data behind the multi-company page, <a class="reference external" href="https://www.calcbench.com/multi">https://www.calcbench.com/multi</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<em>sequence</em>) – Tickers/CIK codes. eg. [‘msft’, ‘goog’, ‘appl’, ‘0000066740’]</p></li>
+<li><p><strong>metrics</strong> (<em>sequence</em>) – Standardized metrics.  Full list &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a> eg. [‘revenue’, ‘accountsreceivable’]</p></li>
+<li><p><strong>start_year</strong> (<em>int</em>) – first year of data</p></li>
+<li><p><strong>start_period</strong> (<em>int</em>) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>end_year</strong> (<em>int</em>) – last year of data</p></li>
+<li><p><strong>end_period</strong> (<em>int</em>) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>entire_universe</strong> (<em>bool</em>) – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
+<li><p><strong>accession_id</strong> (<em>int</em>) – Filing Accession ID from the SEC’s Edgar system.</p></li>
+<li><p><strong>year</strong> (<em>int</em>) – Get data for a single year, defaults to annual data.</p></li>
+<li><p><strong>period_type</strong> (<em>str</em>) – Either “annual” or “quarterly”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dataframe with the periods as the index and columns indexed by metric and ticker</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dataframe</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">standardized_data</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;goog&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span> <span class="s1">&#39;assets&#39;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">period_type</span><span class="o">=</span><span class="s1">&#39;annual&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="point-in-time">
+<h2>Point-In-Time<a class="headerlink" href="#point-in-time" title="Permalink to this headline">¶</a></h2>
+<p>Our standardized data with timestamps.  Useful for backtesting quantitative strategies.</p>
+<dl class="function">
+<dt id="calcbench.point_in_time">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">point_in_time</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">all_footnotes=False</em>, <em class="sig-param">update_date=None</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">include_preliminary=False</em>, <em class="sig-param">all_face=False</em>, <em class="sig-param">include_xbrl=True</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.point_in_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Point-in-Time Data.</p>
+<p>Standardized data with a timestamp when it was published by Calcbench</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">point_in_time</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Numeric Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#standardized">Standardized</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#point-in-time">Point-In-Time</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="getting-started.html" title="previous chapter">Getting Started</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Andrew Kittredge.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/numeric-data.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

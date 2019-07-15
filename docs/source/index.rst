@@ -11,25 +11,10 @@ Calcbench Python API Client
    :caption: Contents:
 
    getting-started
+   numeric-data
+   disclosures
+   push-notification
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-Numeric Data
-============
-.. autofunction:: calcbench.standardized_data
-.. autofunction:: calcbench.point_in_time
-
-Disclosures
-===========
-.. autofunction:: calcbench.document_dataframe
-.. autofunction:: calcbench.document_search
-.. autoclass:: calcbench.DocumentSearchResults
 .. autofunction:: calcbench.filings
 .. autofunction:: calcbench.tickers
 .. autofunction:: calcbench.companies
-.. autofunction:: calcbench.handle_filings

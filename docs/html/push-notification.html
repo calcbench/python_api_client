@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Push Notifications &#8212; Calcbench API Client  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Disclosures/Text" href="disclosures.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="push-notifications">
+<h1>Push Notifications<a class="headerlink" href="#push-notifications" title="Permalink to this headline">¶</a></h1>
+<p>Recieve notification when Calcbench has processed new SEC filings.  Useful for keeping your database up-to-date at low-latency.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This requires Calcbench to create a subscription for you.</p>
+</div>
+<dl class="function">
+<dt id="calcbench.handle_filings">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">handle_filings</code><span class="sig-paren">(</span><em class="sig-param">handler</em>, <em class="sig-param">connection_string</em>, <em class="sig-param">subscription_name</em>, <em class="sig-param">filter_expression='1=1'</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.handle_filings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Listen for new filings from Calcbench</p>
+<p>Pass in a function that process each filing.</p>
+<dl>
+<dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">filing_handler</span><span class="p">(</span><span class="n">filing</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">year</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;fiscal_year&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">period</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;fiscal_period&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ticker</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;ticker&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">point_in_time</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="n">ticker</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">start_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">start_period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">end_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">end_period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">use_fiscal_period</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">handle_filings</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">filing_handler</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">connection_string</span><span class="o">=</span><span class="n">connection_string</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">subscription_name</span><span class="o">=</span><span class="n">subscription</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">filter_expression</span><span class="o">=</span><span class="s2">&quot;FilingType = &#39;annualQuarterlyReport&#39;&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Push Notifications</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="disclosures.html" title="previous chapter">Disclosures/Text</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Andrew Kittredge.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/push-notification.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
