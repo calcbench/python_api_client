@@ -149,6 +149,11 @@ def set_credentials(cb_username, cb_password):
     
     :param str cb_username: Your calcbench.com email address
     :param str cb_password: Your calcbench.com password
+
+    Usage::
+
+      >>> calcbench.set_credentials("andrew@calcbench.com", "NotMyRealPassword")
+      
     """
     _SESSION_STUFF["calcbench_user_name"] = cb_username
     _SESSION_STUFF["calcbench_password"] = cb_password
@@ -198,6 +203,11 @@ def normalized_dataframe(
     :param str period_type: Either "annual" or "quarterly".
     :return: Dataframe with the periods as the index and columns indexed by metric and ticker
     :rtype: Dataframe
+
+    Usage::      
+
+      >>> calcbench.standardized_data(company_identifiers=['msft', 'goog'], metrics=['revenue', 'assets'], all_history=True, period_type='annual')
+
     """
     if all_history and not period_type:
         raise ValueError("For all history you must specify a period_type")
@@ -465,6 +475,11 @@ def point_in_time(
     """Point-in-Time Data.
 
     Standardized data with a timestamp when it was published by Calcbench
+    
+    Usage::
+
+       >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
+
     """
 
     data = mapped_raw(
@@ -698,9 +713,8 @@ def document_dataframe(
 
 
     Usage::      
-      >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"], 
-      all_history=True, 
-      disclosure_names=["Management's Discussion And Analysis", "Risk Factors"])
+
+      >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"], all_history=True, disclosure_names=["Management's Discussion And Analysis", "Risk Factors"])
       >>> data = data.fillna(false)
       >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
       
@@ -781,6 +795,13 @@ def document_search(
     :return: A generator of DocumentSearchResults
     :rtype: generator(DocumentSearchResults)
 
+    Usage::
+    
+       >>> import tqdm
+       >>> sp500 = calcbench.tickers(index='SP500')
+       >>> with tqdm.tqdm() as progress_bar:
+       >>>     risk_factors = list(calcbench.document_search(company_identifiers=sp500, disclosure_names=['Risk Factors'], all_history=True, progress_bar=progress_bar))
+
     """
     if not any(
         [
@@ -796,6 +817,8 @@ def document_search(
     if not (company_identifiers or entire_universe):
         raise (ValueError("Need to supply company_identifiers or entire_universe=True"))
     if not all_history:
+        if not year:
+            raise ValueError("Need to specify year or all all_history")
         period_type = period_type or "annual" if period in (0, "Y") else "quarterly"
     payload = {
         "companiesParameters": {"entireUniverse": entire_universe},
@@ -903,6 +926,11 @@ def tickers(
     :param list(int) NAICS_codes: Sequence of NAICS codes
     :return: list of tickers
     :rtype: list(str)
+
+    Usage::
+
+        >>> calcbench.tickers(SIC_codes=[1100])
+
     """
     companies = _companies(
         SIC_codes, index, company_identifiers, entire_universe, NAICS_codes=NAICS_codes
@@ -1111,14 +1139,7 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    print(
-        list(
-            document_search(
-                document_type=2700,
-                company_identifiers=["0001609727"],
-                all_history=True,
-                period_type="Combined",
-            )
-        )
-    )
-
+    import tqdm
+    sp500= tickers(index='SP500')
+    with tqdm.tqdm() as progress_bar:
+        risk_factors = list(document_search(company_identifiers=sp500, disclosure_names=['Risk Factors'], all_history=True))

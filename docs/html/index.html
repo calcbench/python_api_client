@@ -56,6 +56,10 @@
 </ul>
 </dd>
 </dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">set_credentials</span><span class="p">(</span><span class="s2">&quot;andrew@calcbench.com&quot;</span><span class="p">,</span> <span class="s2">&quot;NotMyRealPassword&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -86,6 +90,10 @@
 <dd class="field-odd"><p>Dataframe</p>
 </dd>
 </dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">standardized_data</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;goog&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;revenue&#39;</span><span class="p">,</span> <span class="s1">&#39;assets&#39;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">period_type</span><span class="o">=</span><span class="s1">&#39;annual&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -93,14 +101,16 @@
 <code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">point_in_time</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">all_footnotes=False</em>, <em class="sig-param">update_date=None</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">include_preliminary=False</em>, <em class="sig-param">all_face=False</em>, <em class="sig-param">include_xbrl=True</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.point_in_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point-in-Time Data.</p>
 <p>Standardized data with a timestamp when it was published by Calcbench</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">point_in_time</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="calcbench.document_dataframe">
 <code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.document_dataframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disclosures/Footnotes in a DataFrame
-Example::
-document_dataframe(company_identifiers=[“msft”, “goog”], all_history=True, disclosure_names=[“Management’s Discussion And Analysis”, “Risk Factors”]).fillna(False).applymap(lambda document: document and len(document.get_contents_text().split()))</p>
+<dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -121,14 +131,12 @@ document_dataframe(company_identifiers=[“msft”, “goog”], all_history=Tru
 <dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
-<dl>
-<dt>Usage::      </dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">document_dataframe</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Management&#39;s Discussion And Analysis&quot;</span><span class="p">,</span> <span class="s2">&quot;Risk Factors&quot;</span><span class="p">])</span>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">document_dataframe</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Management&#39;s Discussion And Analysis&quot;</span><span class="p">,</span> <span class="s2">&quot;Risk Factors&quot;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">false</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">document</span><span class="p">:</span> <span class="n">document</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">get_contents_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="function">
@@ -159,6 +167,13 @@ document_dataframe(company_identifiers=[“msft”, “goog”], all_history=Tru
 <dd class="field-odd"><p>generator(<a class="reference internal" href="#calcbench.DocumentSearchResults" title="calcbench.DocumentSearchResults">DocumentSearchResults</a>)</p>
 </dd>
 </dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp500</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;SP500&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">()</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calcbench</span><span class="o">.</span><span class="n">document_search</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Risk Factors&#39;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="class">
@@ -193,6 +208,10 @@ document_dataframe(company_identifiers=[“msft”, “goog”], all_history=Tru
 <dd class="field-odd"><p>list(str)</p>
 </dd>
 </dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">SIC_codes</span><span class="o">=</span><span class="p">[</span><span class="mi">1100</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
