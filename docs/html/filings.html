@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Calcbench Python API Client &#8212; Calcbench API Client  documentation</title>
+    <title>Filings &#8212; Calcbench API Client  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,7 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Getting Started" href="getting-started.html" />
+    <link rel="prev" title="Push Notifications" href="push-notification.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -31,28 +31,22 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="calcbench-python-api-client">
-<h1>Calcbench Python API Client<a class="headerlink" href="#calcbench-python-api-client" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#installing-the-client">Installing the Client</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#obtain-credentials">Obtain Credentials</a></li>
-<li class="toctree-l2"><a class="reference internal" href="getting-started.html#set-credentials">Set Credentials</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Numeric Data</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="numeric-data.html#standardized">Standardized</a></li>
-<li class="toctree-l2"><a class="reference internal" href="numeric-data.html#point-in-time">Point-In-Time</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Push Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
-</ul>
+  <div class="section" id="filings">
+<h1>Filings<a class="headerlink" href="#filings" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="calcbench.filings">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">filings</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_non_xbrl=True</em>, <em class="sig-param">received_date=None</em>, <em class="sig-param">start_date=None</em>, <em class="sig-param">end_date=None</em>, <em class="sig-param">filing_types=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filings" title="Permalink to this definition">¶</a></dt>
+<dd><p>SEC filings</p>
+<p><a class="reference external" href="https://www.calcbench.com/filings">https://www.calcbench.com/filings</a></p>
+<dl>
+<dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">date</span>        
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">filings</span><span class="p">(</span><span class="n">received_date</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
 </div>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -62,7 +56,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">Calcbench API Client</a></h1>
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
 
 
 
@@ -73,20 +67,19 @@
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="push-notification.html">Push Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="getting-started.html" title="next chapter">Getting Started</a></li>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="push-notification.html" title="previous chapter">Push Notifications</a></li>
   </ul></li>
 </ul>
 </div>
@@ -120,7 +113,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/index.rst.txt"
+      <a href="_sources/filings.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -14,7 +14,6 @@ Calcbench Python API Client
    numeric-data
    disclosures
    push-notification
+   filings
+   companies
 
-.. autofunction:: calcbench.filings
-.. autofunction:: calcbench.tickers
-.. autofunction:: calcbench.companies

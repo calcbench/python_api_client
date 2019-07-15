@@ -9,8 +9,8 @@ build/
 calcbench.ini
 .vscode/settings.json
 .vscode/launch.json
-docs/html/_sources/index.rst.txt
+docs/html/_sources/*
 docs/doctrees/environment.pickle
-docs/doctrees/index.doctree
 docs/html/.buildinfo
 docs/html/objects.inv
+docs/doctrees/*

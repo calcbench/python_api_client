@@ -1072,6 +1072,10 @@ def filings(
 
     https://www.calcbench.com/filings
 
+    Usage::
+        >>> from datetime import date        
+        >>> calcbench.filings(received_date=date.today(), entire_universe=True)
+
     """
 
     return _json_POST(

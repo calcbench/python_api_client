@@ -15,7 +15,9 @@ Obtain Credentials
 ------------------
 
 The API uses the same credentials as calcbench.com.  If you do not have Calcbench credentials you can sign up for free two-week trial @ https://www.calcbench.com/join.
-Talk to us before you start coding, Calcbench data is not free.
+
+.. warning::
+     Talk to us before you start coding, Calcbench data is not free.
 
 Set Credentials
 ---------------
