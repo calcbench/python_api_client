@@ -685,10 +685,8 @@ def document_dataframe(
 ):
     '''Disclosures/Footnotes in a DataFrame
 
-    document_dataframe(company_identifiers=["msft", "goog"], all_history=True, disclosure_names=["Management's Discussion And Analysis", "Risk Factors"]).fillna(False).applymap(lambda document: document and len(document.get_contents_text().split()))
-
     :param list(str) company_identifiers: list of tickers or CIK codes
-    :params list(str) disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
+    :param list(str) disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param bool all_history: Search all time periods
     :param int year: The year to search
     :param int period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
@@ -698,6 +696,14 @@ def document_dataframe(
     :return: A DataFrame indexed by document name -> company identifier.
     :rtyte: pandas.DataFrame
 
+
+    Usage::      
+      >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"], 
+      all_history=True, 
+      disclosure_names=["Management's Discussion And Analysis", "Risk Factors"])
+      >>> data = data.fillna(false)
+      >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
+      
     '''
 
     docs = list(

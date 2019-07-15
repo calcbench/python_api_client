@@ -19,12 +19,13 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. automodule:: calcbench
-
 .. autofunction:: calcbench.set_credentials
 .. autofunction:: calcbench.standardized_data
 .. autofunction:: calcbench.point_in_time
 .. autofunction:: calcbench.document_dataframe
 .. autofunction:: calcbench.document_search
 .. autoclass:: calcbench.DocumentSearchResults
+.. autofunction:: calcbench.filings
+.. autofunction:: calcbench.tickers
+.. autofunction:: calcbench.companies
 .. autofunction:: calcbench.handle_filings
