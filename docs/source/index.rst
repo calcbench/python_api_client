@@ -8,7 +8,7 @@ Calcbench Python API Client
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+
 
    getting-started
    numeric-data
@@ -17,3 +17,7 @@ Calcbench Python API Client
    filings
    companies
 
+Examples
+--------
+
+https://github.com/calcbench/notebooks
