@@ -21,7 +21,7 @@ TOPIC = "filings"
 
 
 def handle_filings(
-    handler,  # type: ()->void
+    handler,  
     connection_string,
     subscription_name,
     filter_expression="1=1",

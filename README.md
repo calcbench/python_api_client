@@ -21,7 +21,7 @@ Use your Calcbench username (email) and password.  Get a free two week Calcbench
 
 ## Examples
 
-Example Jupyter notebooks @ https://github.com/calcbench/notebooks.
+https://github.com/calcbench/notebooks.
 
 ## Support
 
