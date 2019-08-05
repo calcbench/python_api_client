@@ -490,6 +490,10 @@ def point_in_time(
 
        >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
 
+    .. _Example
+
+    https://github.com/calcbench/notebooks/blob/master/Point_In_Time_Face.ipynb
+
     """
 
     data = mapped_raw(
@@ -826,7 +830,7 @@ def document_search(
         raise (ValueError("Need to supply at least one search parameter."))
     if not (company_identifiers or entire_universe):
         raise (ValueError("Need to supply company_identifiers or entire_universe=True"))
-    if not all_history:
+    if not (all_history or updated_from):
         if not year:
             raise ValueError("Need to specify year or all all_history")
         period_type = period_type or "annual" if period in (0, "Y") else "quarterly"
@@ -1060,13 +1064,13 @@ def business_combinations(company_identifiers):
 
 
 def filings(
-    company_identifiers=[],  # type: str[]
-    entire_universe=False,  # type: bool
-    include_non_xbrl=True,  # type: bool
-    received_date=None,  # type: Date
-    start_date=None,  # type: date
-    end_date=None,  # type: date
-    filing_types=[],  # type: str[]
+    company_identifiers=[],  
+    entire_universe=False, 
+    include_non_xbrl=True, 
+    received_date=None, 
+    start_date=None,
+    end_date=None,
+    filing_types=[], 
 ):
     """SEC filings
 
