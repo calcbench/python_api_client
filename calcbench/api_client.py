@@ -674,7 +674,6 @@ def dimensional_raw(
         A list of breakout points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will \
         be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
         
-        
     """
     if len(metrics) == 0:
         raise (ValueError("Need to supply at least one breakout."))
@@ -1064,13 +1063,13 @@ def business_combinations(company_identifiers):
 
 
 def filings(
-    company_identifiers=[],  
-    entire_universe=False, 
-    include_non_xbrl=True, 
-    received_date=None, 
+    company_identifiers=[],
+    entire_universe=False,
+    include_non_xbrl=True,
+    received_date=None,
     start_date=None,
     end_date=None,
-    filing_types=[], 
+    filing_types=[],
 ):
     """SEC filings
 
@@ -1137,6 +1136,20 @@ def press_release_raw(
 
 
 def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
+    """Data as reported in the XBRL documents
+
+    :param list(str) company_identifiers: list of tickers or CIK codes
+    :param bool entire_universe: Search all companies
+    :param list(dict) clauses: a sequence of dictionaries which the data is filtered by.  
+
+    Usage:
+        >>> clauses = [
+        >>>     {"value": "Revenues", "parameter": "XBRLtag", "operator": 10},
+        >>>     {"value": "Y", "parameter": "fiscalPeriod", "operator": 1},
+        >>>     {"value": "2018", "parameter": "fiscalYear", "operator": 1}
+        >>> ]
+        >>> cb.raw_xbrl_raw(company_identifiers=['mmm'], clauses=clauses)
+    """
     payload = {
         "companiesParameters": {
             "companyIdentifiers": company_identifiers,

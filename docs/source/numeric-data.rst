@@ -16,3 +16,10 @@ Point-In-Time
 Our standardized data with timestamps.  Useful for backtesting quantitative strategies.
 
 .. autofunction:: calcbench.point_in_time
+
+Raw XBRL Data
+-------------
+
+Data as reported in the XBRL documents
+
+.. autofunction:: calcbench.raw_xbrl_raw
