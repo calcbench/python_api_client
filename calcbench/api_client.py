@@ -1140,7 +1140,7 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
     :param list(str) company_identifiers: list of tickers or CIK codes
     :param bool entire_universe: Search all companies
-    :param list(dict) clauses: a sequence of dictionaries which the data is filtered by.  
+    :param list(dict) clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
 
     Usage:
         >>> clauses = [
