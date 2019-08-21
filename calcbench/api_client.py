@@ -832,7 +832,7 @@ def document_search(
     if not (all_history or updated_from):
         if not year:
             raise ValueError("Need to specify year or all all_history")
-        period_type = period_type or "annual" if period in (0, "Y") else "quarterly"
+        period_type = period_type or "annual" if period in (0, "Y", "y") else "quarterly"
     payload = {
         "companiesParameters": {"entireUniverse": entire_universe},
         "periodParameters": {
