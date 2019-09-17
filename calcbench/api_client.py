@@ -727,7 +727,7 @@ def document_dataframe(
     Usage::      
 
       >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"], all_history=True, disclosure_names=["Management's Discussion And Analysis", "Risk Factors"])
-      >>> data = data.fillna(false)
+      >>> data = data.fillna(False)
       >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
       
     """
