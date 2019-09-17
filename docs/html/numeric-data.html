@@ -119,6 +119,42 @@
 </dd></dl>
 
 </div>
+<div class="section" id="dimensional">
+<h2>Dimensional<a class="headerlink" href="#dimensional" title="Permalink to this headline">¶</a></h2>
+<p>Segments: geographic and operating, and other dimensionalized tabular data.</p>
+<dl class="function">
+<dt id="calcbench.dimensional_raw">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">dimensional_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=None</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">period_type='annual'</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.dimensional_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Segments and Breakouts</p>
+<p>The data behind the breakouts/segment page, <a class="reference external" href="https://www.calcbench.com/breakout">https://www.calcbench.com/breakout</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<em>sequence</em>) – Tickers/CIK codes. eg. [‘msft’, ‘goog’, ‘appl’, ‘0000066740’]</p></li>
+<li><p><strong>metrics</strong> (<em>sequence</em>) – list of dimension tuple strings, get the list &#64; <a class="reference external" href="https://www.calcbench.com/api/availableBreakouts">https://www.calcbench.com/api/availableBreakouts</a>, pass in the “databaseName”</p></li>
+<li><p><strong>start_year</strong> (<em>int</em>) – first year of data to get</p></li>
+<li><p><strong>start_period</strong> (<em>int</em>) – first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>end_year</strong> (<em>int</em>) – last year of data to get</p></li>
+<li><p><strong>end_period</strong> (<em>int</em>) – last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period_type</strong> (<em>str</em>) – ‘quarterly’ or ‘annual’, only applicable when other period data not supplied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of points.  The points correspond to the lines &#64; <a class="reference external" href="https://www.calcbench.com/breakout">https://www.calcbench.com/breakout</a>.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sequence</p>
+</dd>
+</dl>
+<dl>
+<dt>Usage:: </dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fdx&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OperatingSegmentRevenue&#39;</span><span class="p">],</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">2018</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -144,12 +180,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#standardized">Standardized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#point-in-time">Point-In-Time</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#raw-xbrl-data">Raw XBRL Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dimensional">Dimensional</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Push Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Push Notifications</a></li>
 </ul>
 
 <div class="relations">

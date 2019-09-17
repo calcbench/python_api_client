@@ -23,3 +23,10 @@ Raw XBRL Data
 Data as reported in the XBRL documents
 
 .. autofunction:: calcbench.raw_xbrl_raw
+
+Dimensional
+-----------
+
+Segments: geographic and operating, and other dimensionalized tabular data.
+
+.. autofunction:: calcbench.dimensional_raw

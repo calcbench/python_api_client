@@ -13,9 +13,9 @@ Calcbench Python API Client
    getting-started
    numeric-data
    disclosures
-   push-notification
    filings
    companies
+   push-notification
 
 Examples
 --------

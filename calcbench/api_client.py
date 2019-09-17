@@ -656,24 +656,23 @@ def dimensional_raw(
     end_period=None,
     period_type="annual",
 ):
-    """
-    Breakouts
+    """Segments and Breakouts
     
-    Get breakouts/segments, see https://www.calcbench.com/breakout.
+    The data behind the breakouts/segment page, https://www.calcbench.com/breakout.
     
-    Args:
-        company_identifiers : list of tickers or CIK codes, eg. ['msft', 'goog', 'appl', '0000066740']
-        metrics : list of breakouts, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName".
-        start_year: first year of data to get
-        start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
-        end_year: last year of data to get
-        end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
-        period_type: quarterly or annual, only applicable when other period data not supplied.
-        
-    Returns:
-        A list of breakout points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will \
-        be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
-        
+    :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
+    :param sequence metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
+    :param int start_year: first year of data to get
+    :param int start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param int end_year: last year of data to get
+    :param int end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param str period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
+    :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
+    :rtype: sequence
+
+    Usage:: 
+      >>> cb.dimensional_raw(company_identifiers=['fdx'], metrics=['OperatingSegmentRevenue'], start_year=2018)
+    
     """
     if len(metrics) == 0:
         raise (ValueError("Need to supply at least one breakout."))
@@ -1333,7 +1332,7 @@ if __name__ == "__main__":
     missing_ciks = [c.zfill(10) for c in missing_ciks]
 
     with tqdm() as pbar:
-    docs = cb.document_dataframe(disclosure_names=["Management's Discussion And Analysis"], 
+        docs = cb.document_dataframe(disclosure_names=["Management's Discussion And Analysis"], 
                                  company_identifiers=missing_ciks,
                                  all_history=True,
                                  period_type='quarterly',
