@@ -759,7 +759,7 @@ def document_dataframe(
             else:
                 p = pd.Period(year=period_year, quarter=quarter, freq="q")
         doc["period"] = p
-        doc[identifier_key] = doc[identifier_key].upper()
+        doc[identifier_key] = (doc[identifier_key] or '').upper()
         doc["value"] = doc
     data = pd.DataFrame(docs)
     data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])
