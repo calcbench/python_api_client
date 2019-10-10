@@ -759,7 +759,7 @@ def document_dataframe(
             else:
                 p = pd.Period(year=period_year, quarter=quarter, freq="q")
         doc["period"] = p
-        doc[identifier_key] = (doc[identifier_key] or '').upper()
+        doc[identifier_key] = (doc[identifier_key] or "").upper()
         doc["value"] = doc
     data = pd.DataFrame(docs)
     data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])
@@ -831,7 +831,9 @@ def document_search(
     if not (all_history or updated_from):
         if not year:
             raise ValueError("Need to specify year or all all_history")
-        period_type = period_type or "annual" if period in (0, "Y", "y") else "quarterly"
+        period_type = (
+            period_type or "annual" if period in (0, "Y", "y") else "quarterly"
+        )
     payload = {
         "companiesParameters": {"entireUniverse": entire_universe},
         "periodParameters": {
@@ -1134,7 +1136,7 @@ def press_release_raw(
     return _json_POST("pressReleaseData", payload)
 
 
-def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
+def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
     """Data as reported in the XBRL documents
 
     :param list(str) company_identifiers: list of tickers or CIK codes
@@ -1169,7 +1171,7 @@ def raw_xbrl_raw(company_identifiers: [], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    missing_ciks = '''78100
+    missing_ciks = """78100
     75234
     81023
     78214
@@ -1328,13 +1330,16 @@ if __name__ == "__main__":
     729237
     724910
     1083318
-    '''.splitlines()
+    """.splitlines()
     missing_ciks = [c.zfill(10) for c in missing_ciks]
 
     with tqdm() as pbar:
-        docs = cb.document_dataframe(disclosure_names=["Management's Discussion And Analysis"], 
-                                 company_identifiers=missing_ciks,
-                                 all_history=True,
-                                 period_type='quarterly',
-                                 progress_bar=pbar,
-                                 identifier_key='CIK')
+        docs = cb.document_dataframe(
+            disclosure_names=["Management's Discussion And Analysis"],
+            company_identifiers=missing_ciks,
+            all_history=True,
+            period_type="quarterly",
+            progress_bar=pbar,
+            identifier_key="CIK",
+        )
+
