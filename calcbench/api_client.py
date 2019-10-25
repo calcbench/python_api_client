@@ -84,7 +84,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -893,7 +892,7 @@ class DocumentSearchResults(dict):
 
     def get_contents_text(self):
         """Contents of the HTML of the document"""
-        return BeautifulSoup(self.get_contents(), "html.parser").text
+        return BeautifulSoup(self.get_contents(), "html.parser").get_text(' ')
 
     @property
     def date_reported(self):
