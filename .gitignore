@@ -14,3 +14,4 @@ docs/doctrees/environment.pickle
 docs/html/.buildinfo
 docs/html/objects.inv
 docs/doctrees/*
+.mypy_cache
