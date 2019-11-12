@@ -84,6 +84,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -892,7 +893,7 @@ class DocumentSearchResults(dict):
 
     def get_contents_text(self):
         """Contents of the HTML of the document"""
-        return BeautifulSoup(self.get_contents(), "html.parser").get_text(' ')
+        return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
 
     @property
     def date_reported(self):
@@ -1135,6 +1136,33 @@ def press_release_raw(
     return _json_POST("pressReleaseData", payload)
 
 
+def raw_xbrl(company_identifiers=[], entire_universe=False, clauses=[]):
+    """Data as reported in the XBRL documents
+
+    :param list(str) company_identifiers: list of tickers or CIK codes
+    :param bool entire_universe: Search all companies
+    :param list(dict) clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
+
+    Usage:
+        >>> clauses = [
+        >>>     {"value": "Revenues", "parameter": "XBRLtag", "operator": 10},
+        >>>     {"value": "Y", "parameter": "fiscalPeriod", "operator": 1},
+        >>>     {"value": "2018", "parameter": "fiscalYear", "operator": 1}
+        >>> ]
+        >>> cb.raw_xbrl(company_identifiers=['mmm'], clauses=clauses)
+    """
+    d = raw_xbrl_raw(
+        company_identifiers=company_identifiers,
+        entire_universe=entire_universe,
+        clauses=clauses,
+    )
+    df = pd.DataFrame(d)
+    for date_column in ["filing_date", "filing_end_date", "period_end", "period_start", "period_instant"]:
+        df[date_column] = pd.to_datetime(df[date_column])
+    df.rename({"Value": "value"}, inplace=True)
+    return df
+
+
 def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
     """Data as reported in the XBRL documents
 
@@ -1170,175 +1198,9 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    missing_ciks = """78100
-    75234
-    81023
-    78214
-    1049172
-    906111
-    823392
-    798943
-    64670
-    77182
-    58696
-    912564
-    1060021
-    1636023
-    1411974
-    36032
-    701221
-    69499
-    878658
-    277045
-    201533
-    79716
-    314733
-    733977
-    944492
-    21271
-    874215
-    897547
-    48896
-    20279
-    23632
-    61339
-    88204
-    877373
-    74260
-    801555
-    23082
-    276889
-    1095357
-    1343953
-    25890
-    1569650
-    1027401
-    96966
-    92416
-    1100962
-    25373
-    908610
-    33656
-    43365
-    46205
-    77098
-    741087
-    837330
-    1311131
-    1177257
-    29082
-    729217
-    1310927
-    103973
-    1379765
-    1311810
-    719241
-    92116
-    861179
-    72945
-    1157644
-    1349682
-    351332
-    318380
-    1288776
-    769993
-    59816
-    1012369
-    1061377
-    354913
-    82267
-    734820
-    1295664
-    739404
-    1079458
-    1291000
-    40461
-    1725526
-    100441
-    1097797
-    855042
-    34945
-    106413
-    717724
-    1288784
-    803509
-    22301
-    874663
-    1100441
-    777676
-    80255
-    48732
-    1345105
-    71824
-    75527
-    726282
-    1106687
-    1308161
-    780859
-    806523
-    1301332
-    1336983
-    38067
-    1074433
-    1707925
-    1074772
-    1229206
-    1013761
-    1355007
-    890541
-    1134538
-    32896
-    806280
-    1160497
-    1624899
-    932625
-    883780
-    1240581
-    54476
-    1182197
-    1320482
-    1441634
-    820096
-    1517396
-    1483934
-    854460
-    83612
-    1000177
-    1062579
-    913290
-    49648
-    709878
-    895450
-    1207179
-    911971
-    1096479
-    857925
-    1419945
-    1311586
-    1132979
-    912815
-    1005702
-    1331284
-    1289877
-    92344
-    65873
-    1359652
-    880858
-    1286045
-    1135152
-    729237
-    724910
-    1083318
-    """.splitlines()
-    missing_ciks = [c.zfill(10) for c in missing_ciks]
-
-    with tqdm() as pbar:
-        docs = cb.document_dataframe(
-            disclosure_names=["Management's Discussion And Analysis"],
-            company_identifiers=missing_ciks,
-            all_history=True,
-            period_type="quarterly",
-            progress_bar=pbar,
-            identifier_key="CIK",
-        )
-
+    clauses = [{"value": "LongTermDebtMaturitiesRepaymentsOfPrincipal%", "parameter": "XBRLtag", "operator": 7}
+           ,{"value": "2018", "parameter": "fiscalYear", "operator": 1}
+           ,{"value": "Y", "parameter": "fiscalPeriod", "operator": 1}
+           ,{"value" : "True", "parameter" : "specifiesDimensions", "operator" : 1}
+           ,{"value" : "Most Recent Only", "parameter": "factversion", "operator": 1}] 
+    raw_xbrl(company_identifiers=['mmm', 'gs'], clauses=clauses)

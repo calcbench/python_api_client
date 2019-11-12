@@ -30,6 +30,7 @@ from .api_client import (
     document_dataframe,
     enable_backoff,
     raw_xbrl_raw,
+    raw_xbrl,
     DocumentSearchResults,
 )
 
