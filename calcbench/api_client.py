@@ -486,6 +486,7 @@ def point_in_time(
 
     Standardized data with a timestamp when it was published by Calcbench
     
+    :param date update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
     Usage::
 
        >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
