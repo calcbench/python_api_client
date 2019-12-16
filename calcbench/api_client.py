@@ -84,7 +84,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -528,6 +527,9 @@ def point_in_time(
         sort_columns.extend(["calendar_year", "calendar_period"])
     if "fiscal_period" in data.columns:
         data.fiscal_period = data.fiscal_period.astype(period_number)
+    if not data.empty:
+        for date_column in ['date_reported', 'period_end', 'period_start']:
+            data[date_column] = pd.to_datetime(data[date_column])        
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
@@ -1199,9 +1201,15 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    clauses = [{"value": "LongTermDebtMaturitiesRepaymentsOfPrincipal%", "parameter": "XBRLtag", "operator": 7}
-           ,{"value": "2018", "parameter": "fiscalYear", "operator": 1}
-           ,{"value": "Y", "parameter": "fiscalPeriod", "operator": 1}
-           ,{"value" : "True", "parameter" : "specifiesDimensions", "operator" : 1}
-           ,{"value" : "Most Recent Only", "parameter": "factversion", "operator": 1}] 
-    raw_xbrl(company_identifiers=['mmm', 'gs'], clauses=clauses)
+    info = ['entity_name','sic_code','sic_category','City','Country','State','Zip','naics','FiscalYearEndDate','primary_currency']
+    year = 2019
+    period = 3
+    hyperlink = False
+    companies = tickers(entire_universe=True)
+
+    table_info = standardized_data(company_identifiers = companies, 
+                                    entire_universe=False, 
+                                    metrics=info, 
+                                    year = year, 
+                                    period = period,
+                                    trace_hyperlinks=hyperlink,)
