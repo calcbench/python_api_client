@@ -1,5 +1,9 @@
 """
 Client for the Calcbench API
+
+To turn on verbose logging
+import logging
+logging.getLogger('calcbench.api_client').setLevel(logging.INFO)
 """
 __version__ = "1.4.4"
 from .api_client import (
