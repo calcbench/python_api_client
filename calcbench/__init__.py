@@ -5,7 +5,7 @@ To turn on verbose logging
 import logging
 logging.getLogger('calcbench.api_client').setLevel(logging.INFO)
 """
-__version__ = "1.4.4"
+__version__ = "2.0.0"
 from .api_client import (
     normalized_data,
     normalized_dataframe,
