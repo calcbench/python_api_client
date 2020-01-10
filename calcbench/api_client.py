@@ -84,6 +84,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -106,6 +107,8 @@ def _add_backoff(f):
 @_add_backoff
 def _json_POST(end_point, payload):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
+    logger.debug(f"posting {end_point}, {payload}")
+
     response = _calcbench_session().post(
         url,
         data=json.dumps(payload),
@@ -518,19 +521,23 @@ def point_in_time(
         return pd.DataFrame()
     data = pd.DataFrame(data)
 
-    period_number = pd.api.types.CategoricalDtype(
-        categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
-    )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
     sort_columns = ["ticker", "metric"]
     if "calendar_period" in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)
         sort_columns.extend(["calendar_year", "calendar_period"])
     if "fiscal_period" in data.columns:
         data.fiscal_period = data.fiscal_period.astype(period_number)
+    if "calendar_period" in data.columns:
+        data.calendar_period = data.calendar_period.astype(period_number)
     if not data.empty:
-        for date_column in ['date_reported', 'period_end', 'period_start']:
-            data[date_column] = pd.to_datetime(data[date_column])        
+        for date_column in ["date_reported", "period_end", "period_start"]:
+            data[date_column] = pd.to_datetime(data[date_column])
     return data.sort_values(sort_columns).reset_index(drop=True)
+
+
+period_number = pd.api.types.CategoricalDtype(
+    categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
+)  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
 
 
 def mapped_raw(
@@ -1160,7 +1167,13 @@ def raw_xbrl(company_identifiers=[], entire_universe=False, clauses=[]):
         clauses=clauses,
     )
     df = pd.DataFrame(d)
-    for date_column in ["filing_date", "filing_end_date", "period_end", "period_start", "period_instant"]:
+    for date_column in [
+        "filing_date",
+        "filing_end_date",
+        "period_end",
+        "period_start",
+        "period_instant",
+    ]:
         df[date_column] = pd.to_datetime(df[date_column])
     df.rename({"Value": "value"}, inplace=True)
     return df
@@ -1201,15 +1214,17 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    info = ['entity_name','sic_code','sic_category','City','Country','State','Zip','naics','FiscalYearEndDate','primary_currency']
-    year = 2019
-    period = 3
-    hyperlink = False
-    companies = tickers(entire_universe=True)
+    import logging
 
-    table_info = standardized_data(company_identifiers = companies, 
-                                    entire_universe=False, 
-                                    metrics=info, 
-                                    year = year, 
-                                    period = period,
-                                    trace_hyperlinks=hyperlink,)
+    logging.getLogger().setLevel(logging.DEBUG)
+    search_term = "floating OR float OR fixed OR fix"
+    docs = list(
+        document_search(
+            year=2018,
+            period=0,
+            entire_universe=True,
+            full_text_search_term=search_term,
+            disclosure_names=["DisclosuresAboutMarketRisk"],
+        )
+    )
+
