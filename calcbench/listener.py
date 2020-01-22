@@ -9,22 +9,21 @@ try:
         Rule,
         DEFAULT_RULE_NAME,
     )
-
 except ImportError:
     "Will not be able to use the listener"
     pass
 
 import json
 import warnings
+import logging
+
+logger = logging.getLogger(__name__)
 
 TOPIC = "filings"
 
 
 def handle_filings(
-    handler,  
-    connection_string,
-    subscription_name,
-    filter_expression="1=1",
+    handler, connection_string, subscription_name, filter_expression="1=1"
 ):
     """Listen for new filings from Calcbench
 
@@ -66,11 +65,18 @@ def handle_filings(
 
     for message in subscription.get_receiver():
         try:
-            filing = json.loads(b"".join(message.body))
-            handler(filing)
+            body_bytes = b"".join(message.body)
+            filing = json.loads(body_bytes)
+        except Exception:
+            logger.exception(f"Exception Parsing {body_bytes}")
             message.complete()
-        except Exception as e:
-            warnings.warn(str(e))
+        else:
+            try:
+                handler(filing)
+            except Exception:
+                logger.exception(f"Exception handling {filing}")
+            else:
+                message.complete()
 
 
 def _create_filter(bus_service, subscription_name, filter_expression):
@@ -102,25 +108,16 @@ if __name__ == "__main__":
     from api_client import point_in_time
 
     config = configparser.ConfigParser()
-    config.read("calcbench.ini")
+    config.read("calcbench\calcbench.ini")
     subscription = config["ServiceBus"]["Subscription"]
     connection_string = config["ServiceBus"]["ConnectionString"]
 
     def filing_handler(filing):
-        year = filing["fiscal_year"]
-        period = filing["fiscal_period"]
-        ticker = filing["ticker"]
-        data = point_in_time(
-            company_identifiers=[ticker],
-            start_year=year,
-            start_period=period,
-            end_year=year,
-            end_period=period,
-            use_fiscal_period=True,
-            all_face=True,
-            all_footnotes=True,
-        )
-        print(data)
+        if filing.get('accessionID'):
+            data = point_in_time(accession_id=filing["accessionID"], all_face=True)
+            print(data)
+        else:
+            print('no accession id')
 
     handle_filings(
         filing_handler,
