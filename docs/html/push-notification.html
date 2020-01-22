@@ -14,8 +14,7 @@
     <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Filings" href="filings.html" />
-    <link rel="prev" title="Disclosures/Text" href="disclosures.html" />
+    <link rel="prev" title="Companies" href="companies.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -50,16 +49,9 @@
 <p>Pass in a function that process each filing.</p>
 <dl>
 <dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">filing_handler</span><span class="p">(</span><span class="n">filing</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">year</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;fiscal_year&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">period</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;fiscal_period&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">ticker</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;ticker&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">accession_id</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s1">&#39;calcbench_id&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">point_in_time</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>            <span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="n">ticker</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>            <span class="n">start_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>            <span class="n">start_period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>            <span class="n">end_year</span><span class="o">=</span><span class="n">year</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>            <span class="n">end_period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>            <span class="n">use_fiscal_period</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>            <span class="n">accession_id</span><span class="o">=</span><span class="n">accession_id</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="p">)</span>
@@ -100,17 +92,16 @@
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Numeric Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Push Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Push Notifications</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="disclosures.html" title="previous chapter">Disclosures/Text</a></li>
-      <li>Next: <a href="filings.html" title="next chapter">Filings</a></li>
+      <li>Previous: <a href="companies.html" title="previous chapter">Companies</a></li>
   </ul></li>
 </ul>
 </div>

@@ -31,16 +31,9 @@ def handle_filings(
 
     Usage::
         >>> def filing_handler(filing):
-        >>>     year = filing["fiscal_year"]
-        >>>     period = filing["fiscal_period"]
-        >>>     ticker = filing["ticker"]
+        >>>     accession_id = filing['calcbench_id']
         >>>     data = point_in_time(
-        >>>             company_identifiers=[ticker],
-        >>>             start_year=year,
-        >>>             start_period=period,
-        >>>             end_year=year,
-        >>>             end_period=period,
-        >>>             use_fiscal_period=True,
+        >>>             accession_id=accession_id
         >>>             all_face=True,
         >>>             all_footnotes=True,
         >>>             )
@@ -106,6 +99,8 @@ def _create_filter(bus_service, subscription_name, filter_expression):
 if __name__ == "__main__":
     import configparser
     from api_client import point_in_time
+    import api_client
+    api_client._rig_for_testing('localhost:44300')
 
     config = configparser.ConfigParser()
     config.read("calcbench\calcbench.ini")
@@ -113,8 +108,8 @@ if __name__ == "__main__":
     connection_string = config["ServiceBus"]["ConnectionString"]
 
     def filing_handler(filing):
-        if filing.get('accessionID'):
-            data = point_in_time(accession_id=filing["accessionID"], all_face=True)
+        if filing.get('calcbench_id'):
+            data = point_in_time(accession_id=filing["calcbench_id"], all_face=True)
             print(data)
         else:
             print('no accession id')

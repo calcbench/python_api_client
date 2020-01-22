@@ -107,7 +107,7 @@ def _add_backoff(f):
 @_add_backoff
 def _json_POST(end_point, payload):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
-    logger.debug(f"posting {end_point}, {payload}")
+    logger.debug(f"posting to {url}, {payload}")
 
     response = _calcbench_session().post(
         url,
@@ -483,6 +483,7 @@ def point_in_time(
     include_preliminary=False,
     all_face=False,
     include_xbrl=True,
+    accession_id=None,
 ):
     """Point-in-Time Data.
 
@@ -491,7 +492,7 @@ def point_in_time(
     :param date update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
     Usage::
 
-       >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
+    >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
 
     .. _Example
 
@@ -516,6 +517,7 @@ def point_in_time(
         include_preliminary=include_preliminary,
         all_face=all_face,
         include_xbrl=include_xbrl,
+        accession_id=accession_id
     )
     if not data:
         return pd.DataFrame()
@@ -557,6 +559,7 @@ def mapped_raw(
     include_preliminary=False,
     all_face=False,
     include_xbrl=True,
+    accession_id=None,
 ):
     payload = {
         "companiesParameters": {
@@ -580,6 +583,7 @@ def mapped_raw(
         "periodType": period_type,
         "useFiscalPeriod": use_fiscal_period,
         "includeXBRL": include_xbrl,
+        "accessionID": accession_id,
     }
     if update_date:
         period_parameters["updateDate"] = update_date.isoformat()
@@ -1227,4 +1231,3 @@ if __name__ == "__main__":
             disclosure_names=["DisclosuresAboutMarketRisk"],
         )
     )
-
