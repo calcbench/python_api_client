@@ -911,14 +911,18 @@ class DocumentSearchResults(dict):
 
     @property
     def date_reported(self):
-        """Time (EST) the document was available from Calcbench"""
-        timestamp = self["date_reported"]
-        # We did not always have milliseconds
-        try:
-            return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
-        except ValueError:
-            return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
+        """Time (EST) the document was available from Calcbench"""        
+        return _try_parse_timestamp(self["date_reported"])
 
+
+def _try_parse_timestamp(timestamp):
+    '''
+    We did not always have milliseconds
+    '''
+    try:
+        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
+    except ValueError:
+        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
 
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
     payload = {"blobid": blob_id, "secid": SEC_ID, "url": SEC_URL}
@@ -1096,7 +1100,7 @@ def filings(
 
     """
 
-    return _json_POST(
+    filings = _json_POST(
         "filingsV2",
         {
             "companiesParameters": {
@@ -1118,6 +1122,11 @@ def filings(
             },
         },
     )
+    for filing in filings:
+        for date_field in ('calcbench_finished_load', 'calcbench_accepted', 'filing_date', 'period_end_date'):
+            if filing.get(date_field):
+                filing[date_field] = _try_parse_timestamp(filing[date_field])
+        yield filing
 
 
 def document_types():
