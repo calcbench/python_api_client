@@ -517,7 +517,7 @@ def point_in_time(
         include_preliminary=include_preliminary,
         all_face=all_face,
         include_xbrl=include_xbrl,
-        accession_id=accession_id
+        accession_id=accession_id,
     )
     if not data:
         return pd.DataFrame()
@@ -561,6 +561,14 @@ def mapped_raw(
     include_xbrl=True,
     accession_id=None,
 ):
+    if update_date:
+        warnings.warn(
+            "Request updates by accession_id rather than update date",
+            DeprecationWarning,
+        )
+    if accession_id and update_date:
+        raise ValueError("Specifying accession_id and update_date is redundant.")
+
     payload = {
         "companiesParameters": {
             "companyIdentifiers": list(company_identifiers),
@@ -911,18 +919,19 @@ class DocumentSearchResults(dict):
 
     @property
     def date_reported(self):
-        """Time (EST) the document was available from Calcbench"""        
+        """Time (EST) the document was available from Calcbench"""
         return _try_parse_timestamp(self["date_reported"])
 
 
 def _try_parse_timestamp(timestamp):
-    '''
+    """
     We did not always have milliseconds
-    '''
+    """
     try:
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
     except ValueError:
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
+
 
 def document_contents(blob_id, SEC_ID, SEC_URL=None):
     payload = {"blobid": blob_id, "secid": SEC_ID, "url": SEC_URL}
@@ -1123,7 +1132,12 @@ def filings(
         },
     )
     for filing in filings:
-        for date_field in ('calcbench_finished_load', 'calcbench_accepted', 'filing_date', 'period_end_date'):
+        for date_field in (
+            "calcbench_finished_load",
+            "calcbench_accepted",
+            "filing_date",
+            "period_end_date",
+        ):
             if filing.get(date_field):
                 filing[date_field] = _try_parse_timestamp(filing[date_field])
         yield filing
@@ -1227,16 +1241,6 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 
 
 if __name__ == "__main__":
-    import logging
+    from datetime import date
 
-    logging.getLogger().setLevel(logging.DEBUG)
-    search_term = "floating OR float OR fixed OR fix"
-    docs = list(
-        document_search(
-            year=2018,
-            period=0,
-            entire_universe=True,
-            full_text_search_term=search_term,
-            disclosure_names=["DisclosuresAboutMarketRisk"],
-        )
-    )
+    point_in_time(update_date=date(2020, 2, 3), all_face=True, accession_id=123)
