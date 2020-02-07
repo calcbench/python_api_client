@@ -56,7 +56,7 @@ def handle_filings(
         filter_expression=filter_expression,
     )
 
-    for message in subscription.get_receiver():
+    for message in subscription.get_receiver():        
         try:
             body_bytes = b"".join(message.body)
             filing = json.loads(body_bytes)
@@ -73,11 +73,6 @@ def handle_filings(
 
 
 def _create_filter(bus_service, subscription_name, filter_expression):
-    bus_service.delete_rule(
-        topic_name=TOPIC,
-        subscription_name=subscription_name,
-        rule_name=DEFAULT_RULE_NAME,
-    )
     existing_rules = bus_service.list_rules(
         topic_name=TOPIC, subscription_name=subscription_name
     )
@@ -85,6 +80,7 @@ def _create_filter(bus_service, subscription_name, filter_expression):
         bus_service.delete_rule(
             topic_name=TOPIC, subscription_name=subscription_name, rule_name=rule.name
         )
+
     rule = Rule()
     rule.filter_type = "SqlFilter"
     rule.filter_expression = filter_expression
@@ -100,7 +96,8 @@ if __name__ == "__main__":
     import configparser
     from api_client import point_in_time
     import api_client
-    api_client._rig_for_testing('localhost:44300')
+
+    # api_client._rig_for_testing('localhost:44300')
 
     config = configparser.ConfigParser()
     config.read("calcbench\calcbench.ini")
@@ -108,11 +105,13 @@ if __name__ == "__main__":
     connection_string = config["ServiceBus"]["ConnectionString"]
 
     def filing_handler(filing):
-        if filing.get('calcbench_id'):
-            data = point_in_time(accession_id=filing["calcbench_id"], all_face=True)
-            print(data)
+        if filing.get("calcbench_id"):
+            data = point_in_time(
+                accession_id=filing["calcbench_id"], all_face=True, all_footnotes=True
+            )
+            print(data.shape)
         else:
-            print('no accession id')
+            print("no accession id")
 
     handle_filings(
         filing_handler,

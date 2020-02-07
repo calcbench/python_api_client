@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name="calcbench_api_client",
-    version="2.1.0",
+    version="2.1.1",
     description="Client for Calcbench data.",
     author="Andrew Kittredge",
     author_email="andrew@calcbench.com",
@@ -20,7 +20,7 @@ setup(
     packages=["calcbench"],
     extras_require={
         "Pandas": ["Pandas"],
-        "Listener": ["azure-servicebus==0.50.0"],
+        "Listener": ["azure-servicebus==0.50.2"],
         "Backoff": ["backoff"],
     },
     url="https://github.com/calcbench/python_api_client",
