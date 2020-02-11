@@ -533,7 +533,8 @@ def point_in_time(
         data.calendar_period = data.calendar_period.astype(period_number)
     if not data.empty:
         for date_column in ["date_reported", "period_end", "period_start"]:
-            data[date_column] = pd.to_datetime(data[date_column])
+            if date_column in data.columns:
+                data[date_column] = pd.to_datetime(data[date_column])
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
@@ -1243,4 +1244,4 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 if __name__ == "__main__":
     from datetime import date
 
-    point_in_time(update_date=date(2020, 2, 3), all_face=True, accession_id=123)
+    point_in_time(all_face=True, all_footnotes=True, company_identifiers=['AVOZ'], all_history=True)
