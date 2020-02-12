@@ -84,7 +84,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -1146,7 +1145,7 @@ def _cast_filing_fields(filing):
         if filing.get(date_field):
             filing[date_field] = _try_parse_timestamp(filing[date_field])
     return filing
-    
+
 def document_types():
     url = _SESSION_STUFF["api_url_base"].format("documentTypes")
     r = _calcbench_session().get(url, verify=_SESSION_STUFF["ssl_verify"])
