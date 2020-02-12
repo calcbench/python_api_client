@@ -17,6 +17,8 @@ import json
 import warnings
 import logging
 
+from .api_client import _cast_filing_fields
+
 logger = logging.getLogger(__name__)
 
 TOPIC = "filings"
@@ -60,14 +62,15 @@ def handle_filings(
         try:
             body_bytes = b"".join(message.body)
             filing = json.loads(body_bytes)
+            filing = _cast_filing_fields(filing)
         except Exception:
             logger.exception(f"Exception Parsing {body_bytes}")
-            message.complete()
+            message.abandon()
         else:
             try:
                 handler(filing)
-            except Exception:
-                logger.exception(f"Exception handling {filing}")
+            except Exception as e:
+                logger.exception(f"Exception Processing {filing}\n{e}")                
             else:
                 message.complete()
 
@@ -91,31 +94,3 @@ def _create_filter(bus_service, subscription_name, filter_expression):
         rule=rule,
     )
 
-
-if __name__ == "__main__":
-    import configparser
-    from api_client import point_in_time
-    import api_client
-
-    # api_client._rig_for_testing('localhost:44300')
-
-    config = configparser.ConfigParser()
-    config.read("calcbench\calcbench.ini")
-    subscription = config["ServiceBus"]["Subscription"]
-    connection_string = config["ServiceBus"]["ConnectionString"]
-
-    def filing_handler(filing):
-        if filing.get("calcbench_id"):
-            data = point_in_time(
-                accession_id=filing["calcbench_id"], all_face=True, all_footnotes=True
-            )
-            print(data.shape)
-        else:
-            print("no accession id")
-
-    handle_filings(
-        filing_handler,
-        connection_string=connection_string,
-        subscription_name=subscription,
-        filter_expression="FilingType = 'annualQuarterlyReport'",
-    )

@@ -1133,17 +1133,20 @@ def filings(
         },
     )
     for filing in filings:
-        for date_field in (
+        yield _cast_filing_fields(filing)
+
+
+def _cast_filing_fields(filing):
+    for date_field in (
             "calcbench_finished_load",
             "calcbench_accepted",
             "filing_date",
             "period_end_date",
         ):
-            if filing.get(date_field):
-                filing[date_field] = _try_parse_timestamp(filing[date_field])
-        yield filing
-
-
+        if filing.get(date_field):
+            filing[date_field] = _try_parse_timestamp(filing[date_field])
+    return filing
+    
 def document_types():
     url = _SESSION_STUFF["api_url_base"].format("documentTypes")
     r = _calcbench_session().get(url, verify=_SESSION_STUFF["ssl_verify"])
