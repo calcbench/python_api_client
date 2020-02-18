@@ -84,6 +84,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -809,6 +810,7 @@ def document_search(
     all_documents=False,
     disclosure_names=[],
     progress_bar=None,
+    accession_id=None,
 ):
     """
     Footnotes and other text
@@ -848,9 +850,9 @@ def document_search(
         ]
     ):
         raise (ValueError("Need to supply at least one search parameter."))
-    if not (company_identifiers or entire_universe):
-        raise (ValueError("Need to supply company_identifiers or entire_universe=True"))
-    if not (all_history or updated_from):
+    if not (company_identifiers or entire_universe or accession_id):
+        raise (ValueError("Need to supply company_identifiers or entire_universe=True or accession_id"))
+    if not (all_history or updated_from or accession_id):
         if not year:
             raise ValueError("Need to specify year or all all_history")
         period_type = (
@@ -865,6 +867,7 @@ def document_search(
             "useFiscalPeriod": use_fiscal_period,
             "allHistory": all_history,
             "updatedFrom": updated_from and updated_from.isoformat(),
+            "accessionID": accession_id,
         },
         "pageParameters": {
             "fullTextQuery": full_text_search_term,
@@ -1137,14 +1140,15 @@ def filings(
 
 def _cast_filing_fields(filing):
     for date_field in (
-            "calcbench_finished_load",
-            "calcbench_accepted",
-            "filing_date",
-            "period_end_date",
-        ):
+        "calcbench_finished_load",
+        "calcbench_accepted",
+        "filing_date",
+        "period_end_date",
+    ):
         if filing.get(date_field):
             filing[date_field] = _try_parse_timestamp(filing[date_field])
     return filing
+
 
 def document_types():
     url = _SESSION_STUFF["api_url_base"].format("documentTypes")
@@ -1246,4 +1250,10 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 if __name__ == "__main__":
     from datetime import date
 
-    point_in_time(all_face=True, all_footnotes=True, company_identifiers=['AVOZ'], all_history=True)
+    point_in_time(
+        all_face=True,
+        all_footnotes=True,
+        company_identifiers=["AVOZ"],
+        all_history=True,
+    )
+
