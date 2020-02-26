@@ -39,6 +39,14 @@
 <code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">filings</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_non_xbrl=True</em>, <em class="sig-param">received_date=None</em>, <em class="sig-param">start_date=None</em>, <em class="sig-param">end_date=None</em>, <em class="sig-param">filing_types=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filings" title="Permalink to this definition">¶</a></dt>
 <dd><p>SEC filings</p>
 <p><a class="reference external" href="https://www.calcbench.com/filings">https://www.calcbench.com/filings</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – list of tickers or CIK codes</p></li>
+<li><p><strong>received_date</strong> (<em>datetime.date</em>) – get all filings received on this date</p></li>
+</ul>
+</dd>
+</dl>
 <dl>
 <dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">date</span>        
 <span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">filings</span><span class="p">(</span><span class="n">received_date</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

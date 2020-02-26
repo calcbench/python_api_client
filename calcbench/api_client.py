@@ -490,18 +490,21 @@ def point_in_time(
     include_xbrl=True,
     accession_id=None,
 ):
-    """Point-in-Time Data.
+    """Point-in-Time Data
 
     Standardized data with a timestamp when it was published by Calcbench
     
     :param date update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
+    :param int accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
+    :param bool all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
+    :param bool all_footnotes: Retrive all of the points from the footnotes to the financials
+    :return: DataFrame of facts
+    :rtype: pandas.DataFrame
+
     Usage::
+       >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
 
-    >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
-
-    .. _Example
-
-    https://github.com/calcbench/notebooks/blob/master/Point_In_Time_Face.ipynb
+    .. _Example: https://github.com/calcbench/notebooks/blob/master/standardized_numeric_point_in_time.ipynb
 
     """
 
@@ -744,7 +747,7 @@ def document_dataframe(
     :param tqdm.tqdm progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param string identifier_key: "ticker" or "CIK", how to index the returned DataFrame.
     :return: A DataFrame indexed by document name -> company identifier.
-    :rtyte: pandas.DataFrame
+    :rtype: pandas.DataFrame
 
 
     Usage::      
