@@ -20,6 +20,11 @@ logger = logging.getLogger(__name__)
 try:
     import pandas as pd
     import numpy as np
+
+    period_number = pd.api.types.CategoricalDtype(
+        categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
+    )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
+
 except ImportError:
     "Can't find pandas, won't be able to use the functions that return DataFrames."
     pass
@@ -538,11 +543,6 @@ def point_in_time(
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
-period_number = pd.api.types.CategoricalDtype(
-    categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
-)  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
-
-
 def mapped_raw(
     company_identifiers=[],
     all_footnotes=False,
@@ -851,7 +851,11 @@ def document_search(
     ):
         raise (ValueError("Need to supply at least one search parameter."))
     if not (company_identifiers or entire_universe or accession_id):
-        raise (ValueError("Need to supply company_identifiers or entire_universe=True or accession_id"))
+        raise (
+            ValueError(
+                "Need to supply company_identifiers or entire_universe=True or accession_id"
+            )
+        )
     if not (all_history or updated_from or accession_id):
         if not year:
             raise ValueError("Need to specify year or all all_history")
@@ -931,6 +935,7 @@ def _try_parse_timestamp(timestamp):
     We did not always have milliseconds
     """
     try:
+        timestamp = timestamp[:26] #.net's milliseconds are too long
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
     except ValueError:
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
@@ -1105,6 +1110,9 @@ def filings(
     """SEC filings
 
     https://www.calcbench.com/filings
+
+    :param list(str) company_identifiers: list of tickers or CIK codes
+    :param datetime.date received_date: get all filings received on this date
 
     Usage::
         >>> from datetime import date        
