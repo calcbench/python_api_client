@@ -5,6 +5,7 @@ Created on Mar 14, 2015
 @copyright: Calcbench, Inc.
 @contact: andrew@calcbench.com
 """
+
 from __future__ import print_function
 import os
 import requests
@@ -34,10 +35,6 @@ try:
 except ImportError:
     pass
 
-try:
-    import backoff
-except ImportError:
-    pass
 
 _SESSION_STUFF = {
     "calcbench_user_name": os.environ.get("CALCBENCH_USERNAME"),
@@ -89,7 +86,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -97,6 +93,7 @@ def _add_backoff(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if _SESSION_STUFF["enable_backoff"]:
+            backoff = _SESSION_STUFF['backoff_package']
             return backoff.on_exception(
                 backoff.expo,
                 requests.exceptions.RequestException,
@@ -177,7 +174,9 @@ def enable_backoff(backoff_on=True):
     Usage::
         >>> calcbench.enable_backoff()
     """
-
+    if backoff_on:
+        import backoff
+        _SESSION_STUFF['backoff_package'] = backoff
     _SESSION_STUFF["enable_backoff"] = backoff_on
 
 
@@ -1260,11 +1259,4 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
 
 if __name__ == "__main__":
     from datetime import date
-
-    point_in_time(
-        all_face=True,
-        all_footnotes=True,
-        company_identifiers=["AVOZ"],
-        all_history=True,
-    )
-
+    point_in_time(all_face=True, company_identifiers=['BELFB'], all_history=True)
