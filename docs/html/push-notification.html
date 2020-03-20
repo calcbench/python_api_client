@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Push Notifications &#8212; Calcbench API Client  documentation</title>
+    <title>Low-latency New Data Notification &#8212; Calcbench API Client  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Companies" href="companies.html" />
@@ -31,9 +31,13 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="push-notifications">
-<h1>Push Notifications<a class="headerlink" href="#push-notifications" title="Permalink to this headline">¶</a></h1>
-<p>Recieve notification when Calcbench has processed new SEC filings.  Useful for keeping your database up-to-date at low-latency.</p>
+  <div class="section" id="low-latency-new-data-notification">
+<h1>Low-latency New Data Notification<a class="headerlink" href="#low-latency-new-data-notification" title="Permalink to this headline">¶</a></h1>
+<p>Low-latency notification when Calcbench processes new filings from the SEC and publishes data.</p>
+<p>Calcbench pushes messages onto a queue when we publish new data.  Your process listens on the queue.
+When you recieve a message you call the Calcbench API to retrieve data then add the data to your pipeline.</p>
+<p>Implement the listener as below in a script that runs in an always on daemon managed by something like <code class="code docutils literal notranslate"><span class="pre">systemd</span></code>.</p>
+<p>If your system is down, messages will remain in the queue for 7 days.  If you process throws an exception prior to completion the messages will be put back on the queue.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This requires Calcbench to create a subscription for you.</p>
@@ -48,7 +52,9 @@
 <dd><p>Listen for new filings from Calcbench</p>
 <p>Pass in a function that process each filing.</p>
 <dl>
-<dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">filing_handler</span><span class="p">(</span><span class="n">filing</span><span class="p">):</span>
+<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">filing_handler</span><span class="p">(</span><span class="n">filing</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;filing_type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;annualQuarterlyReport&quot;</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">accession_id</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s1">&#39;calcbench_id&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">point_in_time</span><span class="p">(</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="n">accession_id</span><span class="o">=</span><span class="n">accession_id</span>
@@ -61,7 +67,6 @@
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">filing_handler</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">connection_string</span><span class="o">=</span><span class="n">connection_string</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">subscription_name</span><span class="o">=</span><span class="n">subscription</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">filter_expression</span><span class="o">=</span><span class="s2">&quot;FilingType = &#39;annualQuarterlyReport&#39;&quot;</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
 </pre></div>
 </div>
@@ -94,7 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Push Notifications</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Low-latency New Data Notification</a></li>
 </ul>
 
 <div class="relations">
@@ -114,7 +119,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -131,7 +136,7 @@
       &copy;2019, Andrew Kittredge.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

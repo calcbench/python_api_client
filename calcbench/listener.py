@@ -26,6 +26,8 @@ def handle_filings(
 
     Usage::
         >>> def filing_handler(filing):
+        >>>     if filing["filing_type"] != "annualQuarterlyReport":
+        >>>         return
         >>>     accession_id = filing['calcbench_id']
         >>>     data = point_in_time(
         >>>             accession_id=accession_id
@@ -38,7 +40,6 @@ def handle_filings(
         >>>     filing_handler,
         >>>     connection_string=connection_string,
         >>>     subscription_name=subscription,
-        >>>     filter_expression="FilingType = 'annualQuarterlyReport'",
         >>> )
     """
     sub_client = SubscriptionClient.from_connection_string(

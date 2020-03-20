@@ -7,11 +7,11 @@
     <title>Numeric Data &#8212; Calcbench API Client  documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Disclosures/Text" href="disclosures.html" />
@@ -98,7 +98,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage::</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">point_in_time</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">point_in_time</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -123,7 +123,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clauses</span> <span class="o">=</span> <span class="p">[</span>
+<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clauses</span> <span class="o">=</span> <span class="p">[</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Revenues&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;XBRLtag&quot;</span><span class="p">,</span> <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;fiscalPeriod&quot;</span><span class="p">,</span> <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2018&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;fiscalYear&quot;</span><span class="p">,</span> <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
@@ -164,7 +164,7 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage:: </dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fdx&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OperatingSegmentRevenue&#39;</span><span class="p">],</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">2018</span><span class="p">)</span>
+<dt>Usage:: </dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fdx&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OperatingSegmentRevenue&#39;</span><span class="p">],</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">2018</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -224,7 +224,7 @@
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -241,7 +241,7 @@
       &copy;2019, Andrew Kittredge.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
