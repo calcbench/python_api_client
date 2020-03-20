@@ -498,12 +498,48 @@ def point_in_time(
     :param bool all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
     :param bool all_footnotes: Retrive all of the points from the footnotes to the financials
     :return: DataFrame of facts
+
     :rtype: pandas.DataFrame
+
+    Columns:
+
+
+    value
+       The value of the fact
+    revision_number
+       0 indicates an original, unrevised value for this fact. 1, 2, 3... indicates subsequent revisions to the fact value.  https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&query=revisions&commit=Search
+    period_start
+       First day of the fiscal period for this fact
+    period_end
+       Last day of the fiscal period for this fact
+    date_reported
+       Timestamp when Calcbench published this fact
+    metric
+       The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
+    calendar_year
+       The calendar year for this fact.  https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM-
+    calendar_period
+       The calendar period for this fact
+    fiscal_year
+       Company reported fiscal year for this fact
+    fiscal_period
+       Company reported fiscal period for this fact
+    ticker
+       Ticker of reporting company
+    CIK
+       SEC assigned Central Index Key for reporting company
+    calcbench_entity_id
+       Internal Calcbench identifier for reporting company
+    filing_type
+       The document type this fact came from, 10-K|Q, S-1 etc...
+       
+    
 
     Usage::
        >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
 
     .. _Example: https://github.com/calcbench/notebooks/blob/master/standardized_numeric_point_in_time.ipynb
+
 
     """
 

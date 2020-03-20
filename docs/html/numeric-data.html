@@ -97,7 +97,36 @@
 <dd class="field-odd"><p>pandas.DataFrame</p>
 </dd>
 </dl>
+<p>Columns:</p>
 <dl>
+<dt>value</dt><dd><p>The value of the fact</p>
+</dd>
+<dt>revision_number</dt><dd><p>0 indicates an original, unrevised value for this fact. 1, 2, 3… indicates subsequent revisions to the fact value.  <a class="reference external" href="https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&amp;query=revisions&amp;commit=Search">https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&amp;query=revisions&amp;commit=Search</a></p>
+</dd>
+<dt>period_start</dt><dd><p>First day of the fiscal period for this fact</p>
+</dd>
+<dt>period_end</dt><dd><p>Last day of the fiscal period for this fact</p>
+</dd>
+<dt>date_reported</dt><dd><p>Timestamp when Calcbench published this fact</p>
+</dd>
+<dt>metric</dt><dd><p>The metric name, see the definitions &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
+</dd>
+<dt>calendar_year</dt><dd><p>The calendar year for this fact.  <a class="reference external" href="https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM">https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM</a>-</p>
+</dd>
+<dt>calendar_period</dt><dd><p>The calendar period for this fact</p>
+</dd>
+<dt>fiscal_year</dt><dd><p>Company reported fiscal year for this fact</p>
+</dd>
+<dt>fiscal_period</dt><dd><p>Company reported fiscal period for this fact</p>
+</dd>
+<dt>ticker</dt><dd><p>Ticker of reporting company</p>
+</dd>
+<dt>CIK</dt><dd><p>SEC assigned Central Index Key for reporting company</p>
+</dd>
+<dt>calcbench_entity_id</dt><dd><p>Internal Calcbench identifier for reporting company</p>
+</dd>
+<dt>filing_type</dt><dd><p>The document type this fact came from, 10-K|Q, S-1 etc…</p>
+</dd>
 <dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">point_in_time</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -203,7 +232,7 @@
 <li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Push Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
 </ul>
 
 <div class="relations">
