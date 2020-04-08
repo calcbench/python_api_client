@@ -99,6 +99,7 @@ def _add_backoff(f):
                 requests.exceptions.RequestException,
                 max_tries=8,
                 logger=logger,
+                giveup=_SESSION_STUFF["backoff_giveup"],
             )(f)(*args, **kwargs)
         else:
             return f(*args, **kwargs)
@@ -164,7 +165,7 @@ def set_credentials(cb_username, cb_password):
     _calcbench_session()  # Make sure credentials work.
 
 
-def enable_backoff(backoff_on=True):
+def enable_backoff(backoff_on=True, giveup=lambda e: False):
     """Re-try failed requests with exponential back-off
 
     Requires the backoff package. ``pip install backoff``
@@ -178,6 +179,7 @@ def enable_backoff(backoff_on=True):
         import backoff
         _SESSION_STUFF['backoff_package'] = backoff
     _SESSION_STUFF["enable_backoff"] = backoff_on
+    _SESSION_STUFF["backoff_giveup"] = giveup
 
 
 def set_proxies(proxies):
@@ -577,7 +579,7 @@ def point_in_time(
     if not data.empty:
         for date_column in ["date_reported", "period_end", "period_start"]:
             if date_column in data.columns:
-                data[date_column] = pd.to_datetime(data[date_column])
+                data[date_column] = pd.to_datetime(data[date_column], errors="coerce")
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
