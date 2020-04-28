@@ -36,7 +36,8 @@ from .api_client import (
     raw_xbrl_raw,
     raw_xbrl,
     DocumentSearchResults,
+    raw_data,
+    raw_data_raw,
 )
 
 from .listener import handle_filings
-

@@ -86,6 +86,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -93,7 +94,7 @@ def _add_backoff(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if _SESSION_STUFF["enable_backoff"]:
-            backoff = _SESSION_STUFF['backoff_package']
+            backoff = _SESSION_STUFF["backoff_package"]
             return backoff.on_exception(
                 backoff.expo,
                 requests.exceptions.RequestException,
@@ -177,7 +178,8 @@ def enable_backoff(backoff_on=True, giveup=lambda e: False):
     """
     if backoff_on:
         import backoff
-        _SESSION_STUFF['backoff_package'] = backoff
+
+        _SESSION_STUFF["backoff_package"] = backoff
     _SESSION_STUFF["enable_backoff"] = backoff_on
     _SESSION_STUFF["backoff_giveup"] = giveup
 
@@ -490,6 +492,7 @@ def point_in_time(
     all_face=False,
     include_xbrl=True,
     accession_id=None,
+    include_trace=False,
 ):
     """Point-in-Time Data
 
@@ -563,9 +566,18 @@ def point_in_time(
         all_face=all_face,
         include_xbrl=include_xbrl,
         accession_id=accession_id,
+        include_trace=include_trace,
     )
     if not data:
         return pd.DataFrame()
+    if include_trace:
+        for point in data:
+            trace_facts = point.pop("trace_facts", None)
+            if trace_facts:
+                fact_id = trace_facts[0]["fact_id"]
+                point[
+                    "trace_url"
+                ] = f"https://calcbench.com/benchmark/traceValueExcelV2?nonXBRLFactIDs={fact_id}"
     data = pd.DataFrame(data)
 
     sort_columns = ["ticker", "metric"]
@@ -601,6 +613,7 @@ def mapped_raw(
     all_face=False,
     include_xbrl=True,
     accession_id=None,
+    include_trace=False,
 ):
     if update_date:
         warnings.warn(
@@ -621,6 +634,7 @@ def mapped_raw(
             "allface": all_face,
             "metrics": metrics,
             "includePreliminary": include_preliminary,
+            "includeTrace": include_trace,
         },
     }
     period_parameters = {
@@ -975,7 +989,7 @@ def _try_parse_timestamp(timestamp):
     We did not always have milliseconds
     """
     try:
-        timestamp = timestamp[:26] #.net's milliseconds are too long
+        timestamp = timestamp[:26]  # .net's milliseconds are too long
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
     except ValueError:
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
@@ -1228,12 +1242,19 @@ def press_release_raw(
     return _json_POST("pressReleaseData", payload)
 
 
-def raw_xbrl(company_identifiers=[], entire_universe=False, clauses=[]):
-    """Data as reported in the XBRL documents
+rawXBRLEndPoint = "rawXBRLData"
+rawNonXBRLEndPoint = "rawNonXBRLData"
+
+
+def raw_data(
+    company_identifiers=[], entire_universe=False, clauses=[], end_point=rawXBRLEndPoint
+):
+    """As-reported data. 
 
     :param list(str) company_identifiers: list of tickers or CIK codes
     :param bool entire_universe: Search all companies
     :param list(dict) clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
+    :param str end_point: 'rawXBRLData' for facts tagged by XBRL, 'rawNONXBRLData' for facts parsed/extracted from non-XBRL tagged documents
 
     Usage:
         >>> clauses = [
@@ -1243,10 +1264,15 @@ def raw_xbrl(company_identifiers=[], entire_universe=False, clauses=[]):
         >>> ]
         >>> cb.raw_xbrl(company_identifiers=['mmm'], clauses=clauses)
     """
+    if end_point not in (rawXBRLEndPoint, rawNonXBRLEndPoint):
+        raise ValueError(
+            f"end_point must be either {rawXBRLEndPoint} or {rawNonXBRLEndPoint}"
+        )
     d = raw_xbrl_raw(
         company_identifiers=company_identifiers,
         entire_universe=entire_universe,
         clauses=clauses,
+        end_point=end_point,
     )
     df = pd.DataFrame(d)
     for date_column in [
@@ -1261,7 +1287,12 @@ def raw_xbrl(company_identifiers=[], entire_universe=False, clauses=[]):
     return df
 
 
-def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
+raw_xbrl = raw_data
+
+
+def raw_data_raw(
+    company_identifiers=[], entire_universe=False, clauses=[], end_point=rawXBRLEndPoint
+):
     """Data as reported in the XBRL documents
 
     :param list(str) company_identifiers: list of tickers or CIK codes
@@ -1283,18 +1314,24 @@ def raw_xbrl_raw(company_identifiers=[], entire_universe=False, clauses=[]):
         },
         "pageParameters": {"clauses": clauses},
     }
-    results = _json_POST("rawXBRLData", payload)
-    for result in results:
-        if result["dimension_string"]:
-            result["dimensions"] = {
-                d.split(":")[0]: d.split(":")[1]
-                for d in result["dimension_string"].split(",")
-            }
-        else:
-            result["dimensions"] = []
+    results = _json_POST(end_point, payload)
+    if end_point == rawXBRLEndPoint:
+        for result in results:
+            if result["dimension_string"]:
+                result["dimensions"] = {
+                    d.split(":")[0]: d.split(":")[1]
+                    for d in result["dimension_string"].split(",")
+                }
+            else:
+                result["dimensions"] = []
     return results
+
+
+raw_xbrl_raw = raw_data_raw
 
 
 if __name__ == "__main__":
     from datetime import date
-    point_in_time(all_face=True, company_identifiers=['BELFB'], all_history=True)
+
+    point_in_time(all_face=True, company_identifiers=["BELFB"], all_history=True)
+

@@ -73,7 +73,7 @@
 
 <dl class="function">
 <dt id="calcbench.enable_backoff">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">enable_backoff</code><span class="sig-paren">(</span><em class="sig-param">backoff_on=True</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.enable_backoff" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">enable_backoff</code><span class="sig-paren">(</span><em class="sig-param">backoff_on=True</em>, <em class="sig-param">giveup=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.enable_backoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Re-try failed requests with exponential back-off</p>
 <p>Requires the backoff package. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">backoff</span></code></p>
 <p>If processes make many requests failures are inevitable.  Call this to retry failed requests.</p>
