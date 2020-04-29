@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name="calcbench_api_client",
-    version="2.3.2",
+    version="2.4.0",
     description="Client for Calcbench data.",
     author="Andrew Kittredge",
     author_email="andrew@calcbench.com",
