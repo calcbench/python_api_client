@@ -86,7 +86,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
-
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -185,6 +184,10 @@ def enable_backoff(backoff_on=True, giveup=lambda e: False):
 
 
 def set_proxies(proxies):
+    """
+        Set proxies used for requests.  See https://requests.readthedocs.io/en/master/user/advanced/#proxies
+
+    """
     _SESSION_STUFF["proxies"] = proxies
 
 
