@@ -1100,11 +1100,11 @@ def _companies(
     elif NAICS_codes:
         payload["NAICSCodes"] = NAICS_codes
     elif company_identifiers:
-        payload["companyIdentifiers"] = ",".join(company_identifiers)
+        payload["companyIdentifiers"] = company_identifiers
     else:
         payload["universe"] = True
     payload["includeMostRecentFilingExtras"] = include_most_recent_filing_dates
-    return _json_GET("api/companies", payload)
+    return _json_POST("companies", payload)
 
 
 def companies_raw(
