@@ -664,7 +664,7 @@ def face_statement(
     company_identifier,
     statement_type,
     period_type="annual",
-    all_periods=False,
+    all_history=False,
     descending_dates=False,
 ):
     """Face Statements.
@@ -674,7 +674,7 @@ def face_statement(
     
     :param string company_identifier: a ticker or a CIK code, eg 'msft'
     :param string statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
-    :param string period_type: 'annual' or 'quarterly'
+    :param string period_type: annual|quarterly|cummulative|combined
     :param string all_periods: get all history or only the last four, True or False.
     :param bool descending_dates: return columns in oldest -> newest order.
         
@@ -720,7 +720,7 @@ def face_statement(
         "companyIdentifier": company_identifier,
         "statementType": statement_type,
         "periodType": period_type,
-        "allPeriods": all_periods,
+        "allPeriods": all_history,
         "descendingDates": descending_dates,
     }
     response = _calcbench_session().get(

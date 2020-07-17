@@ -13,10 +13,10 @@ Calcbench Python API Client
    getting-started
    numeric-data
    disclosures
+   face-statements
    filings
    companies
    push-notification
-   face-statements
 
 Examples
 --------
