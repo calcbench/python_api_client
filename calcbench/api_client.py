@@ -86,6 +86,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     _SESSION_STUFF["session"] = None
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -657,56 +658,62 @@ def mapped_raw(
     return _json_POST("mappedData", payload)
 
 
-def as_reported_raw(
+
+
+def face_statement(
     company_identifier,
     statement_type,
     period_type="annual",
     all_periods=False,
     descending_dates=False,
 ):
-    """
-    As-Reported Data.
+    """Face Statements.
     
-    Get statements as reported by the filing company
+    face statements as reported by the filing company
     
-    Args:
-        company_identifier: a ticker or a CIK code, eg 'msft'
-        statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
-        period_type: either 'annual' or 'quarterly'
-        all_periods: get all history or only the last four, True or False.
-        descending_dates: return columns in oldest -> newest order.
+    
+    :param string company_identifier: a ticker or a CIK code, eg 'msft'
+    :param string statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
+    :param string period_type: 'annual' or 'quarterly'
+    :param string all_periods: get all history or only the last four, True or False.
+    :param bool descending_dates: return columns in oldest -> newest order.
         
+    :rtype: object
+
     Returns:
-        An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
-        The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
-        The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.
-         
-         Example:
-             {
-                "entity_name": "Microsoft Corp",
-                "name": "INCOME STATEMENTS",
-                "period_type": 2,
-                "columns": [
-                            {"fiscal_period": "Y 2008",
-                            "period_start": "2007-07-01",
-                            "period_end": "2008-06-30",
-                            "instant": false
-                        },...],
-                "line_items" : [
-                            {"label": "Revenue",
-                            "local_name": "SalesRevenueNet",
-                            "tree_depth": 3,
-                            "is_subtotal": false,
-                            "facts": [
-                                {
-                                    "fact_id": 5849672,
-                                    "unit_of_measure": "USD",
-                                    "effective_value": 60420000000,
-                                    "format_type": "currency",
-                                    "text_fact_id": 5849351
-                                },...]}
-                    ...]
-                }        
+    An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
+    The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
+    The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.
+        
+        Example:
+            {
+            "entity_name": "Microsoft Corp",
+            "name": "INCOME STATEMENTS",
+            "period_type": 2,
+            "columns": [
+                        {"fiscal_period": "Y 2008",
+                        "period_start": "2007-07-01",
+                        "period_end": "2008-06-30",
+                        "instant": false
+                    },...],
+            "line_items" : [
+                        {"label": "Revenue",
+                        "local_name": "SalesRevenueNet",
+                        "tree_depth": 3,
+                        "is_subtotal": false,
+                        "facts": [
+                            {
+                                "fact_id": 5849672,
+                                "unit_of_measure": "USD",
+                                "effective_value": 60420000000,
+                                "format_type": "currency",
+                                "text_fact_id": 5849351
+                            },...]}
+                ...]
+            } 
+    Usage::
+        >>> calcbench.face_statement('msft', 'income')
+
     """
     url = _SESSION_STUFF["api_url_base"].format("asReported")
     payload = {
@@ -726,6 +733,7 @@ def as_reported_raw(
     data = response.json()
     return data
 
+as_reported_raw = face_statement
 
 def dimensional_raw(
     company_identifiers=None,
@@ -1039,7 +1047,11 @@ def tickers(
 
     """
     companies = _companies(
-        SIC_codes, index, company_identifiers, entire_universe, NAICS_codes=NAICS_codes
+        SIC_codes,
+        index,
+        list(company_identifiers),
+        entire_universe,
+        NAICS_codes=NAICS_codes,
     )
     tickers = [co["ticker"] for co in companies]
     return tickers
@@ -1065,7 +1077,7 @@ def companies(
     companies = _companies(
         SIC_codes,
         index,
-        company_identifiers,
+        list(company_identifiers),
         entire_universe,
         include_most_recent_filing_dates,
         NAICS_codes=NAICS_codes,

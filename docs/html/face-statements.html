@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Face Statements &#8212; Calcbench API Client  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Low-latency New Data Notification" href="push-notification.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="face-statements">
+<h1>Face Statements<a class="headerlink" href="#face-statements" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="calcbench.face_statement">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">face_statement</code><span class="sig-paren">(</span><em class="sig-param">company_identifier</em>, <em class="sig-param">statement_type</em>, <em class="sig-param">period_type='annual'</em>, <em class="sig-param">all_periods=False</em>, <em class="sig-param">descending_dates=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.face_statement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Face Statements.</p>
+<p>face statements as reported by the filing company</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifier</strong> (<em>string</em>) – a ticker or a CIK code, eg ‘msft’</p></li>
+<li><p><strong>statement_type</strong> (<em>string</em>) – one of (‘income’, ‘balance’, ‘cash’, ‘change-in-equity’, ‘comprehensive-income’)</p></li>
+<li><p><strong>period_type</strong> (<em>string</em>) – ‘annual’ or ‘quarterly’</p></li>
+<li><p><strong>all_periods</strong> (<em>string</em>) – get all history or only the last four, True or False.</p></li>
+<li><p><strong>descending_dates</strong> (<em>bool</em>) – return columns in oldest -&gt; newest order.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>object</p>
+</dd>
+</dl>
+<p>Returns:
+An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
+The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
+The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.</p>
+<blockquote>
+<div><dl>
+<dt>Example:</dt><dd><p>{
+“entity_name”: “Microsoft Corp”,
+“name”: “INCOME STATEMENTS”,
+“period_type”: 2,
+“columns”: [</p>
+<blockquote>
+<div><blockquote>
+<div><p>{“fiscal_period”: “Y 2008”,
+“period_start”: “2007-07-01”,
+“period_end”: “2008-06-30”,
+“instant”: false</p>
+</div></blockquote>
+<p>},…],</p>
+</div></blockquote>
+<dl>
+<dt>“line_items”<span class="classifier">[</span></dt><dd><blockquote>
+<div><p>{“label”: “Revenue”,
+“local_name”: “SalesRevenueNet”,
+“tree_depth”: 3,
+“is_subtotal”: false,
+“facts”: [</p>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“fact_id”: 5849672,
+“unit_of_measure”: “USD”,
+“effective_value”: 60420000000,
+“format_type”: “currency”,
+“text_fact_id”: 5849351</p>
+</dd>
+</dl>
+<p>},…]}</p>
+</div></blockquote>
+</div></blockquote>
+<p>…]</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">face_statement</span><span class="p">(</span><span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Face Statements</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="push-notification.html" title="previous chapter">Low-latency New Data Notification</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Andrew Kittredge.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/face-statements.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

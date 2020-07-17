@@ -38,6 +38,7 @@ from .api_client import (
     DocumentSearchResults,
     raw_data,
     raw_data_raw,
+    face_statement,
 )
 
 from .listener import handle_filings

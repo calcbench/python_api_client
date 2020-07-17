@@ -16,6 +16,7 @@ Calcbench Python API Client
    filings
    companies
    push-notification
+   face-statements
 
 Examples
 --------
