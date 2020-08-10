@@ -17,6 +17,7 @@ setup(
     license="Apache2",
     keywords="finance accounting SEC 10-(K|Q)",
     install_requires=["requests"],
+    python_requires=">=3.4",
     packages=["calcbench"],
     extras_require={
         "Pandas": ["Pandas"],
@@ -24,5 +25,5 @@ setup(
         "Backoff": ["backoff"],
     },
     url="https://github.com/calcbench/python_api_client",
-    long_description="A client for Calcbench's API.  www.calcbench.com/api",
+    long_description="A client for Calcbench's API.  www.calcbench.com/api.  If you need Python 2 support install version 2.4.0",
 )
