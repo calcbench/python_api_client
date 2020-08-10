@@ -14,6 +14,7 @@ import warnings
 from datetime import datetime
 from functools import wraps
 import logging
+from enum import Enum
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +35,6 @@ try:
     from bs4 import BeautifulSoup
 except ImportError:
     pass
-
 
 _SESSION_STUFF = {
     "calcbench_user_name": os.environ.get("CALCBENCH_USERNAME"),
@@ -180,6 +180,7 @@ def enable_backoff(backoff_on=True, giveup=lambda e: False):
         import backoff
 
         _SESSION_STUFF["backoff_package"] = backoff
+
     _SESSION_STUFF["enable_backoff"] = backoff_on
     _SESSION_STUFF["backoff_giveup"] = giveup
 
@@ -190,6 +191,11 @@ def set_proxies(proxies):
 
     """
     _SESSION_STUFF["proxies"] = proxies
+
+
+class CompanyIdentifierScheme(Enum):
+    Ticker = "ticker"
+    CentralIndexKey = "CIK"
 
 
 def normalized_dataframe(
@@ -208,6 +214,7 @@ def normalized_dataframe(
     period_type=None,
     trace_hyperlinks=False,
     use_fiscal_period=False,
+    company_identifier_scheme=CompanyIdentifierScheme.Ticker,
 ):
     """Standardized Data.
     
@@ -233,6 +240,7 @@ def normalized_dataframe(
       >>> calcbench.standardized_data(company_identifiers=['msft', 'goog'], metrics=['revenue', 'assets'], all_history=True, period_type='annual')
 
     """
+    company_identifier_scheme = CompanyIdentifierScheme(company_identifier_scheme)
     if all_history and not period_type:
         raise ValueError("For all history you must specify a period_type")
     data = normalized_raw(
@@ -280,7 +288,9 @@ def normalized_dataframe(
     if missing_metrics:
         warnings.warn("Did not find metrics {0}".format(missing_metrics))
     data = pd.DataFrame(data)
-    data.set_index(keys=["ticker", "metric", "period"], inplace=True)
+    data.set_index(
+        keys=[company_identifier_scheme.value, "metric", "period"], inplace=True
+    )
     try:
         data = data.unstack("metric")["value"]
     except ValueError as e:
@@ -299,7 +309,7 @@ def normalized_dataframe(
 
     for missing_metric in missing_metrics:
         data[missing_metric] = np.nan  # We want columns for every requested metric.
-    data = data.unstack("ticker")
+    data = data.unstack(company_identifier_scheme.value)
     return data
 
 
@@ -585,6 +595,7 @@ def point_in_time(
     data = pd.DataFrame(data)
 
     sort_columns = ["ticker", "metric"]
+
     if "calendar_period" in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)
         sort_columns.extend(["calendar_year", "calendar_period"])
@@ -618,7 +629,7 @@ def mapped_raw(
     include_xbrl=True,
     accession_id=None,
     include_trace=False,
-):
+) -> pd.DataFrame:
     if update_date:
         warnings.warn(
             "Request updates by accession_id rather than update date",
@@ -658,8 +669,6 @@ def mapped_raw(
     return _json_POST("mappedData", payload)
 
 
-
-
 def face_statement(
     company_identifier,
     statement_type,
@@ -685,32 +694,7 @@ def face_statement(
     The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
     The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.
         
-        Example:
-            {
-            "entity_name": "Microsoft Corp",
-            "name": "INCOME STATEMENTS",
-            "period_type": 2,
-            "columns": [
-                        {"fiscal_period": "Y 2008",
-                        "period_start": "2007-07-01",
-                        "period_end": "2008-06-30",
-                        "instant": false
-                    },...],
-            "line_items" : [
-                        {"label": "Revenue",
-                        "local_name": "SalesRevenueNet",
-                        "tree_depth": 3,
-                        "is_subtotal": false,
-                        "facts": [
-                            {
-                                "fact_id": 5849672,
-                                "unit_of_measure": "USD",
-                                "effective_value": 60420000000,
-                                "format_type": "currency",
-                                "text_fact_id": 5849351
-                            },...]}
-                ...]
-            } 
+
     Usage::
         >>> calcbench.face_statement('msft', 'income')
 
@@ -733,7 +717,9 @@ def face_statement(
     data = response.json()
     return data
 
+
 as_reported_raw = face_statement
+
 
 def dimensional_raw(
     company_identifiers=None,
@@ -1339,14 +1325,8 @@ def raw_data_raw(
                 }
             else:
                 result["dimensions"] = []
+
     return results
 
 
 raw_xbrl_raw = raw_data_raw
-
-
-if __name__ == "__main__":
-    from datetime import date
-
-    point_in_time(all_face=True, company_identifiers=["BELFB"], all_history=True)
-

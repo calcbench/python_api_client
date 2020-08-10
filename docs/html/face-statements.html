@@ -34,6 +34,7 @@
             
   <div class="section" id="face-statements">
 <h1>Face Statements<a class="headerlink" href="#face-statements" title="Permalink to this headline">¶</a></h1>
+<p>The data behind the <a class="reference external" href="https://www.calcbench.com/detail/">https://www.calcbench.com/detail/</a> page.</p>
 <dl class="function">
 <dt id="calcbench.face_statement">
 <code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">face_statement</code><span class="sig-paren">(</span><em class="sig-param">company_identifier</em>, <em class="sig-param">statement_type</em>, <em class="sig-param">period_type='annual'</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">descending_dates=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.face_statement" title="Permalink to this definition">¶</a></dt>
@@ -57,48 +58,6 @@
 An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
 The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
 The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.</p>
-<blockquote>
-<div><dl>
-<dt>Example:</dt><dd><p>{
-“entity_name”: “Microsoft Corp”,
-“name”: “INCOME STATEMENTS”,
-“period_type”: 2,
-“columns”: [</p>
-<blockquote>
-<div><blockquote>
-<div><p>{“fiscal_period”: “Y 2008”,
-“period_start”: “2007-07-01”,
-“period_end”: “2008-06-30”,
-“instant”: false</p>
-</div></blockquote>
-<p>},…],</p>
-</div></blockquote>
-<dl>
-<dt>“line_items”<span class="classifier">[</span></dt><dd><blockquote>
-<div><p>{“label”: “Revenue”,
-“local_name”: “SalesRevenueNet”,
-“tree_depth”: 3,
-“is_subtotal”: false,
-“facts”: [</p>
-<blockquote>
-<div><dl class="simple">
-<dt>{</dt><dd><p>“fact_id”: 5849672,
-“unit_of_measure”: “USD”,
-“effective_value”: 60420000000,
-“format_type”: “currency”,
-“text_fact_id”: 5849351</p>
-</dd>
-</dl>
-<p>},…]}</p>
-</div></blockquote>
-</div></blockquote>
-<p>…]</p>
-</dd>
-</dl>
-<p>}</p>
-</dd>
-</dl>
-</div></blockquote>
 <dl>
 <dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">face_statement</span><span class="p">(</span><span class="s1">&#39;msft&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="p">)</span>
 </pre></div>
