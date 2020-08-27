@@ -55,9 +55,12 @@ def _calcbench_session():
         user_name = _SESSION_STUFF.get("calcbench_user_name")
         password = _SESSION_STUFF.get("calcbench_password")
         if not (user_name and password):
-            raise ValueError(
-                "No credentials supplied, either call set_credentials or set \
-                                CALCBENCH_USERNAME and CALCBENCH_PASSWORD environment variables."
+            import getpass
+            user_name = input(
+                'Calcbench username/email. Set the "calcbench_user_name" environment variable or call "set_credentials" to avoid this prompt::'
+            )
+            password = getpass.getpass(
+                'Calcbench password.  Set the "calcbench_password" enviroment variable to avoid this prompt::'
             )
         session = requests.Session()
         if _SESSION_STUFF.get("proxies"):
