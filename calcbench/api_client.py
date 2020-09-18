@@ -8,6 +8,7 @@ Created on Mar 14, 2015
 
 from __future__ import print_function
 import os
+from typing import Sequence
 import requests
 import json
 import warnings
@@ -56,6 +57,7 @@ def _calcbench_session():
         password = _SESSION_STUFF.get("calcbench_password")
         if not (user_name and password):
             import getpass
+
             user_name = input(
                 'Calcbench username/email. Set the "calcbench_user_name" environment variable or call "set_credentials" to avoid this prompt::'
             )
@@ -786,6 +788,8 @@ def document_dataframe(
     progress_bar=None,
     period_type=None,
     identifier_key="ticker",
+    block_tag_names: Sequence[str] = [],
+    use_fiscal_period=False,
 ):
     """Disclosures/Footnotes in a DataFrame
 
@@ -808,27 +812,42 @@ def document_dataframe(
       >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
       
     """
-
-    docs = list(
-        document_search(
-            company_identifiers=company_identifiers,
-            disclosure_names=disclosure_names,
-            all_history=all_history,
-            use_fiscal_period=True,
-            progress_bar=progress_bar,
-            year=year,
-            period=period,
-            period_type=period_type,
+    if block_tag_names:
+        docs = []
+        for block_tag_name in block_tag_names:
+            docs.extend(
+                document_search(
+                    company_identifiers=company_identifiers,
+                    block_tag_name=block_tag_name,
+                    all_history=all_history,
+                    use_fiscal_period=use_fiscal_period,
+                    progress_bar=progress_bar,
+                    year=year,
+                    period=period,
+                    period_type=period_type,
+                )
+            )
+    else:
+        docs = list(
+            document_search(
+                company_identifiers=company_identifiers,
+                disclosure_names=disclosure_names,
+                all_history=all_history,
+                use_fiscal_period=True,
+                progress_bar=progress_bar,
+                year=year,
+                period=period,
+                period_type=period_type,
+            )
         )
-    )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
     for doc in docs:
-        period_year = doc["fiscal_year"]
+        period_year = doc["fiscal_year" if use_fiscal_period else "calendar_year"]
         if period in ("Y", 0) or period_type == "annual":
             p = pd.Period(year=period_year, freq="a")
         else:
             try:
-                quarter = period_map[doc["fiscal_period"]]
+                quarter = period_map[doc["fiscal_period" if use_fiscal_period else "calendar_period"]]
             except KeyError:
                 # This happens for non-XBRL companies
                 logger.info("Strange period for {ticker}".format(**doc))
