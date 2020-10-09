@@ -9,3 +9,8 @@ Calcbench parses the sections of the 10-K/Q such as Management's Discussion and 
 .. autofunction:: calcbench.document_dataframe
 .. autoclass:: calcbench.DocumentSearchResults
     :members:
+
+.. autoclass:: calcbench.api_client.Period
+    :members:
+    :undoc-members:
+

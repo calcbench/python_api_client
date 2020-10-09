@@ -30,3 +30,19 @@ Dimensional
 Segments: geographic and operating, and other dimensionalized tabular data.
 
 .. autofunction:: calcbench.dimensional_raw
+
+
+.. autoclass:: calcbench.api_client.Period
+    :members:
+    :undoc-members:
+    :noindex:
+
+
+.. autoclass:: calcbench.api_client.PeriodType
+    :members:
+    :undoc-members:
+    :noindex:
+
+.. autoclass:: calcbench.api_client.CompanyIdentifierScheme
+    :members:
+    :undoc-members:

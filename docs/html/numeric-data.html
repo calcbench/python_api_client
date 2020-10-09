@@ -49,10 +49,10 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – Tickers/CIK codes. eg. [‘msft’, ‘goog’, ‘appl’, ‘0000066740’]</p></li>
 <li><p><strong>metrics</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Standardized metrics.  Full list &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a> eg. [‘revenue’, ‘accountsreceivable’]</p></li>
-<li><p><strong>start_year</strong> – first year of data</p></li>
-<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>start_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – first year of data</p></li>
+<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="disclosures.html#calcbench.api_client.Period" title="calcbench.api_client.Period"><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code></a>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>end_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – last year of data</p></li>
-<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="disclosures.html#calcbench.api_client.Period" title="calcbench.api_client.Period"><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code></a>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
 <li><p><strong>filing_accession_number</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Filing Accession ID from the SEC’s Edgar system.</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Get data for a single year, defaults to annual data.</p></li>
@@ -198,6 +198,69 @@
 </div>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">Period</code></dt>
+<dd><p>An enumeration.</p>
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Annual</code><em class="property"> = 0</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Q1</code><em class="property"> = 1</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Q2</code><em class="property"> = 2</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Q3</code><em class="property"> = 3</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Q4</code><em class="property"> = 4</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code></dt>
+<dd><p>An enumeration.</p>
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Annual</code><em class="property"> = 'annual'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Quarterly</code><em class="property"> = 'quarterly'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="calcbench.api_client.CompanyIdentifierScheme">
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">CompanyIdentifierScheme</code><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+<dl class="attribute">
+<dt id="calcbench.api_client.CompanyIdentifierScheme.CentralIndexKey">
+<code class="sig-name descname">CentralIndexKey</code><em class="property"> = 'CIK'</em><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme.CentralIndexKey" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.api_client.CompanyIdentifierScheme.Ticker">
+<code class="sig-name descname">Ticker</code><em class="property"> = 'ticker'</em><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme.Ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>

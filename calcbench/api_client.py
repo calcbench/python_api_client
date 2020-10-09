@@ -36,6 +36,7 @@ try:
 except ImportError:
     pass
 
+
 _SESSION_STUFF = {
     "calcbench_user_name": os.environ.get("CALCBENCH_USERNAME"),
     "calcbench_password": os.environ.get("CALCBENCH_PASSWORD"),
@@ -248,7 +249,7 @@ def normalized_dataframe(
     
     :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
-    :param  start_year: first year of data
+    :param start_year: first year of data
     :param start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
     :param end_year: last year of data
     :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
@@ -928,7 +929,7 @@ def document_search(
     sub_divide: bool = False,
     all_documents: bool = False,
     disclosure_names: Sequence[str] = [],
-    progress_bar=None,
+    progress_bar: "tqdm.std.tqdm" = None,
     accession_id: int = None,
 ) -> Generator[DocumentSearchResults, None, None]:
     """
@@ -946,7 +947,7 @@ def document_search(
     :param sub_divide: return the document split into sections based on headers.
     :param all_documents: all of the documents for a single company/period.
     :param entire_universe: Search all companies
-    :param tqdm.tqdm progress_bar: Pass a tqdm progress bar to keep an eye on things.
+    :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
 
     Usage::
     
