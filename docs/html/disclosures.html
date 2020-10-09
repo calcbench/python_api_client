@@ -44,24 +44,18 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>company_identifiers</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – list of tickers or CIK codes</p></li>
-<li><p><strong>year</strong> (<em>int</em>) – Year to get data for</p></li>
-<li><p><strong>period</strong> (<em>int</em>) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
-<li><p><strong>period_type</strong> (<em>str</em>) – “quarterly” or “annual”, only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
-<li><p><strong>document_names</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
-<li><p><strong>all_history</strong> (<em>bool</em>) – Search all time periods</p></li>
-<li><p><strong>updated_from</strong> (<em>datetime.date</em>) – date, include filings from this date and after.</p></li>
-<li><p><strong>sub_divide</strong> (<em>bool</em>) – return the document split into sections based on headers.</p></li>
-<li><p><strong>all_documents</strong> (<em>bool</em>) – all of the documents for a single company/period.</p></li>
-<li><p><strong>entire_universe</strong> (<em>bool</em>) – Search all companies</p></li>
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
+<li><p><strong>period</strong> – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>document_names</strong> – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
+<li><p><strong>updated_from</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – date, include filings from this date and after.</p></li>
+<li><p><strong>sub_divide</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – return the document split into sections based on headers.</p></li>
+<li><p><strong>all_documents</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – all of the documents for a single company/period.</p></li>
+<li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all companies</p></li>
 <li><p><strong>progress_bar</strong> (<em>tqdm.tqdm</em>) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A generator of DocumentSearchResults</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>generator(<a class="reference internal" href="#calcbench.DocumentSearchResults" title="calcbench.DocumentSearchResults">DocumentSearchResults</a>)</p>
 </dd>
 </dl>
 <p>Usage:</p>
@@ -71,11 +65,16 @@
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calcbench</span><span class="o">.</span><span class="n">document_search</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Risk Factors&#39;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">))</span>
 </pre></div>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentSearchResults</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="calcbench.document_dataframe">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.document_dataframe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.document_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -108,7 +107,32 @@
 <dl class="class">
 <dt id="calcbench.DocumentSearchResults">
 <em class="property">class </em><code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">DocumentSearchResults</code><a class="headerlink" href="#calcbench.DocumentSearchResults" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Represents an disclosure.</p>
+<dl class="method">
+<dt id="calcbench.DocumentSearchResults.date_reported">
+<em class="property">property </em><code class="sig-name descname">date_reported</code><a class="headerlink" href="#calcbench.DocumentSearchResults.date_reported" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time (EST) the document was available from Calcbench</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="calcbench.DocumentSearchResults.get_contents">
+<code class="sig-name descname">get_contents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.DocumentSearchResults.get_contents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Content of the document, with the filers HTML
+:rtype: pandas.DataFrame</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="calcbench.DocumentSearchResults.get_contents_text">
+<code class="sig-name descname">get_contents_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.DocumentSearchResults.get_contents_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contents of the HTML of the document</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 

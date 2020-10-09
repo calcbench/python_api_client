@@ -6,16 +6,15 @@ Created on Mar 14, 2015
 @contact: andrew@calcbench.com
 """
 
-from __future__ import print_function
 import os
-from typing import Sequence
+from typing import Generator, Sequence, Union
 import requests
 import json
 import warnings
-from datetime import datetime
+from datetime import date, datetime
 from functools import wraps
 import logging
-from enum import Enum
+from enum import Enum, IntEnum
 
 logger = logging.getLogger(__name__)
 
@@ -93,6 +92,18 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+
+class PeriodType(str, Enum):
+    Annual = "annual"
+    Quarterly = "quarterly"
+
+
+CentralIndexKey = Union[str, int]
+Ticker = str
+CalcbenchCompanyIdentifier = int
+CompanyIdentifier = Union[Ticker, CentralIndexKey, CalcbenchCompanyIdentifier]
+CompanyIdentifiers = Sequence[CompanyIdentifier]
 
 
 def _add_backoff(f):
@@ -198,54 +209,61 @@ def set_proxies(proxies):
     _SESSION_STUFF["proxies"] = proxies
 
 
-class CompanyIdentifierScheme(Enum):
+class CompanyIdentifierScheme(str, Enum):
     Ticker = "ticker"
     CentralIndexKey = "CIK"
 
 
+class Period(IntEnum):
+    Annual = 0
+    Q1 = 1
+    Q2 = 2
+    Q3 = 3
+    Q4 = 4
+
+
 def normalized_dataframe(
-    company_identifiers=[],
-    metrics=[],
-    start_year=None,
-    start_period=None,
-    end_year=None,
-    end_period=None,
-    entire_universe=False,
-    filing_accession_number=None,
-    point_in_time=False,
-    year=None,
-    period=None,
-    all_history=False,
-    period_type=None,
-    trace_hyperlinks=False,
-    use_fiscal_period=False,
-    company_identifier_scheme=CompanyIdentifierScheme.Ticker,
-):
+    company_identifiers: CompanyIdentifiers = [],
+    metrics: Sequence[str] = [],
+    start_year: int = None,
+    start_period: Period = None,
+    end_year: int = None,
+    end_period: Period = None,
+    entire_universe: bool = False,
+    filing_accession_number: int = None,
+    point_in_time: bool = False,
+    year: int = None,
+    period: Period = None,
+    all_history: bool = False,
+    period_type: PeriodType = None,
+    trace_hyperlinks: bool = False,
+    use_fiscal_period: bool = False,
+    company_identifier_scheme: CompanyIdentifierScheme = CompanyIdentifierScheme.Ticker,
+) -> "pd.DataFrame":
     """Standardized Data.
     
     Metrics are standardized by economic concept and time period.  
     
     The data behind the multi-company page, https://www.calcbench.com/multi.
     
-    :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
-    :param sequence metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
-    :param int start_year: first year of data
-    :param int start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-    :param int end_year: last year of data
-    :param int end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
-    :param bool entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
-    :param int accession_id: Filing Accession ID from the SEC's Edgar system.
-    :param int year: Get data for a single year, defaults to annual data.
-    :param str period_type: Either "annual" or "quarterly".
+    :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
+    :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
+    :param  start_year: first year of data
+    :param start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+    :param end_year: last year of data
+    :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
+    :param entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
+    :param filing_accession_number: Filing Accession ID from the SEC's Edgar system.
+    :param year: Get data for a single year, defaults to annual data.
+    :param period_type: Either "annual" or "quarterly".
     :return: Dataframe with the periods as the index and columns indexed by metric and ticker
-    :rtype: Dataframe
 
     Usage::
 
       >>> calcbench.standardized_data(company_identifiers=['msft', 'goog'], metrics=['revenue', 'assets'], all_history=True, period_type='annual')
 
     """
-    company_identifier_scheme = CompanyIdentifierScheme(company_identifier_scheme)
+
     if all_history and not period_type:
         raise ValueError("For all history you must specify a period_type")
     data = normalized_raw(
@@ -294,7 +312,7 @@ def normalized_dataframe(
         warnings.warn("Did not find metrics {0}".format(missing_metrics))
     data = pd.DataFrame(data)
     data.set_index(
-        keys=[company_identifier_scheme.value, "metric", "period"], inplace=True
+        keys=[f"{company_identifier_scheme}", "metric", "period"], inplace=True
     )
     try:
         data = data.unstack("metric")["value"]
@@ -314,7 +332,7 @@ def normalized_dataframe(
 
     for missing_metric in missing_metrics:
         data[missing_metric] = np.nan  # We want columns for every requested metric.
-    data = data.unstack(company_identifier_scheme.value)
+    data = data.unstack(f"{company_identifier_scheme}")
     return data
 
 
@@ -347,7 +365,7 @@ standardized_data = normalized_dataframe  # Now it's called standardized data
 
 
 def normalized_raw(
-    company_identifiers=[],
+    company_identifiers: CompanyIdentifiers = [],
     metrics=[],  # type str[] Full list of metrics is @ https://www.calcbench.com/home/standardizedmetrics
     start_year=None,
     start_period=None,
@@ -361,7 +379,7 @@ def normalized_raw(
     all_history=False,
     year=None,
     period=None,
-    period_type=None,
+    period_type: PeriodType = None,
     include_preliminary=False,
     use_fiscal_period=False,
 ):
@@ -847,7 +865,9 @@ def document_dataframe(
             p = pd.Period(year=period_year, freq="a")
         else:
             try:
-                quarter = period_map[doc["fiscal_period" if use_fiscal_period else "calendar_period"]]
+                quarter = period_map[
+                    doc["fiscal_period" if use_fiscal_period else "calendar_period"]
+                ]
             except KeyError:
                 # This happens for non-XBRL companies
                 logger.info("Strange period for {ticker}".format(**doc))
@@ -865,44 +885,68 @@ def document_dataframe(
     return data
 
 
+class DocumentSearchResults(dict):
+    """
+        Represents an disclosure.
+    """
+
+    def get_contents(self):
+        """
+            Content of the document, with the filers HTML
+        """
+        if self.get("network_id"):
+            return _document_contents_by_network_id(self["network_id"])
+        else:
+            return document_contents(
+                blob_id=self["blob_id"], SEC_ID=self["sec_filing_id"]
+            )
+
+    def get_contents_text(self):
+        """Contents of the HTML of the document"""
+        return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
+
+    @property
+    def date_reported(self) -> datetime:
+        """Time (EST) the document was available from Calcbench"""
+        return _try_parse_timestamp(self["date_reported"])
+
+
 def document_search(
-    company_identifiers=None,
-    full_text_search_term=None,
-    year=None,
-    period=0,
-    period_type=None,
-    document_type=None,
-    block_tag_name=None,
-    entire_universe=False,
-    use_fiscal_period=False,
-    document_name=None,
-    all_history=False,
-    updated_from=None,
-    batch_size=100,
-    sub_divide=False,
-    all_documents=False,
-    disclosure_names=[],
+    company_identifiers: CompanyIdentifiers = None,
+    full_text_search_term: str = None,
+    year: int = None,
+    period: Period = Period.Annual,
+    period_type: PeriodType = None,
+    document_type: str = None,
+    block_tag_name: str = None,
+    entire_universe: bool = False,
+    use_fiscal_period: bool = False,
+    document_name: bool = None,
+    all_history: bool = False,
+    updated_from: date = None,
+    batch_size: int = 100,
+    sub_divide: bool = False,
+    all_documents: bool = False,
+    disclosure_names: Sequence[str] = [],
     progress_bar=None,
-    accession_id=None,
-):
+    accession_id: int = None,
+) -> Generator[DocumentSearchResults, None, None]:
     """
     Footnotes and other text
     
     Search for footnotes and other sections of 10-K, see https://www.calcbench.com/footnote.
     
-    :param list(str) company_identifiers: list of tickers or CIK codes
-    :param int year: Year to get data for
-    :param int period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
-    :param str period_type: "quarterly" or "annual", only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
-    :param list(str) document_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors'] 
-    :param bool all_history: Search all time periods
-    :param datetime.date updated_from: date, include filings from this date and after.
-    :param bool sub_divide: return the document split into sections based on headers.
-    :param bool all_documents: all of the documents for a single company/period.
-    :param bool entire_universe: Search all companies
+    :param company_identifiers: list of tickers or CIK codes
+    :param year: Year to get data for
+    :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param document_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors'] 
+    :param all_history: Search all time periods
+    :param updated_from: date, include filings from this date and after.
+    :param sub_divide: return the document split into sections based on headers.
+    :param all_documents: all of the documents for a single company/period.
+    :param entire_universe: Search all companies
     :param tqdm.tqdm progress_bar: Pass a tqdm progress bar to keep an eye on things.
-    :return: A generator of DocumentSearchResults
-    :rtype: generator(DocumentSearchResults)
 
     Usage::
     
@@ -933,7 +977,9 @@ def document_search(
         if not year:
             raise ValueError("Need to specify year or all all_history")
         period_type = (
-            period_type or "annual" if period in (0, "Y", "y") else "quarterly"
+            period_type or PeriodType.Annual
+            if period in (0, "Y", "y")
+            else PeriodType.Quarterly
         )
     payload = {
         "companiesParameters": {"entireUniverse": entire_universe},
@@ -983,26 +1029,6 @@ def _document_search_results(payload, progress_bar=None):
     payload["pageParameters"]["startOffset"] = None
 
 
-class DocumentSearchResults(dict):
-    def get_contents(self):
-        """Content of the document, with the filers HTML"""
-        if self.get("network_id"):
-            return _document_contents_by_network_id(self["network_id"])
-        else:
-            return document_contents(
-                blob_id=self["blob_id"], SEC_ID=self["sec_filing_id"]
-            )
-
-    def get_contents_text(self):
-        """Contents of the HTML of the document"""
-        return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
-
-    @property
-    def date_reported(self):
-        """Time (EST) the document was available from Calcbench"""
-        return _try_parse_timestamp(self["date_reported"])
-
-
 def _try_parse_timestamp(timestamp):
     """
     We did not always have milliseconds
@@ -1014,13 +1040,13 @@ def _try_parse_timestamp(timestamp):
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
 
 
-def document_contents(blob_id, SEC_ID, SEC_URL=None):
+def document_contents(blob_id, SEC_ID, SEC_URL=None) -> str:
     payload = {"blobid": blob_id, "secid": SEC_ID, "url": SEC_URL}
     json = _json_GET("query/disclosureBySECLink", payload)
     return json["blobs"][0]
 
 
-def _document_contents_by_network_id(network_id):
+def _document_contents_by_network_id(network_id) -> str:
     payload = {"nid": network_id}
     json = _json_GET("query/disclosureByNetworkIDOBJ", payload)
     blobs = json["blobs"]
