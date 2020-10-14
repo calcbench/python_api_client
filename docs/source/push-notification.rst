@@ -18,3 +18,4 @@ Requires the ``azure-servicebus`` package::
     $  pip install azure-servicebus
 
 .. autofunction:: calcbench.handle_filings
+.. autoclass:: calcbench.api_client.Filing

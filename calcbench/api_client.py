@@ -250,6 +250,8 @@ def normalized_dataframe(
     Metrics are standardized by economic concept and time period.  
     
     The data behind the multi-company page, https://www.calcbench.com/multi.
+
+    Example https://github.com/calcbench/notebooks/blob/master/python_client_api_demo.ipynb
     
     :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
@@ -1206,6 +1208,10 @@ def business_combinations(company_identifiers):
     return _json_POST("businessCombinations", payload)
 
 
+class Filing(dict):
+    pass
+
+
 def filings(
     company_identifiers=[],
     entire_universe=False,
@@ -1214,7 +1220,7 @@ def filings(
     start_date=None,
     end_date=None,
     filing_types=[],
-):
+) -> Iterable[Filing]:
     """SEC filings
 
     https://www.calcbench.com/filings
@@ -1254,7 +1260,7 @@ def filings(
         yield _cast_filing_fields(filing)
 
 
-def _cast_filing_fields(filing):
+def _cast_filing_fields(filing: Filing) -> Filing:
     for date_field in (
         "calcbench_finished_load",
         "calcbench_accepted",

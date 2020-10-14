@@ -8,18 +8,25 @@ except ImportError:
 
 import json
 import logging
+from typing import Callable
 
-from .api_client import _cast_filing_fields
+from .api_client import Filing, _cast_filing_fields
 
 logger = logging.getLogger(__name__)
 
 TOPIC = "filings"
 
 
-def handle_filings(handler, connection_string, subscription_name):
+def handle_filings(
+    handler: Callable[[Filing], None], connection_string: str, subscription_name: str
+):
     """Listen for new filings from Calcbench
+    
+    https://github.com/calcbench/notebooks/blob/master/filing_listener.ipynb.
 
-    Pass in a function that process each filing.
+    :param handler: function that "handles" the filing, for instance getting data from Calcbench and writing it to your database
+    :param connection_string: azure service bus connection string, Calcbench will give you this
+    :param subscription_name: service bus subscription, Calcbench will give this to you
 
     Usage::
         >>> def filing_handler(filing):
