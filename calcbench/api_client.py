@@ -7,7 +7,7 @@ Created on Mar 14, 2015
 """
 
 import os
-from typing import Generator, Sequence, Union
+from typing import Dict, Generator, Iterable, Literal, Optional, Sequence, Union
 import requests
 import json
 import warnings
@@ -47,6 +47,7 @@ _SESSION_STUFF = {
     "session": None,
     "timeout": 60 * 20,  # twenty minute content request timeout, by default
     "enable_backoff": False,
+    "proxies": None,
 }
 
 
@@ -202,7 +203,7 @@ def enable_backoff(backoff_on=True, giveup=lambda e: False):
     _SESSION_STUFF["backoff_giveup"] = giveup
 
 
-def set_proxies(proxies):
+def set_proxies(proxies: Dict[str, str]):
     """
         Set proxies used for requests.  See https://requests.readthedocs.io/en/master/user/advanced/#proxies
 
@@ -223,18 +224,21 @@ class Period(IntEnum):
     Q4 = 4
 
 
+PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
+
+
 def normalized_dataframe(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[str] = [],
     start_year: int = None,
-    start_period: Period = None,
+    start_period: PeriodArgument = None,
     end_year: int = None,
-    end_period: Period = None,
+    end_period: PeriodArgument = None,
     entire_universe: bool = False,
     filing_accession_number: int = None,
     point_in_time: bool = False,
     year: int = None,
-    period: Period = None,
+    period: PeriodArgument = None,
     all_history: bool = False,
     period_type: PeriodType = None,
     trace_hyperlinks: bool = False,
@@ -367,22 +371,24 @@ standardized_data = normalized_dataframe  # Now it's called standardized data
 
 def normalized_raw(
     company_identifiers: CompanyIdentifiers = [],
-    metrics=[],  # type str[] Full list of metrics is @ https://www.calcbench.com/home/standardizedmetrics
-    start_year=None,
-    start_period=None,
-    end_year=None,
-    end_period=None,
+    metrics: Iterable[
+        str
+    ] = [],  # type str[] Full list of metrics is @ https://www.calcbench.com/home/standardizedmetrics
+    start_year: int = None,
+    start_period: PeriodArgument = None,
+    end_year: int = None,
+    end_period: PeriodArgument = None,
     entire_universe=False,
     filing_accession_number=None,
-    point_in_time=False,
-    include_trace=False,
-    update_date=None,
+    point_in_time: bool = False,
+    include_trace: bool = False,
+    update_date: date = None,
     all_history=False,
-    year=None,
-    period=None,
+    year: int = None,
+    period: PeriodArgument = None,
     period_type: PeriodType = None,
-    include_preliminary=False,
-    use_fiscal_period=False,
+    include_preliminary: bool = False,
+    use_fiscal_period: bool = False,
 ):
     """
     Standardized data.
@@ -514,35 +520,35 @@ def normalized_raw(
 
 
 def point_in_time(
-    company_identifiers=[],
-    all_footnotes=False,
-    update_date=None,
-    metrics=[],
-    all_history=False,
-    entire_universe=False,
-    start_year=None,
-    start_period=None,
-    end_year=None,
-    end_period=None,
-    period_type=None,
-    use_fiscal_period=False,
-    include_preliminary=False,
-    all_face=False,
-    include_xbrl=True,
-    accession_id=None,
-    include_trace=False,
-):
+    company_identifiers: CompanyIdentifiers = [],
+    all_footnotes: bool = False,
+    update_date: date = None,
+    metrics: Iterable[str] = [],
+    all_history: bool = False,
+    entire_universe: bool = False,
+    start_year: int = None,
+    start_period: PeriodArgument = None,
+    end_year: int = None,
+    end_period: PeriodArgument = None,
+    period_type: PeriodType = None,
+    use_fiscal_period: bool = False,
+    include_preliminary: bool = False,
+    all_face: bool = False,
+    include_xbrl: bool = True,
+    accession_id: int = None,
+    include_trace: bool = False,
+) -> "pd.DataFrame":
     """Point-in-Time Data
 
     Standardized data with a timestamp when it was published by Calcbench
     
-    :param date update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
-    :param int accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
-    :param bool all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
-    :param bool all_footnotes: Retrive all of the points from the footnotes to the financials
+    :param update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
+    :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
+    :param all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
+    :param all_footnotes: Retrive all of the points from the footnotes to the financials
+    :param include_preliminary: Include facts from non-XBRL earnings press-releases and 8-Ks.
+    :param include_xbrl: Include facts from XBRL 10-K/Qs.
     :return: DataFrame of facts
-
-    :rtype: pandas.DataFrame
 
     Columns:
 
@@ -653,7 +659,7 @@ def mapped_raw(
     include_xbrl=True,
     accession_id=None,
     include_trace=False,
-) -> pd.DataFrame:
+) -> "pd.DataFrame":
     if update_date:
         warnings.warn(
             "Request updates by accession_id rather than update date",
@@ -799,30 +805,28 @@ def dimensional_raw(
 
 
 def document_dataframe(
-    company_identifiers=[],
-    disclosure_names=[],
-    all_history=False,
-    year=None,
-    period=None,
-    progress_bar=None,
-    period_type=None,
-    identifier_key="ticker",
+    company_identifiers: CompanyIdentifiers = [],
+    disclosure_names: Iterable[str] = [],
+    all_history: bool = False,
+    year: int = None,
+    period: PeriodArgument = None,
+    progress_bar: "tqdm.std.tqdm" = None,
+    period_type: PeriodType = None,
+    identifier_key: Literal["ticker", "CIK"] = "ticker",
     block_tag_names: Sequence[str] = [],
     use_fiscal_period=False,
-):
+) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
-    :param list(str) company_identifiers: list of tickers or CIK codes
-    :param list(str) disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
-    :param bool all_history: Search all time periods
-    :param int year: The year to search
-    :param int period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
-    :param str period_type: "quarterly" or "annual", only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param company_identifiers: list of tickers or CIK codes
+    :param disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
+    :param all_history: Search all time periods
+    :param year: The year to search
+    :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param period_type: "quarterly" or "annual", only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
     :param tqdm.tqdm progress_bar: Pass a tqdm progress bar to keep an eye on things.
-    :param string identifier_key: "ticker" or "CIK", how to index the returned DataFrame.
+    :param identifier_key: "ticker" or "CIK", how to index the returned DataFrame.
     :return: A DataFrame indexed by document name -> company identifier.
-    :rtype: pandas.DataFrame
-
 
     Usage::      
 
@@ -916,7 +920,7 @@ def document_search(
     company_identifiers: CompanyIdentifiers = None,
     full_text_search_term: str = None,
     year: int = None,
-    period: Period = Period.Annual,
+    period: PeriodArgument = Period.Annual,
     period_type: PeriodType = None,
     document_type: str = None,
     block_tag_name: str = None,

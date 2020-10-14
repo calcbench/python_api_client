@@ -46,7 +46,7 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Year to get data for</p></li>
-<li><p><strong>period</strong> (<a class="reference internal" href="#calcbench.api_client.Period" title="calcbench.api_client.Period"><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code></a>) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#calcbench.api_client.Period" title="calcbench.api_client.Period"><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code></a>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4]]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
 <li><p><strong>document_names</strong> – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
@@ -79,21 +79,21 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>company_identifiers</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – list of tickers or CIK codes</p></li>
-<li><p><strong>disclosure_names</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
-<li><p><strong>all_history</strong> (<em>bool</em>) – Search all time periods</p></li>
-<li><p><strong>year</strong> (<em>int</em>) – The year to search</p></li>
-<li><p><strong>period</strong> (<em>int</em>) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
-<li><p><strong>period_type</strong> (<em>str</em>) – “quarterly” or “annual”, only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The year to search</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#calcbench.api_client.Period" title="calcbench.api_client.Period"><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code></a>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4]]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>) – “quarterly” or “annual”, only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
 <li><p><strong>progress_bar</strong> (<em>tqdm.tqdm</em>) – Pass a tqdm progress bar to keep an eye on things.</p></li>
-<li><p><strong>identifier_key</strong> (<em>string</em>) – “ticker” or “CIK”, how to index the returned DataFrame.</p></li>
+<li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – “ticker” or “CIK”, how to index the returned DataFrame.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A DataFrame indexed by document name -&gt; company identifier.</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.DataFrame</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A DataFrame indexed by document name -&gt; company identifier.</p>
 </dd>
 </dl>
 <p>Usage:</p>
