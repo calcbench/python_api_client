@@ -184,18 +184,26 @@ def set_credentials(cb_username, cb_password):
     _calcbench_session()  # Make sure credentials work.
 
 
-def enable_backoff(backoff_on=True, giveup=lambda e: False):
+def enable_backoff(
+    backoff_on: bool = True, giveup: Callable[[Exception], bool] = lambda e: False
+):
     """Re-try failed requests with exponential back-off
 
     Requires the backoff package. ``pip install backoff``
 
-    If processes make many requests failures are inevitable.  Call this to retry failed requests.
+    If processes make many requests, failures are inevitable.  Call this to retry failed requests.
 
+    :param backoff_on: toggle backoff
+    :param giveup: function that handles exception and decides whether to continue or not.
     Usage::
-        >>> calcbench.enable_backoff()
+        >>> calcbench.enable_backoff(giveup=lambda e: e.response.status_code == 404)
     """
     if backoff_on:
+        try:
         import backoff
+        except ImportError:
+            print("backoff package not found, `pip install backoff`")
+            raise
 
         _SESSION_STUFF["backoff_package"] = backoff
 
