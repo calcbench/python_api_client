@@ -76,9 +76,17 @@
 <code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">enable_backoff</code><span class="sig-paren">(</span><em class="sig-param">backoff_on=True</em>, <em class="sig-param">giveup=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.enable_backoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Re-try failed requests with exponential back-off</p>
 <p>Requires the backoff package. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">backoff</span></code></p>
-<p>If processes make many requests failures are inevitable.  Call this to retry failed requests.</p>
+<p>If processes make many requests, failures are inevitable.  Call this to retry failed requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>backoff_on</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – toggle backoff</p></li>
+<li><p><strong>giveup</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – function that handles exception and decides whether to continue or not.</p></li>
+</ul>
+</dd>
+</dl>
 <dl>
-<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">enable_backoff</span><span class="p">()</span>
+<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">enable_backoff</span><span class="p">(</span><span class="n">giveup</span><span class="o">=</span><span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">404</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>

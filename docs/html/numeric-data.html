@@ -57,7 +57,7 @@
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
 <li><p><strong>filing_accession_number</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Filing Accession ID from the SEC’s Edgar system.</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Get data for a single year, defaults to annual data.</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]) – Either “annual” or “quarterly”.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘annual’, ‘quarterly’]]) – Either “annual” or “quarterly”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -234,21 +234,10 @@
 
 </dd></dl>
 
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code></dt>
-<dd><p>An enumeration.</p>
 <dl class="attribute">
 <dt>
-<code class="sig-name descname">Annual</code><em class="property"> = 'annual'</em></dt>
+<code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code></dt>
 <dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Quarterly</code><em class="property"> = 'quarterly'</em></dt>
-<dd></dd></dl>
-
-</dd></dl>
 
 <dl class="class">
 <dt id="calcbench.api_client.CompanyIdentifierScheme">
@@ -265,6 +254,11 @@
 <dd></dd></dl>
 
 </dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.api_client.PeriodType">
+<code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code><a class="headerlink" href="#calcbench.api_client.PeriodType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 </div>

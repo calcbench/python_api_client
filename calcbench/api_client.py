@@ -7,7 +7,16 @@ Created on Mar 14, 2015
 """
 
 import os
-from typing import Dict, Generator, Iterable, Literal, Optional, Sequence, Union
+from typing import (
+    Callable,
+    Dict,
+    Generator,
+    Iterable,
+    Literal,
+    Optional,
+    Sequence,
+    Union,
+)
 import requests
 import json
 import warnings
@@ -96,9 +105,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
-class PeriodType(str, Enum):
-    Annual = "annual"
-    Quarterly = "quarterly"
+PeriodType = Literal["annual", "quarterly"]
 
 
 CentralIndexKey = Union[str, int]
@@ -200,7 +207,7 @@ def enable_backoff(
     """
     if backoff_on:
         try:
-        import backoff
+            import backoff
         except ImportError:
             print("backoff package not found, `pip install backoff`")
             raise

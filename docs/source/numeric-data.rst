@@ -46,3 +46,5 @@ Segments: geographic and operating, and other dimensionalized tabular data.
 .. autoclass:: calcbench.api_client.CompanyIdentifierScheme
     :members:
     :undoc-members:
+
+.. autoclass:: calcbench.api_client.PeriodType
