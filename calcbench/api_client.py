@@ -999,11 +999,7 @@ def document_search(
     if not (all_history or updated_from or accession_id):
         if not year:
             raise ValueError("Need to specify year or all all_history")
-        period_type = (
-            period_type or PeriodType.Annual
-            if period in (0, "Y", "y")
-            else PeriodType.Quarterly
-        )
+        period_type = "annual" if period in (0, "Y", "y") else "quarterly"
     payload = {
         "companiesParameters": {"entireUniverse": entire_universe},
         "periodParameters": {
