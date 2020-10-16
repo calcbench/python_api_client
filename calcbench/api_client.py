@@ -961,10 +961,11 @@ def document_search(
     :param company_identifiers: list of tickers or CIK codes
     :param year: Year to get data for
     :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param use_fiscal_period: interpret the passed period as a fiscal period, as opposed to calendar period
     :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
-    :param document_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors'] 
+    :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors'] 
     :param all_history: Search all time periods
-    :param updated_from: date, include filings from this date and after.
+    :param updated_from: include filings from this date and after.
     :param sub_divide: return the document split into sections based on headers.
     :param all_documents: all of the documents for a single company/period.
     :param entire_universe: Search all companies
