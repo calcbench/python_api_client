@@ -36,16 +36,17 @@
 <h1>Companies<a class="headerlink" href="#companies" title="Permalink to this headline">¶</a></h1>
 <p>Lists of tickers and companies.</p>
 <dl class="function">
-<dt id="calcbench.tickers">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">tickers</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.tickers" title="Permalink to this definition">¶</a></dt>
+<dt id="calcbench.companies.tickers">
+<code class="sig-prename descclassname">calcbench.companies.</code><code class="sig-name descname">tickers</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies.tickers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get tickers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>SIC_codes</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
-<li><p><strong>index</strong> (<em>str</em>) – ‘DJIA’ or ‘SP500’</p></li>
-<li><p><strong>entire_universe</strong> (<em>bool</em>) – all of the companies in the Calcbench database</p></li>
-<li><p><strong>NAICS_codes</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Sequence of NAICS codes</p></li>
+<li><p><strong>SIC_codes</strong> – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
+<li><p><strong>index</strong> – ‘DJIA’ or ‘SP500’</p></li>
+<li><p><strong>company_identifiers</strong> – tickers</p></li>
+<li><p><strong>entire_universe</strong> – all of the companies in the Calcbench database</p></li>
+<li><p><strong>NAICS_codes</strong> – Sequence of NAICS codes</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -62,23 +63,26 @@
 </dd></dl>
 
 <dl class="function">
-<dt id="calcbench.companies">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">companies</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_most_recent_filing_dates=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies" title="Permalink to this definition">¶</a></dt>
+<dt id="calcbench.companies.companies">
+<code class="sig-prename descclassname">calcbench.companies.</code><code class="sig-name descname">companies</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_most_recent_filing_dates=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies.companies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a DataFrame with company details</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>SIC_codes</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
-<li><p><strong>index</strong> (<em>str</em>) – ‘DJIA’ or ‘SP500’</p></li>
-<li><p><strong>entire_universe</strong> (<em>bool</em>) – all of the companies in the Calcbench database</p></li>
-<li><p><strong>NAICS_codes</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Sequence of NAICS codes</p></li>
+<li><p><strong>SIC_codes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
+<li><p><strong>index</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘DJIA’, ‘SP500’]]) – ‘DJIA’ or ‘SP500’</p></li>
+<li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – all of the companies in the Calcbench database</p></li>
+<li><p><strong>NAICS_codes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Sequence of NAICS codes</p></li>
 </ul>
+</dd>
+<dt class="field-even">Company_identifiers</dt>
+<dd class="field-even"><p>tickers</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Dataframe with data about companies</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pandas.Dataframe</p>
 </dd>
 </dl>
 </dd></dl>
