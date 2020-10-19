@@ -17,7 +17,7 @@ setup(
     license="Apache2",
     keywords="finance accounting SEC 10-(K|Q)",
     install_requires=["requests"],
-    python_requires=">=3.4",
+    python_requires=">=3.7",
     packages=["calcbench"],
     extras_require={
         "Pandas": ["Pandas"],

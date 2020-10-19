@@ -6,7 +6,15 @@ Created on Mar 14, 2015
 @contact: andrew@calcbench.com
 """
 
+import dataclasses
+import json
+import logging
 import os
+import warnings
+from dataclasses import dataclass
+from datetime import date, datetime
+from enum import Enum, IntEnum
+from functools import wraps
 from typing import (
     Callable,
     Dict,
@@ -17,20 +25,15 @@ from typing import (
     Sequence,
     Union,
 )
+
 import requests
-import json
-import warnings
-from datetime import date, datetime
-from functools import wraps
-import logging
-from enum import Enum, IntEnum
 
 logger = logging.getLogger(__name__)
 
 
 try:
-    import pandas as pd
     import numpy as np
+    import pandas as pd
 
     period_number = pd.api.types.CategoricalDtype(
         categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
@@ -907,30 +910,65 @@ def document_dataframe(
     return data
 
 
+@dataclass
 class DocumentSearchResults(dict):
     """
-        Represents an disclosure.
+        Represents a disclosure.
     """
 
-    def get_contents(self):
+    fact_id: int
+    entity_name: str
+    accession_id: int
+    footnote_type: str
+    SEC_URL: str
+    sec_filing_id: int
+    blob_id: str
+    fiscal_year: int
+    fiscal_period: str
+    calendar_year: int
+    calendar_period: str
+    filing_date: str
+    received_date: str
+    document_type: str
+    guide_link: str
+    page_url: str
+    entity_id: int
+    id_detail: bool
+    local_name: str
+    CIK: str
+    sec_accession_number: str
+    network_id: int
+    ticker: str
+    filing_type: int
+    description: str
+    disclosure_type_name: str
+    period_end_date: str
+    footnote_type_title: str
+
+    def __init__(self, **kwargs):
+        names = set([f.name for f in dataclasses.fields(self)])
+        for k, v in kwargs.items():
+            if k in names:
+                setattr(self, k, v)
+            self[k] = v
+
+    def get_contents(self) -> str:
         """
             Content of the document, with the filers HTML
         """
         if self.get("network_id"):
-            return _document_contents_by_network_id(self["network_id"])
+            return _document_contents_by_network_id(self.network_id)
         else:
-            return document_contents(
-                blob_id=self["blob_id"], SEC_ID=self["sec_filing_id"]
-            )
+            return document_contents(blob_id=self.blob_id, SEC_ID=self["sec_filing_id"])
 
-    def get_contents_text(self):
+    def get_contents_text(self) -> str:
         """Contents of the HTML of the document"""
         return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
 
     @property
-    def date_reported(self) -> datetime:
+    def date_reported(self) -> Optional[datetime]:
         """Time (EST) the document was available from Calcbench"""
-        return _try_parse_timestamp(self["date_reported"])
+        return self.get("date_reported") and _try_parse_timestamp(self["date_reported"])
 
 
 def document_search(
@@ -938,7 +976,7 @@ def document_search(
     full_text_search_term: str = None,
     year: int = None,
     period: PeriodArgument = Period.Annual,
-    period_type: PeriodType = None,
+    period_type: Optional[PeriodType] = None,
     document_type: str = None,
     block_tag_name: str = None,
     entire_universe: bool = False,
@@ -970,6 +1008,7 @@ def document_search(
     :param all_documents: all of the documents for a single company/period.
     :param entire_universe: Search all companies
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
+    :return: A iterator of DocumentSearchResults
 
     Usage::
     
@@ -1043,7 +1082,7 @@ def _document_search_results(payload, progress_bar=None):
         if progress_bar is not None:
             progress_bar.update(len(disclosures))
         for result in disclosures:
-            yield DocumentSearchResults(result)
+            yield DocumentSearchResults(**result)
         payload["pageParameters"]["startOffset"] = results["nextGroupStartOffset"]
     payload["pageParameters"]["startOffset"] = None
 

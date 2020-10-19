@@ -47,15 +47,22 @@
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Year to get data for</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="#calcbench.api_client.Period" title="calcbench.api_client.Period"><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code></a>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘annual’, ‘quarterly’]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
-<li><p><strong>document_names</strong> – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘annual’, ‘quarterly’]]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
-<li><p><strong>updated_from</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>) – date, include filings from this date and after.</p></li>
+<li><p><strong>updated_from</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>) – include filings from this date and after.</p></li>
 <li><p><strong>sub_divide</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – return the document split into sections based on headers.</p></li>
 <li><p><strong>all_documents</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – all of the documents for a single company/period.</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all companies</p></li>
 <li><p><strong>progress_bar</strong> (<em>tqdm.std.tqdm</em>) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentSearchResults</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A iterator of DocumentSearchResults</p>
 </dd>
 </dl>
 <p>Usage:</p>
@@ -65,11 +72,6 @@
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calcbench</span><span class="o">.</span><span class="n">document_search</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Risk Factors&#39;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">))</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentSearchResults</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="function">
@@ -106,30 +108,180 @@
 
 <dl class="class">
 <dt id="calcbench.DocumentSearchResults">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">DocumentSearchResults</code><a class="headerlink" href="#calcbench.DocumentSearchResults" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents an disclosure.</p>
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">DocumentSearchResults</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.DocumentSearchResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a disclosure.</p>
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.CIK">
+<code class="sig-name descname">CIK</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.CIK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.SEC_URL">
+<code class="sig-name descname">SEC_URL</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.accession_id">
+<code class="sig-name descname">accession_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.accession_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.blob_id">
+<code class="sig-name descname">blob_id</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.blob_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.calendar_period">
+<code class="sig-name descname">calendar_period</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.calendar_year">
+<code class="sig-name descname">calendar_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="calcbench.DocumentSearchResults.date_reported">
 <em class="property">property </em><code class="sig-name descname">date_reported</code><a class="headerlink" href="#calcbench.DocumentSearchResults.date_reported" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time (EST) the document was available from Calcbench</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></p>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code>]</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.description">
+<code class="sig-name descname">description</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.disclosure_type_name">
+<code class="sig-name descname">disclosure_type_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.disclosure_type_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.document_type">
+<code class="sig-name descname">document_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.document_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.entity_id">
+<code class="sig-name descname">entity_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.entity_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.entity_name">
+<code class="sig-name descname">entity_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.entity_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.fact_id">
+<code class="sig-name descname">fact_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.fact_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.filing_date">
+<code class="sig-name descname">filing_date</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.filing_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.filing_type">
+<code class="sig-name descname">filing_type</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.filing_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.fiscal_period">
+<code class="sig-name descname">fiscal_period</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.fiscal_year">
+<code class="sig-name descname">fiscal_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.footnote_type">
+<code class="sig-name descname">footnote_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.footnote_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.footnote_type_title">
+<code class="sig-name descname">footnote_type_title</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.footnote_type_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="calcbench.DocumentSearchResults.get_contents">
 <code class="sig-name descname">get_contents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.DocumentSearchResults.get_contents" title="Permalink to this definition">¶</a></dt>
 <dd><p>Content of the document, with the filers HTML</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="calcbench.DocumentSearchResults.get_contents_text">
 <code class="sig-name descname">get_contents_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.DocumentSearchResults.get_contents_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contents of the HTML of the document</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.guide_link">
+<code class="sig-name descname">guide_link</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.guide_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.id_detail">
+<code class="sig-name descname">id_detail</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.id_detail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.local_name">
+<code class="sig-name descname">local_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.local_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.network_id">
+<code class="sig-name descname">network_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.network_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.page_url">
+<code class="sig-name descname">page_url</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.page_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.period_end_date">
+<code class="sig-name descname">period_end_date</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.period_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.received_date">
+<code class="sig-name descname">received_date</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.received_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.sec_accession_number">
+<code class="sig-name descname">sec_accession_number</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.sec_accession_number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.sec_filing_id">
+<code class="sig-name descname">sec_filing_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.sec_filing_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.DocumentSearchResults.ticker">
+<code class="sig-name descname">ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.DocumentSearchResults.ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
