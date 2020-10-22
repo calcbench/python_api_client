@@ -17,11 +17,15 @@ from typing import (
     Callable,
     Dict,
     Iterable,
-    Literal,
     Optional,
     Sequence,
     Union,
 )
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 import requests
 
@@ -172,14 +176,14 @@ def set_credentials(cb_username, cb_password):
     Call this before any other Calcbench functions.
 
     Alternatively set the ``CALCBENCH_USERNAME`` and ``CALCBENCH_PASSWORD`` environment variables
-    
+
     :param str cb_username: Your calcbench.com email address
     :param str cb_password: Your calcbench.com password
 
     Usage::
 
       >>> calcbench.set_credentials("andrew@calcbench.com", "NotMyRealPassword")
-      
+
     """
     _SESSION_STUFF["calcbench_user_name"] = cb_username
     _SESSION_STUFF["calcbench_password"] = cb_password
@@ -215,7 +219,7 @@ def enable_backoff(
 
 def set_proxies(proxies: Dict[str, str]):
     """
-        Set proxies used for requests.  See https://requests.readthedocs.io/en/master/user/advanced/#proxies
+    Set proxies used for requests.  See https://requests.readthedocs.io/en/master/user/advanced/#proxies
 
     """
     _SESSION_STUFF["proxies"] = proxies
@@ -256,19 +260,19 @@ def normalized_dataframe(
     company_identifier_scheme: CompanyIdentifierScheme = CompanyIdentifierScheme.Ticker,
 ) -> "pd.DataFrame":
     """Standardized Data.
-    
-    Metrics are standardized by economic concept and time period.  
-    
+
+    Metrics are standardized by economic concept and time period.
+
     The data behind the multi-company page, https://www.calcbench.com/multi.
 
     Example https://github.com/calcbench/notebooks/blob/master/python_client_api_demo.ipynb
-    
+
     :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
     :param start_year: first year of data
     :param start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
     :param end_year: last year of data
-    :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4        
+    :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
     :param entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
     :param filing_accession_number: Filing Accession ID from the SEC's Edgar system.
     :param year: Get data for a single year, defaults to annual data.
@@ -404,9 +408,9 @@ def normalized_raw(
 ):
     """
     Standardized data.
-    
+
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
-    
+
     Args:
         company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
         metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
@@ -420,10 +424,10 @@ def normalized_raw(
         year: Get data for a single year, defaults to annual data.
         period_type: Either "annual" or "quarterly"
         include_preliminary: Include data from non-XBRL 8-Ks and press releases.
-        
+
     Returns:
         A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
-        
+
         For example
             [
                 {
@@ -553,7 +557,7 @@ def point_in_time(
     """Point-in-Time Data
 
     Standardized data with a timestamp when it was published by Calcbench
-    
+
     :param update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
     :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
     :param all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
@@ -593,8 +597,8 @@ def point_in_time(
        Internal Calcbench identifier for reporting company
     filing_type
        The document type this fact came from, 10-K|Q, S-1 etc...
-       
-    
+
+
 
     Usage::
        >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
@@ -719,23 +723,23 @@ def face_statement(
     descending_dates=False,
 ):
     """Face Statements.
-    
+
     face statements as reported by the filing company
-    
-    
+
+
     :param string company_identifier: a ticker or a CIK code, eg 'msft'
     :param string statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
     :param string period_type: annual|quarterly|cummulative|combined
     :param string all_periods: get all history or only the last four, True or False.
     :param bool descending_dates: return columns in oldest -> newest order.
-        
+
     :rtype: object
 
     Returns:
     An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
     The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
     The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.
-        
+
 
     Usage::
         >>> calcbench.face_statement('msft', 'income')
@@ -773,9 +777,9 @@ def dimensional_raw(
     period_type="annual",
 ):
     """Segments and Breakouts
-    
+
     The data behind the breakouts/segment page, https://www.calcbench.com/breakout.
-    
+
     :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param sequence metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
     :param int start_year: first year of data to get
@@ -786,9 +790,9 @@ def dimensional_raw(
     :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
     :rtype: sequence
 
-    Usage:: 
+    Usage::
       >>> cb.dimensional_raw(company_identifiers=['fdx'], metrics=['OperatingSegmentRevenue'], start_year=2018)
-    
+
     """
     if len(metrics) == 0:
         raise (ValueError("Need to supply at least one breakout."))
@@ -885,7 +889,7 @@ def filings(
     :param datetime.date received_date: get all filings received on this date
 
     Usage::
-        >>> from datetime import date        
+        >>> from datetime import date
         >>> calcbench.filings(received_date=date.today(), entire_universe=True)
 
     """
@@ -965,7 +969,7 @@ rawNonXBRLEndPoint = "rawNonXBRLData"
 def raw_data(
     company_identifiers=[], entire_universe=False, clauses=[], end_point=rawXBRLEndPoint
 ):
-    """As-reported data. 
+    """As-reported data.
 
     :param list(str) company_identifiers: list of tickers or CIK codes
     :param bool entire_universe: Search all companies
@@ -1002,7 +1006,9 @@ def raw_data(
     df.rename({"Value": "value"}, inplace=True)
     return df
 
+
 raw_xbrl = raw_data
+
 
 def raw_data_raw(
     company_identifiers=[], entire_universe=False, clauses=[], end_point=rawXBRLEndPoint

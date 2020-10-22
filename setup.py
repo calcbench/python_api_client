@@ -10,14 +10,18 @@ from setuptools import setup
 
 setup(
     name="calcbench_api_client",
-    version="3.0.3",
+    version="3.0.6",
     description="Client for Calcbench data.",
     author="Andrew Kittredge",
     author_email="andrew@calcbench.com",
     license="Apache2",
     keywords="finance accounting SEC 10-(K|Q)",
-    install_requires=["requests"],
-    python_requires=">=3.7",
+    install_requires=[
+        "requests",
+        "typing_extensions; python_version < '3.7'",
+        "dataclasses; python_version < '3.7'",
+    ],
+    python_requires=">=3.6",
     packages=["calcbench"],
     extras_require={
         "Pandas": ["Pandas"],

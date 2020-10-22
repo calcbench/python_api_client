@@ -1,4 +1,9 @@
-from typing import Literal, Optional, Sequence
+from typing import Optional, Sequence
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 from calcbench.api_client import CompanyIdentifiers, _json_POST
 
@@ -18,7 +23,7 @@ def tickers(
     NAICS_codes: Sequence[int] = [],
 ) -> "list[str]":
     """Get tickers
-    
+
     :param SIC_codes: Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]
     :param index: 'DJIA' or 'SP500'
     :param company_identifiers: tickers
@@ -52,7 +57,7 @@ def companies(
     NAICS_codes: Sequence[int] = [],
 ) -> "pd.DataFrame":
     """Return a DataFrame with company details
-    
+
     :param SIC_codes: Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]
     :param index: 'DJIA' or 'SP500'
     :company_identifiers: tickers

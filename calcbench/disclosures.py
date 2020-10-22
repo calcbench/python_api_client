@@ -1,7 +1,12 @@
 import dataclasses
 from dataclasses import dataclass
 from datetime import date, datetime
-from typing import Generator, Literal, Optional, Sequence
+from typing import Generator, Optional, Sequence
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 try:
     from bs4 import BeautifulSoup
@@ -55,12 +60,12 @@ def document_dataframe(
     :param identifier_key: "ticker" or "CIK", how to index the returned DataFrame.
     :return: A DataFrame indexed by document name -> company identifier.
 
-    Usage::      
+    Usage::
 
       >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"], all_history=True, disclosure_names=["Management's Discussion And Analysis", "Risk Factors"])
       >>> data = data.fillna(False)
       >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
-      
+
     """
     if block_tag_names:
         docs = []
@@ -120,7 +125,7 @@ def document_dataframe(
 @dataclass
 class DocumentSearchResults(dict):
     """
-        Represents a disclosure.
+    Represents a disclosure.
     """
 
     fact_id: int
@@ -161,7 +166,7 @@ class DocumentSearchResults(dict):
 
     def get_contents(self) -> str:
         """
-            Content of the document, with the filers HTML
+        Content of the document, with the filers HTML
         """
         if self.get("network_id"):
             return _document_contents_by_network_id(self.network_id)
@@ -200,15 +205,15 @@ def document_search(
 ) -> Generator[DocumentSearchResults, None, None]:
     """
     Footnotes and other text
-    
+
     Search for footnotes and other sections of 10-K, see https://www.calcbench.com/footnote.
-    
+
     :param company_identifiers: list of tickers or CIK codes
     :param year: Year to get data for
     :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param use_fiscal_period: interpret the passed period as a fiscal period, as opposed to calendar period
     :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
-    :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors'] 
+    :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
     :param sub_divide: return the document split into sections based on headers.
@@ -218,7 +223,7 @@ def document_search(
     :return: A iterator of DocumentSearchResults
 
     Usage::
-    
+
        >>> import tqdm
        >>> sp500 = calcbench.tickers(index='SP500')
        >>> with tqdm.tqdm() as progress_bar:
@@ -316,4 +321,3 @@ def _document_contents_by_network_id(network_id) -> str:
     json = _json_GET("query/disclosureByNetworkIDOBJ", payload)
     blobs = json["blobs"]
     return blobs[0] if len(blobs) else ""
-
