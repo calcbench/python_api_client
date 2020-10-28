@@ -21,7 +21,7 @@ def handle_filings(
     handler: Callable[[Filing], None], connection_string: str, subscription_name: str
 ):
     """Listen for new filings from Calcbench
-    
+
     https://github.com/calcbench/notebooks/blob/master/filing_listener.ipynb.
 
     :param handler: function that "handles" the filing, for instance getting data from Calcbench and writing it to your database

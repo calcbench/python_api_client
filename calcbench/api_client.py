@@ -78,7 +78,7 @@ def _calcbench_session():
             session.proxies.update(_SESSION_STUFF["proxies"])
         r = session.post(
             _SESSION_STUFF["logon_url"],
-            {"email": user_name, "strng": password, "rememberMe": "true"},
+            {"email": user_name, "password": password, "rememberMe": "true"},
             verify=_SESSION_STUFF["ssl_verify"],
             timeout=_SESSION_STUFF["timeout"],
         )
