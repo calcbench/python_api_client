@@ -123,6 +123,17 @@ def document_dataframe(
 
 
 @dataclass
+class DisclosureContent:
+    blobs: Sequence[str]
+
+    def __init__(self, **kwargs):
+        names = set([f.name for f in dataclasses.fields(self)])
+        for k, v in kwargs.items():
+            if k in names:
+                setattr(self, k, v)
+
+
+@dataclass
 class DocumentSearchResults(dict):
     """
     Represents a disclosure.
@@ -156,11 +167,15 @@ class DocumentSearchResults(dict):
     disclosure_type_name: str
     period_end_date: str
     footnote_type_title: str
+    """Only set for management discussion and analysis sections"""
+    content: Optional[DisclosureContent] = None
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
         for k, v in kwargs.items():
-            if k in names:
+            if k == "content" and v:
+                setattr(self, k, DisclosureContent(**v))
+            elif k in names:
                 setattr(self, k, v)
             self[k] = v
 
@@ -168,7 +183,9 @@ class DocumentSearchResults(dict):
         """
         Content of the document, with the filers HTML
         """
-        if self.get("network_id"):
+        if self.content:
+            return "".join(self.content.blobs)
+        elif self.get("network_id"):
             return _document_contents_by_network_id(self.network_id)
         else:
             return document_contents(blob_id=self.blob_id, SEC_ID=self["sec_filing_id"])
