@@ -21,6 +21,7 @@ from calcbench.api_client import (
     PeriodType,
     _json_GET,
     _json_POST,
+    _try_parse_timestamp,
     logger,
 )
 
@@ -99,7 +100,7 @@ def document_dataframe(
     for doc in docs:
         period_year = doc["fiscal_year" if use_fiscal_period else "calendar_year"]
         if period in ("Y", 0) or period_type == "annual":
-            p = pd.Period(year=period_year, freq="a")
+            p = pd.Period(year=period_year, freq="a")  # type: ignore
         else:
             try:
                 quarter = period_map[
@@ -110,14 +111,14 @@ def document_dataframe(
                 logger.info("Strange period for {ticker}".format(**doc))
                 p = None
             else:
-                p = pd.Period(year=period_year, quarter=quarter, freq="q")
+                p = pd.Period(year=period_year, quarter=quarter, freq="q")  # type: ignore
         doc["period"] = p
         doc[identifier_key] = (doc[identifier_key] or "").upper()
         doc["value"] = doc
     data = pd.DataFrame(docs)
-    data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])
-    data = data.loc[~data.index.duplicated()]  # There can be duplicates
-    data = data.unstack("disclosure_type_name")["value"]
+    data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])  # type: ignore
+    data = data.loc[~data.index.duplicated()]  # type:ignore There can be duplicates
+    data = data.unstack("disclosure_type_name")["value"]  # type: ignore
     data = data.unstack(identifier_key)
     return data
 
@@ -314,17 +315,6 @@ def _document_search_results(payload, progress_bar=None):
             yield DocumentSearchResults(**result)
         payload["pageParameters"]["startOffset"] = results["nextGroupStartOffset"]
     payload["pageParameters"]["startOffset"] = None
-
-
-def _try_parse_timestamp(timestamp):
-    """
-    We did not always have milliseconds
-    """
-    try:
-        timestamp = timestamp[:26]  # .net's milliseconds are too long
-        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
-    except ValueError:
-        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
 
 
 def document_contents(blob_id, SEC_ID, SEC_URL=None) -> str:

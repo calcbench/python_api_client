@@ -10,7 +10,7 @@ import json
 import logging
 import os
 import warnings
-from datetime import date
+from datetime import date, datetime
 from enum import Enum, IntEnum
 from functools import wraps
 from typing import (
@@ -21,6 +21,8 @@ from typing import (
     Sequence,
     Union,
 )
+
+from requests.sessions import Session
 
 try:
     from typing import Literal
@@ -36,7 +38,7 @@ try:
     import numpy as np
     import pandas as pd
 
-    period_number = pd.api.types.CategoricalDtype(
+    period_number = pd.api.types.CategoricalDtype(  # type: ignore
         categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
     )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
 
@@ -59,7 +61,7 @@ _SESSION_STUFF = {
 }
 
 
-def _calcbench_session():
+def _calcbench_session() -> Session:
     session = _SESSION_STUFF.get("session")
     if not session:
         user_name = _SESSION_STUFF.get("calcbench_user_name")
@@ -101,7 +103,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
     if suppress_http_warnings:
         from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
-        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)  # type: ignore
 
 
 PeriodType = Literal["annual", "quarterly"]
@@ -333,13 +335,13 @@ def normalized_dataframe(
         warnings.warn("Did not find metrics {0}".format(missing_metrics))
     data = pd.DataFrame(data)
     data.set_index(
-        keys=[f"{company_identifier_scheme}", "metric", "period"], inplace=True
-    )
+        keys=[f"{company_identifier_scheme}", "metric", "period"], inplace=True  # type: ignore
+    )  # type: ignore
     try:
-        data = data.unstack("metric")["value"]
+        data = data.unstack("metric")["value"]  # type: ignore
     except ValueError as e:
         if str(e) == "Index contains duplicate entries, cannot reshape":
-            duplicates = data[data.index.duplicated()]["value"]
+            duplicates = data[data.index.duplicated()]["value"]  # type: ignore
             logger.error("Duplicate values \n {0}".format(duplicates))
         raise
 
@@ -349,7 +351,7 @@ def normalized_dataframe(
             data[column_name] = pd.to_numeric(data[column_name], errors="raise")
         except ValueError:
             if "date" in column_name.lower():
-                data[column_name] = pd.to_datetime(data[column_name], errors="coerce")
+                data[column_name] = pd.to_datetime(data[column_name], errors="coerce")  # type: ignore
 
     for missing_metric in missing_metrics:
         data[missing_metric] = np.nan  # We want columns for every requested metric.
@@ -359,7 +361,7 @@ def normalized_dataframe(
 
 def _build_quarter_period(data_point, use_fiscal_period):
     try:
-        return pd.Period(
+        return pd.Period(  # type: ignore
             year=data_point.pop(
                 "fiscal_year" if use_fiscal_period else "calendar_year"
             ),
@@ -370,12 +372,12 @@ def _build_quarter_period(data_point, use_fiscal_period):
         )
     except ValueError:
         # DEI points (entity_name) etc, don't have periods.
-        return pd.Period()
+        return pd.Period()  # type: ignore
 
 
 def _build_annual_period(data_point, use_fiscal_period):
     data_point.pop("fiscal_period" if use_fiscal_period else "calendar_period")
-    return pd.Period(
+    return pd.Period(  # type: ignore
         year=data_point.pop("fiscal_year" if use_fiscal_period else "calendar_year"),
         freq="a",
     )
@@ -494,19 +496,19 @@ def normalized_raw(
         raise ValueError("include_preliminary only works for PIT")
 
     try:
-        start_year = int(start_year)
+        start_year = int(start_year)  # type: ignore
     except (ValueError, TypeError):
         pass
     try:
-        start_period = int(start_period)
+        start_period = int(start_period)  # type: ignore
     except (ValueError, TypeError):
         pass
     try:
-        end_year = int(end_year)
+        end_year = int(end_year)  # type: ignore
     except (ValueError, TypeError):
         pass
     try:
-        end_period = int(end_period)
+        end_period = int(end_period)  # type: ignore
     except (ValueError, TypeError):
         pass
     payload = {
@@ -643,16 +645,16 @@ def point_in_time(
     sort_columns = ["ticker", "metric"]
 
     if "calendar_period" in data.columns:
-        data.calendar_period = data.calendar_period.astype(period_number)
+        data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
         sort_columns.extend(["calendar_year", "calendar_period"])
     if "fiscal_period" in data.columns:
-        data.fiscal_period = data.fiscal_period.astype(period_number)
+        data.fiscal_period = data.fiscal_period.astype(period_number)  # type: ignore
     if "calendar_period" in data.columns:
-        data.calendar_period = data.calendar_period.astype(period_number)
+        data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
     if not data.empty:
         for date_column in ["date_reported", "period_end", "period_start"]:
             if date_column in data.columns:
-                data[date_column] = pd.to_datetime(data[date_column], errors="coerce")
+                data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
@@ -920,6 +922,17 @@ def filings(
         yield _cast_filing_fields(filing)
 
 
+def _try_parse_timestamp(timestamp):
+    """
+    We did not always have milliseconds
+    """
+    try:
+        timestamp = timestamp[:26]  # .net's milliseconds are too long
+        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
+    except ValueError:
+        return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
+
+
 def _cast_filing_fields(filing: Filing) -> Filing:
     for date_field in (
         "calcbench_finished_load",
@@ -1002,8 +1015,8 @@ def raw_data(
         "period_start",
         "period_instant",
     ]:
-        df[date_column] = pd.to_datetime(df[date_column])
-    df.rename({"Value": "value"}, inplace=True)
+        df[date_column] = pd.to_datetime(df[date_column])  # type: ignore
+    df.rename({"Value": "value"}, inplace=True)  # type: ignore
     return df
 
 
