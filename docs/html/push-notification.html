@@ -54,7 +54,7 @@ When you recieve a message you call the Calcbench API to retrieve data then add 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>handler</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="#calcbench.api_client.Filing" title="calcbench.api_client.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filing</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – function that “handles” the filing, for instance getting data from Calcbench and writing it to your database</p></li>
+<li><p><strong>handler</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">Filing</span></code>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – function that “handles” the filing, for instance getting data from Calcbench and writing it to your database</p></li>
 <li><p><strong>connection_string</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – azure service bus connection string, Calcbench will give you this</p></li>
 <li><p><strong>subscription_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – service bus subscription, Calcbench will give this to you</p></li>
 </ul>
@@ -84,8 +84,8 @@ When you recieve a message you call the Calcbench API to retrieve data then add 
 </dd></dl>
 
 <dl class="class">
-<dt id="calcbench.api_client.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">Filing</code><a class="headerlink" href="#calcbench.api_client.Filing" title="Permalink to this definition">¶</a></dt>
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
 <dd></dd></dl>
 
 </div>

@@ -10,7 +10,7 @@ import json
 import logging
 from typing import Callable
 
-from .filings import Filing
+from .filing import Filing
 
 logger = logging.getLogger(__name__)
 
