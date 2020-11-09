@@ -59,7 +59,9 @@ def handle_filings(
                     message.abandon()
                 else:
                     try:
+                        logger.info(f"Handling {filing}")
                         handler(filing)
+
                     except Exception as e:
                         logger.exception(f"Exception Processing {filing}\n{e}")
                     else:
