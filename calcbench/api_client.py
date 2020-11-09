@@ -870,58 +870,6 @@ def business_combinations(company_identifiers):
     return _json_POST("businessCombinations", payload)
 
 
-class Filing(dict):
-    pass
-
-
-def filings(
-    company_identifiers=[],
-    entire_universe=False,
-    include_non_xbrl=True,
-    received_date=None,
-    start_date=None,
-    end_date=None,
-    filing_types=[],
-) -> Iterable[Filing]:
-    """SEC filings
-
-    https://www.calcbench.com/filings
-
-    :param list(str) company_identifiers: list of tickers or CIK codes
-    :param datetime.date received_date: get all filings received on this date
-
-    Usage::
-        >>> from datetime import date
-        >>> calcbench.filings(received_date=date.today(), entire_universe=True)
-
-    """
-
-    filings = _json_POST(
-        "filingsV2",
-        {
-            "companiesParameters": {
-                "companyIdentifiers": list(company_identifiers),
-                "entireUniverse": entire_universe,
-            },
-            "pageParameters": {
-                "includeNonXBRL": include_non_xbrl,
-                "filingTypes": filing_types,
-            },
-            "periodParameters": {
-                "updateDate": received_date and received_date.isoformat(),
-                "dateRange": start_date
-                and end_date
-                and {
-                    "startDate": start_date.isoformat(),
-                    "endDate": end_date.isoformat(),
-                },
-            },
-        },
-    )
-    for filing in filings:
-        yield _cast_filing_fields(filing)
-
-
 def _try_parse_timestamp(timestamp):
     """
     We did not always have milliseconds
@@ -931,18 +879,6 @@ def _try_parse_timestamp(timestamp):
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
     except ValueError:
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
-
-
-def _cast_filing_fields(filing: Filing) -> Filing:
-    for date_field in (
-        "calcbench_finished_load",
-        "calcbench_accepted",
-        "filing_date",
-        "period_end_date",
-    ):
-        if filing.get(date_field):
-            filing[date_field] = _try_parse_timestamp(filing[date_field])
-    return filing
 
 
 def document_types():

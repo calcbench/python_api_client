@@ -17,7 +17,6 @@ from .api_client import (
     document_types,
     enable_backoff,
     face_statement,
-    filings,
     html_diff,
     mapped_raw,
     normalized_data,
@@ -37,3 +36,4 @@ from .api_client import (
 from .disclosures import document_contents, document_search
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
+from .filings import filings, Filing

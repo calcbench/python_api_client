@@ -10,7 +10,7 @@ import json
 import logging
 from typing import Callable
 
-from .api_client import Filing, _cast_filing_fields
+from .filings import Filing
 
 logger = logging.getLogger(__name__)
 
@@ -53,8 +53,7 @@ def handle_filings(
             for message in receiver:
                 body_bytes = b"".join(message.body)
                 try:
-                    filing = json.loads(body_bytes)
-                    filing = _cast_filing_fields(filing)
+                    filing = Filing(**json.loads(body_bytes))
                 except Exception:
                     logger.exception(f"Exception Parsing {body_bytes}")
                     message.abandon()
