@@ -66,6 +66,8 @@ class Filing(dict):
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
+        for name in names:
+            setattr(self, name, None)
         for k, v in kwargs.items():
             if k in (
                 "calcbench_finished_load",
@@ -120,6 +122,7 @@ def filings(
                     "startDate": start_date.isoformat(),
                     "endDate": end_date.isoformat(),
                 },
+                "asOriginallyReported": False,
             },
         },
     )

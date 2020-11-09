@@ -173,6 +173,8 @@ class DocumentSearchResults(dict):
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
+        for name in names:
+            setattr(self, name, None)
         for k, v in kwargs.items():
             if k == "content" and v:
                 setattr(self, k, DisclosureContent(**v))
