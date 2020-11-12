@@ -9,7 +9,6 @@ __version__ = "3.0.9"
 from .api_client import (
     CompanyIdentifierScheme,
     as_reported_raw,
-    available_metrics,
     business_combinations,
     company_disclosures,
     dimensional_raw,
@@ -37,3 +36,4 @@ from .disclosures import document_contents, document_search
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
 from .filing import filings, Filing
+from .metrics import available_metrics, available_metrics_dataframe

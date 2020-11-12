@@ -853,13 +853,6 @@ def disclosure_text(network_id):
     return r.json()
 
 
-def available_metrics():
-    url = _SESSION_STUFF["api_url_base"].format("availableMetrics")
-    r = _calcbench_session().get(url, verify=_SESSION_STUFF["ssl_verify"])
-    r.raise_for_status()
-    return r.json()
-
-
 def business_combinations(company_identifiers):
     payload = {
         "companiesParameters": {"companyIdentifiers": company_identifiers},

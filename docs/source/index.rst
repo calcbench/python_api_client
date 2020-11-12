@@ -17,6 +17,7 @@ Calcbench Python API Client
    filings
    companies
    push-notification
+   metrics
 
 Examples
 --------
