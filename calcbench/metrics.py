@@ -22,10 +22,10 @@ def available_metrics_dataframe() -> pd.DataFrame:
     See https://www.calcbench.com/home/standardizedmetrics
     """
 
-    metrics_df = pd.DataFrame()
-    for category, metrics in available_metrics().items():
-        for metric in metrics:
-            metrics_df = metrics_df.append(
-                {"category": category, **metric}, ignore_index=True
-            )
-    return metrics_df
+    return pd.DataFrame(
+        [
+            {"category": category, **metric}
+            for category, metrics in available_metrics().items()
+            for metric in metrics
+        ]
+    )
