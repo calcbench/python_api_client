@@ -1,5 +1,6 @@
 import pandas as pd
-from calcbench.api_client import _SESSION_STUFF, _calcbench_session
+
+from calcbench.api_client import _SESSION_STUFF, _json_GET
 
 try:
     import pandas as pd
@@ -12,10 +13,7 @@ def available_metrics():
 
     See https://www.calcbench.com/home/standardizedmetrics
     """
-    url = _SESSION_STUFF["api_url_base"].format("availableMetrics")
-    r = _calcbench_session().get(url, verify=_SESSION_STUFF["ssl_verify"])
-    r.raise_for_status()
-    return r.json()
+    return _json_GET("api/availableMetrics")
 
 
 def available_metrics_dataframe() -> pd.DataFrame:

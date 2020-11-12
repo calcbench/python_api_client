@@ -135,7 +135,7 @@ def _add_backoff(f):
 
 
 @_add_backoff
-def _json_POST(end_point, payload):
+def _json_POST(end_point: str, payload: dict):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
     logger.debug(f"posting to {url}, {payload}")
 
@@ -155,7 +155,7 @@ def _json_POST(end_point, payload):
 
 
 @_add_backoff
-def _json_GET(path, params):
+def _json_GET(path: str, params: dict = {}):
     url = _SESSION_STUFF["domain"].format(path)
     response = _calcbench_session().get(
         url,
