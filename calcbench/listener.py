@@ -6,6 +6,11 @@ except ImportError:
     "Will not be able to use the listener"
     pass
 
+try:
+    from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
+except ImportError:
+    pass
+
 import json
 import logging
 from typing import Callable
@@ -66,3 +71,34 @@ def handle_filings(
                         logger.exception(f"Exception Processing {filing}\n{e}")
                     else:
                         message.complete()
+
+
+async def handle_filings_async(
+    handler: Callable[[Filing], None], connection_string: str, subscription_name: str
+):
+    """
+    https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/servicebus/azure-servicebus/samples/async_samples/receive_subscription_async.py
+    """
+    servicebus_client = AsyncServiceBusClient.from_connection_string(
+        conn_str=connection_string
+    )
+
+    async with servicebus_client:
+        receiver = servicebus_client.get_subscription_receiver(
+            topic_name=TOPIC, subscription_name=subscription_name
+        )
+        async with receiver:
+            while True:
+                received_msgs = await receiver.receive_messages()
+                for msg in received_msgs:
+                    body_bytes = b"".join(msg.body)
+                    try:
+                        filing = Filing(**json.loads(body_bytes))
+                    except Exception:
+                        logger.exception(f"Exception Parsing {body_bytes}")
+                        message.abandon()
+                    else:
+                        logger.info(f"Handling {filing}")
+                        handler(filing)
+                    await msg.complete()
+                    # await receiver.complete_message(msg)
