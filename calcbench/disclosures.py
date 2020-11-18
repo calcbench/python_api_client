@@ -1,6 +1,7 @@
 import dataclasses
 from dataclasses import dataclass
 from datetime import date, datetime
+from enum import Enum
 from typing import Generator, Optional, Sequence
 
 try:
@@ -134,6 +135,32 @@ class DisclosureContent:
                 setattr(self, k, v)
 
 
+class FootnoteTypeTitle(str, Enum):
+    EigthKsByItemType = "8-Ks By Item Type"
+    AccountingPolicies = "Accounting Policies"
+    AdditionalSections = "Additional 10-K and 10-Q Sections"
+    BusinessCombinations = "Business Combinations"
+    CashAndEquivalents = "Cash And Cash Equivalents"
+    CommitmentsAndContigencies = "Commitment And Contingencies"
+    Compensation = "Compensation Related Costs Postemployment Benefits"
+    Debt = "Debt"
+    Derivatives = "Derivative Instruments And Hedging Activities"
+    EarningPerShare = "Earnings Per Share"
+    Equity = "Equity"
+    Goodwill = "Goodwill & Intangible Assets"
+    IncomeTax = "Income Tax"
+    InterimReporting = "Interim Reporting"
+    Inventory = "Inventory & PPE"
+    Leases = "Leases"
+    Other = "Other"
+    OtherExpenses = "Other Expenses"
+    RelatedDocuments = "Related Documents (8-Ks, Proxys & Letters)"
+    RevenueFromContractWithCustomer = "Revenuefrom Contract With Customer"
+    Segment = "Segment"
+    PolicyTextBlock = "Policy Text Block"
+    TextBlock = "Text Block"
+
+
 @dataclass
 class DocumentSearchResults(dict):
     """
@@ -167,8 +194,7 @@ class DocumentSearchResults(dict):
     description: str
     disclosure_type_name: str
     period_end_date: str
-    footnote_type_title: str
-    """Only set for management discussion and analysis sections"""
+    footnote_type_title: FootnoteTypeTitle
     content: Optional[DisclosureContent] = None
 
     def __init__(self, **kwargs):
@@ -190,6 +216,10 @@ class DocumentSearchResults(dict):
             return "".join(self.content.blobs)
         elif self.get("network_id"):
             return _document_contents_by_network_id(self.network_id)
+        elif self.local_name:
+            return _document_by_block_tag_name(
+                accession_id=self.accession_id, block_tag_name=self.local_name
+            )
         else:
             return document_contents(blob_id=self.blob_id, SEC_ID=self["sec_filing_id"])
 
@@ -331,3 +361,9 @@ def _document_contents_by_network_id(network_id) -> str:
     json = _json_GET("query/disclosureByNetworkIDOBJ", payload)
     blobs = json["blobs"]
     return blobs[0] if len(blobs) else ""
+
+
+def _document_by_block_tag_name(accession_id: int, block_tag_name=str) -> str:
+    payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
+    json = _json_GET("query/disclosuresByTag", payload)
+    return json[0]["blobs"][0]

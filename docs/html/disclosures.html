@@ -107,6 +107,16 @@
 </div>
 </dd></dl>
 
+<span class="target" id="module-calcbench.disclosures"></span><dl class="class">
+<dt id="calcbench.disclosures.DisclosureContent">
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">DisclosureContent</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DisclosureContent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="calcbench.disclosures.DisclosureContent.blobs">
+<code class="sig-name descname">blobs</code><em class="property">: Sequence[str]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.blobs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="calcbench.disclosures.DocumentSearchResults">
 <em class="property">class </em><code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">DocumentSearchResults</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults" title="Permalink to this definition">¶</a></dt>
@@ -214,9 +224,8 @@
 
 <dl class="attribute">
 <dt id="calcbench.disclosures.DocumentSearchResults.footnote_type_title">
-<code class="sig-name descname">footnote_type_title</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.footnote_type_title" title="Permalink to this definition">¶</a></dt>
-<dd><p>Only set for management discussion and analysis sections</p>
-</dd></dl>
+<code class="sig-name descname">footnote_type_title</code><em class="property">: FootnoteTypeTitle</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.footnote_type_title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="calcbench.disclosures.DocumentSearchResults.get_contents">
@@ -290,6 +299,208 @@
 <code class="sig-name descname">ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.ticker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="calcbench.disclosures.FootnoteTypeTitle">
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">FootnoteTypeTitle</code><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.AccountingPolicies">
+<code class="sig-name descname">AccountingPolicies</code><em class="property"> = 'Accounting Policies'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.AccountingPolicies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.AdditionalSections">
+<code class="sig-name descname">AdditionalSections</code><em class="property"> = 'Additional 10-K and 10-Q Sections'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.AdditionalSections" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.BusinessCombinations">
+<code class="sig-name descname">BusinessCombinations</code><em class="property"> = 'Business Combinations'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.BusinessCombinations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.CashAndEquivalents">
+<code class="sig-name descname">CashAndEquivalents</code><em class="property"> = 'Cash And Cash Equivalents'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.CashAndEquivalents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.CommitmentsAndContigencies">
+<code class="sig-name descname">CommitmentsAndContigencies</code><em class="property"> = 'Commitment And Contingencies'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.CommitmentsAndContigencies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Compensation">
+<code class="sig-name descname">Compensation</code><em class="property"> = 'Compensation Related Costs Postemployment Benefits'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Compensation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Debt">
+<code class="sig-name descname">Debt</code><em class="property"> = 'Debt'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Debt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Derivatives">
+<code class="sig-name descname">Derivatives</code><em class="property"> = 'Derivative Instruments And Hedging Activities'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Derivatives" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.EarningPerShare">
+<code class="sig-name descname">EarningPerShare</code><em class="property"> = 'Earnings Per Share'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.EarningPerShare" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.EigthKsByItemType">
+<code class="sig-name descname">EigthKsByItemType</code><em class="property"> = '8-Ks By Item Type'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.EigthKsByItemType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Equity">
+<code class="sig-name descname">Equity</code><em class="property"> = 'Equity'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Equity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Goodwill">
+<code class="sig-name descname">Goodwill</code><em class="property"> = 'Goodwill &amp; Intangible Assets'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Goodwill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.IncomeTax">
+<code class="sig-name descname">IncomeTax</code><em class="property"> = 'Income Tax'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.IncomeTax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.InterimReporting">
+<code class="sig-name descname">InterimReporting</code><em class="property"> = 'Interim Reporting'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.InterimReporting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Inventory">
+<code class="sig-name descname">Inventory</code><em class="property"> = 'Inventory &amp; PPE'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Inventory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Leases">
+<code class="sig-name descname">Leases</code><em class="property"> = 'Leases'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Leases" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Other">
+<code class="sig-name descname">Other</code><em class="property"> = 'Other'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Other" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.OtherExpenses">
+<code class="sig-name descname">OtherExpenses</code><em class="property"> = 'Other Expenses'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.OtherExpenses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.PolicyTextBlock">
+<code class="sig-name descname">PolicyTextBlock</code><em class="property"> = 'Policy Text Block'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.PolicyTextBlock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.RelatedDocuments">
+<code class="sig-name descname">RelatedDocuments</code><em class="property"> = 'Related Documents (8-Ks, Proxys &amp; Letters)'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.RelatedDocuments" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.RevenueFromContractWithCustomer">
+<code class="sig-name descname">RevenueFromContractWithCustomer</code><em class="property"> = 'Revenuefrom Contract With Customer'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.RevenueFromContractWithCustomer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.Segment">
+<code class="sig-name descname">Segment</code><em class="property"> = 'Segment'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Segment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.disclosures.FootnoteTypeTitle.TextBlock">
+<code class="sig-name descname">TextBlock</code><em class="property"> = 'Text Block'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.TextBlock" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.disclosures.document_contents">
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_contents</code><span class="sig-paren">(</span><em class="sig-param">blob_id</em>, <em class="sig-param">SEC_ID</em>, <em class="sig-param">SEC_URL=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_contents" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=False</em><span class="sig-paren">)</span></dt>
+<dd><p>Disclosures/Footnotes in a DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘annual’, ‘quarterly’]]) – “quarterly” or “annual”, only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
+<li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – “ticker” or “CIK”, how to index the returned DataFrame.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A DataFrame indexed by document name -&gt; company identifier.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">document_dataframe</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Management&#39;s Discussion And Analysis&quot;</span><span class="p">,</span> <span class="s2">&quot;Risk Factors&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">document</span><span class="p">:</span> <span class="n">document</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">get_contents_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_search</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=None</em>, <em class="sig-param">full_text_search_term=None</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=&lt;Period.Annual: 0&gt;</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">document_type=None</em>, <em class="sig-param">block_tag_name=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">document_name=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">updated_from=None</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">sub_divide=False</em>, <em class="sig-param">all_documents=False</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">accession_id=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Footnotes and other text</p>
+<p>Search for footnotes and other sections of 10-K, see <a class="reference external" href="https://www.calcbench.com/footnote">https://www.calcbench.com/footnote</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘annual’, ‘quarterly’]]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
+<li><p><strong>updated_from</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – include filings from this date and after.</p></li>
+<li><p><strong>sub_divide</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – return the document split into sections based on headers.</p></li>
+<li><p><strong>all_documents</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – all of the documents for a single company/period.</p></li>
+<li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all companies</p></li>
+<li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
+<li><p><strong>block_tag_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Level 2 or 3 XBRL tag.  See the list of FASB tags &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list#blockTags">https://www.calcbench.com/disclosure_list#blockTags</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.disclosures.DocumentSearchResults" title="calcbench.disclosures.DocumentSearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentSearchResults</span></code></a>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A iterator of DocumentSearchResults</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp500</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;SP500&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">()</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calcbench</span><span class="o">.</span><span class="n">document_search</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span> <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Risk Factors&#39;</span><span class="p">],</span> <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
