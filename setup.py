@@ -18,7 +18,7 @@ setup(
     keywords="finance accounting SEC 10-(K|Q)",
     install_requires=[
         "requests",
-        "typing_extensions; python_version < '3.7'",
+        "typing_extensions; python_version <= '3.7'",
         "dataclasses; python_version < '3.7'",
     ],
     python_requires=">=3.6",
