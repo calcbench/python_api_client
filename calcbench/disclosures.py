@@ -240,6 +240,7 @@ def document_search(
     :param all_documents: all of the documents for a single company/period.
     :param entire_universe: Search all companies
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
+    :param block_tag_name: Level 2 or 3 XBRL tag.  See the list of FASB tags @ https://www.calcbench.com/disclosure_list#blockTags
     :return: A iterator of DocumentSearchResults
 
     Usage::
