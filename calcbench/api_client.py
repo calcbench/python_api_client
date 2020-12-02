@@ -151,7 +151,9 @@ def _json_POST(end_point: str, payload: dict):
     except requests.exceptions.HTTPError as e:
         logger.exception("Exception {0}, {1}".format(url, payload))
         raise e
-    return response.json()
+    response_data = response.json()
+    logger.debug(f"{response_data}")
+    return response_data
 
 
 @_add_backoff

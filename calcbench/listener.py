@@ -51,6 +51,7 @@ def handle_filings(
         >>>     subscription_name=subscription,
         >>> )
     """
+
     with ServiceBusClient.from_connection_string(conn_str=connection_string) as client:
         with client.get_subscription_receiver(
             topic_name=TOPIC, subscription_name=subscription_name
@@ -68,7 +69,9 @@ def handle_filings(
                         handler(filing)
 
                     except Exception as e:
-                        logger.exception(f"Exception Processing {filing}\n{e}")
+                        logger.exception(
+                            f"Exception Processing {filing}\n delivery count: {message.delivery_count}\n{e}"
+                        )
                     else:
                         message.complete()
 
