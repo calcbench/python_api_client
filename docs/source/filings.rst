@@ -2,4 +2,6 @@ Filings
 =======
 
 
-.. autoclass:: calcbench.filing.Filing
+.. automodule:: calcbench.filing
+    :members:
+    :undoc-members:

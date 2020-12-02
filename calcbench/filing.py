@@ -1,11 +1,15 @@
 from dataclasses import dataclass
-from datetime import datetime
-import enum
+from datetime import date, datetime
 from enum import Enum
 from typing import Iterable, Optional
 import dataclasses
 
-from calcbench.api_client import Period, _json_POST, _try_parse_timestamp
+from calcbench.api_client import (
+    CompanyIdentifiers,
+    Period,
+    _json_POST,
+    _try_parse_timestamp,
+)
 
 
 class FilingType(str, Enum):
@@ -63,6 +67,7 @@ class Filing(dict):
     link3: str
     calendar_year: int
     calendar_period: Period
+    standardized_XBRL: bool
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
@@ -82,20 +87,25 @@ class Filing(dict):
 
 
 def filings(
-    company_identifiers=[],
-    entire_universe=False,
-    include_non_xbrl=True,
-    received_date=None,
-    start_date=None,
-    end_date=None,
+    company_identifiers: CompanyIdentifiers = [],
+    entire_universe: bool = False,
+    include_non_xbrl: bool = True,
+    received_date: date = None,
+    start_date: date = None,
+    end_date: date = None,
     filing_types=[],
 ) -> Iterable[Filing]:
     """SEC filings
 
     https://www.calcbench.com/filings
 
-    :param list(str) company_identifiers: list of tickers or CIK codes
-    :param datetime.date received_date: get all filings received on this date
+    :param company_identifiers: list of tickers or CIK codes
+    :param received_date: get all filings received on this date
+    :param entire_universe: filings for all companies
+    :param include_non_xbrl: include filings that do not have XBRL, 8-Ks, earnings releases etc.
+    :param received_data: only filings published on this date
+    :param start_date: filings received on or after this date
+    :param end_date: filings received on or before theis date
 
     Usage::
         >>> from datetime import date

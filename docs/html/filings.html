@@ -32,12 +32,305 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="filings">
-<h1>Filings<a class="headerlink" href="#filings" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-calcbench.filing">
+<span id="filings"></span><h1>Filings<a class="headerlink" href="#module-calcbench.filing" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="calcbench.filing.Filing">
 <em class="property">class </em><code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.Filing" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="calcbench.filing.Filing.CIK">
+<code class="sig-name descname">CIK</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.CIK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.associated_earnings_press_release_SEC_URL">
+<code class="sig-name descname">associated_earnings_press_release_SEC_URL</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.associated_earnings_press_release_SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.associated_proxy_SEC_URL">
+<code class="sig-name descname">associated_proxy_SEC_URL</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.associated_proxy_SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.calcbench_accepted">
+<code class="sig-name descname">calcbench_accepted</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.calcbench_finished_load">
+<code class="sig-name descname">calcbench_finished_load</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_finished_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.calcbench_id">
+<code class="sig-name descname">calcbench_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.calendar_period">
+<code class="sig-name descname">calendar_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.calendar_year">
+<code class="sig-name descname">calendar_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.document_type">
+<code class="sig-name descname">document_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.document_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.entity_id">
+<code class="sig-name descname">entity_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.entity_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.entity_name">
+<code class="sig-name descname">entity_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.entity_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.filing_date">
+<code class="sig-name descname">filing_date</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.filing_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.filing_sub_type">
+<code class="sig-name descname">filing_sub_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.filing_sub_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.filing_type">
+<code class="sig-name descname">filing_type</code><em class="property">: FilingType</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.fiscal_period">
+<code class="sig-name descname">fiscal_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.fiscal_year">
+<code class="sig-name descname">fiscal_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.has_standardized_data">
+<code class="sig-name descname">has_standardized_data</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.has_standardized_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.is_wire">
+<code class="sig-name descname">is_wire</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.is_wire" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.is_xbrl">
+<code class="sig-name descname">is_xbrl</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.is_xbrl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.link1">
+<code class="sig-name descname">link1</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.link1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.link2">
+<code class="sig-name descname">link2</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.link2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.link3">
+<code class="sig-name descname">link3</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.link3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.percentage_revenue_change">
+<code class="sig-name descname">percentage_revenue_change</code><em class="property">: Optional[float]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.percentage_revenue_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.period_end_date">
+<code class="sig-name descname">period_end_date</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.period_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.period_index">
+<code class="sig-name descname">period_index</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.period_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.sec_accession_id">
+<code class="sig-name descname">sec_accession_id</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.sec_accession_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.sec_html_url">
+<code class="sig-name descname">sec_html_url</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.sec_html_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.this_period_revenue">
+<code class="sig-name descname">this_period_revenue</code><em class="property">: Optional[float]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.this_period_revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.Filing.ticker">
+<code class="sig-name descname">ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="calcbench.filing.FilingType">
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">FilingType</code><a class="headerlink" href="#calcbench.filing.FilingType" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.BusinessWirePR_filedAfterAn8K">
+<code class="sig-name descname">BusinessWirePR_filedAfterAn8K</code><em class="property"> = 'BusinessWirePR_filedAfterAn8K'</em><a class="headerlink" href="#calcbench.filing.FilingType.BusinessWirePR_filedAfterAn8K" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.BusinessWirePR_replaced">
+<code class="sig-name descname">BusinessWirePR_replaced</code><em class="property"> = 'BusinessWirePR_replaced'</em><a class="headerlink" href="#calcbench.filing.FilingType.BusinessWirePR_replaced" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.Four24B">
+<code class="sig-name descname">Four24B</code><em class="property"> = 'Four24B'</em><a class="headerlink" href="#calcbench.filing.FilingType.Four24B" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.NT10KorQ">
+<code class="sig-name descname">NT10KorQ</code><em class="property"> = 'NT10KorQ'</em><a class="headerlink" href="#calcbench.filing.FilingType.NT10KorQ" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.S">
+<code class="sig-name descname">S</code><em class="property"> = 'S'</em><a class="headerlink" href="#calcbench.filing.FilingType.S" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.annualQuarterlyReport">
+<code class="sig-name descname">annualQuarterlyReport</code><em class="property"> = 'annualQuarterlyReport'</em><a class="headerlink" href="#calcbench.filing.FilingType.annualQuarterlyReport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.commentLetter">
+<code class="sig-name descname">commentLetter</code><em class="property"> = 'commentLetter'</em><a class="headerlink" href="#calcbench.filing.FilingType.commentLetter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.commentLetterResponse">
+<code class="sig-name descname">commentLetterResponse</code><em class="property"> = 'commentLetterResponse'</em><a class="headerlink" href="#calcbench.filing.FilingType.commentLetterResponse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_conferenceCallTranscript">
+<code class="sig-name descname">eightk_conferenceCallTranscript</code><em class="property"> = 'eightk_conferenceCallTranscript'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_conferenceCallTranscript" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_earningsPressRelease">
+<code class="sig-name descname">eightk_earningsPressRelease</code><em class="property"> = 'eightk_earningsPressRelease'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_earningsPressRelease_correction">
+<code class="sig-name descname">eightk_earningsPressRelease_correction</code><em class="property"> = 'eightk_earningsPressRelease_correction'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease_correction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_earningsPressRelease_preliminary">
+<code class="sig-name descname">eightk_earningsPressRelease_preliminary</code><em class="property"> = 'eightk_earningsPressRelease_preliminary'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease_preliminary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_guidanceUpdate">
+<code class="sig-name descname">eightk_guidanceUpdate</code><em class="property"> = 'eightk_guidanceUpdate'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_guidanceUpdate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_monthlyOperatingMetrics">
+<code class="sig-name descname">eightk_monthlyOperatingMetrics</code><em class="property"> = 'eightk_monthlyOperatingMetrics'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_monthlyOperatingMetrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_nonfinancial">
+<code class="sig-name descname">eightk_nonfinancial</code><em class="property"> = 'eightk_nonfinancial'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_nonfinancial" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_other">
+<code class="sig-name descname">eightk_other</code><em class="property"> = 'eightk_other'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_other" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.eightk_presentationSlides">
+<code class="sig-name descname">eightk_presentationSlides</code><em class="property"> = 'eightk_presentationSlides'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_presentationSlides" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.form_3">
+<code class="sig-name descname">form_3</code><em class="property"> = 'form_3'</em><a class="headerlink" href="#calcbench.filing.FilingType.form_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.form_4">
+<code class="sig-name descname">form_4</code><em class="property"> = 'form_4'</em><a class="headerlink" href="#calcbench.filing.FilingType.form_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.form_5">
+<code class="sig-name descname">form_5</code><em class="property"> = 'form_5'</em><a class="headerlink" href="#calcbench.filing.FilingType.form_5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.institutionalOwnsership_13F">
+<code class="sig-name descname">institutionalOwnsership_13F</code><em class="property"> = 'institutionalOwnsership_13F'</em><a class="headerlink" href="#calcbench.filing.FilingType.institutionalOwnsership_13F" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.filing.FilingType.proxy">
+<code class="sig-name descname">proxy</code><em class="property"> = 'proxy'</em><a class="headerlink" href="#calcbench.filing.FilingType.proxy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.filing.filings">
+<code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">filings</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_non_xbrl=True</em>, <em class="sig-param">received_date=None</em>, <em class="sig-param">start_date=None</em>, <em class="sig-param">end_date=None</em>, <em class="sig-param">filing_types=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.filings" title="Permalink to this definition">¶</a></dt>
+<dd><p>SEC filings</p>
+<p><a class="reference external" href="https://www.calcbench.com/filings">https://www.calcbench.com/filings</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>received_date</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – get all filings received on this date</p></li>
+<li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – filings for all companies</p></li>
+<li><p><strong>include_non_xbrl</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – include filings that do not have XBRL, 8-Ks, earnings releases etc.</p></li>
+<li><p><strong>received_data</strong> – only filings published on this date</p></li>
+<li><p><strong>start_date</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – filings received on or after this date</p></li>
+<li><p><strong>end_date</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – filings received on or before theis date</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">filings</span><span class="p">(</span><span class="n">received_date</span><span class="o">=</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">(),</span> <span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<a class="reference internal" href="#calcbench.filing.Filing" title="calcbench.filing.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filing</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 
@@ -66,6 +359,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a></li>
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 </ul>
 
 <div class="relations">
