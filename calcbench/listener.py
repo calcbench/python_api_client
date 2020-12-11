@@ -32,7 +32,7 @@ def handle_filings(
     https://github.com/calcbench/notebooks/blob/master/filing_listener.ipynb.
 
     :param handler: function that "handles" the filing, for instance getting data from Calcbench and writing it to your database
-    :param connection_string: azure service bus connection string, Calcbench will give you this
+    :param connection_string: azure service bus connection string
     :param subscription_name: service bus subscription, Calcbench will give this to you
 
     Usage::
