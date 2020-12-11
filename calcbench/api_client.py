@@ -174,7 +174,7 @@ def _json_GET(path: str, params: dict = {}):
     return response.json()
 
 
-def set_credentials(cb_username, cb_password):
+def set_credentials(cb_username: str, cb_password: str):
     """Set your calcbench credentials.
 
     Call this before any other Calcbench functions.

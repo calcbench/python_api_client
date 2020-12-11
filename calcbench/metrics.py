@@ -1,6 +1,4 @@
-import pandas as pd
-
-from calcbench.api_client import _SESSION_STUFF, _json_GET
+from calcbench.api_client import _json_GET
 
 try:
     import pandas as pd
@@ -16,7 +14,7 @@ def available_metrics():
     return _json_GET("api/availableMetrics")
 
 
-def available_metrics_dataframe() -> pd.DataFrame:
+def available_metrics_dataframe():
     """Standardized Metrics Dictionary
 
     See https://www.calcbench.com/home/standardizedmetrics
