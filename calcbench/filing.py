@@ -41,6 +41,7 @@ class FilingType(str, Enum):
 class Filing(dict):
     is_xbrl: bool
     is_wire: bool
+    """AKA accession_id"""
     calcbench_id: int
     sec_accession_id: str
     sec_html_url: str

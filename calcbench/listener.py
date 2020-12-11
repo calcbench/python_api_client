@@ -23,7 +23,9 @@ TOPIC = "filings"
 
 
 def handle_filings(
-    handler: Callable[[Filing], None], connection_string: str, subscription_name: str
+    handler: Callable[[Filing], None],
+    connection_string: str = "Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=public;SharedAccessKey=Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=",
+    subscription_name: str = None,
 ):
     """Listen for new filings from Calcbench
 
@@ -51,6 +53,8 @@ def handle_filings(
         >>>     subscription_name=subscription,
         >>> )
     """
+    if not subscription_name:
+        raise ValueError("Need to supply subscrition_name")
 
     with ServiceBusClient.from_connection_string(conn_str=connection_string) as client:
         with client.get_subscription_receiver(
@@ -77,7 +81,9 @@ def handle_filings(
 
 
 async def handle_filings_async(
-    handler: Callable[[Filing], None], connection_string: str, subscription_name: str
+    handler: Callable[[Filing], None],
+    connection_string: str = "Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=public;SharedAccessKey=Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=",
+    subscription_name: str = None,
 ):
     """
     https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/servicebus/azure-servicebus/samples/async_samples/receive_subscription_async.py
@@ -85,6 +91,8 @@ async def handle_filings_async(
     servicebus_client = AsyncServiceBusClient.from_connection_string(
         conn_str=connection_string
     )
+    if not subscription_name:
+        raise ValueError("Need to supply subscrition_name")
 
     async with servicebus_client:
         receiver = servicebus_client.get_subscription_receiver(
@@ -99,7 +107,7 @@ async def handle_filings_async(
                         filing = Filing(**json.loads(body_bytes))
                     except Exception:
                         logger.exception(f"Exception Parsing {body_bytes}")
-                        message.abandon()
+                        msg.abandon()
                     else:
                         logger.info(f"Handling {filing}")
                         handler(filing)

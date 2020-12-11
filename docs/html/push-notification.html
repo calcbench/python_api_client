@@ -49,7 +49,7 @@ When you recieve a message you call the Calcbench API to retrieve data then add 
 </div>
 <dl class="function">
 <dt id="calcbench.handle_filings">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">handle_filings</code><span class="sig-paren">(</span><em class="sig-param">handler</em>, <em class="sig-param">connection_string</em>, <em class="sig-param">subscription_name</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.handle_filings" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">handle_filings</code><span class="sig-paren">(</span><em class="sig-param">handler</em>, <em class="sig-param">connection_string='Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=public;SharedAccessKey=Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q='</em>, <em class="sig-param">subscription_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.handle_filings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Listen for new filings from Calcbench</p>
 <p><a class="reference external" href="https://github.com/calcbench/notebooks/blob/master/filing_listener.ipynb">https://github.com/calcbench/notebooks/blob/master/filing_listener.ipynb</a>.</p>
 <dl class="field-list simple">
@@ -57,7 +57,7 @@ When you recieve a message you call the Calcbench API to retrieve data then add 
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>handler</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<a class="reference internal" href="filings.html#calcbench.filing.Filing" title="calcbench.filing.Filing"><code class="xref py py-class docutils literal notranslate"><span class="pre">Filing</span></code></a>], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – function that “handles” the filing, for instance getting data from Calcbench and writing it to your database</p></li>
 <li><p><strong>connection_string</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – azure service bus connection string, Calcbench will give you this</p></li>
-<li><p><strong>subscription_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – service bus subscription, Calcbench will give this to you</p></li>
+<li><p><strong>subscription_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – service bus subscription, Calcbench will give this to you</p></li>
 </ul>
 </dd>
 </dl>
