@@ -37,19 +37,18 @@ def handle_filings(
 
     Usage::
         >>> def filing_handler(filing):
-        >>>     if filing["filing_type"] != "annualQuarterlyReport":
+        >>>     if not filing.standardized_XBRL:
         >>>         return
-        >>>     accession_id = filing['calcbench_id']
+        >>>     accession_id = filing.calcbench_id
         >>>     data = point_in_time(
         >>>             accession_id=accession_id
         >>>             all_face=True,
         >>>             all_footnotes=True,
         >>>             )
-        >>>    print(data)
+        >>>     print(data)
         >>>
         >>> handle_filings(
         >>>     filing_handler,
-        >>>     connection_string=connection_string,
         >>>     subscription_name=subscription,
         >>> )
     """

@@ -63,19 +63,18 @@ When you recieve a message you call the Calcbench API to retrieve data then add 
 </dl>
 <dl>
 <dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">filing_handler</span><span class="p">(</span><span class="n">filing</span><span class="p">):</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="n">filing</span><span class="p">[</span><span class="s2">&quot;filing_type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;annualQuarterlyReport&quot;</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">filing</span><span class="o">.</span><span class="n">standardized_XBRL</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">accession_id</span> <span class="o">=</span> <span class="n">filing</span><span class="p">[</span><span class="s1">&#39;calcbench_id&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">accession_id</span> <span class="o">=</span> <span class="n">filing</span><span class="o">.</span><span class="n">calcbench_id</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">data</span> <span class="o">=</span> <span class="n">point_in_time</span><span class="p">(</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="n">accession_id</span><span class="o">=</span><span class="n">accession_id</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>            <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">handle_filings</span><span class="p">(</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">filing_handler</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">connection_string</span><span class="o">=</span><span class="n">connection_string</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">subscription_name</span><span class="o">=</span><span class="n">subscription</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
 </pre></div>
