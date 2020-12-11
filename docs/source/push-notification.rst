@@ -13,9 +13,9 @@ If your system is down, messages will remain in the queue for 7 days.  If you pr
 .. warning::
     This requires Calcbench to create a subscription for you.
 
-Requires the ``azure-servicebus`` package::
+Requires the ``azure-servicebus`` package, install it with optional Listener dependency::
 
-    $  pip install azure-servicebus
+    $  pip install calcbench-api-client[Listener]
 
 .. autofunction:: calcbench.handle_filings
 .. autoclass:: calcbench.filing.Filing

@@ -205,8 +205,10 @@ def enable_backoff(
 
     :param backoff_on: toggle backoff
     :param giveup: function that handles exception and decides whether to continue or not.
+
     Usage::
         >>> calcbench.enable_backoff(giveup=lambda e: e.response.status_code == 404)
+
     """
     if backoff_on:
         try:
