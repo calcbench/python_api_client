@@ -53,7 +53,7 @@ def handle_filings(
         >>> )
     """
     if not subscription_name:
-        raise ValueError("Need to supply subscrition_name")
+        raise ValueError("Need to supply subscription_name")
 
     with ServiceBusClient.from_connection_string(conn_str=connection_string) as client:
         with client.get_subscription_receiver(
@@ -91,7 +91,7 @@ async def handle_filings_async(
         conn_str=connection_string
     )
     if not subscription_name:
-        raise ValueError("Need to supply subscrition_name")
+        raise ValueError("Need to supply subscription_name")
 
     async with servicebus_client:
         receiver = servicebus_client.get_subscription_receiver(
