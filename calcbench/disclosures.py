@@ -124,17 +124,6 @@ def document_dataframe(
     return data
 
 
-@dataclass
-class DisclosureContent:
-    blobs: Sequence[str]
-
-    def __init__(self, **kwargs):
-        names = set([f.name for f in dataclasses.fields(self)])
-        for k, v in kwargs.items():
-            if k in names:
-                setattr(self, k, v)
-
-
 class FootnoteTypeTitle(str, Enum):
     EigthKsByItemType = "8-Ks By Item Type"
     AccountingPolicies = "Accounting Policies"
@@ -159,6 +148,51 @@ class FootnoteTypeTitle(str, Enum):
     Segment = "Segment"
     PolicyTextBlock = "Policy Text Block"
     TextBlock = "Text Block"
+
+
+@dataclass
+class DisclosureContent:
+    """
+    Cooresponds to XBRLDisclosure on the server
+    """
+
+    blobs: Sequence[str]
+    entity_id: int
+
+    entity_name: str
+    document_type: str
+
+    """
+    Public end_date As Date
+    Public filing_date As Date
+    Public date_reported As DateTime
+    """
+
+    sec_html_url: str
+    sec_accession_number: str
+    accession_id: int
+    label: str
+    fact_id: int
+    disclosure_type: int  # ArcRole
+    is_detail: bool
+    fiscal_period: str
+    fiscal_year: int
+    last_in_group: bool
+    networkID: int
+    ticker: str
+    table_list: list
+    local_name: str
+    CIK: str
+
+    def __init__(self, **kwargs):
+        names = set([f.name for f in dataclasses.fields(self)])
+        for k, v in kwargs.items():
+            if k in names:
+                setattr(self, k, v)
+
+    @property
+    def contents(self):
+        return self.blobs[0]
 
 
 @dataclass
@@ -212,8 +246,18 @@ class DocumentSearchResults(dict):
         """
         Content of the document, with the filers HTML
         """
+        return self.get_disclosure().contents
+
+    def get_contents_text(self) -> str:
+        """Contents of the HTML of the document"""
+        return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
+
+    def get_disclosure(self) -> DisclosureContent:
+        """
+        Content of the document, with the filers HTML
+        """
         if self.content:
-            return "".join(self.content.blobs)
+            return self.content
         elif self.get("network_id"):
             return _document_contents_by_network_id(self.network_id)
         elif self.local_name:
@@ -221,11 +265,9 @@ class DocumentSearchResults(dict):
                 accession_id=self.accession_id, block_tag_name=self.local_name
             )
         else:
-            return document_contents(blob_id=self.blob_id, SEC_ID=self["sec_filing_id"])
-
-    def get_contents_text(self) -> str:
-        """Contents of the HTML of the document"""
-        return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
+            return _document_contents(
+                blob_id=self.blob_id, SEC_ID=self["sec_filing_id"]
+            )
 
     @property
     def date_reported(self) -> Optional[datetime]:
@@ -350,20 +392,21 @@ def _document_search_results(payload, progress_bar=None):
     payload["pageParameters"]["startOffset"] = None
 
 
-def document_contents(blob_id, SEC_ID, SEC_URL=None) -> str:
+def _document_contents(blob_id, SEC_ID, SEC_URL=None) -> DisclosureContent:
     payload = {"blobid": blob_id, "secid": SEC_ID, "url": SEC_URL}
     json = _json_GET("query/disclosureBySECLink", payload)
-    return json["blobs"][0]
+    return DisclosureContent(**json)
 
 
-def _document_contents_by_network_id(network_id) -> str:
+def _document_contents_by_network_id(network_id) -> DisclosureContent:
     payload = {"nid": network_id}
     json = _json_GET("query/disclosureByNetworkIDOBJ", payload)
-    blobs = json["blobs"]
-    return blobs[0] if len(blobs) else ""
+    return DisclosureContent(**json)
 
 
-def _document_by_block_tag_name(accession_id: int, block_tag_name=str) -> str:
+def _document_by_block_tag_name(
+    accession_id: int, block_tag_name=str
+) -> DisclosureContent:
     payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
     json = _json_GET("query/disclosuresByTag", payload)
-    return json[0]["blobs"][0]
+    return DisclosureContent(**json[0])

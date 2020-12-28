@@ -26,7 +26,7 @@ from .api_client import (
     set_proxies,
     tag_contents,
 )
-from .disclosures import document_contents, document_search
+from .disclosures import document_search
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
 from .filing import filings, Filing
