@@ -13,7 +13,8 @@ except ImportError:
 
 import json
 import logging
-from typing import Callable
+from typing import Callable, Iterable, cast
+
 
 from .filing import Filing
 
@@ -101,7 +102,8 @@ async def handle_filings_async(
             while True:
                 received_msgs = await receiver.receive_messages()
                 for msg in received_msgs:
-                    body_bytes = b"".join(msg.body)
+                    message_body = cast(Iterable[bytes], msg.body)
+                    body_bytes = b"".join(message_body)
                     try:
                         filing = Filing(**json.loads(body_bytes))
                     except Exception:
@@ -111,4 +113,3 @@ async def handle_filings_async(
                         logger.info(f"Handling {filing}")
                         handler(filing)
                     await msg.complete()
-                    # await receiver.complete_message(msg)
