@@ -375,7 +375,7 @@ def normalized_dataframe(
     trace_hyperlinks: bool = False,
     use_fiscal_period: bool = False,
     company_identifier_scheme: CompanyIdentifierScheme = CompanyIdentifierScheme.Ticker,
-    accesion_id: int = None,
+    accession_id: int = None,
 ) -> "pd.DataFrame":
     """Standardized Data.
 
@@ -419,7 +419,7 @@ def normalized_dataframe(
         all_history=all_history,
         period_type=period_type,
         use_fiscal_period=use_fiscal_period,
-        accesion_id=accesion_id,
+        accession_id=accession_id,
     )
     if not data:
         warnings.warn("No data found")
