@@ -60,7 +60,7 @@ def companies(
 
     :param SIC_codes: Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]
     :param index: 'DJIA' or 'SP500'
-    :company_identifiers: tickers
+    :param company_identifiers: tickers
     :param entire_universe: all of the companies in the Calcbench database
     :param NAICS_codes: Sequence of NAICS codes
     :return: Dataframe with data about companies
