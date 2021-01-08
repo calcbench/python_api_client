@@ -52,9 +52,6 @@
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>list of tickers</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list(str)</p>
-</dd>
 </dl>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">SIC_codes</span><span class="o">=</span><span class="p">[</span><span class="mi">1100</span><span class="p">])</span>
@@ -71,20 +68,22 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>SIC_codes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
 <li><p><strong>index</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘DJIA’, ‘SP500’]]) – ‘DJIA’ or ‘SP500’</p></li>
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – tickers</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – all of the companies in the Calcbench database</p></li>
 <li><p><strong>NAICS_codes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Sequence of NAICS codes</p></li>
 </ul>
 </dd>
-<dt class="field-even">Company_identifiers</dt>
-<dd class="field-even"><p>tickers</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dataframe with data about companies</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dataframe with data about companies</p>
 </dd>
 </dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;orcl&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
@@ -114,6 +113,7 @@
 <li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Companies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 </ul>
 
 <div class="relations">
