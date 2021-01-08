@@ -156,6 +156,7 @@ class DisclosureContent:
     Cooresponds to XBRLDisclosure on the server
     """
 
+    # There will be more than one blob when multiple blocks map to the same network.
     blobs: Sequence[str]
     entity_id: int
 
@@ -294,6 +295,7 @@ def document_search(
     disclosure_names: Sequence[str] = [],
     progress_bar: "tqdm.std.tqdm" = None,
     accession_id: int = None,
+    all_text_blocks: bool = False,
 ) -> Generator[DocumentSearchResults, None, None]:
     """
     Footnotes and other text
@@ -313,6 +315,7 @@ def document_search(
     :param entire_universe: Search all companies
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param block_tag_name: Level 2 or 3 XBRL tag.  See the list of FASB tags @ https://www.calcbench.com/disclosure_list#blockTags
+    :param all_text_blocks: All level 1 and accounting policy text blocks
     :return: A iterator of DocumentSearchResults
 
     Usage::
@@ -331,6 +334,7 @@ def document_search(
             document_name,
             all_documents,
             disclosure_names,
+            all_text_blocks,
         ]
     ):
         raise (ValueError("Need to supply at least one search parameter."))
@@ -364,6 +368,7 @@ def document_search(
             "subDivide": sub_divide,
             "allFootnotes": all_documents,
             "disclosureNames": disclosure_names,
+            "AllTextBlocks": all_text_blocks,
         },
     }
     if company_identifiers:
