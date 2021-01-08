@@ -30,7 +30,6 @@ def tickers(
     :param entire_universe: all of the companies in the Calcbench database
     :param NAICS_codes: Sequence of NAICS codes
     :return: list of tickers
-    :rtype: list(str)
 
     Usage::
 
@@ -64,6 +63,11 @@ def companies(
     :param entire_universe: all of the companies in the Calcbench database
     :param NAICS_codes: Sequence of NAICS codes
     :return: Dataframe with data about companies
+
+    Usage::
+
+        >>> calcbench.tickers(company_identifiers=["msft", "orcl"])
+
     """
     companies = _companies(
         SIC_codes,
@@ -90,8 +94,10 @@ def _companies(
 ):
     if not (SIC_code or index or entire_universe or company_identifiers, NAICS_codes):
         raise ValueError(
-            "Must supply SIC_code, NAICS_codes, index or company_identifiers or entire_univers."
+            "Must supply SIC_code, NAICS_codes, index or company_identifiers or entire_universe."
         )
+    elif entire_universe and any([SIC_code, index, company_identifiers]):
+        raise ValueError("entire_universe with other parameters does not make sense.")
     payload = {}
 
     if index:
