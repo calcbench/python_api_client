@@ -192,7 +192,7 @@ class DisclosureContent:
 
     @property
     def contents(self):
-        return self.blobs[0]
+        return "</br>".join(self.blobs)
 
 
 @dataclass
