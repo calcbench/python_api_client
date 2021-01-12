@@ -1,6 +1,14 @@
 import warnings
 from datetime import date
-from typing import Iterable, Sequence
+from typing import Any, Iterable, Optional, Sequence, Union
+
+
+try:
+    from typing import TypedDict
+except ImportError:
+    from typing_extensions import TypedDict
+
+from typing_extensions import TypedDict
 
 from calcbench.api_client import (
     CompanyIdentifierScheme,
@@ -24,11 +32,39 @@ except ImportError:
     pass
 
 
+class TraceData(TypedDict):
+    local_name: str
+    negative_weight: str
+    XBRL_fact_value: Union[str, float, int]
+    fact_id: int
+    dimensions: int
+    trace_url: str
+
+
+class StandardizedPoint(TypedDict):
+    """
+    Replicates MappedDataPoint on the server
+    """
+
+    metric: str
+    value: Union[str, float, int]
+    calendar_year: int
+    calendar_period: int
+    fiscal_year: int
+    fiscal_period: int
+    trace_facts: Sequence[TraceData]
+    ticker: str
+    calcbench_entity_id: int
+    filing_type: str  # 10-K, 10-Q, 8-K, PRESSRELEASE, etc.
+    is_preliminary_data: bool
+    CIK: str
+    trace_url: Optional[str]
+    period: Any  # pandas period
+
+
 def normalized_raw(
     company_identifiers: CompanyIdentifiers = [],
-    metrics: Iterable[
-        str
-    ] = [],  # type str[] Full list of metrics is @ https://www.calcbench.com/home/standardizedmetrics
+    metrics: Iterable[str] = [],
     start_year: int = None,
     start_period: PeriodArgument = None,
     end_year: int = None,
@@ -47,7 +83,7 @@ def normalized_raw(
     all_face: bool = False,
     all_footnotes: bool = False,
     include_xbrl: bool = False,
-):
+) -> Sequence[StandardizedPoint]:
     """
     Standardized data.
 
@@ -288,10 +324,8 @@ def point_in_time(
         for point in data:
             trace_facts = point.pop("trace_facts", None)
             if trace_facts:
-                fact_id = trace_facts[0]["fact_id"]
-                point[
-                    "trace_url"
-                ] = f"https://calcbench.com/benchmark/traceValueExcelV2?nonXBRLFactIDs={fact_id}"
+                point["trace_url"] = trace_facts[0]["trace_url"]
+
     data = pd.DataFrame(data)
 
     sort_columns = ["ticker", "metric"]
