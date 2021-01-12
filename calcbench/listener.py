@@ -107,7 +107,7 @@ async def handle_filings_async(
                         filing = Filing(**json.loads(body_bytes))
                     except Exception:
                         logger.exception(f"Exception Parsing {body_bytes}")
-                        msg.abandon()
+                        await msg.abandon()
                     else:
                         logger.info(f"Handling {filing}")
                         handler(filing)
