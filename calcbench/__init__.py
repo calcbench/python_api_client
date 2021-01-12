@@ -32,7 +32,6 @@ from .listener import handle_filings
 from .filing import filings, Filing
 from .metrics import available_metrics, available_metrics_dataframe
 from .standardized_numeric import (
-    mapped_raw,
     normalized_data,
     normalized_dataframe,
     normalized_raw,

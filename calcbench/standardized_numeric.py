@@ -24,69 +24,6 @@ except ImportError:
     pass
 
 
-def mapped_raw(
-    company_identifiers=[],
-    all_footnotes=False,
-    point_in_time=False,
-    update_date=None,
-    metrics=[],
-    all_history=False,
-    entire_universe=False,
-    start_year=None,
-    end_year=None,
-    start_period=None,
-    end_period=None,
-    period_type=None,
-    use_fiscal_period=False,
-    include_preliminary=False,
-    all_face=False,
-    include_xbrl=True,
-    accession_id=None,
-    include_trace=False,
-):
-    """
-    Only called by point in time
-    """
-
-    if update_date:
-        warnings.warn(
-            "Request updates by accession_id rather than update date",
-            DeprecationWarning,
-        )
-    if accession_id and update_date:
-        raise ValueError("Specifying accession_id and update_date is redundant.")
-
-    payload = {
-        "companiesParameters": {
-            "companyIdentifiers": list(company_identifiers),
-            "entireUniverse": entire_universe,
-        },
-        "pageParameters": {
-            "pointInTime": point_in_time,
-            "allFootnotes": all_footnotes,
-            "allface": all_face,
-            "metrics": metrics,
-            "includePreliminary": include_preliminary,
-            "includeTrace": include_trace,
-        },
-    }
-    period_parameters = {
-        "allHistory": all_history,
-        "year": start_year,
-        "endYear": end_year,
-        "period": start_period,
-        "endPeriod": end_period,
-        "periodType": period_type,
-        "useFiscalPeriod": use_fiscal_period,
-        "includeXBRL": include_xbrl,
-        "accessionID": accession_id,
-    }
-    if update_date:
-        period_parameters["updateDate"] = update_date.isoformat()
-    payload["periodParameters"] = period_parameters
-    return _json_POST("mappedData", payload)
-
-
 def normalized_raw(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Iterable[
@@ -107,6 +44,9 @@ def normalized_raw(
     period_type: PeriodType = None,
     include_preliminary: bool = False,
     use_fiscal_period: bool = False,
+    all_face: bool = False,
+    all_footnotes: bool = False,
+    include_xbrl: bool = False,
 ):
     """
     Standardized data.
@@ -217,6 +157,9 @@ def normalized_raw(
             "includeTrace": include_trace,
             "pointInTime": point_in_time,
             "includePreliminary": include_preliminary,
+            "allFootnotes": all_footnotes,
+            "allface": all_face,
+            "includeXBRL": include_xbrl,
         },
         "periodParameters": {
             "year": start_year,
@@ -310,9 +253,17 @@ def point_in_time(
 
 
     """
+    if update_date:
+        warnings.warn(
+            "Request updates by accession_id rather than update date",
+            DeprecationWarning,
+        )
+    if accession_id and update_date:
+        raise ValueError("Specifying accession_id and update_date is redundant.")
 
-    data = mapped_raw(
+    data = normalized_raw(
         company_identifiers=company_identifiers,
+        all_face=all_face,
         all_footnotes=all_footnotes,
         point_in_time=True,
         update_date=update_date,
@@ -326,11 +277,11 @@ def point_in_time(
         period_type=period_type,
         use_fiscal_period=use_fiscal_period,
         include_preliminary=include_preliminary,
-        all_face=all_face,
-        include_xbrl=include_xbrl,
         accession_id=accession_id,
         include_trace=include_trace,
+        include_xbrl=include_xbrl,
     )
+
     if not data:
         return pd.DataFrame()
     if include_trace:

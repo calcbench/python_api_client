@@ -71,7 +71,6 @@ def handle_filings(
                     try:
                         logger.info(f"Handling {filing}")
                         handler(filing)
-
                     except Exception as e:
                         logger.exception(
                             f"Exception Processing {filing}\n delivery count: {message.delivery_count}\n{e}"
