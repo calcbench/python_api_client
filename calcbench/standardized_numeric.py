@@ -246,6 +246,7 @@ def point_in_time(
     :param all_footnotes: Retrive all of the points from the footnotes to the financials
     :param include_preliminary: Include facts from non-XBRL earnings press-releases and 8-Ks.
     :param include_xbrl: Include facts from XBRL 10-K/Qs.
+    :param include_trace: Include a URL that points to the source document.
     :return: DataFrame of facts
 
     Columns:
@@ -380,6 +381,7 @@ def normalized_dataframe(
     :param accession_id: Calcbench Accession ID
     :param year: Get data for a single year, defaults to annual data.
     :param period_type: Either "annual" or "quarterly".
+    :param trace_hyperlinks: Values are URLs to the source documents
     :return: Dataframe with the periods as the index and columns indexed by metric and ticker
 
     Usage::
@@ -405,6 +407,7 @@ def normalized_dataframe(
         period_type=period_type,
         use_fiscal_period=use_fiscal_period,
         accession_id=accession_id,
+        include_trace=trace_hyperlinks,
     )
     if not data:
         warnings.warn("No data found")
@@ -423,9 +426,7 @@ def normalized_dataframe(
         try:  # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
             value = float(d["value"])
             if trace_hyperlinks:
-                value = '=HYPERLINK("https://www.calcbench.com/benchmark/traceValueExcelV2?metric={metric}&cid={ticker}&year={fiscal_year}&period={fiscal_period}&useFiscalPeriod=True&showLinks=true", {value})'.format(
-                    **d
-                )
+                value = f'=HYPERLINK("{d["trace_facts"][0]["trace_url"]}", {value})'
             d["value"] = value
         except (ValueError, KeyError):
             pass
