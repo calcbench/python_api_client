@@ -323,11 +323,6 @@ def point_in_time(
 
     if not data:
         return pd.DataFrame()
-    if include_trace:
-        for point in data:
-            trace_facts = point.pop("trace_facts", None)
-            if trace_facts:
-                point["trace_url"] = trace_facts[0]["trace_url"]
 
     data = pd.DataFrame(data)
 
