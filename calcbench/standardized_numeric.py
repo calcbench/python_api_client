@@ -1,14 +1,16 @@
 import warnings
 from datetime import date
-from typing import Any, Iterable, Optional, Sequence, Union
+from typing import Any, Iterable, Optional, Sequence, TYPE_CHECKING, Union
 
-
-try:
+if TYPE_CHECKING:
+    # https://github.com/microsoft/pyright/issues/1358
     from typing import TypedDict
-except ImportError:
-    from typing_extensions import TypedDict
+else:
+    try:
+        from typing import TypedDict
+    except ImportError:
+        from typing_extensions import TypedDict
 
-from typing_extensions import TypedDict
 
 from calcbench.api_client import (
     CompanyIdentifierScheme,
