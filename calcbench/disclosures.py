@@ -192,7 +192,7 @@ class DisclosureContent:
                 setattr(self, k, v)
 
     @property
-    def contents(self):
+    def contents(self) -> str:
         return "</br>".join(self.blobs)
 
 
