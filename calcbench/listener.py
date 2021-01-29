@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 try:
-    from azure.servicebus import ServiceBusClient
+    from azure.servicebus import ServiceBusClient, AutoLockRenewer
 except ImportError:
     "Will not be able to use the listener"
     pass
@@ -56,27 +56,31 @@ def handle_filings(
     if not subscription_name:
         raise ValueError("Need to supply subscription_name")
 
-    with ServiceBusClient.from_connection_string(conn_str=connection_string) as client:
-        with client.get_subscription_receiver(
-            topic_name=TOPIC, subscription_name=subscription_name
-        ) as receiver:
-            for message in receiver:
-                body_bytes = b"".join(message.body)
-                try:
-                    filing = Filing(**json.loads(body_bytes))
-                except Exception:
-                    logger.exception(f"Exception Parsing {body_bytes}")
-                    message.abandon()
-                else:
+    with AutoLockRenewer() as renewer:
+        with ServiceBusClient.from_connection_string(
+            conn_str=connection_string
+        ) as client:
+            with client.get_subscription_receiver(
+                topic_name=TOPIC, subscription_name=subscription_name
+            ) as receiver:
+                for message in receiver:
+                    renewer.register(receiver, message, max_lock_renewal_duration=300)
+                    body_bytes = b"".join(message.body)
                     try:
-                        logger.info(f"Handling {filing}")
-                        handler(filing)
-                    except Exception as e:
-                        logger.exception(
-                            f"Exception Processing {filing}\n delivery count: {message.delivery_count}\n{e}"
-                        )
+                        filing = Filing(**json.loads(body_bytes))
+                    except Exception:
+                        logger.exception(f"Exception Parsing {body_bytes}")
+                        receiver.abandon_message(message)
                     else:
-                        message.complete()
+                        try:
+                            logger.info(f"Handling {filing}")
+                            handler(filing)
+                        except Exception as e:
+                            logger.exception(
+                                f"Exception Processing {filing}\n delivery count: {message.delivery_count}\n{e}"
+                            )
+                        else:
+                            receiver.complete_message(message)
 
 
 async def handle_filings_async(

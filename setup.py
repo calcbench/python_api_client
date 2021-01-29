@@ -25,7 +25,7 @@ setup(
     packages=["calcbench"],
     extras_require={
         "Pandas": ["Pandas"],
-        "Listener": ["azure-servicebus==7.0.0b5"],
+        "Listener": ["azure-servicebus==7.0.1"],
         "Backoff": ["backoff"],
     },
     url="https://github.com/calcbench/python_api_client",
