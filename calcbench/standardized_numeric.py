@@ -173,6 +173,16 @@ def normalized_raw(
     if include_preliminary and not point_in_time:
         raise ValueError("include_preliminary only works for PIT")
 
+    if metrics and (all_face or all_footnotes):
+        raise ValueError(
+            "specifying metrics with all_face or all_footnotes does not make sense"
+        )
+
+    if all_history and any(
+        [year, period, start_period, start_year, end_period, end_year]
+    ):
+        raise ValueError("all_history with other period arguments does not make sense")
+
     try:
         start_year = int(start_year)  # type: ignore
     except (ValueError, TypeError):
