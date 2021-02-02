@@ -98,7 +98,7 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)  # type: ignore
 
 
-PeriodType = Literal["annual", "quarterly"]
+PeriodType = Literal["annual", "quarterly", "combined"]
 
 
 CentralIndexKey = Union[str, int]

@@ -167,7 +167,7 @@ def normalized_raw(
             )
         start_year = end_year = year
 
-    if period_type and period_type not in ("annual", "quarterly"):
+    if period_type and period_type not in ("annual", "quarterly", "combined"):
         raise ValueError('period_type must be either "annual" or "quarterly"')
 
     if include_preliminary and not point_in_time:
@@ -335,7 +335,7 @@ def point_in_time(
         return pd.DataFrame()
 
     data = pd.DataFrame(data)
-
+    data = data.drop(columns=["trace_facts"], errors="ignore")  # Those are annoying
     sort_columns = ["ticker", "metric"]
 
     if "calendar_period" in data.columns:
