@@ -2,14 +2,11 @@
 # coding: utf-8
 try:
     from azure.servicebus import ServiceBusClient, AutoLockRenewer
+    from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
 except ImportError:
     "Will not be able to use the listener"
     pass
 
-try:
-    from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
-except ImportError:
-    pass
 
 import json
 import logging
