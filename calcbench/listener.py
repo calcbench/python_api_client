@@ -19,10 +19,12 @@ logger = logging.getLogger(__name__)
 
 TOPIC = "filings"
 
+CONNECTION_STRING = "Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=public;SharedAccessKey=Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q="
+
 
 def handle_filings(
     handler: Callable[[Filing], None],
-    connection_string: str = "Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=public;SharedAccessKey=Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=",
+    connection_string: str = CONNECTION_STRING,
     subscription_name: str = None,
 ):
     """Listen for new filings from Calcbench
@@ -82,7 +84,7 @@ def handle_filings(
 
 async def handle_filings_async(
     handler: Callable[[Filing], None],
-    connection_string: str = "Endpoint=sb://calcbench.servicebus.windows.net/;SharedAccessKeyName=public;SharedAccessKey=Cb7VhLR6eJxsurCSPtXQHOJvlkU84CCCx2oB+T/so6Q=",
+    connection_string: str = CONNECTION_STRING,
     subscription_name: str = None,
 ):
     """
