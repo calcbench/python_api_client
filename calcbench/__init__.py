@@ -3,7 +3,10 @@ Client for the Calcbench API
 
 To turn on verbose logging
 import logging
-logging.getLogger('calcbench.api_client').setLevel(logging.INFO)
+import sys
+logger = logging.getLogger()
+logging.getLogger('calcbench').setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
 __version__ = "3.2.1"
 from .api_client import (
