@@ -178,6 +178,9 @@ def normalized_raw(
             "specifying metrics with all_face or all_footnotes does not make sense"
         )
 
+    if isinstance(metrics, str):
+        raise TypeError("metrics should be a list of strings")
+
     if all_history and any(
         [year, period, start_period, start_year, end_period, end_year]
     ):
