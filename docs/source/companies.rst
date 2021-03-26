@@ -3,5 +3,6 @@ Companies
 
 Lists of tickers and companies.
 
-.. autofunction:: calcbench.companies.tickers
-.. autofunction:: calcbench.companies.companies
+.. automodule:: calcbench.companies
+    :members:
+    :undoc-members:

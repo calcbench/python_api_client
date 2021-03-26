@@ -35,31 +35,7 @@
   <div class="section" id="companies">
 <h1>Companies<a class="headerlink" href="#companies" title="Permalink to this headline">¶</a></h1>
 <p>Lists of tickers and companies.</p>
-<dl class="function">
-<dt id="calcbench.companies.tickers">
-<code class="sig-prename descclassname">calcbench.companies.</code><code class="sig-name descname">tickers</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies.tickers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get tickers</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>SIC_codes</strong> – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
-<li><p><strong>index</strong> – ‘DJIA’ or ‘SP500’</p></li>
-<li><p><strong>company_identifiers</strong> – tickers</p></li>
-<li><p><strong>entire_universe</strong> – all of the companies in the Calcbench database</p></li>
-<li><p><strong>NAICS_codes</strong> – Sequence of NAICS codes</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>list of tickers</p>
-</dd>
-</dl>
-<p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">SIC_codes</span><span class="o">=</span><span class="p">[</span><span class="mi">1100</span><span class="p">])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
+<span class="target" id="module-calcbench.companies"></span><dl class="function">
 <dt id="calcbench.companies.companies">
 <code class="sig-prename descclassname">calcbench.companies.</code><code class="sig-name descname">companies</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_most_recent_filing_dates=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies.companies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a DataFrame with company details</p>
@@ -82,6 +58,35 @@
 </dl>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;orcl&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.companies.companies_raw">
+<code class="sig-prename descclassname">calcbench.companies.</code><code class="sig-name descname">companies_raw</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies.companies_raw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="calcbench.companies.tickers">
+<code class="sig-prename descclassname">calcbench.companies.</code><code class="sig-name descname">tickers</code><span class="sig-paren">(</span><em class="sig-param">SIC_codes=[]</em>, <em class="sig-param">index=None</em>, <em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">NAICS_codes=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.companies.tickers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get tickers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>SIC_codes</strong> – Sequence of SIC (Standard Industrial Classification) codes. eg. [1200, 1300]</p></li>
+<li><p><strong>index</strong> – ‘DJIA’ or ‘SP500’</p></li>
+<li><p><strong>company_identifiers</strong> – tickers</p></li>
+<li><p><strong>entire_universe</strong> – all of the companies in the Calcbench database</p></li>
+<li><p><strong>NAICS_codes</strong> – Sequence of NAICS codes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of tickers</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">SIC_codes</span><span class="o">=</span><span class="p">[</span><span class="mi">1100</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>

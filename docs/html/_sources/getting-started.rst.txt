@@ -24,4 +24,7 @@ Set Credentials
 
 .. autofunction:: calcbench.set_credentials
 
+Error Retry
+-----------
+
 .. autofunction:: calcbench.enable_backoff

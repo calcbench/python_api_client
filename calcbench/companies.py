@@ -49,7 +49,7 @@ def tickers(
 
 def companies(
     SIC_codes: Sequence[int] = [],
-    index: Index = None,
+    index: Optional[Index] = None,
     company_identifiers: CompanyIdentifiers = [],
     entire_universe: bool = False,
     include_most_recent_filing_dates: bool = False,
@@ -80,7 +80,11 @@ def companies(
 
     companies = pd.DataFrame(companies)
     if not companies.empty:
-        for column in ["first_filing", "most_recent_filing", "most_recent_full_year_end"]:
+        for column in [
+            "first_filing",
+            "most_recent_filing",
+            "most_recent_full_year_end",
+        ]:
             companies[column] = pd.to_datetime(companies[column], errors="coerce")
     return companies
 
