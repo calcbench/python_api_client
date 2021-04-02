@@ -21,14 +21,11 @@ from .api_client import (
     face_statement,
     html_diff,
     press_release_raw,
-    raw_data,
-    raw_data_raw,
-    raw_xbrl,
-    raw_xbrl_raw,
     set_credentials,
     set_proxies,
     tag_contents,
 )
+
 from .disclosures import document_search
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
@@ -41,3 +38,5 @@ from .standardized_numeric import (
     point_in_time,
     standardized_data,
 )
+
+from .raw_numeric import raw_data, raw_data_raw, raw_xbrl, raw_xbrl_raw
