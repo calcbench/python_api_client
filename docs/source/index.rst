@@ -18,6 +18,7 @@ Calcbench Python API Client
    companies
    push-notification
    metrics
+   raw-numeric
 
 Examples
 --------
