@@ -385,10 +385,12 @@ def business_combinations(company_identifiers):
     return _json_POST("businessCombinations", payload)
 
 
-def _try_parse_timestamp(timestamp):
+def _try_parse_timestamp(timestamp: str):
     """
     We did not always have milliseconds
     """
+    if not timestamp:
+        return timestamp
     try:
         timestamp = timestamp[:26]  # .net's milliseconds are too long
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
