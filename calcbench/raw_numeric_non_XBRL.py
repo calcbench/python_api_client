@@ -56,7 +56,13 @@ def non_XBRL_numeric(
     :param entire_universe: Search all companies
     :param clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawDataNonXBRLPoints
 
+    Usage:
+        >>> clauses = [
+        >>>    {"parameter": "fiscalYear", "operator": 1, "value": 2019},
+        >>> ]
+        >>> d = cb.non_XBRL_numeric(company_identifiers=['MSFT'], clauses=clauses)
     """
+
     facts = list(
         non_XBRL_numeric_raw(
             company_identifiers=company_identifiers,
@@ -70,7 +76,7 @@ def non_XBRL_numeric(
 @dataclass
 class NonXBRLFact:
     """
-    Cooresponds to XBRLDisclosure on the server
+    Cooresponds to NonXBRLFact on the server
     """
 
     CIK: str
