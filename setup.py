@@ -8,9 +8,12 @@ Created on Mar 18, 2015
 """
 from setuptools import setup
 
+with open("README.md") as f:
+    long_description = f.read()
+
 setup(
     name="calcbench_api_client",
-    version="3.3.0",
+    version="3.3.1",
     description="Client for Calcbench data.",
     author="Andrew Kittredge",
     author_email="andrew@calcbench.com",
@@ -29,5 +32,6 @@ setup(
         "Backoff": ["backoff"],
     },
     url="https://github.com/calcbench/python_api_client",
-    long_description="A client for Calcbench's API.  www.calcbench.com/api.  If you need Python 2 support install version 2.4.0",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 )
