@@ -17,13 +17,6 @@ Our standardized data with timestamps.  Useful for backtesting quantitative stra
 
 .. autofunction:: calcbench.point_in_time
 
-Raw XBRL Data
--------------
-
-Data as reported in the XBRL documents
-
-.. autofunction:: calcbench.raw_xbrl_raw
-
 Dimensional
 -----------
 

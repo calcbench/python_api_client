@@ -140,41 +140,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="raw-xbrl-data">
-<h2>Raw XBRL Data<a class="headerlink" href="#raw-xbrl-data" title="Permalink to this headline">¶</a></h2>
-<p>Data as reported in the XBRL documents</p>
-<dl class="function">
-<dt id="calcbench.raw_xbrl_raw">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">raw_xbrl_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">clauses=[]</em>, <em class="sig-param">end_point='rawXBRLData'</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.raw_xbrl_raw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Data as reported in the XBRL documents</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>company_identifiers</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – list of tickers or CIK codes</p></li>
-<li><p><strong>entire_universe</strong> (<em>bool</em>) – Search all companies</p></li>
-<li><p><strong>clauses</strong> (<em>list</em><em>(</em><em>dict</em><em>)</em>) – a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with “value”, “parameter” and “operator” keys.  See the parameters that can be passed &#64; <a class="reference external" href="https://www.calcbench.com/api/rawdataxbrlpoints">https://www.calcbench.com/api/rawdataxbrlpoints</a></p></li>
-</ul>
-</dd>
-</dl>
-<dl>
-<dt>Usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clauses</span> <span class="o">=</span> <span class="p">[</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Revenues&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;XBRLtag&quot;</span><span class="p">,</span> <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;fiscalPeriod&quot;</span><span class="p">,</span> <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;2018&quot;</span><span class="p">,</span> <span class="s2">&quot;parameter&quot;</span><span class="p">:</span> <span class="s2">&quot;fiscalYear&quot;</span><span class="p">,</span> <span class="s2">&quot;operator&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">raw_xbrl_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mmm&#39;</span><span class="p">],</span> <span class="n">clauses</span><span class="o">=</span><span class="n">clauses</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code>]]</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 <div class="section" id="dimensional">
 <h2>Dimensional<a class="headerlink" href="#dimensional" title="Permalink to this headline">¶</a></h2>
 <p>Segments: geographic and operating, and other dimensionalized tabular data.</p>
@@ -292,7 +257,6 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Numeric Data</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#standardized">Standardized</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#point-in-time">Point-In-Time</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#raw-xbrl-data">Raw XBRL Data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dimensional">Dimensional</a></li>
 </ul>
 </li>

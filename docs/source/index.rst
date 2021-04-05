@@ -18,7 +18,8 @@ Calcbench Python API Client
    companies
    push-notification
    metrics
-   raw-numeric
+   raw-numeric-XBRL
+   raw-numeric-non-XBRL
 
 Examples
 --------
