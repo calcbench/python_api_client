@@ -39,4 +39,11 @@ from .standardized_numeric import (
     standardized_data,
 )
 
-from .raw_numeric import raw_data, raw_data_raw, raw_xbrl, raw_xbrl_raw
+from .raw_numeric import (
+    raw_data,
+    raw_data_raw,
+    raw_xbrl,
+    raw_xbrl_raw,
+    non_XBRL_numeric_raw,
+    non_XBRL_numeric,
+)
