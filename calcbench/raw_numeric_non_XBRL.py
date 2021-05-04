@@ -1,7 +1,7 @@
 import dataclasses
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Sequence
+from typing import Generator, Sequence
 
 from calcbench.api_client import CompanyIdentifiers, Period, _try_parse_timestamp
 from calcbench.raw_numeric_XBRL import (
@@ -21,7 +21,7 @@ def non_XBRL_numeric_raw(
     company_identifiers: CompanyIdentifiers = [],
     entire_universe: bool = False,
     clauses: Sequence[RawDataClause] = [],
-) -> Sequence["NonXBRLFact"]:
+) -> Generator["NonXBRLFact", None, None]:
     """Non-XBRL numbers extracted from a variety of SEC filings, mainly earnings press-releases
 
     The data behind https://www.calcbench.com/nonXBRLRawData.
@@ -32,6 +32,17 @@ def non_XBRL_numeric_raw(
     :param entire_universe: Search all companies
     :param clauses: See the parameters that can be passed @ https://www.calcbench.com/api/rawDataNonXBRLPoints
 
+    Usage:
+        >>> clauses = [
+        >>>     {
+        >>>         "value": single_date.strftime("%Y-%m-%d"),
+        >>>          "parameter": "filingDate",
+        >>>         "operator": 1,
+        >>>     },
+        >>>     {"value": 2021, "parameter": "calendarYear", "operator": 1},
+        >>>     {"value": "1Q", "parameter": "calendarPeriod", "operator": 1},
+        >>> ]
+        >>> d2 = list(cb.non_XBRL_numeric_raw(entire_universe=True, clauses=clauses))
     """
     for o in _raw_data_raw(
         company_identifiers=company_identifiers,
