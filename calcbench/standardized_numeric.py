@@ -134,6 +134,18 @@ def normalized_raw(
         raise ValueError(
             "Must pass either company_identifiers and accession id or entire_universe=True"
         )
+    if not any(
+        [
+            start_year,
+            end_year,
+            update_date,
+            year,
+            accession_id,
+            all_history,
+            period_type,
+        ]
+    ):
+        raise ValueError("Need to specify a period qualifier")
 
     if accession_id and any(
         [
