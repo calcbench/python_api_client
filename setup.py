@@ -13,7 +13,7 @@ with open("README.md") as f:
 
 setup(
     name="calcbench_api_client",
-    version="3.3.1",
+    version="4.0.0",
     description="Client for Calcbench data.",
     author="Andrew Kittredge",
     author_email="andrew@calcbench.com",

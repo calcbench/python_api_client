@@ -7,7 +7,7 @@ from calcbench.api_client import CompanyIdentifiers, Period, _try_parse_timestam
 from calcbench.raw_numeric_XBRL import (
     RAW_NON_XBRL_END_POINT,
     RawDataClause,
-    raw_data_raw,
+    _raw_data_raw,
 )
 
 try:
@@ -22,7 +22,7 @@ def non_XBRL_numeric_raw(
     entire_universe: bool = False,
     clauses: Sequence[RawDataClause] = [],
 ) -> Sequence["NonXBRLFact"]:
-    """Non-XBRL numbers extracted from a variety of SEC filings
+    """Non-XBRL numbers extracted from a variety of SEC filings, mainly earnings press-releases
 
     The data behind https://www.calcbench.com/nonXBRLRawData.
 
@@ -30,10 +30,10 @@ def non_XBRL_numeric_raw(
 
     :param company_identifiers: list of tickers or CIK codes
     :param entire_universe: Search all companies
-    :param clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawDataNonXBRLPoints
+    :param clauses: See the parameters that can be passed @ https://www.calcbench.com/api/rawDataNonXBRLPoints
 
     """
-    for o in raw_data_raw(
+    for o in _raw_data_raw(
         company_identifiers=company_identifiers,
         entire_universe=entire_universe,
         clauses=clauses,
@@ -54,7 +54,7 @@ def non_XBRL_numeric(
 
     :param company_identifiers: list of tickers or CIK codes
     :param entire_universe: Search all companies
-    :param clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawDataNonXBRLPoints
+    :param clauses: See the parameters that can be passed @ https://www.calcbench.com/api/rawDataNonXBRLPoints
 
     Usage:
         >>> clauses = [

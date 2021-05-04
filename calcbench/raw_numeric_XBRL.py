@@ -38,18 +38,16 @@ class RawDataClause(TypedDict):
     operator: Operator
 
 
-def raw_data(
+def raw_XBRL(
     company_identifiers: CompanyIdentifiers = [],
     entire_universe: bool = False,
     clauses: Sequence[RawDataClause] = [],
-    end_point: END_POINTS = RAW_XBRL_END_POINT,
 ) -> "pd.DataFrame":
     """As-reported data.
 
     :param company_identifiers: list of tickers or CIK codes
     :param entire_universe: Search all companies
-    :param clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
-    :param end_point: 'rawXBRLData' for facts tagged by XBRL, 'rawNONXBRLData' for facts parsed/extracted from non-XBRL tagged documents
+    :param clauses: See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
 
     Usage:
         >>> clauses = [
@@ -59,15 +57,12 @@ def raw_data(
         >>> ]
         >>> cb.raw_xbrl(company_identifiers=['mmm'], clauses=clauses)
     """
-    if end_point not in (RAW_XBRL_END_POINT, RAW_NON_XBRL_END_POINT):
-        raise ValueError(
-            f"end_point must be either {RAW_XBRL_END_POINT} or {RAW_NON_XBRL_END_POINT}"
-        )
-    d = raw_xbrl_raw(
+
+    d = _raw_data_raw(
         company_identifiers=company_identifiers,
         entire_universe=entire_universe,
         clauses=clauses,
-        end_point=end_point,
+        end_point=RAW_XBRL_END_POINT,
     )
     df = pd.DataFrame(d)
     for date_column in [
@@ -82,29 +77,16 @@ def raw_data(
     return df
 
 
-raw_xbrl = raw_data
-
-
-def raw_data_raw(
+def _raw_data_raw(
     company_identifiers: CompanyIdentifiers = [],
     entire_universe: bool = False,
     clauses: Sequence[RawDataClause] = [],
     end_point: END_POINTS = RAW_XBRL_END_POINT,
 ) -> Sequence[Mapping[str, object]]:
-    """Data as reported in the XBRL documents
-
-    :param company_identifiers: list of tickers or CIK codes
-    :param entire_universe: Search all companies
-    :param clauses: a sequence of dictionaries which the data is filtered by.  A clause is a dictionary with "value", "parameter" and "operator" keys.  See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
-
-    Usage:
-        >>> clauses = [
-        >>>     {"value": "Revenues", "parameter": "XBRLtag", "operator": 10},
-        >>>     {"value": "Y", "parameter": "fiscalPeriod", "operator": 1},
-        >>>     {"value": "2018", "parameter": "fiscalYear", "operator": 1}
-        >>> ]
-        >>> cb.raw_xbrl_raw(company_identifiers=['mmm'], clauses=clauses)
-    """
+    if end_point not in (RAW_XBRL_END_POINT, RAW_NON_XBRL_END_POINT):
+        raise ValueError(
+            f"end_point must be either {RAW_XBRL_END_POINT} or {RAW_NON_XBRL_END_POINT}"
+        )
     payload = {
         "companiesParameters": {
             "companyIdentifiers": company_identifiers,
@@ -126,4 +108,28 @@ def raw_data_raw(
     return results
 
 
-raw_xbrl_raw = raw_data_raw
+def raw_xbrl_raw(
+    company_identifiers: CompanyIdentifiers = [],
+    entire_universe: bool = False,
+    clauses: Sequence[RawDataClause] = [],
+) -> Sequence[Mapping[str, object]]:
+    """Data as reported in the XBRL documents
+
+    :param company_identifiers: list of tickers or CIK codes
+    :param entire_universe: Search all companies
+    :param clauses: See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
+
+    Usage:
+        >>> clauses = [
+        >>>     {"value": "Revenues", "parameter": "XBRLtag", "operator": 10},
+        >>>     {"value": "Y", "parameter": "fiscalPeriod", "operator": 1},
+        >>>     {"value": "2018", "parameter": "fiscalYear", "operator": 1}
+        >>> ]
+        >>> cb.raw_xbrl_raw(company_identifiers=['mmm'], clauses=clauses)
+    """
+    return _raw_data_raw(
+        company_identifiers=company_identifiers,
+        entire_universe=entire_universe,
+        clauses=clauses,
+        end_point=RAW_XBRL_END_POINT,
+    )
