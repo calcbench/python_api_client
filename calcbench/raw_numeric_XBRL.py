@@ -29,6 +29,7 @@ END_POINTS = Literal[RAW_XBRL_END_POINT, RAW_NON_XBRL_END_POINT]
 
 class Operator(IntEnum):
     Equals = 1
+    NotEquals = 21
     Contains = 10
 
 

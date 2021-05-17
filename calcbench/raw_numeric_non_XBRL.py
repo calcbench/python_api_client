@@ -60,7 +60,7 @@ def non_XBRL_numeric(
 ) -> "pd.DataFrame":
     """Data frame of non-XBRL numbers.
 
-    Data behind https://www.calcbench.com/nonXBRLRawData
+    Data behind https://www.calcbench.com/pressReleaseRaw.
     A professional Calcbench subscription is required to access this data.
 
     :param company_identifiers: list of tickers or CIK codes

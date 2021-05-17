@@ -311,7 +311,10 @@ def point_in_time(
 
 
     Usage::
-       >>> calcbench.point_in_time(company_identifiers=["msft", "goog"], all_history=True, all_face=True, all_footnotes=True)
+       >>> calcbench.point_in_time(company_identifiers=["msft", "goog"],
+       >>>                          all_history=True,
+       >>>                          all_face=True,
+       >>>                          all_footnotes=True)
 
     .. _Example: https://github.com/calcbench/notebooks/blob/master/standardized_numeric_point_in_time.ipynb
 
@@ -408,7 +411,13 @@ def normalized_dataframe(
 
     Usage::
 
-      >>> calcbench.standardized_data(company_identifiers=['msft', 'goog'], metrics=['revenue', 'assets'], all_history=True, period_type='annual')
+      >>> d = calcbench.standardized_data(company_identifiers=['msft', 'goog'],
+      >>>                                 metrics=['revenue', 'assets'],
+      >>>                                 all_history=True,
+      >>>                                 period_type='annual')
+
+      >>> # Make it look like Compustat data
+      >>> d.stack(level=1)
 
     """
 
