@@ -48,7 +48,7 @@ def document_dataframe(
     period_type: PeriodType = None,
     identifier_key: Literal["ticker", "CIK"] = "ticker",
     block_tag_names: Sequence[str] = [],
-    use_fiscal_period=False,
+    use_fiscal_period=True,
 ) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
