@@ -8,7 +8,7 @@ logger = logging.getLogger()
 logging.getLogger('calcbench').setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
-__version__ = "4.0.0"
+__version__ = "4.0.1"
 from .api_client import (
     CompanyIdentifierScheme,
     as_reported_raw,
