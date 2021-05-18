@@ -390,7 +390,7 @@ def _try_parse_timestamp(timestamp: str):
     We did not always have milliseconds
     """
     if not timestamp:
-        return timestamp
+        return None
     try:
         timestamp = timestamp[:26]  # .net's milliseconds are too long
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
