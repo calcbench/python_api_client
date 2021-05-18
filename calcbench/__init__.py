@@ -26,7 +26,7 @@ from .api_client import (
     tag_contents,
 )
 
-from .disclosures import document_search
+from .disclosures import document_search, document_dataframe
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
 from .filing import filings, Filing
