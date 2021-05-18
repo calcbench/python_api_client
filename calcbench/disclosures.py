@@ -100,6 +100,7 @@ def document_dataframe(
             )
         )
     period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
+    data = pd.DataFrame()
     for doc in docs:
         period_year = doc["fiscal_year" if use_fiscal_period else "calendar_year"]
         if period in ("Y", 0) or period_type == "annual":
@@ -115,10 +116,17 @@ def document_dataframe(
                 p = None
             else:
                 p = pd.Period(year=period_year, quarter=quarter, freq="q")  # type: ignore
-        doc["period"] = p
-        doc[identifier_key] = (doc[identifier_key] or "").upper()
-        doc["value"] = doc
-    data = pd.DataFrame(docs)
+        data = data.append(
+            {
+                **doc,
+                **{
+                    "period": p,
+                    identifier_key: (doc[identifier_key] or ""),
+                    "value": doc,
+                },
+            },
+            ignore_index=True,
+        )
     data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])  # type: ignore
     data = data.loc[~data.index.duplicated()]  # type:ignore There can be duplicates
     data = data.unstack("disclosure_type_name")["value"]  # type: ignore
@@ -417,3 +425,12 @@ def _document_by_block_tag_name(
     payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
     json = _json_GET("query/disclosuresByTag", payload)
     return DisclosureContent(**json[0])
+
+
+if __name__ == "__main__":
+    document_dataframe(
+        company_identifiers=["msft", "goog"],
+        all_history=True,
+        disclosure_names=["ManagementsDiscussionAndAnalysis", "RiskFactors"],
+        use_fiscal_period=True,
+    )
