@@ -56,17 +56,19 @@ def document_dataframe(
     :param disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
     :param year: The year to search
-    :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
-    :param period_type: "quarterly" or "annual", only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param period: period of data to get
+    :param period_type: Only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
-    :param identifier_key: "ticker" or "CIK", how to index the returned DataFrame.
-    :return: A DataFrame indexed by document name -> company identifier.
+    :param identifier_key: how to index the returned DataFrame.
+    :return: A DataFrame of DocumentSearchResults indexed by document name -> company identifier.
 
     Usage::
 
-      >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"], all_history=True, disclosure_names=["Management's Discussion And Analysis", "Risk Factors"])
-      >>> data = data.fillna(False)
-      >>> word_counts = data.applymap(lambda document: document and len(document.get_contents_text().split()))
+      >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"],
+      >>>                                     all_history=True,
+      >>>                                     disclosure_names=["ManagementsDiscussionAndAnalysis", "RiskFactors"])
+      >>> word_counts = data.applymap(lambda document: document.get_contents_text().split()
+      >>>                             na_action="ignore")
 
     """
     if block_tag_names:
