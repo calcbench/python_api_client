@@ -8,7 +8,6 @@ _build/
 build/
 calcbench.ini
 .vscode/settings.json
-.vscode/launch.json
 docs/html/_sources/*
 docs/doctrees/environment.pickle
 docs/html/.buildinfo
