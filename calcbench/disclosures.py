@@ -333,7 +333,10 @@ def document_search(
        >>> import tqdm
        >>> sp500 = calcbench.tickers(index='SP500')
        >>> with tqdm.tqdm() as progress_bar:
-       >>>     risk_factors = list(calcbench.document_search(company_identifiers=sp500, disclosure_names=['Risk Factors'], all_history=True, progress_bar=progress_bar))
+       >>>     risk_factors = list(calcbench.document_search(company_identifiers=sp500,
+       >>>                         disclosure_names=['Risk Factors'],
+       >>>                         all_history=True,
+       >>>                         progress_bar=progress_bar))
 
     """
     if not any(
