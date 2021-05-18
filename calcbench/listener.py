@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 try:
-    from azure.servicebus import ServiceBusClient, AutoLockRenewer
+    from azure.servicebus import AutoLockRenewer, ServiceBusClient
     from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
 except ImportError:
     "Will not be able to use the listener"
     pass
-
-
 import json
 import logging
 from typing import Callable, Iterable, cast
 
+from azure.servicebus._common.message import ServiceBusReceivedMessage
 
 from .filing import Filing
 
@@ -57,14 +56,16 @@ def handle_filings(
 
     with AutoLockRenewer() as renewer:
         with ServiceBusClient.from_connection_string(
-            conn_str=connection_string
+            conn_str=connection_string, debug=False
         ) as client:
             with client.get_subscription_receiver(
-                topic_name=TOPIC, subscription_name=subscription_name
+                topic_name=TOPIC,
+                subscription_name=subscription_name,
+                auto_lock_renewer=renewer,
             ) as receiver:
+                message: ServiceBusReceivedMessage
                 for message in receiver:
-                    renewer.register(receiver, message, max_lock_renewal_duration=300)
-                    body_bytes = b"".join(message.body)
+                    body_bytes = b"".join(cast(Iterable[bytes], message.body))
                     try:
                         filing = Filing(**json.loads(body_bytes))
                     except Exception:
