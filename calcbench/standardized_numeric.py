@@ -247,7 +247,6 @@ def normalized_raw(
 def point_in_time(
     company_identifiers: CompanyIdentifiers = [],
     all_footnotes: bool = False,
-    update_date: date = None,
     metrics: Iterable[str] = [],
     all_history: bool = False,
     entire_universe: bool = False,
@@ -320,20 +319,12 @@ def point_in_time(
 
 
     """
-    if update_date:
-        warnings.warn(
-            "Request updates by accession_id rather than update date",
-            DeprecationWarning,
-        )
-    if accession_id and update_date:
-        raise ValueError("Specifying accession_id and update_date is redundant.")
 
     data = normalized_raw(
         company_identifiers=company_identifiers,
         all_face=all_face,
         all_footnotes=all_footnotes,
         point_in_time=True,
-        update_date=update_date,
         metrics=metrics,
         all_history=all_history,
         entire_universe=entire_universe,
