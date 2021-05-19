@@ -70,6 +70,11 @@ class Filing(dict):
     calendar_period: Period
     standardized_XBRL: bool
 
+    @property
+    def accession_id(self) -> int:
+        """calcbench_id should have been accession_id"""
+        return self.calcbench_id
+
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
         for name in names:
