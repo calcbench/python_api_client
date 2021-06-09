@@ -3,6 +3,7 @@
 try:
     from azure.servicebus import AutoLockRenewer, ServiceBusClient
     from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
+    from azure.servicebus._common.message import ServiceBusReceivedMessage
 except ImportError:
     "Will not be able to use the listener"
     pass
@@ -10,7 +11,6 @@ import json
 import logging
 from typing import Callable, Iterable, cast
 
-from azure.servicebus._common.message import ServiceBusReceivedMessage
 
 from .filing import Filing
 
