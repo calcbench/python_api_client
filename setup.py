@@ -11,9 +11,11 @@ from setuptools import setup
 with open("README.md") as f:
     long_description = f.read()
 
+from calcbench import __version__
+
 setup(
     name="calcbench_api_client",
-    version="4.0.3",
+    version=__version__,
     description="Client for Calcbench data.",
     author="Andrew Kittredge",
     author_email="andrew@calcbench.com",
