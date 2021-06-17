@@ -66,7 +66,7 @@ class StandardizedPoint(TypedDict):
 
 def standardized_raw(
     company_identifiers: CompanyIdentifiers = [],
-    metrics: Iterable[str] = [],
+    metrics: Sequence[str] = [],
     start_year: int = None,
     start_period: PeriodArgument = None,
     end_year: int = None,
@@ -184,6 +184,12 @@ def standardized_raw(
     ):
         raise ValueError("all_history with other period arguments does not make sense")
 
+    if (
+        period_type == PeriodType.TrailingTwelveMonths
+        and all_history
+        and len(metrics) != 1
+    ):
+        raise ValueError("TTM only works with one metric for all history")
     try:
         start_year = int(start_year)  # type: ignore
     except (ValueError, TypeError):
