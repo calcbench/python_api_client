@@ -9,6 +9,7 @@ Standardized
 Calcbench standardizes +1000 metrics to handle differences filers's tagging.  The list of stardized points is @ https://www.calcbench.com/home/standardizedmetrics
 
 .. autofunction:: calcbench.standardized_data
+.. autofunction:: calcbench.standardized_raw
 
 Point-In-Time
 -------------

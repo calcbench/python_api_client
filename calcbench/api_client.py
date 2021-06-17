@@ -98,9 +98,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)  # type: ignore
 
 
-PeriodType = Literal["annual", "quarterly", "combined"]
-
-
 CentralIndexKey = Union[str, int]
 Ticker = str
 CalcbenchCompanyIdentifier = int
@@ -226,6 +223,13 @@ def set_proxies(proxies: Dict[str, str]):
 class CompanyIdentifierScheme(str, Enum):
     Ticker = "ticker"
     CentralIndexKey = "CIK"
+
+
+class PeriodType(str, Enum):
+    Annual = "annual"
+    Quarterly = "quarterly"
+    Combined = "combined"
+    TrailingTwelveMonths = "TTM"
 
 
 class Period(IntEnum):

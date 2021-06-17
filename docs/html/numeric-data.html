@@ -57,7 +57,7 @@
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
 <li><p><strong>accession_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Calcbench Accession ID</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Get data for a single year, defaults to annual data.</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘annual’, ‘quarterly’, ‘combined’]]) – Either “annual” or “quarterly”.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Either “annual” or “quarterly”.</p></li>
 <li><p><strong>trace_hyperlinks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Values are URLs to the source documents</p></li>
 </ul>
 </dd>
@@ -78,6 +78,37 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.standardized_raw">
+<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">standardized_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">accession_id=None</em>, <em class="sig-param">point_in_time=False</em>, <em class="sig-param">include_trace=False</em>, <em class="sig-param">update_date=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">include_preliminary=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">all_face=False</em>, <em class="sig-param">all_footnotes=False</em>, <em class="sig-param">include_xbrl=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardized data.</p>
+<p>Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – a sequence of tickers (or CIK codes), eg [‘msft’, ‘goog’, ‘appl’]</p></li>
+<li><p><strong>metrics</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Iterable</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – a sequence of metrics, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a> eg. [‘revenue’, ‘accountsreceivable’]</p></li>
+<li><p><strong>start_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – first year of data</p></li>
+<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>end_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – last year of data</p></li>
+<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>entire_universe</strong> – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
+<li><p><strong>accession_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Calcbench Accession ID</p></li>
+<li><p><strong>include_trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Include the facts used to calculate the normalized value.</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Get data for a single year, defaults to annual data.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Either “annual” or “quarterly”</p></li>
+<li><p><strong>include_preliminary</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Include data from non-XBRL 8-Ks and press releases.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">StandardizedPoint</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of dictionaries with keys [‘ticker’, ‘calendar_year’, ‘calendar_period’, ‘metric’, ‘value’].</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -215,10 +246,31 @@
 
 </dd></dl>
 
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code></dt>
+<dd><p>An enumeration.</p>
 <dl class="attribute">
 <dt>
-<code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code></dt>
+<code class="sig-name descname">Annual</code><em class="property"> = 'annual'</em></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Combined</code><em class="property"> = 'combined'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">Quarterly</code><em class="property"> = 'quarterly'</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">TrailingTwelveMonths</code><em class="property"> = 'TTM'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 <dl class="class">
 <dt id="calcbench.api_client.CompanyIdentifierScheme">
@@ -236,10 +288,11 @@
 
 </dd></dl>
 
-<dl class="attribute">
+<dl class="class">
 <dt id="calcbench.api_client.PeriodType">
-<code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code><a class="headerlink" href="#calcbench.api_client.PeriodType" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code><a class="headerlink" href="#calcbench.api_client.PeriodType" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+</dd></dl>
 
 </div>
 </div>

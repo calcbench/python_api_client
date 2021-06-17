@@ -8,7 +8,7 @@ logger = logging.getLogger()
 logging.getLogger('calcbench').setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
-__version__ = "4.0.4"
+__version__ = "4.1.0"
 from .api_client import (
     CompanyIdentifierScheme,
     as_reported_raw,
@@ -37,6 +37,7 @@ from .standardized_numeric import (
     normalized_raw,
     point_in_time,
     standardized_data,
+    standardized_raw,
 )
 
 from .raw_numeric_XBRL import raw_XBRL, raw_xbrl_raw

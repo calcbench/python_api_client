@@ -64,7 +64,7 @@ class StandardizedPoint(TypedDict):
     period: Any  # pandas period
 
 
-def normalized_raw(
+def standardized_raw(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Iterable[str] = [],
     start_year: int = None,
@@ -86,45 +86,24 @@ def normalized_raw(
     all_footnotes: bool = False,
     include_xbrl: bool = False,
 ) -> Sequence[StandardizedPoint]:
-    """
-    Standardized data.
+    """Standardized data.
 
     Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
 
-    Args:
-        company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
-        metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
-        start_year: first year of data
-        start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-        end_year: last year of data
-        end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-        entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
-        accession_id: Calcbench Accession ID
-        include_trace: Include the facts used to calculate the normalized value.
-        year: Get data for a single year, defaults to annual data.
-        period_type: Either "annual" or "quarterly"
-        include_preliminary: Include data from non-XBRL 8-Ks and press releases.
+    :param company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
+    :param metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
+    :param start_year: first year of data
+    :param start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+    :param end_year: last year of data
+    :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
+    :param entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
+    :param accession_id: Calcbench Accession ID
+    :param include_trace: Include the facts used to calculate the normalized value.
+    :param year: Get data for a single year, defaults to annual data.
+    :param period_type: Either "annual" or "quarterly"
+    :param include_preliminary: Include data from non-XBRL 8-Ks and press releases.
+    :return: A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
 
-    Returns:
-        A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
-
-        For example
-            [
-                {
-                    "ticker": "MSFT",
-                    "calendar_year": 2010,
-                    "calendar_period": 1,
-                    "metric": "revenue",
-                    "value": 14503000000
-                },
-                {
-                    "ticker": "MSFT",
-                    "calendar_year": 2010,
-                    "calendar_period": 2,
-                    "metric": "revenue",
-                    "value": 16039000000
-                },
-            ]
     """
     if [
         bool(company_identifiers),
@@ -179,8 +158,15 @@ def normalized_raw(
             )
         start_year = end_year = year
 
-    if period_type and period_type not in ("annual", "quarterly", "combined"):
-        raise ValueError('period_type must be either "annual" or "quarterly"')
+    if period_type and period_type.lower() not in (
+        "annual",
+        "quarterly",
+        "combined",
+        "ttm",
+    ):
+        raise ValueError(
+            'period_type must be in "annual", "quarterly", "combined", "ttm"'
+        )
 
     if include_preliminary and not point_in_time:
         raise ValueError("include_preliminary only works for PIT")
@@ -414,6 +400,11 @@ def normalized_dataframe(
 
     if all_history and not period_type:
         raise ValueError("For all history you must specify a period_type")
+    if period_type == PeriodType.Combined:
+        raise ValueError(
+            "Cannot use combined because we can't build the time-series index"
+        )
+
     data = normalized_raw(
         company_identifiers=list(company_identifiers),
         metrics=metrics,
@@ -509,3 +500,4 @@ def _build_annual_period(data_point, use_fiscal_period):
 
 normalized_data = normalized_dataframe  # used to call it normalized_data.
 standardized_data = normalized_dataframe  # Now it's called standardized data
+normalized_raw = standardized_raw
