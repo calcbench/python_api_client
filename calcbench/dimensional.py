@@ -1,9 +1,20 @@
+import dataclasses
+from dataclasses import dataclass
+from datetime import date, datetime
 from typing import Sequence
+
+try:
+    import pandas as pd
+except ImportError:
+    "Can't find pandas, won't be able to use the functions that return DataFrames."
+    pass
+
 from calcbench.api_client import (
     CompanyIdentifiers,
     PeriodArgument,
     PeriodType,
     _json_POST,
+    _try_parse_timestamp,
 )
 
 
@@ -58,3 +69,61 @@ def dimensional_raw(
         },
     }
     return _json_POST("dimensionalData", payload)
+
+
+def business_combinations_raw(
+    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
+):
+    payload = {
+        "companiesParameters": {"companyIdentifiers": company_identifiers},
+        "periodParameters": {"accessionID": accession_id},
+    }
+    for combination in _json_POST("businessCombinations", payload):
+        yield BusinessCombination(**combination)
+
+
+@dataclass
+class IntangibleCategory(dict):
+    category: str
+    useful_life_upper_range: float
+    useful_life_lower_range: float
+
+    def __init__(self, **kwargs):
+        names = set([f.name for f in dataclasses.fields(self)])
+        for k, v in kwargs.items():
+            if k in names:
+                setattr(self, k, v)
+
+
+@dataclass
+class BusinessCombination(dict):
+    acquisition_date: datetime
+    date_reported: datetime
+    date_originally_reported: datetime
+    parent_company: str
+    parent_company_state: str
+    purchase_price: dict
+    trace_link: str
+    intangible_categories: Sequence[IntangibleCategory]
+
+    def __init__(self, **kwargs):
+        names = set([f.name for f in dataclasses.fields(self)])
+        for name in names:
+            setattr(self, name, None)
+        for k, v in kwargs.items():
+            if k in ("acquisition_date", "date_reported", "date_originally_repoted"):
+                setattr(self, k, _try_parse_timestamp(v))
+            elif k == "intangible_categories":
+                setattr(self, k, [IntangibleCategory(**c) for c in v])
+            elif k in names:
+                setattr(self, k, v)
+            self[k] = v
+
+
+def business_combinations(
+    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
+) -> "pd.DataFrame":
+    data = business_combinations_raw(
+        company_identifiers=company_identifiers, accession_id=accession_id
+    )
+    return pd.DataFrame(list(data))
