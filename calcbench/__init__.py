@@ -14,7 +14,6 @@ from .api_client import (
     as_reported_raw,
     business_combinations,
     company_disclosures,
-    dimensional_raw,
     disclosure_text,
     document_types,
     enable_backoff,
@@ -43,3 +42,5 @@ from .standardized_numeric import (
 from .raw_numeric_XBRL import raw_XBRL, raw_xbrl_raw
 
 from .raw_numeric_non_XBRL import non_XBRL_numeric_raw, non_XBRL_numeric
+
+from .dimensional import dimensional_raw
