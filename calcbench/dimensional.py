@@ -1,14 +1,16 @@
-from calcbench.standardized_numeric import StandardizedPoint
 import dataclasses
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, Sequence
+import itertools
 
 try:
     import pandas as pd
 except ImportError:
     "Can't find pandas, won't be able to use the functions that return DataFrames."
     pass
+
+from calcbench.standardized_numeric import StandardizedPoint
 
 from calcbench.api_client import (
     CompanyIdentifiers,
@@ -77,6 +79,7 @@ class IntangibleCategory(dict):
     category: str
     useful_life_upper_range: float
     useful_life_lower_range: float
+    amount: float
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
@@ -96,7 +99,7 @@ class BusinessCombination(dict):
     parent_company_ticker: str
     purchase_price: dict
     trace_link: str
-    intangible_categories: Sequence[IntangibleCategory]
+    intangible_categories: Dict[str, IntangibleCategory]
     standardized_PPA_points: Dict[str, StandardizedPoint]
     target: str
 
@@ -108,7 +111,14 @@ class BusinessCombination(dict):
             if k in ("acquisition_date", "date_reported", "date_originally_repoted"):
                 setattr(self, k, _try_parse_timestamp(v))
             elif k == "intangible_categories":
-                setattr(self, k, [IntangibleCategory(**c) for c in v])
+                setattr(
+                    self,
+                    k,
+                    {
+                        category: IntangibleCategory(**value)
+                        for category, value in v.items()
+                    },
+                )
             elif k in names:
                 setattr(self, k, v)
             self[k] = v
@@ -157,6 +167,17 @@ standardized_metrics = [
     "BusinessCombinationAcquiredGoodwillAndLiabilitiesAssumedLessNoncontrollingInterest",
 ]
 
+finite_lived_intangible_assets = [
+    "FinitelivedIntangibleAssetsAcquired_Customer",
+    "FinitelivedIntangibleAssetsAcquired_RandD",
+    "FinitelivedIntangibleAssetsAcquired_IP",
+    "FinitelivedIntangibleAssetsAcquired_Tech",
+    "FinitelivedIntangibleAssetsAcquired_Contracts",
+    "FinitelivedIntangibleAssetsAcquired_Licenses",
+    "FinitelivedIntangibleAssetsAcquired_Marketing",
+]
+
+
 columns = [
     "acquisition_date",
     "date_reported",
@@ -165,6 +186,9 @@ columns = [
     "parent_company_state",
     "parent_company_ticker",
 ]
+
+USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
+USEFUL_LIFE_LOW_COLUMN_LABEL = "useful_life_low"
 
 
 def business_combinations(
@@ -181,7 +205,33 @@ def business_combinations(
             value = datum.standardized_PPA_points.get(metric)
             if value:
                 row[metric] = value["value"]
+        for asset_category in finite_lived_intangible_assets:
+            value = datum.intangible_categories.get(asset_category)
+            if value:
+                row[asset_category] = value.amount
+                row[
+                    f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}"
+                ] = value.useful_life_upper_range
+                row[
+                    f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}"
+                ] = value.useful_life_lower_range
         rows.append(row)
 
-    df = pd.DataFrame(data=rows, columns=columns + standardized_metrics)
+    df = pd.DataFrame(
+        data=rows,
+        columns=columns
+        + standardized_metrics
+        + list(
+            itertools.chain.from_iterable(
+                [
+                    [
+                        asset_category,
+                        f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}",
+                        f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}",
+                    ]
+                    for asset_category in finite_lived_intangible_assets
+                ]
+            )
+        ),
+    )
     return df
