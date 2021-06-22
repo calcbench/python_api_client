@@ -1,8 +1,8 @@
 from calcbench.standardized_numeric import StandardizedPoint
 import dataclasses
 from dataclasses import dataclass
-from datetime import date, datetime
-from typing import Sequence
+from datetime import datetime
+from typing import Dict, Sequence
 
 try:
     import pandas as pd
@@ -92,10 +92,13 @@ class BusinessCombination(dict):
     date_originally_reported: datetime
     parent_company: str
     parent_company_state: str
+    parent_company_SIC_code: str
+    parent_company_ticker: str
     purchase_price: dict
     trace_link: str
     intangible_categories: Sequence[IntangibleCategory]
-    standardized_PPA_points: Sequence[StandardizedPoint]
+    standardized_PPA_points: Dict[str, StandardizedPoint]
+    target: str
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
@@ -122,10 +125,63 @@ def business_combinations_raw(
         yield BusinessCombination(**combination)
 
 
+standardized_metrics = [
+    "BusinessCombinationAssetsAcquiredCashAndEquivalents",
+    "BusinessCombinationAssetsAcquiredReceivables",
+    "BusinessCombinationAssetsAcquiredInventory",
+    "BusinessCombinationAssetsDeferredTaxAssetsCurrent",
+    "BusinessCombinationAssetsMarketableSecurities",
+    "BusinessCombinationAssetsPrepaidExpense",
+    "BusinessCombinationAssetsAcquiredPropertyPlantAndEquipment",
+    "BusinessCombinationAssetsAquiredGoodwill",
+    "FinitelivedIntangibleAssetsAcquired",
+    "IndefinitelivedIntangibleAssetsAcquired",
+    "BusinessCombinationAssetsDeferredTaxAssetsNoncurrent",
+    "BusinessCombinationAssetsFinancialAssets",
+    "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedAssets",
+    "BusinessCombinationLiabilitiesAssumedCurrentLiabilitiesAccountsPayable",
+    "BusinessCombinationLiabilitiesAssumedDeferredRevenue",
+    "BusinessCombinationLiabilitiesAssumedCurrentDeferredRevenue",
+    "BusinessCombinationLiabilitiesAssumedDeferredTaxLiabilitiesCurrent",
+    "BusinessCombinationLiabilitiesAssumedCurrentLongTermDebt",
+    "BusinessCombinationLiabilitiesAssumedDeferredTaxLiabilitiesNoncurrent",
+    "BusinessCombinationLiabilitiesAssumedLongTermDebt",
+    "BusinessCombinationLiabilitiesAssumedCapitalLeaseObligation",
+    "BusinessCombinationLiabilitiesAssumedContingentLiability",
+    "BusinessCombinationLiabilitiesAssumedFinancialLiabilities",
+    "BusinessCombinationLiabilitiesAssumedRestructuringLiabilities",
+    "BusinessCombinationLiabilitiesAssumed",
+    "BusinessCombinationAssetsAcquiredAndLiabilitiesAssumedNet",
+    "BusinessCombinationAcquiredGoodwillAndLiabilitiesAssumedNet",
+    "BusinessCombinationNoncontrollingInterest",
+    "BusinessCombinationAcquiredGoodwillAndLiabilitiesAssumedLessNoncontrollingInterest",
+]
+
+columns = [
+    "acquisition_date",
+    "date_reported",
+    "target",
+    "parent_company",
+    "parent_company_state",
+    "parent_company_ticker",
+]
+
+
 def business_combinations(
     company_identifiers: CompanyIdentifiers = [], accession_id: int = None
 ) -> "pd.DataFrame":
+
     data = business_combinations_raw(
         company_identifiers=company_identifiers, accession_id=accession_id
     )
-    return pd.DataFrame(list(data))
+    rows = []
+    for datum in data:
+        row = {key: datum[key] for key in columns}
+        for metric in standardized_metrics:
+            value = datum.standardized_PPA_points.get(metric)
+            if value:
+                row[metric] = value["value"]
+        rows.append(row)
+
+    df = pd.DataFrame(data=rows, columns=columns + standardized_metrics)
+    return df
