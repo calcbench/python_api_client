@@ -1,3 +1,4 @@
+from calcbench.standardized_numeric import StandardizedPoint
 import dataclasses
 from dataclasses import dataclass
 from datetime import date, datetime
@@ -71,17 +72,6 @@ def dimensional_raw(
     return _json_POST("dimensionalData", payload)
 
 
-def business_combinations_raw(
-    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
-):
-    payload = {
-        "companiesParameters": {"companyIdentifiers": company_identifiers},
-        "periodParameters": {"accessionID": accession_id},
-    }
-    for combination in _json_POST("businessCombinations", payload):
-        yield BusinessCombination(**combination)
-
-
 @dataclass
 class IntangibleCategory(dict):
     category: str
@@ -105,6 +95,7 @@ class BusinessCombination(dict):
     purchase_price: dict
     trace_link: str
     intangible_categories: Sequence[IntangibleCategory]
+    standardized_PPA_points: Sequence[StandardizedPoint]
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
@@ -118,6 +109,17 @@ class BusinessCombination(dict):
             elif k in names:
                 setattr(self, k, v)
             self[k] = v
+
+
+def business_combinations_raw(
+    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
+):
+    payload = {
+        "companiesParameters": {"companyIdentifiers": company_identifiers},
+        "periodParameters": {"accessionID": accession_id},
+    }
+    for combination in _json_POST("businessCombinations", payload):
+        yield BusinessCombination(**combination)
 
 
 def business_combinations(
