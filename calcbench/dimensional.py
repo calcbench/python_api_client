@@ -83,9 +83,12 @@ class IntangibleCategory(dict):
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
+        for name in names:
+            setattr(self, name, None)
         for k, v in kwargs.items():
             if k in names:
                 setattr(self, k, v)
+            self[k] = v
 
 
 @dataclass
@@ -202,19 +205,19 @@ def business_combinations(
     for datum in data:
         row = {key: datum[key] for key in columns}
         for metric in standardized_metrics:
-            value = datum.standardized_PPA_points.get(metric)
-            if value:
-                row[metric] = value["value"]
+            standardized_point = datum.standardized_PPA_points.get(metric)
+            if standardized_point:
+                row[metric] = standardized_point["value"]
         for asset_category in finite_lived_intangible_assets:
-            value = datum.intangible_categories.get(asset_category)
-            if value:
-                row[asset_category] = value.amount
+            intangible_category = datum.intangible_categories.get(asset_category)
+            if intangible_category:
+                row[asset_category] = intangible_category.amount
                 row[
                     f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}"
-                ] = value.useful_life_upper_range
+                ] = intangible_category.useful_life_upper_range
                 row[
                     f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}"
-                ] = value.useful_life_lower_range
+                ] = intangible_category.useful_life_lower_range
         rows.append(row)
 
     df = pd.DataFrame(
