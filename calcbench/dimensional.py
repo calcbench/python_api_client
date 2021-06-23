@@ -100,7 +100,7 @@ class BusinessCombination(dict):
     parent_company_state: str
     parent_company_SIC_code: str
     parent_company_ticker: str
-    purchase_price: dict
+    purchase_price: StandardizedPoint
     trace_link: str
     intangible_categories: Dict[str, IntangibleCategory]
     standardized_PPA_points: Dict[str, StandardizedPoint]
@@ -138,7 +138,7 @@ def business_combinations_raw(
         yield BusinessCombination(**combination)
 
 
-standardized_metrics = [
+STANDARDIZED_METRICS = [
     "BusinessCombinationAssetsAcquiredCashAndEquivalents",
     "BusinessCombinationAssetsAcquiredReceivables",
     "BusinessCombinationAssetsAcquiredInventory",
@@ -170,7 +170,7 @@ standardized_metrics = [
     "BusinessCombinationAcquiredGoodwillAndLiabilitiesAssumedLessNoncontrollingInterest",
 ]
 
-finite_lived_intangible_assets = [
+FINITE_LIVED_INTANGIBLE_ASSETS = [
     "FinitelivedIntangibleAssetsAcquired_Customer",
     "FinitelivedIntangibleAssetsAcquired_RandD",
     "FinitelivedIntangibleAssetsAcquired_IP",
@@ -181,17 +181,19 @@ finite_lived_intangible_assets = [
 ]
 
 
-columns = [
+COLUMNS = [
     "acquisition_date",
     "date_reported",
+    "date_originally_reported",
     "target",
     "parent_company",
     "parent_company_state",
     "parent_company_ticker",
+    "purchase_price",
 ]
 
-USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
 USEFUL_LIFE_LOW_COLUMN_LABEL = "useful_life_low"
+USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
 
 
 def business_combinations(
@@ -203,38 +205,35 @@ def business_combinations(
     )
     rows = []
     for datum in data:
-        row = {key: datum[key] for key in columns}
-        for metric in standardized_metrics:
+        row = {key: datum[key] for key in COLUMNS}
+        for metric in STANDARDIZED_METRICS:
             standardized_point = datum.standardized_PPA_points.get(metric)
             if standardized_point:
                 row[metric] = standardized_point["value"]
-        for asset_category in finite_lived_intangible_assets:
+        for asset_category in FINITE_LIVED_INTANGIBLE_ASSETS:
             intangible_category = datum.intangible_categories.get(asset_category)
             if intangible_category:
                 row[asset_category] = intangible_category.amount
                 row[
-                    f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}"
-                ] = intangible_category.useful_life_upper_range
-                row[
                     f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}"
                 ] = intangible_category.useful_life_lower_range
+                row[
+                    f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}"
+                ] = intangible_category.useful_life_upper_range
+        row["purchase_price"] = datum.purchase_price["value"]
         rows.append(row)
-
-    df = pd.DataFrame(
-        data=rows,
-        columns=columns
-        + standardized_metrics
-        + list(
-            itertools.chain.from_iterable(
+    intangible_colums = list(
+        itertools.chain.from_iterable(
+            [
                 [
-                    [
-                        asset_category,
-                        f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}",
-                        f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}",
-                    ]
-                    for asset_category in finite_lived_intangible_assets
+                    asset_category,
+                    f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}",
+                    f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}",
                 ]
-            )
-        ),
+                for asset_category in FINITE_LIVED_INTANGIBLE_ASSETS
+            ]
+        )
     )
+    df_columns = COLUMNS + intangible_colums + STANDARDIZED_METRICS
+    df = pd.DataFrame(data=rows, columns=df_columns)
     return df
