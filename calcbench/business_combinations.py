@@ -68,17 +68,6 @@ class BusinessCombination(dict):
             self[k] = v
 
 
-def business_combinations_raw(
-    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
-):
-    payload = {
-        "companiesParameters": {"companyIdentifiers": company_identifiers},
-        "periodParameters": {"accessionID": accession_id},
-    }
-    for combination in _json_POST("businessCombinations", payload):
-        yield BusinessCombination(**combination)
-
-
 STANDARDIZED_METRICS = [
     "BusinessCombinationAssetsAcquiredCashAndEquivalents",
     "BusinessCombinationAssetsAcquiredReceivables",
@@ -135,6 +124,17 @@ COLUMNS = [
 
 USEFUL_LIFE_LOW_COLUMN_LABEL = "useful_life_low"
 USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
+
+
+def business_combinations_raw(
+    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
+):
+    payload = {
+        "companiesParameters": {"companyIdentifiers": company_identifiers},
+        "periodParameters": {"accessionID": accession_id},
+    }
+    for combination in _json_POST("businessCombinations", payload):
+        yield BusinessCombination(**combination)
 
 
 def business_combinations(
