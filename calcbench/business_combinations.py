@@ -150,7 +150,7 @@ def business_combinations(
         for metric in STANDARDIZED_METRICS:
             standardized_point = datum.standardized_PPA_points.get(metric)
             if standardized_point:
-                row[metric] = standardized_point["value"]
+                row[metric] = standardized_point.get("value")
         for asset_category in FINITE_LIVED_INTANGIBLE_ASSETS:
             intangible_category = datum.intangible_categories.get(asset_category)
             if intangible_category:
@@ -161,7 +161,7 @@ def business_combinations(
                 row[
                     f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}"
                 ] = intangible_category.useful_life_upper_range
-        row["purchase_price"] = datum.purchase_price["value"]
+        row["purchase_price"] = datum.purchase_price.get("value")
         rows.append(row)
     intangible_colums = list(
         itertools.chain.from_iterable(
