@@ -127,9 +127,17 @@
 <dl class="function">
 <dt id="calcbench.business_combinations.business_combinations">
 <code class="sig-prename descclassname">calcbench.business_combinations.</code><code class="sig-name descname">business_combinations</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">accession_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.business_combinations.business_combinations" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+<dd><p>Data about mergers and acquisitions.</p>
+<p>Columns are standardized metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – Companies for which to retrieve data</p></li>
+<li><p><strong>accession_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Calcbench accession(filing) id  for which to retrieve data.  Get data for one filing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -137,7 +145,19 @@
 <dl class="function">
 <dt id="calcbench.business_combinations.business_combinations_raw">
 <code class="sig-prename descclassname">calcbench.business_combinations.</code><code class="sig-name descname">business_combinations_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">accession_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.business_combinations.business_combinations_raw" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Data about mergers and acquisitions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – Companies for which to retrieve data</p></li>
+<li><p><strong>accession_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Calcbench accession(filing) id  for which to retrieve data.  Get data for one filing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.business_combinations.BusinessCombination" title="calcbench.business_combinations.BusinessCombination"><code class="xref py py-class docutils literal notranslate"><span class="pre">BusinessCombination</span></code></a>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 

@@ -8,7 +8,7 @@ import dataclasses
 import itertools
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict
+from typing import Dict, Generator
 
 from calcbench.standardized_numeric import StandardizedPoint
 
@@ -128,7 +128,13 @@ USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
 
 def business_combinations_raw(
     company_identifiers: CompanyIdentifiers = [], accession_id: int = None
-):
+) -> Generator[BusinessCombination, None, None]:
+    """Data about mergers and acquisitions.
+
+    :param company_identifiers: Companies for which to retrieve data
+    :param accession_id: Calcbench accession(filing) id  for which to retrieve data.  Get data for one filing.
+
+    """
     payload = {
         "companiesParameters": {"companyIdentifiers": company_identifiers},
         "periodParameters": {"accessionID": accession_id},
@@ -140,7 +146,14 @@ def business_combinations_raw(
 def business_combinations(
     company_identifiers: CompanyIdentifiers = [], accession_id: int = None
 ) -> "pd.DataFrame":
+    """Data about mergers and acquisitions.
 
+    Columns are standardized metrics.
+
+    :param company_identifiers: Companies for which to retrieve data
+    :param accession_id: Calcbench accession(filing) id  for which to retrieve data.  Get data for one filing.
+
+    """
     data = business_combinations_raw(
         company_identifiers=company_identifiers, accession_id=accession_id
     )
