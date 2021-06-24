@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Business Combinations - Purchase Price Allocation &#8212; Calcbench API Client  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Raw numeric Non-XBRL" href="raw-numeric-non-XBRL.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="business-combinations-purchase-price-allocation">
+<h1>Business Combinations - Purchase Price Allocation<a class="headerlink" href="#business-combinations-purchase-price-allocation" title="Permalink to this headline">¶</a></h1>
+<p>Purchase price allocation and intangible useful lives for acquisitions and mergers.</p>
+<span class="target" id="module-calcbench.business_combinations"></span><dl class="class">
+<dt id="calcbench.business_combinations.BusinessCombination">
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.business_combinations.</code><code class="sig-name descname">BusinessCombination</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.acquisition_date">
+<code class="sig-name descname">acquisition_date</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.acquisition_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.date_originally_reported">
+<code class="sig-name descname">date_originally_reported</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.date_originally_reported" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.date_reported">
+<code class="sig-name descname">date_reported</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.date_reported" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.intangible_categories">
+<code class="sig-name descname">intangible_categories</code><em class="property">: Dict[str, IntangibleCategory]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.intangible_categories" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.parent_company">
+<code class="sig-name descname">parent_company</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.parent_company" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.parent_company_SIC_code">
+<code class="sig-name descname">parent_company_SIC_code</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.parent_company_SIC_code" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.parent_company_state">
+<code class="sig-name descname">parent_company_state</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.parent_company_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.parent_company_ticker">
+<code class="sig-name descname">parent_company_ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.parent_company_ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.purchase_price">
+<code class="sig-name descname">purchase_price</code><em class="property">: StandardizedPoint</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.purchase_price" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.standardized_PPA_points">
+<code class="sig-name descname">standardized_PPA_points</code><em class="property">: Dict[str, StandardizedPoint]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.standardized_PPA_points" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.target">
+<code class="sig-name descname">target</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.BusinessCombination.trace_link">
+<code class="sig-name descname">trace_link</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.BusinessCombination.trace_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="calcbench.business_combinations.IntangibleCategory">
+<em class="property">class </em><code class="sig-prename descclassname">calcbench.business_combinations.</code><code class="sig-name descname">IntangibleCategory</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.business_combinations.IntangibleCategory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="calcbench.business_combinations.IntangibleCategory.amount">
+<code class="sig-name descname">amount</code><em class="property">: float</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.IntangibleCategory.amount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.IntangibleCategory.category">
+<code class="sig-name descname">category</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.IntangibleCategory.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.IntangibleCategory.useful_life_lower_range">
+<code class="sig-name descname">useful_life_lower_range</code><em class="property">: float</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.IntangibleCategory.useful_life_lower_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="calcbench.business_combinations.IntangibleCategory.useful_life_upper_range">
+<code class="sig-name descname">useful_life_upper_range</code><em class="property">: float</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.business_combinations.IntangibleCategory.useful_life_upper_range" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.business_combinations.business_combinations">
+<code class="sig-prename descclassname">calcbench.business_combinations.</code><code class="sig-name descname">business_combinations</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">accession_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.business_combinations.business_combinations" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.business_combinations.business_combinations_raw">
+<code class="sig-prename descclassname">calcbench.business_combinations.</code><code class="sig-name descname">business_combinations_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">accession_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.business_combinations.business_combinations_raw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Numeric Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="face-statements.html">Face Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Business Combinations - Purchase Price Allocation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="raw-numeric-non-XBRL.html" title="previous chapter">Raw numeric Non-XBRL</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Andrew Kittredge.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/business-combinations.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

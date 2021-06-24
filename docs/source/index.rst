@@ -20,6 +20,7 @@ Calcbench Python API Client
    metrics
    raw-numeric-XBRL
    raw-numeric-non-XBRL
+   business-combinations
 
 Examples
 --------
