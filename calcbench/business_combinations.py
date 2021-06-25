@@ -46,6 +46,7 @@ class BusinessCombination(dict):
     intangible_categories: Dict[str, IntangibleCategory]
     standardized_PPA_points: Dict[str, StandardizedPoint]
     target: str
+    enterprise_value: float
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
@@ -120,6 +121,7 @@ COLUMNS = [
     "parent_company_state",
     "parent_company_ticker",
     "purchase_price",
+    "enterprise_value",
 ]
 
 USEFUL_LIFE_LOW_COLUMN_LABEL = "useful_life_low"
@@ -175,6 +177,7 @@ def business_combinations(
                     f"{asset_category}_{USEFUL_LIFE_HIGH_COLUMN_LABEL}"
                 ] = intangible_category.useful_life_upper_range
         row["purchase_price"] = datum.purchase_price.get("value")
+        row["enterprise_value"] = datum.enterprise_value
         rows.append(row)
     intangible_colums = list(
         itertools.chain.from_iterable(
