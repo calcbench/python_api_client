@@ -47,4 +47,8 @@ from .dimensional import (
     dimensional_raw,
 )
 
-from .business_combinations import business_combinations_raw, business_combinations
+from .business_combinations import (
+    business_combinations_raw,
+    business_combinations,
+    legacy_report as business_combination_legacy_report,
+)
