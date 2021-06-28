@@ -264,6 +264,8 @@ def legacy_report(
         company_identifiers=company_identifiers, accession_id=accession_id
     )
     data = data.rename(DB_NAMES_TO_LEGACY_COLUMNS, axis=1)
-    for column in DB_NAMES_TO_LEGACY_COLUMNS.values():
+    for db_field, column in DB_NAMES_TO_LEGACY_COLUMNS.items():
+        if db_field.endswith(("useful_life_low", "useful_life_high")):
+            continue
         data[f"{column} As % of Purchase Price"] = data[column] / data.purchase_price
     return data
