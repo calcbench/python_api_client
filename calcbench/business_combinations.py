@@ -195,6 +195,12 @@ def business_combinations(
     )
     df_columns = COLUMNS + intangible_colums + STANDARDIZED_METRICS
     df = pd.DataFrame(data=rows, columns=df_columns)
+    for date_column in [
+        "acquisition_date",
+        "date_reported",
+        "date_originally_reported",
+    ]:
+        df[date_column] = pd.to_datetime(df[date_column], errors="coerce")  # type: ignore
     return df
 
 
@@ -253,6 +259,17 @@ DB_NAMES_TO_LEGACY_COLUMNS = {
     "BusinessCombinationAcquiredGoodwillAndLiabilitiesAssumedLessNoncontrollingInterest": "Business Combination, Assets Acquired, Goodwill, And Liabilities Assumed, Less Noncontrolling Interest",
 }
 
+META_DATA_COLUMN_NAME_MAP = {
+    "acquisition_date": "Acquisition Date",
+    "date_reported": "Date Reported",
+    "target": "Subject Company Name",
+    "parent_company": "Global Parent Company",
+    "parent_company_state": "State / Province",
+    "parent_company_ticker": "Global Parent Company Ticker",
+    "purchase_price": "Purchase Price",
+    "enterprise_value": "Enterprise Value (PP + Debt - Cash)",
+}
+
 
 def legacy_report(
     company_identifiers: CompanyIdentifiers = [], accession_id: int = None
@@ -263,9 +280,11 @@ def legacy_report(
     data = business_combinations(
         company_identifiers=company_identifiers, accession_id=accession_id
     )
-    data = data.rename(DB_NAMES_TO_LEGACY_COLUMNS, axis=1)
+    data = data.rename(
+        {**META_DATA_COLUMN_NAME_MAP, **DB_NAMES_TO_LEGACY_COLUMNS}, axis=1
+    )
     for db_field, column in DB_NAMES_TO_LEGACY_COLUMNS.items():
         if db_field.endswith(("useful_life_low", "useful_life_high")):
             continue
-        data[f"{column} As % of Purchase Price"] = data[column] / data.purchase_price
+        data[f"{column} As % of Purchase Price"] = data[column] / data["Purchase Price"]
     return data
