@@ -312,7 +312,7 @@ def point_in_time(
 
     """
 
-    data = normalized_raw(
+    data = standardized_raw(
         company_identifiers=company_identifiers,
         all_face=all_face,
         all_footnotes=all_footnotes,
@@ -353,7 +353,7 @@ def point_in_time(
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
-def normalized_dataframe(
+def standardized_data(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[str] = [],
     start_year: int = None,
@@ -411,7 +411,7 @@ def normalized_dataframe(
             "Cannot use combined because we can't build the time-series index"
         )
 
-    data = normalized_raw(
+    data = standardized_raw(
         company_identifiers=list(company_identifiers),
         metrics=metrics,
         start_year=start_year,
@@ -448,7 +448,7 @@ def normalized_dataframe(
         try:  # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
             value = float(d["value"])
             if trace_hyperlinks:
-                value = f'=HYPERLINK("{d["trace_facts"][0]["trace_url"]}", {value})'
+                value = f'=HYPERLINK("{d["trace_url"]}", {value})'
             d["value"] = value
         except (ValueError, KeyError):
             pass
@@ -507,6 +507,6 @@ def _build_annual_period(data_point, use_fiscal_period):
     )
 
 
-normalized_data = normalized_dataframe  # used to call it normalized_data.
-standardized_data = normalized_dataframe  # Now it's called standardized data
+normalized_data = standardized_data  # used to call it normalized_data.
+normalized_dataframe = standardized_data
 normalized_raw = standardized_raw
