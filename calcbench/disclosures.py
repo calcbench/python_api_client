@@ -214,6 +214,18 @@ class DisclosureContent:
         return "</br>".join(self.blobs)
 
 
+PERIOD_MAP = {
+    "1Q": Period.Q1,
+    "2Q": Period.Q2,
+    "3Q": Period.Q3,
+    "Y": Period.Annual,
+    "1": Period.Q1,
+    "2": Period.Q2,
+    "3": Period.Q3,
+    "4": Period.Q4,
+}
+
+
 @dataclass
 class DocumentSearchResults(dict):
     """
@@ -257,8 +269,9 @@ class DocumentSearchResults(dict):
         for k, v in kwargs.items():
             if k == "content" and v:
                 setattr(self, k, DisclosureContent(**v))
-            elif k == "fiscal_period":
-                v = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}[v]
+            elif k in ("fiscal_period", "calendar_period"):
+                # periods can be almost anthing.
+                v = PERIOD_MAP.get(v, v)
                 setattr(self, k, v)
             elif k in names:
                 setattr(self, k, v)
