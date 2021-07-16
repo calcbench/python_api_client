@@ -8,7 +8,7 @@ logger = logging.getLogger()
 logging.getLogger('calcbench').setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
-__version__ = "4.2.0"
+__version__ = "5.0.0"
 from .api_client import (
     CompanyIdentifierScheme,
     as_reported_raw,
@@ -25,7 +25,12 @@ from .api_client import (
     tag_contents,
 )
 
-from .disclosures import document_search, document_dataframe
+from .disclosures import (
+    document_search,
+    document_dataframe,
+    disclosure_dataframe,
+    disclosure_search,
+)
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
 from .filing import filings, Filing

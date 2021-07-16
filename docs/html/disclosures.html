@@ -48,7 +48,7 @@
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>updated_from</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – include filings from this date and after.</p></li>
@@ -91,7 +91,7 @@
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 <li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – how to index the returned DataFrame.</p></li>
 </ul>
@@ -253,7 +253,7 @@ Public date_reported As DateTime</p>
 
 <dl class="attribute">
 <dt id="calcbench.disclosures.DocumentSearchResults.calendar_period">
-<code class="sig-name descname">calendar_period</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.calendar_period" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">calendar_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.calendar_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -319,7 +319,7 @@ Public date_reported As DateTime</p>
 
 <dl class="attribute">
 <dt id="calcbench.disclosures.DocumentSearchResults.fiscal_period">
-<code class="sig-name descname">fiscal_period</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">fiscal_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DocumentSearchResults.fiscal_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -544,6 +544,83 @@ Public date_reported As DateTime</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="calcbench.disclosures.disclosure_dataframe">
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disclosures/Footnotes in a DataFrame</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
+<li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
+<li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – how to index the returned DataFrame.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A DataFrame of DocumentSearchResults indexed by document name -&gt; company identifier.</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">document_dataframe</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;msft&quot;</span><span class="p">,</span> <span class="s2">&quot;goog&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>                                    <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                                    <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ManagementsDiscussionAndAnalysis&quot;</span><span class="p">,</span> <span class="s2">&quot;RiskFactors&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">word_counts</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">document</span><span class="p">:</span> <span class="n">document</span><span class="o">.</span><span class="n">get_contents_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>                            <span class="n">na_action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="calcbench.disclosures.disclosure_search">
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_search</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=None</em>, <em class="sig-param">full_text_search_term=None</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=&lt;Period.Annual: 0&gt;</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">document_type=None</em>, <em class="sig-param">block_tag_name=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">document_name=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">updated_from=None</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">sub_divide=False</em>, <em class="sig-param">all_documents=False</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">accession_id=None</em>, <em class="sig-param">all_text_blocks=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Footnotes and other text</p>
+<p>Search for footnotes and other sections of 10-K, see <a class="reference external" href="https://www.calcbench.com/footnote">https://www.calcbench.com/footnote</a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>company_identifiers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]]) – list of tickers or CIK codes</p></li>
+<li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
+<li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
+<li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
+<li><p><strong>updated_from</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – include filings from this date and after.</p></li>
+<li><p><strong>sub_divide</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – return the document split into sections based on headers.</p></li>
+<li><p><strong>all_documents</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – all of the documents for a single company/period.</p></li>
+<li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all companies</p></li>
+<li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
+<li><p><strong>block_tag_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Level 2 or 3 XBRL tag.  See the list of FASB tags &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list#blockTags">https://www.calcbench.com/disclosure_list#blockTags</a></p></li>
+<li><p><strong>all_text_blocks</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – All level 1 and accounting policy text blocks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.disclosures.DocumentSearchResults" title="calcbench.disclosures.DocumentSearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentSearchResults</span></code></a>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A iterator of DocumentSearchResults</p>
+</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tqdm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sp500</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;SP500&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">()</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">calcbench</span><span class="o">.</span><span class="n">document_search</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Risk Factors&#39;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt>
 <code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em><span class="sig-paren">)</span></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
@@ -555,7 +632,7 @@ Public date_reported As DateTime</p>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 <li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – how to index the returned DataFrame.</p></li>
 </ul>
@@ -589,7 +666,7 @@ Public date_reported As DateTime</p>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>updated_from</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – include filings from this date and after.</p></li>
@@ -650,6 +727,7 @@ Public date_reported As DateTime</p>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a></li>
 </ul>
 
 <div class="relations">

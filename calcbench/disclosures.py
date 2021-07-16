@@ -38,7 +38,7 @@ except ImportError:
     pass
 
 
-def document_dataframe(
+def disclosure_dataframe(
     company_identifiers: CompanyIdentifiers = [],
     disclosure_names: Sequence[str] = [],
     all_history: bool = False,
@@ -57,7 +57,7 @@ def document_dataframe(
     :param all_history: Search all time periods
     :param year: The year to search
     :param period: period of data to get
-    :param period_type: Only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param period_type: Only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents, "quarterly" is all history all periods
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param identifier_key: how to index the returned DataFrame.
     :return: A DataFrame of DocumentSearchResults indexed by document name -> company identifier.
@@ -92,24 +92,29 @@ def document_dataframe(
                 company_identifiers=company_identifiers,
                 disclosure_names=disclosure_names,
                 all_history=all_history,
-                use_fiscal_period=True,
+                use_fiscal_period=use_fiscal_period,
                 progress_bar=progress_bar,
                 year=year,
                 period=period,
                 period_type=period_type,
             )
         )
-    period_map = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}
     data = pd.DataFrame()
+
     for doc in docs:
-        period_year = doc["fiscal_year" if use_fiscal_period else "calendar_year"]
-        if period in ("Y", 0) or period_type == "annual":
+        period_year = doc.fiscal_year if use_fiscal_period else doc.calendar_year
+        if period in ("Y", 0) or period_type == PeriodType.Annual:
             p = pd.Period(year=period_year, freq="a")  # type: ignore
         else:
             try:
-                quarter = period_map[
-                    doc["fiscal_period" if use_fiscal_period else "calendar_period"]
-                ]
+                if period_type == PeriodType.Quarterly:
+                    # The server is not handling period type correctly.  Doing it here because it is easier.  akittredge, July 2021.
+                    if doc.fiscal_period == Period.Annual and use_fiscal_period:
+                        quarter = Period.Q4
+                quarter = (
+                    doc.fiscal_period if use_fiscal_period else doc.calendar_period
+                )
+
             except KeyError:
                 # This happens for non-XBRL companies
                 logger.info("Strange period for {ticker}".format(**doc))
@@ -132,6 +137,9 @@ def document_dataframe(
     data = data.unstack("disclosure_type_name")["value"]  # type: ignore
     data = data.unstack(identifier_key)
     return data
+
+
+document_dataframe = disclosure_dataframe
 
 
 class FootnoteTypeTitle(str, Enum):
@@ -220,9 +228,9 @@ class DocumentSearchResults(dict):
     sec_filing_id: int
     blob_id: str
     fiscal_year: int
-    fiscal_period: str
+    fiscal_period: Period
     calendar_year: int
-    calendar_period: str
+    calendar_period: Period
     filing_date: str
     received_date: str
     document_type: str
@@ -249,6 +257,9 @@ class DocumentSearchResults(dict):
         for k, v in kwargs.items():
             if k == "content" and v:
                 setattr(self, k, DisclosureContent(**v))
+            elif k == "fiscal_period":
+                v = {"1Q": 1, "2Q": 2, "3Q": 3, "Y": 4}[v]
+                setattr(self, k, v)
             elif k in names:
                 setattr(self, k, v)
             self[k] = v
@@ -286,7 +297,7 @@ class DocumentSearchResults(dict):
         return self.get("date_reported") and _try_parse_timestamp(self["date_reported"])
 
 
-def document_search(
+def disclosure_search(
     company_identifiers: CompanyIdentifiers = None,
     full_text_search_term: str = None,
     year: int = None,
@@ -316,7 +327,7 @@ def document_search(
     :param year: Year to get data for
     :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param use_fiscal_period: interpret the passed period as a fiscal period, as opposed to calendar period
-    :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents.
+    :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents, "quarterly" is all history all periods
     :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
@@ -360,7 +371,13 @@ def document_search(
     if not (all_history or updated_from or accession_id):
         if not year:
             raise ValueError("Need to specify year or all all_history")
-        period_type = "annual" if period in (0, "Y", "y") else "quarterly"
+        period_type = (
+            PeriodType.Annual if period in (0, "Y", "y") else PeriodType.Quarterly
+        )
+    if all_history and period_type == PeriodType.Quarterly:
+        # The server handles quarterly weird, passing nothing gets you all documents which is what you want
+        period_type = None
+
     payload = {
         "companiesParameters": {"entireUniverse": entire_universe},
         "periodParameters": {
@@ -395,6 +412,9 @@ def document_search(
     else:
         for r in _document_search_results(payload, progress_bar=progress_bar):
             yield r
+
+
+document_search = disclosure_search
 
 
 def _document_search_results(payload, progress_bar=None):
