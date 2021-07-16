@@ -1,6 +1,6 @@
 import warnings
 from datetime import date
-from typing import Any, Iterable, Optional, Sequence, TYPE_CHECKING, Union
+from typing import Any, Optional, Sequence, TYPE_CHECKING, Union
 
 if TYPE_CHECKING:
     # https://github.com/microsoft/pyright/issues/1358
@@ -239,7 +239,7 @@ def standardized_raw(
 def point_in_time(
     company_identifiers: CompanyIdentifiers = [],
     all_footnotes: bool = False,
-    metrics: Iterable[str] = [],
+    metrics: Sequence[str] = [],
     all_history: bool = False,
     entire_universe: bool = False,
     start_year: int = None,
@@ -336,7 +336,7 @@ def point_in_time(
         return pd.DataFrame()
 
     data = pd.DataFrame(data)
-    data = data.drop(columns=["trace_facts"], errors="ignore")  # Those are annoying
+    data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
     sort_columns = ["ticker", "metric"]
 
     if "calendar_period" in data.columns:
@@ -350,6 +350,7 @@ def point_in_time(
         for date_column in ["date_reported", "period_end", "period_start"]:
             if date_column in data.columns:
                 data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
+
     return data.sort_values(sort_columns).reset_index(drop=True)
 
 
@@ -499,7 +500,7 @@ def _build_quarter_period(data_point, use_fiscal_period):
         return pd.Period()  # type: ignore
 
 
-def _build_annual_period(data_point, use_fiscal_period):
+def _build_annual_period(data_point: StandardizedPoint, use_fiscal_period):
     data_point.pop("fiscal_period" if use_fiscal_period else "calendar_period")
     return pd.Period(  # type: ignore
         year=data_point.pop("fiscal_year" if use_fiscal_period else "calendar_year"),
