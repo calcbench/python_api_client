@@ -133,7 +133,7 @@ USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
 def business_combinations_raw(
     company_identifiers: CompanyIdentifiers = [], accession_id: int = None
 ) -> Generator[BusinessCombination, None, None]:
-    """Data about mergers and acquisitions.
+    """Purchase price allocation for mergers and acquisitions.
 
     :param company_identifiers: Companies for which to retrieve data
     :param accession_id: Calcbench accession(filing) id  for which to retrieve data.  Get data for one filing.
@@ -150,7 +150,7 @@ def business_combinations_raw(
 def business_combinations(
     company_identifiers: CompanyIdentifiers = [], accession_id: int = None
 ) -> "pd.DataFrame":
-    """Data about mergers and acquisitions.
+    """Purchase price allocation for mergers and acquisitions.
 
     Columns are standardized metrics.
 
