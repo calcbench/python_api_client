@@ -109,11 +109,13 @@ def disclosure_dataframe(
             try:
                 if period_type == PeriodType.Quarterly:
                     # The server is not handling period type correctly.  Doing it here because it is easier.  akittredge, July 2021.
-                    if doc.fiscal_period == Period.Annual and use_fiscal_period:
-                        quarter = Period.Q4
-                quarter = (
-                    doc.fiscal_period if use_fiscal_period else doc.calendar_period
-                )
+                    if use_fiscal_period:
+                        if doc.fiscal_period == Period.Annual:
+                            quarter = Period.Q4
+                        else:
+                            quarter = doc.fiscal_period
+                    else:
+                        quarter = doc.calendar_period
 
             except KeyError:
                 # This happens for non-XBRL companies
