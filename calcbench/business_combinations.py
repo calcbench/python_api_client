@@ -20,7 +20,7 @@ class IntangibleCategory(dict):
     category: str
     useful_life_upper_range: float
     useful_life_lower_range: float
-    amount: float
+    value: float
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
@@ -171,7 +171,7 @@ def business_combinations(
         for asset_category in FINITE_LIVED_INTANGIBLE_ASSETS:
             intangible_category = datum.intangible_categories.get(asset_category)
             if intangible_category:
-                row[asset_category] = intangible_category.amount
+                row[asset_category] = intangible_category.value
                 row[
                     f"{asset_category}_{USEFUL_LIFE_LOW_COLUMN_LABEL}"
                 ] = intangible_category.useful_life_lower_range
