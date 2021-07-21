@@ -49,6 +49,7 @@ def disclosure_dataframe(
     identifier_key: Literal["ticker", "CIK"] = "ticker",
     block_tag_names: Sequence[str] = [],
     use_fiscal_period=True,
+    entire_universe: bool = False,
 ) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
@@ -60,14 +61,16 @@ def disclosure_dataframe(
     :param period_type: Only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents, "quarterly" is all history all periods
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param identifier_key: how to index the returned DataFrame.
-    :return: A DataFrame of DocumentSearchResults indexed by document name -> company identifier.
+    :param use_fiscal_period: Index disclosure by fiscal, as opposed to calendar periods.
+    :param entire_universe: Data for all companies
+    :return: A DataFrame of DislcosureSearchResults indexed by document name -> company identifier.
 
     Usage::
 
-      >>> data = calcbench.document_dataframe(company_identifiers=["msft", "goog"],
+      >>> data = calcbench.disclosure_dataframe(company_identifiers=["msft", "goog"],
       >>>                                     all_history=True,
       >>>                                     disclosure_names=["ManagementsDiscussionAndAnalysis", "RiskFactors"])
-      >>> word_counts = data.applymap(lambda document: document.get_contents_text().split()
+      >>> word_counts = data.applymap(lambda disclosure: disclosure.get_contents_text().split()
       >>>                             na_action="ignore")
 
     """
@@ -84,6 +87,7 @@ def disclosure_dataframe(
                     year=year,
                     period=period,
                     period_type=period_type,
+                    entire_universe=entire_universe,
                 )
             )
     else:
@@ -97,6 +101,7 @@ def disclosure_dataframe(
                 year=year,
                 period=period,
                 period_type=period_type,
+                entire_universe=entire_universe,
             )
         )
     data = pd.DataFrame()
@@ -229,7 +234,7 @@ PERIOD_MAP = {
 
 
 @dataclass
-class DocumentSearchResults(dict):
+class DislcosureSearchResults(dict):
     """
     Represents a disclosure.
     """
@@ -332,7 +337,7 @@ def disclosure_search(
     progress_bar: "tqdm.std.tqdm" = None,
     accession_id: int = None,
     all_text_blocks: bool = False,
-) -> Generator[DocumentSearchResults, None, None]:
+) -> Generator[DislcosureSearchResults, None, None]:
     """
     Footnotes and other text
 
@@ -342,27 +347,27 @@ def disclosure_search(
     :param year: Year to get data for
     :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param use_fiscal_period: interpret the passed period as a fiscal period, as opposed to calendar period
-    :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year documents, "quarterly" is all history all periods
+    :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year disclosures, "quarterly" is all history all periods
     :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
-    :param sub_divide: return the document split into sections based on headers.
+    :param sub_divide: return the disclosures split into sections based on headers.
     :param all_documents: all of the documents for a single company/period.
     :param entire_universe: Search all companies
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param block_tag_name: Level 2 or 3 XBRL tag.  See the list of FASB tags @ https://www.calcbench.com/disclosure_list#blockTags
     :param all_text_blocks: All level 1 and accounting policy text blocks
-    :return: A iterator of DocumentSearchResults
+    :return: A iterator of DisclosureSearchResults
 
     Usage::
 
        >>> import tqdm
-       >>> sp500 = calcbench.tickers(index='SP500')
+       >>> sp500 = calcbench.tickers(index="SP500")
        >>> with tqdm.tqdm() as progress_bar:
-       >>>     risk_factors = list(calcbench.document_search(company_identifiers=sp500,
-       >>>                         disclosure_names=['Risk Factors'],
+       >>>     risk_factors = calcbench.dislosure(company_identifiers=sp500,
+       >>>                         disclosure_names=["RiskFactors"],
        >>>                         all_history=True,
-       >>>                         progress_bar=progress_bar))
+       >>>                         progress_bar=progress_bar)
 
     """
     if not any(
@@ -390,7 +395,7 @@ def disclosure_search(
             PeriodType.Annual if period in (0, "Y", "y") else PeriodType.Quarterly
         )
     if all_history and period_type == PeriodType.Quarterly:
-        # The server handles quarterly weird, passing nothing gets you all documents which is what you want
+        # The server handles quarterly weird, passing nothing gets you all disclosures which is what you want
         period_type = None
 
     payload = {
@@ -440,7 +445,7 @@ def _document_search_results(payload, progress_bar=None):
         if progress_bar is not None:
             progress_bar.update(len(disclosures))
         for result in disclosures:
-            yield DocumentSearchResults(**result)
+            yield DislcosureSearchResults(**result)
         payload["pageParameters"]["startOffset"] = results["nextGroupStartOffset"]
     payload["pageParameters"]["startOffset"] = None
 
@@ -463,12 +468,3 @@ def _document_by_block_tag_name(
     payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
     json = _json_GET("query/disclosuresByTag", payload)
     return DisclosureContent(**json[0])
-
-
-if __name__ == "__main__":
-    document_dataframe(
-        company_identifiers=["msft", "goog"],
-        all_history=True,
-        disclosure_names=["ManagementsDiscussionAndAnalysis", "RiskFactors"],
-        use_fiscal_period=True,
-    )
