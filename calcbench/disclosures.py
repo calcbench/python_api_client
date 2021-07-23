@@ -50,6 +50,7 @@ def disclosure_dataframe(
     block_tag_names: Sequence[str] = [],
     use_fiscal_period=True,
     entire_universe: bool = False,
+    batch_size=100,
 ) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
@@ -78,7 +79,7 @@ def disclosure_dataframe(
         docs = []
         for block_tag_name in block_tag_names:
             docs.extend(
-                document_search(
+                disclosure_search(
                     company_identifiers=company_identifiers,
                     block_tag_name=block_tag_name,
                     all_history=all_history,
@@ -88,24 +89,23 @@ def disclosure_dataframe(
                     period=period,
                     period_type=period_type,
                     entire_universe=entire_universe,
+                    batch_size=batch_size,
                 )
             )
     else:
-        docs = list(
-            document_search(
-                company_identifiers=company_identifiers,
-                disclosure_names=disclosure_names,
-                all_history=all_history,
-                use_fiscal_period=use_fiscal_period,
-                progress_bar=progress_bar,
-                year=year,
-                period=period,
-                period_type=period_type,
-                entire_universe=entire_universe,
-            )
+        docs = disclosure_search(
+            company_identifiers=company_identifiers,
+            disclosure_names=disclosure_names,
+            all_history=all_history,
+            use_fiscal_period=use_fiscal_period,
+            progress_bar=progress_bar,
+            year=year,
+            period=period,
+            period_type=period_type,
+            entire_universe=entire_universe,
+            batch_size=batch_size,
         )
-    data = pd.DataFrame()
-
+    all_docs = []
     for doc in docs:
         period_year = doc.fiscal_year if use_fiscal_period else doc.calendar_year
         if period in ("Y", 0) or period_type == PeriodType.Annual:
@@ -128,7 +128,7 @@ def disclosure_dataframe(
                 p = None
             else:
                 p = pd.Period(year=period_year, quarter=quarter, freq="q")  # type: ignore
-        data = data.append(
+        all_docs.append(
             {
                 **doc,
                 **{
@@ -137,8 +137,8 @@ def disclosure_dataframe(
                     "value": doc,
                 },
             },
-            ignore_index=True,
         )
+    data = pd.DataFrame(all_docs)
     data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])  # type: ignore
     data = data.loc[~data.index.duplicated()]  # type:ignore There can be duplicates
     data = data.unstack("disclosure_type_name")["value"]  # type: ignore
@@ -364,10 +364,12 @@ def disclosure_search(
        >>> import tqdm
        >>> sp500 = calcbench.tickers(index="SP500")
        >>> with tqdm.tqdm() as progress_bar:
-       >>>     risk_factors = calcbench.dislosure(company_identifiers=sp500,
-       >>>                         disclosure_names=["RiskFactors"],
-       >>>                         all_history=True,
-       >>>                         progress_bar=progress_bar)
+       >>>     risk_factors = calcbench.disclosure_search(
+       >>>          company_identifiers=sp500,
+       >>>          disclosure_names=["RiskFactors"],
+       >>>          all_history=True,
+       >>>          progress_bar=progress_bar
+       >>>     )
 
     """
     if not any(

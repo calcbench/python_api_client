@@ -127,7 +127,7 @@ def _add_backoff(f):
 def _json_POST(end_point: str, payload: dict):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
     logger.debug(f"posting to {url}, {payload}")
-
+    start = datetime.now()
     response = _calcbench_session().post(
         url,
         data=json.dumps(payload),
@@ -140,8 +140,8 @@ def _json_POST(end_point: str, payload: dict):
     except requests.exceptions.HTTPError as e:
         logger.exception("Exception {0}, {1}".format(url, payload))
         raise e
-    response_data = response.json()
-    logger.debug(f"{response_data}")
+    response_data = response.json()    
+    logger.debug(f"In {datetime.now() - start} got, {response.text[:1000]}")
     return response_data
 
 
