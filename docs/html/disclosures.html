@@ -71,17 +71,19 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tqdm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sp500</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;SP500&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">()</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">dislosure</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RiskFactors&quot;</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">disclosure_search</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RiskFactors&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="calcbench.disclosures.disclosure_dataframe">
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_dataframe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">batch_size=100</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -547,7 +549,7 @@ Public date_reported As DateTime</p>
 
 <dl class="function">
 <dt>
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em><span class="sig-paren">)</span></dt>
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">batch_size=100</em><span class="sig-paren">)</span></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -616,17 +618,19 @@ Public date_reported As DateTime</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tqdm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sp500</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;SP500&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">()</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">dislosure</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RiskFactors&quot;</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">disclosure_search</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RiskFactors&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="calcbench.disclosures.document_dataframe">
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_dataframe" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">batch_size=100</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -695,10 +699,12 @@ Public date_reported As DateTime</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tqdm</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sp500</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;SP500&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">tqdm</span><span class="p">()</span> <span class="k">as</span> <span class="n">progress_bar</span><span class="p">:</span>
-<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">dislosure</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RiskFactors&quot;</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>                        <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">risk_factors</span> <span class="o">=</span> <span class="n">calcbench</span><span class="o">.</span><span class="n">disclosure_search</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">company_identifiers</span><span class="o">=</span><span class="n">sp500</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">disclosure_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;RiskFactors&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="n">progress_bar</span><span class="o">=</span><span class="n">progress_bar</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
