@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Filings &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Companies" href="companies.html" />
@@ -34,17 +34,17 @@
             
   <div class="section" id="module-calcbench.filing">
 <span id="filings"></span><h1>Filings<a class="headerlink" href="#module-calcbench.filing" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="calcbench.filing.Filing">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">Filing</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.Filing" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
-<dt id="calcbench.filing.Filing.CIK">
-<code class="sig-name descname">CIK</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.CIK" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.filing.Filing">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.filing.</span></span><span class="sig-name descname"><span class="pre">Filing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.Filing" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.CIK">
+<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.CIK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="calcbench.filing.Filing.accession_id">
-<em class="property">property </em><code class="sig-name descname">accession_id</code><a class="headerlink" href="#calcbench.filing.Filing.accession_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.accession_id">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">accession_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.filing.Filing.accession_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>calcbench_id should have been accession_id</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -53,268 +53,268 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.associated_earnings_press_release_SEC_URL">
-<code class="sig-name descname">associated_earnings_press_release_SEC_URL</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.associated_earnings_press_release_SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.associated_earnings_press_release_SEC_URL">
+<span class="sig-name descname"><span class="pre">associated_earnings_press_release_SEC_URL</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.associated_earnings_press_release_SEC_URL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.associated_proxy_SEC_URL">
-<code class="sig-name descname">associated_proxy_SEC_URL</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.associated_proxy_SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.associated_proxy_SEC_URL">
+<span class="sig-name descname"><span class="pre">associated_proxy_SEC_URL</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.associated_proxy_SEC_URL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.calcbench_accepted">
-<code class="sig-name descname">calcbench_accepted</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_accepted" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.calcbench_accepted">
+<span class="sig-name descname"><span class="pre">calcbench_accepted</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_accepted" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.calcbench_finished_load">
-<code class="sig-name descname">calcbench_finished_load</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_finished_load" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.calcbench_finished_load">
+<span class="sig-name descname"><span class="pre">calcbench_finished_load</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_finished_load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.calcbench_id">
-<code class="sig-name descname">calcbench_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.calcbench_id">
+<span class="sig-name descname"><span class="pre">calcbench_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.filing.Filing.calcbench_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.calendar_period">
-<code class="sig-name descname">calendar_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.calendar_period">
+<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_client.Period</span></em><a class="headerlink" href="#calcbench.filing.Filing.calendar_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.calendar_year">
-<code class="sig-name descname">calendar_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.calendar_year">
+<span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.filing.Filing.calendar_year" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.document_type">
-<code class="sig-name descname">document_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.document_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.document_type">
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.document_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.entity_id">
-<code class="sig-name descname">entity_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.entity_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.entity_id">
+<span class="sig-name descname"><span class="pre">entity_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.filing.Filing.entity_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.entity_name">
-<code class="sig-name descname">entity_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.entity_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.entity_name">
+<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.entity_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.filing_date">
-<code class="sig-name descname">filing_date</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.filing_date" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.filing_date">
+<span class="sig-name descname"><span class="pre">filing_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.filing.Filing.filing_date" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.filing_sub_type">
-<code class="sig-name descname">filing_sub_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.filing_sub_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.filing_sub_type">
+<span class="sig-name descname"><span class="pre">filing_sub_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.filing_sub_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.filing_type">
-<code class="sig-name descname">filing_type</code><em class="property">: FilingType</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.filing_type">
+<span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#calcbench.filing.FilingType" title="calcbench.filing.FilingType"><span class="pre">calcbench.filing.FilingType</span></a></em><a class="headerlink" href="#calcbench.filing.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.fiscal_period">
-<code class="sig-name descname">fiscal_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.fiscal_period">
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_client.Period</span></em><a class="headerlink" href="#calcbench.filing.Filing.fiscal_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.fiscal_year">
-<code class="sig-name descname">fiscal_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.fiscal_year">
+<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.filing.Filing.fiscal_year" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.is_wire">
-<code class="sig-name descname">is_wire</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.is_wire" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.is_wire">
+<span class="sig-name descname"><span class="pre">is_wire</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.filing.Filing.is_wire" title="Permalink to this definition">¶</a></dt>
 <dd><p>AKA accession_id</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.is_xbrl">
-<code class="sig-name descname">is_xbrl</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.is_xbrl" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.is_xbrl">
+<span class="sig-name descname"><span class="pre">is_xbrl</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.filing.Filing.is_xbrl" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.link1">
-<code class="sig-name descname">link1</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.link1" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.link1">
+<span class="sig-name descname"><span class="pre">link1</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.link1" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.link2">
-<code class="sig-name descname">link2</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.link2" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.link2">
+<span class="sig-name descname"><span class="pre">link2</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.link2" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.link3">
-<code class="sig-name descname">link3</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.link3" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.link3">
+<span class="sig-name descname"><span class="pre">link3</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.link3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.percentage_revenue_change">
-<code class="sig-name descname">percentage_revenue_change</code><em class="property">: Optional[float]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.percentage_revenue_change" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.percentage_revenue_change">
+<span class="sig-name descname"><span class="pre">percentage_revenue_change</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.filing.Filing.percentage_revenue_change" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.period_end_date">
-<code class="sig-name descname">period_end_date</code><em class="property">: datetime</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.period_end_date" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.period_end_date">
+<span class="sig-name descname"><span class="pre">period_end_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.filing.Filing.period_end_date" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.period_index">
-<code class="sig-name descname">period_index</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.period_index" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.period_index">
+<span class="sig-name descname"><span class="pre">period_index</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.filing.Filing.period_index" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.sec_accession_id">
-<code class="sig-name descname">sec_accession_id</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.sec_accession_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.sec_accession_id">
+<span class="sig-name descname"><span class="pre">sec_accession_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.sec_accession_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.sec_html_url">
-<code class="sig-name descname">sec_html_url</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.sec_html_url" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.sec_html_url">
+<span class="sig-name descname"><span class="pre">sec_html_url</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.sec_html_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.standardized_XBRL">
-<code class="sig-name descname">standardized_XBRL</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.standardized_XBRL" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.standardized_XBRL">
+<span class="sig-name descname"><span class="pre">standardized_XBRL</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.filing.Filing.standardized_XBRL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.this_period_revenue">
-<code class="sig-name descname">this_period_revenue</code><em class="property">: Optional[float]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.this_period_revenue" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.this_period_revenue">
+<span class="sig-name descname"><span class="pre">this_period_revenue</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.filing.Filing.this_period_revenue" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.Filing.ticker">
-<code class="sig-name descname">ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.filing.Filing.ticker" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.Filing.ticker">
+<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.filing.Filing.ticker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="calcbench.filing.FilingType">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">FilingType</code><a class="headerlink" href="#calcbench.filing.FilingType" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.filing.</span></span><span class="sig-name descname"><span class="pre">FilingType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.FilingType" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.BusinessWirePR_filedAfterAn8K">
-<code class="sig-name descname">BusinessWirePR_filedAfterAn8K</code><em class="property"> = 'BusinessWirePR_filedAfterAn8K'</em><a class="headerlink" href="#calcbench.filing.FilingType.BusinessWirePR_filedAfterAn8K" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.BusinessWirePR_filedAfterAn8K">
+<span class="sig-name descname"><span class="pre">BusinessWirePR_filedAfterAn8K</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'BusinessWirePR_filedAfterAn8K'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.BusinessWirePR_filedAfterAn8K" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.BusinessWirePR_replaced">
-<code class="sig-name descname">BusinessWirePR_replaced</code><em class="property"> = 'BusinessWirePR_replaced'</em><a class="headerlink" href="#calcbench.filing.FilingType.BusinessWirePR_replaced" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.BusinessWirePR_replaced">
+<span class="sig-name descname"><span class="pre">BusinessWirePR_replaced</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'BusinessWirePR_replaced'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.BusinessWirePR_replaced" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.Four24B">
-<code class="sig-name descname">Four24B</code><em class="property"> = 'Four24B'</em><a class="headerlink" href="#calcbench.filing.FilingType.Four24B" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.Four24B">
+<span class="sig-name descname"><span class="pre">Four24B</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Four24B'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.Four24B" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.NT10KorQ">
-<code class="sig-name descname">NT10KorQ</code><em class="property"> = 'NT10KorQ'</em><a class="headerlink" href="#calcbench.filing.FilingType.NT10KorQ" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.NT10KorQ">
+<span class="sig-name descname"><span class="pre">NT10KorQ</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'NT10KorQ'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.NT10KorQ" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.S">
-<code class="sig-name descname">S</code><em class="property"> = 'S'</em><a class="headerlink" href="#calcbench.filing.FilingType.S" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.S">
+<span class="sig-name descname"><span class="pre">S</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'S'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.S" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.annualQuarterlyReport">
-<code class="sig-name descname">annualQuarterlyReport</code><em class="property"> = 'annualQuarterlyReport'</em><a class="headerlink" href="#calcbench.filing.FilingType.annualQuarterlyReport" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.annualQuarterlyReport">
+<span class="sig-name descname"><span class="pre">annualQuarterlyReport</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'annualQuarterlyReport'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.annualQuarterlyReport" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.commentLetter">
-<code class="sig-name descname">commentLetter</code><em class="property"> = 'commentLetter'</em><a class="headerlink" href="#calcbench.filing.FilingType.commentLetter" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.commentLetter">
+<span class="sig-name descname"><span class="pre">commentLetter</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'commentLetter'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.commentLetter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.commentLetterResponse">
-<code class="sig-name descname">commentLetterResponse</code><em class="property"> = 'commentLetterResponse'</em><a class="headerlink" href="#calcbench.filing.FilingType.commentLetterResponse" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.commentLetterResponse">
+<span class="sig-name descname"><span class="pre">commentLetterResponse</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'commentLetterResponse'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.commentLetterResponse" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_conferenceCallTranscript">
-<code class="sig-name descname">eightk_conferenceCallTranscript</code><em class="property"> = 'eightk_conferenceCallTranscript'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_conferenceCallTranscript" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_conferenceCallTranscript">
+<span class="sig-name descname"><span class="pre">eightk_conferenceCallTranscript</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_conferenceCallTranscript'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_conferenceCallTranscript" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_earningsPressRelease">
-<code class="sig-name descname">eightk_earningsPressRelease</code><em class="property"> = 'eightk_earningsPressRelease'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_earningsPressRelease">
+<span class="sig-name descname"><span class="pre">eightk_earningsPressRelease</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_earningsPressRelease'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_earningsPressRelease_correction">
-<code class="sig-name descname">eightk_earningsPressRelease_correction</code><em class="property"> = 'eightk_earningsPressRelease_correction'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease_correction" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_earningsPressRelease_correction">
+<span class="sig-name descname"><span class="pre">eightk_earningsPressRelease_correction</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_earningsPressRelease_correction'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease_correction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_earningsPressRelease_preliminary">
-<code class="sig-name descname">eightk_earningsPressRelease_preliminary</code><em class="property"> = 'eightk_earningsPressRelease_preliminary'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease_preliminary" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_earningsPressRelease_preliminary">
+<span class="sig-name descname"><span class="pre">eightk_earningsPressRelease_preliminary</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_earningsPressRelease_preliminary'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_earningsPressRelease_preliminary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_guidanceUpdate">
-<code class="sig-name descname">eightk_guidanceUpdate</code><em class="property"> = 'eightk_guidanceUpdate'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_guidanceUpdate" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_guidanceUpdate">
+<span class="sig-name descname"><span class="pre">eightk_guidanceUpdate</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_guidanceUpdate'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_guidanceUpdate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_monthlyOperatingMetrics">
-<code class="sig-name descname">eightk_monthlyOperatingMetrics</code><em class="property"> = 'eightk_monthlyOperatingMetrics'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_monthlyOperatingMetrics" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_monthlyOperatingMetrics">
+<span class="sig-name descname"><span class="pre">eightk_monthlyOperatingMetrics</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_monthlyOperatingMetrics'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_monthlyOperatingMetrics" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_nonfinancial">
-<code class="sig-name descname">eightk_nonfinancial</code><em class="property"> = 'eightk_nonfinancial'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_nonfinancial" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_nonfinancial">
+<span class="sig-name descname"><span class="pre">eightk_nonfinancial</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_nonfinancial'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_nonfinancial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_other">
-<code class="sig-name descname">eightk_other</code><em class="property"> = 'eightk_other'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_other" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_other">
+<span class="sig-name descname"><span class="pre">eightk_other</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_other'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_other" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.eightk_presentationSlides">
-<code class="sig-name descname">eightk_presentationSlides</code><em class="property"> = 'eightk_presentationSlides'</em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_presentationSlides" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.eightk_presentationSlides">
+<span class="sig-name descname"><span class="pre">eightk_presentationSlides</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'eightk_presentationSlides'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.eightk_presentationSlides" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.form_3">
-<code class="sig-name descname">form_3</code><em class="property"> = 'form_3'</em><a class="headerlink" href="#calcbench.filing.FilingType.form_3" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.form_3">
+<span class="sig-name descname"><span class="pre">form_3</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'form_3'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.form_3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.form_4">
-<code class="sig-name descname">form_4</code><em class="property"> = 'form_4'</em><a class="headerlink" href="#calcbench.filing.FilingType.form_4" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.form_4">
+<span class="sig-name descname"><span class="pre">form_4</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'form_4'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.form_4" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.form_5">
-<code class="sig-name descname">form_5</code><em class="property"> = 'form_5'</em><a class="headerlink" href="#calcbench.filing.FilingType.form_5" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.form_5">
+<span class="sig-name descname"><span class="pre">form_5</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'form_5'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.form_5" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.institutionalOwnsership_13F">
-<code class="sig-name descname">institutionalOwnsership_13F</code><em class="property"> = 'institutionalOwnsership_13F'</em><a class="headerlink" href="#calcbench.filing.FilingType.institutionalOwnsership_13F" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.institutionalOwnsership_13F">
+<span class="sig-name descname"><span class="pre">institutionalOwnsership_13F</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'institutionalOwnsership_13F'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.institutionalOwnsership_13F" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.filing.FilingType.proxy">
-<code class="sig-name descname">proxy</code><em class="property"> = 'proxy'</em><a class="headerlink" href="#calcbench.filing.FilingType.proxy" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.filing.FilingType.proxy">
+<span class="sig-name descname"><span class="pre">proxy</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'proxy'</span></em><a class="headerlink" href="#calcbench.filing.FilingType.proxy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.filing.filings">
-<code class="sig-prename descclassname">calcbench.filing.</code><code class="sig-name descname">filings</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">include_non_xbrl=True</em>, <em class="sig-param">received_date=None</em>, <em class="sig-param">start_date=None</em>, <em class="sig-param">end_date=None</em>, <em class="sig-param">filing_types=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.filings" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.filing.filings">
+<span class="sig-prename descclassname"><span class="pre">calcbench.filing.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_non_xbrl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">received_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.filings" title="Permalink to this definition">¶</a></dt>
 <dd><p>SEC filings</p>
 <p><a class="reference external" href="https://www.calcbench.com/filings">https://www.calcbench.com/filings</a></p>
 <dl class="field-list simple">
@@ -390,7 +390,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -412,7 +412,7 @@
       &copy;2020, Andrew Kittredge.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

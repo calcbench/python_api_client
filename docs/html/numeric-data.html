@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Numeric Data &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Disclosures/Text" href="disclosures.html" />
@@ -38,9 +38,9 @@
 <div class="section" id="standardized">
 <h2>Standardized<a class="headerlink" href="#standardized" title="Permalink to this headline">¶</a></h2>
 <p>Calcbench standardizes +1000 metrics to handle differences filers’s tagging.  The list of stardized points is &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
-<dl class="function">
-<dt id="calcbench.standardized_data">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">standardized_data</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">point_in_time=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">trace_hyperlinks=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">company_identifier_scheme=&lt;CompanyIdentifierScheme.Ticker: 'ticker'&gt;</em>, <em class="sig-param">accession_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_data" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.standardized_data">
+<span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">standardized_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_in_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace_hyperlinks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">company_identifier_scheme</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">CompanyIdentifierScheme.Ticker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accession_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized Data.</p>
 <p>Metrics are standardized by economic concept and time period.</p>
 <p>The data behind the multi-company page, <a class="reference external" href="https://www.calcbench.com/multi">https://www.calcbench.com/multi</a>.</p>
@@ -51,9 +51,9 @@
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – Tickers/CIK codes. eg. [‘msft’, ‘goog’, ‘appl’, ‘0000066740’]</p></li>
 <li><p><strong>metrics</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Standardized metrics.  Full list &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a> eg. [‘revenue’, ‘accountsreceivable’]</p></li>
 <li><p><strong>start_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – first year of data</p></li>
-<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>end_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – last year of data</p></li>
-<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
 <li><p><strong>accession_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Calcbench Accession ID</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Get data for a single year, defaults to annual data.</p></li>
@@ -80,9 +80,9 @@
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.standardized_raw">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">standardized_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">accession_id=None</em>, <em class="sig-param">point_in_time=False</em>, <em class="sig-param">include_trace=False</em>, <em class="sig-param">update_date=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">include_preliminary=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">all_face=False</em>, <em class="sig-param">all_footnotes=False</em>, <em class="sig-param">include_xbrl=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_raw" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.standardized_raw">
+<span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">standardized_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accession_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_in_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_trace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_preliminary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_face</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_footnotes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_xbrl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized data.</p>
 <p>Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.</p>
 <dl class="field-list simple">
@@ -91,9 +91,9 @@
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – a sequence of tickers (or CIK codes), eg [‘msft’, ‘goog’, ‘appl’]</p></li>
 <li><p><strong>metrics</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – a sequence of metrics, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a> eg. [‘revenue’, ‘accountsreceivable’]</p></li>
 <li><p><strong>start_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – first year of data</p></li>
-<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>end_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – last year of data</p></li>
-<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
+<li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>entire_universe</strong> – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
 <li><p><strong>accession_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Calcbench Accession ID</p></li>
 <li><p><strong>include_trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Include the facts used to calculate the normalized value.</p></li>
@@ -115,9 +115,9 @@
 <div class="section" id="point-in-time">
 <h2>Point-In-Time<a class="headerlink" href="#point-in-time" title="Permalink to this headline">¶</a></h2>
 <p>Our standardized data with timestamps.  Useful for backtesting quantitative strategies.</p>
-<dl class="function">
-<dt id="calcbench.point_in_time">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">point_in_time</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">all_footnotes=False</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">include_preliminary=False</em>, <em class="sig-param">all_face=False</em>, <em class="sig-param">include_xbrl=True</em>, <em class="sig-param">accession_id=None</em>, <em class="sig-param">include_trace=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.point_in_time" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.point_in_time">
+<span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">point_in_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_footnotes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_preliminary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_face</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_xbrl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accession_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_trace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.point_in_time" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point-in-Time Data</p>
 <p>Standardized data with a timestamp when it was published by Calcbench</p>
 <dl class="field-list simple">
@@ -183,9 +183,9 @@
 <div class="section" id="dimensional">
 <h2>Dimensional<a class="headerlink" href="#dimensional" title="Permalink to this headline">¶</a></h2>
 <p>Segments: geographic and operating, and other dimensionalized tabular data.</p>
-<dl class="function">
-<dt id="calcbench.dimensional_raw">
-<code class="sig-prename descclassname">calcbench.</code><code class="sig-name descname">dimensional_raw</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">metrics=[]</em>, <em class="sig-param">start_year=None</em>, <em class="sig-param">start_period=None</em>, <em class="sig-param">end_year=None</em>, <em class="sig-param">end_period=None</em>, <em class="sig-param">period_type=&lt;PeriodType.Annual: 'annual'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.dimensional_raw" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.dimensional_raw">
+<span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">dimensional_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PeriodType.Annual</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.dimensional_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Segments and Breakouts</p>
 <p>The data behind the breakouts/segment page, <a class="reference external" href="https://www.calcbench.com/breakout">https://www.calcbench.com/breakout</a>.</p>
 <dl class="field-list simple">
@@ -215,82 +215,82 @@
 </dl>
 </dd></dl>
 
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">Period</code></dt>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.api_client.</span></span><span class="sig-name descname"><span class="pre">Period</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>An enumeration.</p>
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Annual</code><em class="property"> = 0</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Annual</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Q1</code><em class="property"> = 1</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Q1</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Q2</code><em class="property"> = 2</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Q2</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Q3</code><em class="property"> = 3</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Q3</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Q4</code><em class="property"> = 4</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Q4</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code></dt>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.api_client.</span></span><span class="sig-name descname"><span class="pre">PeriodType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>An enumeration.</p>
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Annual</code><em class="property"> = 'annual'</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Annual</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'annual'</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Combined</code><em class="property"> = 'combined'</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Combined</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'combined'</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">Quarterly</code><em class="property"> = 'quarterly'</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Quarterly</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'quarterly'</span></em></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt>
-<code class="sig-name descname">TrailingTwelveMonths</code><em class="property"> = 'TTM'</em></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">TrailingTwelveMonths</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'TTM'</span></em></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="calcbench.api_client.CompanyIdentifierScheme">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">CompanyIdentifierScheme</code><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.api_client.CompanyIdentifierScheme">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.api_client.</span></span><span class="sig-name descname"><span class="pre">CompanyIdentifierScheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
-<dl class="attribute">
-<dt id="calcbench.api_client.CompanyIdentifierScheme.CentralIndexKey">
-<code class="sig-name descname">CentralIndexKey</code><em class="property"> = 'CIK'</em><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme.CentralIndexKey" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.api_client.CompanyIdentifierScheme.CentralIndexKey">
+<span class="sig-name descname"><span class="pre">CentralIndexKey</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'CIK'</span></em><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme.CentralIndexKey" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.api_client.CompanyIdentifierScheme.Ticker">
-<code class="sig-name descname">Ticker</code><em class="property"> = 'ticker'</em><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme.Ticker" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.api_client.CompanyIdentifierScheme.Ticker">
+<span class="sig-name descname"><span class="pre">Ticker</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'ticker'</span></em><a class="headerlink" href="#calcbench.api_client.CompanyIdentifierScheme.Ticker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="calcbench.api_client.PeriodType">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.api_client.</code><code class="sig-name descname">PeriodType</code><a class="headerlink" href="#calcbench.api_client.PeriodType" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.api_client.PeriodType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.api_client.</span></span><span class="sig-name descname"><span class="pre">PeriodType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.api_client.PeriodType" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
 </dd></dl>
 
@@ -346,7 +346,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -368,7 +368,7 @@
       &copy;2020, Andrew Kittredge.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

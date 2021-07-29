@@ -1,20 +1,20 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Metrics &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Raw numeric" href="raw-numeric-XBRL.html" />
+    <link rel="next" title="Raw Numeric XBRL" href="raw-numeric-XBRL.html" />
     <link rel="prev" title="Low-latency New Data Notification" href="push-notification.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -34,16 +34,16 @@
             
   <div class="section" id="module-calcbench.metrics">
 <span id="metrics"></span><h1>Metrics<a class="headerlink" href="#module-calcbench.metrics" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="calcbench.metrics.available_metrics">
-<code class="sig-prename descclassname">calcbench.metrics.</code><code class="sig-name descname">available_metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.metrics.available_metrics" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.metrics.available_metrics">
+<span class="sig-prename descclassname"><span class="pre">calcbench.metrics.</span></span><span class="sig-name descname"><span class="pre">available_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.metrics.available_metrics" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized Metrics Dictionary</p>
 <p>See <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.metrics.available_metrics_dataframe">
-<code class="sig-prename descclassname">calcbench.metrics.</code><code class="sig-name descname">available_metrics_dataframe</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.metrics.available_metrics_dataframe" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.metrics.available_metrics_dataframe">
+<span class="sig-prename descclassname"><span class="pre">calcbench.metrics.</span></span><span class="sig-name descname"><span class="pre">available_metrics_dataframe</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.metrics.available_metrics_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized Metrics Dictionary</p>
 <p>See <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
 </dd></dl>
@@ -76,8 +76,9 @@
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw numeric</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a></li>
 </ul>
 
 <div class="relations">
@@ -85,7 +86,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="push-notification.html" title="previous chapter">Low-latency New Data Notification</a></li>
-      <li>Next: <a href="raw-numeric-XBRL.html" title="next chapter">Raw numeric</a></li>
+      <li>Next: <a href="raw-numeric-XBRL.html" title="next chapter">Raw Numeric XBRL</a></li>
   </ul></li>
 </ul>
 </div>
@@ -93,7 +94,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -115,7 +116,7 @@
       &copy;2020, Andrew Kittredge.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

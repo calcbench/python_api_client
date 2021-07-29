@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Disclosures/Text &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Face Statements" href="face-statements.html" />
@@ -36,28 +36,28 @@
 <h1>Disclosures/Text<a class="headerlink" href="#disclosures-text" title="Permalink to this headline">¶</a></h1>
 <p>It is easy to access the contents of SEC filings from Calcbench.</p>
 <p>Calcbench parses the sections of the 10-K/Q such as Management’s Discussion and Analysis and Risk Factors.  See the list of available sections &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a></p>
-<span class="target" id="module-calcbench.disclosures"></span><dl class="class">
-<dt id="calcbench.disclosures.DisclosureContent">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">DisclosureContent</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DisclosureContent" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-calcbench.disclosures"></span><dl class="py class">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">DisclosureContent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DisclosureContent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cooresponds to XBRLDisclosure on the server</p>
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.CIK">
-<code class="sig-name descname">CIK</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.CIK" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.CIK">
+<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.CIK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.accession_id">
-<code class="sig-name descname">accession_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.accession_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.accession_id">
+<span class="sig-name descname"><span class="pre">accession_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.accession_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.blobs">
-<code class="sig-name descname">blobs</code><em class="property">: Sequence[str]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.blobs" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.blobs">
+<span class="sig-name descname"><span class="pre">blobs</span></span><em class="property"><span class="pre">:</span> <span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.blobs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="calcbench.disclosures.DisclosureContent.contents">
-<em class="property">property </em><code class="sig-name descname">contents</code><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.contents" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.contents">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">contents</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.contents" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
@@ -65,133 +65,133 @@
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.disclosure_type">
-<code class="sig-name descname">disclosure_type</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.disclosure_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.disclosure_type">
+<span class="sig-name descname"><span class="pre">disclosure_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.disclosure_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.document_type">
-<code class="sig-name descname">document_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.document_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.document_type">
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.document_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Public end_date As Date
 Public filing_date As Date
 Public date_reported As DateTime</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.entity_id">
-<code class="sig-name descname">entity_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.entity_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.entity_id">
+<span class="sig-name descname"><span class="pre">entity_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.entity_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.entity_name">
-<code class="sig-name descname">entity_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.entity_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.entity_name">
+<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.entity_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.fact_id">
-<code class="sig-name descname">fact_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.fact_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.fact_id">
+<span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.fact_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.fiscal_period">
-<code class="sig-name descname">fiscal_period</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.fiscal_period">
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.fiscal_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.fiscal_year">
-<code class="sig-name descname">fiscal_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.fiscal_year">
+<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.fiscal_year" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.is_detail">
-<code class="sig-name descname">is_detail</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.is_detail" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.is_detail">
+<span class="sig-name descname"><span class="pre">is_detail</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.is_detail" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.label">
-<code class="sig-name descname">label</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.label" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.label">
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.last_in_group">
-<code class="sig-name descname">last_in_group</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.last_in_group" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.last_in_group">
+<span class="sig-name descname"><span class="pre">last_in_group</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.last_in_group" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.local_name">
-<code class="sig-name descname">local_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.local_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.local_name">
+<span class="sig-name descname"><span class="pre">local_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.local_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.networkID">
-<code class="sig-name descname">networkID</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.networkID" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.networkID">
+<span class="sig-name descname"><span class="pre">networkID</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.networkID" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.sec_accession_number">
-<code class="sig-name descname">sec_accession_number</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.sec_accession_number" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.sec_accession_number">
+<span class="sig-name descname"><span class="pre">sec_accession_number</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.sec_accession_number" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.sec_html_url">
-<code class="sig-name descname">sec_html_url</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.sec_html_url" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.sec_html_url">
+<span class="sig-name descname"><span class="pre">sec_html_url</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.sec_html_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.table_list">
-<code class="sig-name descname">table_list</code><em class="property">: list</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.table_list" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.table_list">
+<span class="sig-name descname"><span class="pre">table_list</span></span><em class="property"><span class="pre">:</span> <span class="pre">list</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.table_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DisclosureContent.ticker">
-<code class="sig-name descname">ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.ticker" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DisclosureContent.ticker">
+<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DisclosureContent.ticker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="calcbench.disclosures.DislcosureSearchResults">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">DislcosureSearchResults</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">DislcosureSearchResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a disclosure.</p>
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.CIK">
-<code class="sig-name descname">CIK</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.CIK" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.CIK">
+<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.CIK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.SEC_URL">
-<code class="sig-name descname">SEC_URL</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.SEC_URL">
+<span class="sig-name descname"><span class="pre">SEC_URL</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.SEC_URL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.accession_id">
-<code class="sig-name descname">accession_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.accession_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.accession_id">
+<span class="sig-name descname"><span class="pre">accession_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.accession_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.blob_id">
-<code class="sig-name descname">blob_id</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.blob_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.blob_id">
+<span class="sig-name descname"><span class="pre">blob_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.blob_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.calendar_period">
-<code class="sig-name descname">calendar_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.calendar_period">
+<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_client.Period</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.calendar_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.calendar_year">
-<code class="sig-name descname">calendar_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.calendar_year">
+<span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.calendar_year" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.content">
-<code class="sig-name descname">content</code><em class="property">: Optional[calcbench.disclosures.DisclosureContent]</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.content" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.content">
+<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#calcbench.disclosures.DisclosureContent" title="calcbench.disclosures.DisclosureContent"><span class="pre">calcbench.disclosures.DisclosureContent</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.content" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="calcbench.disclosures.DislcosureSearchResults.date_reported">
-<em class="property">property </em><code class="sig-name descname">date_reported</code><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.date_reported" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.date_reported">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">date_reported</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional[datetime.datetime]</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.date_reported" title="Permalink to this definition">¶</a></dt>
 <dd><p>Time (EST) the document was available from Calcbench</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -200,69 +200,69 @@ Public date_reported As DateTime</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.description">
-<code class="sig-name descname">description</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.description" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.description" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.disclosure_type_name">
-<code class="sig-name descname">disclosure_type_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.disclosure_type_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.disclosure_type_name">
+<span class="sig-name descname"><span class="pre">disclosure_type_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.disclosure_type_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.document_type">
-<code class="sig-name descname">document_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.document_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.document_type">
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.document_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.entity_id">
-<code class="sig-name descname">entity_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.entity_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.entity_id">
+<span class="sig-name descname"><span class="pre">entity_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.entity_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.entity_name">
-<code class="sig-name descname">entity_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.entity_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.entity_name">
+<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.entity_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.fact_id">
-<code class="sig-name descname">fact_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.fact_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.fact_id">
+<span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.fact_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.filing_date">
-<code class="sig-name descname">filing_date</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.filing_date" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.filing_date">
+<span class="sig-name descname"><span class="pre">filing_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.filing_date" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.filing_type">
-<code class="sig-name descname">filing_type</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.filing_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.filing_type">
+<span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.filing_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.fiscal_period">
-<code class="sig-name descname">fiscal_period</code><em class="property">: Period</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.fiscal_period">
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_client.Period</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.fiscal_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.fiscal_year">
-<code class="sig-name descname">fiscal_year</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.fiscal_year">
+<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.fiscal_year" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.footnote_type">
-<code class="sig-name descname">footnote_type</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.footnote_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.footnote_type">
+<span class="sig-name descname"><span class="pre">footnote_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.footnote_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.footnote_type_title">
-<code class="sig-name descname">footnote_type_title</code><em class="property">: FootnoteTypeTitle</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.footnote_type_title" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.footnote_type_title">
+<span class="sig-name descname"><span class="pre">footnote_type_title</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#calcbench.disclosures.FootnoteTypeTitle" title="calcbench.disclosures.FootnoteTypeTitle"><span class="pre">calcbench.disclosures.FootnoteTypeTitle</span></a></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.footnote_type_title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="calcbench.disclosures.DislcosureSearchResults.get_contents">
-<code class="sig-name descname">get_contents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.get_contents" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.get_contents">
+<span class="sig-name descname"><span class="pre">get_contents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.get_contents" title="Permalink to this definition">¶</a></dt>
 <dd><p>Content of the document, with the filers HTML</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -271,9 +271,9 @@ Public date_reported As DateTime</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="calcbench.disclosures.DislcosureSearchResults.get_contents_text">
-<code class="sig-name descname">get_contents_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.get_contents_text" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.get_contents_text">
+<span class="sig-name descname"><span class="pre">get_contents_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.get_contents_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contents of the HTML of the document</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -282,9 +282,9 @@ Public date_reported As DateTime</p>
 </dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="calcbench.disclosures.DislcosureSearchResults.get_disclosure">
-<code class="sig-name descname">get_disclosure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.get_disclosure" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.get_disclosure">
+<span class="sig-name descname"><span class="pre">get_disclosure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.get_disclosure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Content of the document, with the filers HTML</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -293,182 +293,182 @@ Public date_reported As DateTime</p>
 </dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.guide_link">
-<code class="sig-name descname">guide_link</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.guide_link" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.guide_link">
+<span class="sig-name descname"><span class="pre">guide_link</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.guide_link" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.id_detail">
-<code class="sig-name descname">id_detail</code><em class="property">: bool</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.id_detail" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.id_detail">
+<span class="sig-name descname"><span class="pre">id_detail</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.id_detail" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.local_name">
-<code class="sig-name descname">local_name</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.local_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.local_name">
+<span class="sig-name descname"><span class="pre">local_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.local_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.network_id">
-<code class="sig-name descname">network_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.network_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.network_id">
+<span class="sig-name descname"><span class="pre">network_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.network_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.page_url">
-<code class="sig-name descname">page_url</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.page_url" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.page_url">
+<span class="sig-name descname"><span class="pre">page_url</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.page_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.period_end_date">
-<code class="sig-name descname">period_end_date</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.period_end_date" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.period_end_date">
+<span class="sig-name descname"><span class="pre">period_end_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.period_end_date" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.received_date">
-<code class="sig-name descname">received_date</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.received_date" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.received_date">
+<span class="sig-name descname"><span class="pre">received_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.received_date" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.sec_accession_number">
-<code class="sig-name descname">sec_accession_number</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.sec_accession_number" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.sec_accession_number">
+<span class="sig-name descname"><span class="pre">sec_accession_number</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.sec_accession_number" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.sec_filing_id">
-<code class="sig-name descname">sec_filing_id</code><em class="property">: int</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.sec_filing_id" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.sec_filing_id">
+<span class="sig-name descname"><span class="pre">sec_filing_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.sec_filing_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.DislcosureSearchResults.ticker">
-<code class="sig-name descname">ticker</code><em class="property">: str</em><em class="property"> = None</em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.ticker" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.DislcosureSearchResults.ticker">
+<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.disclosures.DislcosureSearchResults.ticker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="calcbench.disclosures.FootnoteTypeTitle">
-<em class="property">class </em><code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">FootnoteTypeTitle</code><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">FootnoteTypeTitle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.AccountingPolicies">
-<code class="sig-name descname">AccountingPolicies</code><em class="property"> = 'Accounting Policies'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.AccountingPolicies" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.AccountingPolicies">
+<span class="sig-name descname"><span class="pre">AccountingPolicies</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Accounting</span> <span class="pre">Policies'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.AccountingPolicies" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.AdditionalSections">
-<code class="sig-name descname">AdditionalSections</code><em class="property"> = 'Additional 10-K and 10-Q Sections'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.AdditionalSections" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.AdditionalSections">
+<span class="sig-name descname"><span class="pre">AdditionalSections</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Additional</span> <span class="pre">10-K</span> <span class="pre">and</span> <span class="pre">10-Q</span> <span class="pre">Sections'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.AdditionalSections" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.BusinessCombinations">
-<code class="sig-name descname">BusinessCombinations</code><em class="property"> = 'Business Combinations'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.BusinessCombinations" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.BusinessCombinations">
+<span class="sig-name descname"><span class="pre">BusinessCombinations</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Business</span> <span class="pre">Combinations'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.BusinessCombinations" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.CashAndEquivalents">
-<code class="sig-name descname">CashAndEquivalents</code><em class="property"> = 'Cash And Cash Equivalents'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.CashAndEquivalents" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.CashAndEquivalents">
+<span class="sig-name descname"><span class="pre">CashAndEquivalents</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Cash</span> <span class="pre">And</span> <span class="pre">Cash</span> <span class="pre">Equivalents'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.CashAndEquivalents" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.CommitmentsAndContigencies">
-<code class="sig-name descname">CommitmentsAndContigencies</code><em class="property"> = 'Commitment And Contingencies'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.CommitmentsAndContigencies" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.CommitmentsAndContigencies">
+<span class="sig-name descname"><span class="pre">CommitmentsAndContigencies</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Commitment</span> <span class="pre">And</span> <span class="pre">Contingencies'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.CommitmentsAndContigencies" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Compensation">
-<code class="sig-name descname">Compensation</code><em class="property"> = 'Compensation Related Costs Postemployment Benefits'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Compensation" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Compensation">
+<span class="sig-name descname"><span class="pre">Compensation</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Compensation</span> <span class="pre">Related</span> <span class="pre">Costs</span> <span class="pre">Postemployment</span> <span class="pre">Benefits'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Compensation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Debt">
-<code class="sig-name descname">Debt</code><em class="property"> = 'Debt'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Debt" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Debt">
+<span class="sig-name descname"><span class="pre">Debt</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Debt'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Debt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Derivatives">
-<code class="sig-name descname">Derivatives</code><em class="property"> = 'Derivative Instruments And Hedging Activities'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Derivatives" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Derivatives">
+<span class="sig-name descname"><span class="pre">Derivatives</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Derivative</span> <span class="pre">Instruments</span> <span class="pre">And</span> <span class="pre">Hedging</span> <span class="pre">Activities'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Derivatives" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.EarningPerShare">
-<code class="sig-name descname">EarningPerShare</code><em class="property"> = 'Earnings Per Share'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.EarningPerShare" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.EarningPerShare">
+<span class="sig-name descname"><span class="pre">EarningPerShare</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Earnings</span> <span class="pre">Per</span> <span class="pre">Share'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.EarningPerShare" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.EigthKsByItemType">
-<code class="sig-name descname">EigthKsByItemType</code><em class="property"> = '8-Ks By Item Type'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.EigthKsByItemType" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.EigthKsByItemType">
+<span class="sig-name descname"><span class="pre">EigthKsByItemType</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'8-Ks</span> <span class="pre">By</span> <span class="pre">Item</span> <span class="pre">Type'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.EigthKsByItemType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Equity">
-<code class="sig-name descname">Equity</code><em class="property"> = 'Equity'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Equity" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Equity">
+<span class="sig-name descname"><span class="pre">Equity</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Equity'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Equity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Goodwill">
-<code class="sig-name descname">Goodwill</code><em class="property"> = 'Goodwill &amp; Intangible Assets'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Goodwill" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Goodwill">
+<span class="sig-name descname"><span class="pre">Goodwill</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Goodwill</span> <span class="pre">&amp;</span> <span class="pre">Intangible</span> <span class="pre">Assets'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Goodwill" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.IncomeTax">
-<code class="sig-name descname">IncomeTax</code><em class="property"> = 'Income Tax'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.IncomeTax" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.IncomeTax">
+<span class="sig-name descname"><span class="pre">IncomeTax</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Income</span> <span class="pre">Tax'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.IncomeTax" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.InterimReporting">
-<code class="sig-name descname">InterimReporting</code><em class="property"> = 'Interim Reporting'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.InterimReporting" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.InterimReporting">
+<span class="sig-name descname"><span class="pre">InterimReporting</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Interim</span> <span class="pre">Reporting'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.InterimReporting" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Inventory">
-<code class="sig-name descname">Inventory</code><em class="property"> = 'Inventory &amp; PPE'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Inventory" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Inventory">
+<span class="sig-name descname"><span class="pre">Inventory</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Inventory</span> <span class="pre">&amp;</span> <span class="pre">PPE'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Inventory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Leases">
-<code class="sig-name descname">Leases</code><em class="property"> = 'Leases'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Leases" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Leases">
+<span class="sig-name descname"><span class="pre">Leases</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Leases'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Leases" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Other">
-<code class="sig-name descname">Other</code><em class="property"> = 'Other'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Other" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Other">
+<span class="sig-name descname"><span class="pre">Other</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Other'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Other" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.OtherExpenses">
-<code class="sig-name descname">OtherExpenses</code><em class="property"> = 'Other Expenses'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.OtherExpenses" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.OtherExpenses">
+<span class="sig-name descname"><span class="pre">OtherExpenses</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Other</span> <span class="pre">Expenses'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.OtherExpenses" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.PolicyTextBlock">
-<code class="sig-name descname">PolicyTextBlock</code><em class="property"> = 'Policy Text Block'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.PolicyTextBlock" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.PolicyTextBlock">
+<span class="sig-name descname"><span class="pre">PolicyTextBlock</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Policy</span> <span class="pre">Text</span> <span class="pre">Block'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.PolicyTextBlock" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.RelatedDocuments">
-<code class="sig-name descname">RelatedDocuments</code><em class="property"> = 'Related Documents (8-Ks, Proxys &amp; Letters)'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.RelatedDocuments" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.RelatedDocuments">
+<span class="sig-name descname"><span class="pre">RelatedDocuments</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Related</span> <span class="pre">Documents</span> <span class="pre">(8-Ks,</span> <span class="pre">Proxys</span> <span class="pre">&amp;</span> <span class="pre">Letters)'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.RelatedDocuments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.RevenueFromContractWithCustomer">
-<code class="sig-name descname">RevenueFromContractWithCustomer</code><em class="property"> = 'Revenuefrom Contract With Customer'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.RevenueFromContractWithCustomer" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.RevenueFromContractWithCustomer">
+<span class="sig-name descname"><span class="pre">RevenueFromContractWithCustomer</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Revenuefrom</span> <span class="pre">Contract</span> <span class="pre">With</span> <span class="pre">Customer'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.RevenueFromContractWithCustomer" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.Segment">
-<code class="sig-name descname">Segment</code><em class="property"> = 'Segment'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Segment" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.Segment">
+<span class="sig-name descname"><span class="pre">Segment</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Segment'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.Segment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="calcbench.disclosures.FootnoteTypeTitle.TextBlock">
-<code class="sig-name descname">TextBlock</code><em class="property"> = 'Text Block'</em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.TextBlock" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.disclosures.FootnoteTypeTitle.TextBlock">
+<span class="sig-name descname"><span class="pre">TextBlock</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'Text</span> <span class="pre">Block'</span></em><a class="headerlink" href="#calcbench.disclosures.FootnoteTypeTitle.TextBlock" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.disclosures.disclosure_dataframe">
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">batch_size=100</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_dataframe" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.disclosures.disclosure_dataframe">
+<span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">disclosure_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disclosure_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ticker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_tag_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -477,7 +477,7 @@ Public date_reported As DateTime</p>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
-<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 <li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – how to index the returned DataFrame.</p></li>
@@ -502,9 +502,9 @@ Public date_reported As DateTime</p>
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.disclosures.disclosure_search">
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">disclosure_search</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=None</em>, <em class="sig-param">full_text_search_term=None</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=&lt;Period.Annual: 0&gt;</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">document_type=None</em>, <em class="sig-param">block_tag_name=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">document_name=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">updated_from=None</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">sub_divide=False</em>, <em class="sig-param">all_documents=False</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">accession_id=None</em>, <em class="sig-param">all_text_blocks=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_search" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.disclosures.disclosure_search">
+<span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">disclosure_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text_search_term</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Period.Annual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_tag_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_from</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_divide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_documents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disclosure_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accession_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_text_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.disclosure_search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Footnotes and other text</p>
 <p>Search for footnotes and other sections of 10-K, see <a class="reference external" href="https://www.calcbench.com/footnote">https://www.calcbench.com/footnote</a>.</p>
 <dl class="field-list simple">
@@ -512,7 +512,7 @@ Public date_reported As DateTime</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
-<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year disclosures, “quarterly” is all history all periods</p></li>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
@@ -527,7 +527,7 @@ Public date_reported As DateTime</p>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.disclosures.DislcosureSearchResults" title="calcbench.disclosures.DislcosureSearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">DislcosureSearchResults</span></code></a>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.disclosures.DislcosureSearchResults" title="calcbench.disclosures.DislcosureSearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">DislcosureSearchResults</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A iterator of DisclosureSearchResults</p>
@@ -547,9 +547,9 @@ Public date_reported As DateTime</p>
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.disclosures.document_dataframe">
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_dataframe</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=[]</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=None</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">identifier_key='ticker'</em>, <em class="sig-param">block_tag_names=[]</em>, <em class="sig-param">use_fiscal_period=True</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">batch_size=100</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_dataframe" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.disclosures.document_dataframe">
+<span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">document_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disclosure_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ticker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_tag_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Disclosures/Footnotes in a DataFrame</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -558,7 +558,7 @@ Public date_reported As DateTime</p>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
-<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 <li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – how to index the returned DataFrame.</p></li>
@@ -583,9 +583,9 @@ Public date_reported As DateTime</p>
 </div>
 </dd></dl>
 
-<dl class="function">
-<dt id="calcbench.disclosures.document_search">
-<code class="sig-prename descclassname">calcbench.disclosures.</code><code class="sig-name descname">document_search</code><span class="sig-paren">(</span><em class="sig-param">company_identifiers=None</em>, <em class="sig-param">full_text_search_term=None</em>, <em class="sig-param">year=None</em>, <em class="sig-param">period=&lt;Period.Annual: 0&gt;</em>, <em class="sig-param">period_type=None</em>, <em class="sig-param">document_type=None</em>, <em class="sig-param">block_tag_name=None</em>, <em class="sig-param">entire_universe=False</em>, <em class="sig-param">use_fiscal_period=False</em>, <em class="sig-param">document_name=None</em>, <em class="sig-param">all_history=False</em>, <em class="sig-param">updated_from=None</em>, <em class="sig-param">batch_size=100</em>, <em class="sig-param">sub_divide=False</em>, <em class="sig-param">all_documents=False</em>, <em class="sig-param">disclosure_names=[]</em>, <em class="sig-param">progress_bar=None</em>, <em class="sig-param">accession_id=None</em>, <em class="sig-param">all_text_blocks=False</em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_search" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.disclosures.document_search">
+<span class="sig-prename descclassname"><span class="pre">calcbench.disclosures.</span></span><span class="sig-name descname"><span class="pre">document_search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text_search_term</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Period.Annual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_tag_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_from</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_divide</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_documents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disclosure_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress_bar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accession_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_text_blocks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.disclosures.document_search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Footnotes and other text</p>
 <p>Search for footnotes and other sections of 10-K, see <a class="reference external" href="https://www.calcbench.com/footnote">https://www.calcbench.com/footnote</a>.</p>
 <dl class="field-list simple">
@@ -593,7 +593,7 @@ Public date_reported As DateTime</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Year to get data for</p></li>
-<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
+<li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year disclosures, “quarterly” is all history all periods</p></li>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
@@ -608,7 +608,7 @@ Public date_reported As DateTime</p>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.disclosures.DislcosureSearchResults" title="calcbench.disclosures.DislcosureSearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">DislcosureSearchResults</span></code></a>, <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">None</span></code>]</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.disclosures.DislcosureSearchResults" title="calcbench.disclosures.DislcosureSearchResults"><code class="xref py py-class docutils literal notranslate"><span class="pre">DislcosureSearchResults</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A iterator of DisclosureSearchResults</p>
@@ -674,7 +674,7 @@ Public date_reported As DateTime</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -696,7 +696,7 @@ Public date_reported As DateTime</p>
       &copy;2020, Andrew Kittredge.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
