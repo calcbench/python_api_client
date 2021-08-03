@@ -26,11 +26,14 @@ from .api_client import (
 )
 
 from .disclosures import (
-    document_search,
-    document_dataframe,
     disclosure_dataframe,
     disclosure_search,
 )
+
+# disclosure(search|dataframe) used to be document(search|dataframe) akittredge August 2021
+from .disclosures import disclosure_search as document_search
+from .disclosures import disclosure_dataframe as document_dataframe
+
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
 from .filing import filings, Filing

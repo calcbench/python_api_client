@@ -146,9 +146,6 @@ def disclosure_dataframe(
     return data
 
 
-document_dataframe = disclosure_dataframe
-
-
 class FootnoteTypeTitle(str, Enum):
     EigthKsByItemType = "8-Ks By Item Type"
     AccountingPolicies = "Accounting Policies"
@@ -434,9 +431,6 @@ def disclosure_search(
     else:
         for r in _document_search_results(payload, progress_bar=progress_bar):
             yield r
-
-
-document_search = disclosure_search
 
 
 def _document_search_results(payload, progress_bar=None):
