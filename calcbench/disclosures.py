@@ -48,7 +48,7 @@ def disclosure_dataframe(
     period_type: PeriodType = None,
     identifier_key: Literal["ticker", "CIK"] = "ticker",
     block_tag_names: Sequence[str] = [],
-    use_fiscal_period=True,
+    use_fiscal_period: bool = True,
     entire_universe: bool = False,
     batch_size=100,
 ) -> "pd.DataFrame":
@@ -108,6 +108,9 @@ def disclosure_dataframe(
     all_docs = []
     for doc in docs:
         period_year = doc.fiscal_year if use_fiscal_period else doc.calendar_year
+        if not period_year:
+            logger.info(f"Bad year for {doc}")
+            continue
         if period in ("Y", 0) or period_type == PeriodType.Annual:
             p = pd.Period(year=period_year, freq="a")  # type: ignore
         else:
