@@ -140,7 +140,7 @@ def _json_POST(end_point: str, payload: dict):
     except requests.exceptions.HTTPError as e:
         logger.exception("Exception {0}, {1}".format(url, payload))
         raise e
-    response_data = response.json()    
+    response_data = response.json()
     logger.debug(f"In {datetime.now() - start} got, {response.text[:1000]}")
     return response_data
 
@@ -163,6 +163,7 @@ def _json_GET(path: str, params: dict = {}):
     return response.json()
 
 
+@_add_backoff
 def set_credentials(cb_username: str, cb_password: str):
     """Set your calcbench credentials.
 
