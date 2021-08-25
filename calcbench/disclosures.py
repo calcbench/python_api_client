@@ -2,7 +2,7 @@ import dataclasses
 from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
-from typing import Generator, Optional, Sequence
+from typing import Generator, Iterable, Optional, Sequence
 
 try:
     from typing import Literal
@@ -76,7 +76,7 @@ def disclosure_dataframe(
 
     """
     if block_tag_names:
-        docs = []
+        docs: Iterable[DislcosureSearchResults] = []
         for block_tag_name in block_tag_names:
             docs.extend(
                 disclosure_search(

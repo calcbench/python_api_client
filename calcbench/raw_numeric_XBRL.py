@@ -1,10 +1,9 @@
 from enum import IntEnum
-from typing import Literal, Mapping, Sequence, TYPE_CHECKING
+from typing import Mapping, Sequence, TYPE_CHECKING
 from calcbench.api_client import (
     CompanyIdentifiers,
     Period,
     _json_POST,
-    _try_parse_timestamp,
 )
 
 if TYPE_CHECKING:
@@ -15,6 +14,11 @@ else:
         from typing import TypedDict
     except ImportError:
         from typing_extensions import TypedDict
+
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 try:
     import pandas as pd
