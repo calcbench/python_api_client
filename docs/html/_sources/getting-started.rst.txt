@@ -28,3 +28,7 @@ Error Retry
 -----------
 
 .. autofunction:: calcbench.enable_backoff
+
+Network Proxy
+-------------
+.. autofunction:: calcbench.set_proxies
