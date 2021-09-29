@@ -263,7 +263,9 @@ class DislcosureSearchResults(dict):
     network_id: int
     ticker: str
     filing_type: int
+    # Human readable disclosure name as reported by the filer, "Related Party Transactions", "Subsequent Events"
     description: str
+    # The name passed to the API, not set for 8-Ks, assigned by Calcbench.  We try to assign each disclosure to a category.
     disclosure_type_name: str
     period_end_date: str
     footnote_type_title: FootnoteTypeTitle
