@@ -253,6 +253,7 @@ def point_in_time(
     include_xbrl: bool = True,
     accession_id: int = None,
     include_trace: bool = False,
+    set_index: bool = False,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -265,6 +266,7 @@ def point_in_time(
     :param include_preliminary: Include facts from non-XBRL earnings press-releases and 8-Ks.
     :param include_xbrl: Include facts from XBRL 10-K/Qs.
     :param include_trace: Include a URL that points to the source document.
+    :param set_index: Set a useful index on the returned DataFrame
     :return: DataFrame of facts
 
     Columns:
@@ -335,29 +337,32 @@ def point_in_time(
     if not data:
         return pd.DataFrame()
 
-    data = pd.DataFrame(
-        data,
-        columns=[
-            "ticker",
-            "metric",
-            "fiscal_year",
-            "fiscal_period",
-            "revision_number",
-            "value",
-            "preliminary",
-            "XBRL",
-            "CIK",
-            "calcbench_entity_id",
-            "period_start",
-            "period_end",
-            "calendar_year",
-            "calendar_period",
-            "date_reported",
-            "filing_type",
-            "filing_accession_number",
-            "trace_url",
-        ],
-    )
+    data = pd.DataFrame(data)
+
+    # specify the order but include all columns
+    ordered_columns = [
+        "ticker",
+        "metric",
+        "fiscal_year",
+        "fiscal_period",
+        "revision_number",
+        "value",
+        "preliminary",
+        "XBRL",
+        "date_reported",
+        "filing_type",
+        "CIK",
+        "calcbench_entity_id",
+        "period_start",
+        "period_end",
+        "calendar_year",
+        "calendar_period",
+        "filing_accession_number",
+        "trace_url",
+    ]
+
+    new_columns = list(set(data.columns) - set(ordered_columns))
+    data = data.reindex(columns=ordered_columns + new_columns)
     data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
     sort_columns = ["ticker", "metric"]
 
@@ -372,8 +377,19 @@ def point_in_time(
         for date_column in ["date_reported", "period_end", "period_start"]:
             if date_column in data.columns:
                 data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
-
-    return data.sort_values(sort_columns).reset_index(drop=True)
+    if set_index:
+        if period_type == PeriodType.Quarterly:
+            data = data[
+                data.fiscal_period != 0
+            ]  # Sometime annual data gets into the quarterly stream
+            data["period"] = pd.PeriodIndex(
+                year=data.fiscal_year, quarter=data.fiscal_period, freq="Q"
+            )
+            data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
+        data = data.set_index(["ticker", "metric", "period", "revision_number"])
+    else:
+        data = data.sort_values(sort_columns).reset_index(drop=True)
+    return data
 
 
 def standardized_data(
