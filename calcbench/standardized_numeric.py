@@ -335,7 +335,29 @@ def point_in_time(
     if not data:
         return pd.DataFrame()
 
-    data = pd.DataFrame(data)
+    data = pd.DataFrame(
+        data,
+        columns=[
+            "ticker",
+            "metric",
+            "fiscal_year",
+            "fiscal_period",
+            "revision_number",
+            "value",
+            "preliminary",
+            "XBRL",
+            "CIK",
+            "calcbench_entity_id",
+            "period_start",
+            "period_end",
+            "calendar_year",
+            "calendar_period",
+            "date_reported",
+            "filing_type",
+            "filing_accession_number",
+            "trace_url",
+        ],
+    )
     data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
     sort_columns = ["ticker", "metric"]
 
