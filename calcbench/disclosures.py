@@ -54,6 +54,8 @@ def disclosure_dataframe(
 ) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
+    formerly know as "document_dataframe"
+
     :param company_identifiers: list of tickers or CIK codes
     :param disclosure_names: The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
@@ -344,6 +346,8 @@ def disclosure_search(
     Footnotes and other text
 
     Search for footnotes and other sections of 10-K, see https://www.calcbench.com/footnote.
+
+    Formerly know as "document_search"
 
     :param company_identifiers: list of tickers or CIK codes
     :param year: Year to get data for
