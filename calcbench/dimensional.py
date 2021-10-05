@@ -1,5 +1,7 @@
 from dataclasses import dataclass
-from typing import Sequence
+from typing import Dict, Literal, Sequence
+
+import pandas as pd
 
 from calcbench.api_client import (
     CompanyIdentifiers,
@@ -7,17 +9,240 @@ from calcbench.api_client import (
     PeriodType,
     _json_POST,
 )
+from calcbench.standardized_numeric import StandardizedPoint
 
 
-def dimensional_raw(
+class DimensionalDataPoint(StandardizedPoint):
+    """
+    The data returned by calls to the dimensional api end-point
+
+    """
+
+    container: str
+    dimensions: Dict[str, str]
+
+
+SEGMENTS = Literal[
+    "OperatingSegmentRevenue",
+    "OperatingSegmentAssets",
+    "OperatingSegmentLongLivedAssets",
+    "OperatingSegmentCapitalExpenditures",
+    "OperatingSegmentDepreciation",
+    "OperatingSegmentOperatingIncome",
+    "OperatingSegmentInterestExpense",
+    "OperatingSegmentGoodwill",
+    "GeographicalSegmentRevenue",
+    "GeographicalSegmentAssets",
+    "GeographicalSegmentLongLivedAssets",
+    "GeographicalSegmentCapitalExpenditures",
+    "GeographicalSegmentDepreciation",
+    "GeographicalSegmentGeographicalIncome",
+    "GeographicalSegmentInterestExpense",
+    "GeographicalSegmentGoodwill",
+    "DeferredTaxAssets",
+    "DeferredTaxLiabilities",
+    "IncomeTaxReconciliation",
+    "EffectiveIncomeTaxReconciliation",
+    "AssetsAndLiabilitiesAtFairValue",
+    "AssetsAndLiabilitiesAtFairValueLevel1",
+    "AssetsAndLiabilitiesAtFairValueLevel2",
+    "AssetsAndLiabilitiesAtFairValueLevel3",
+    "FairValueOfPensionPlanAssets",
+    "FairValueOfPensionPlanAssetsLevel1",
+    "FairValueOfPensionPlanAssetsLevel2",
+    "FairValueOfPensionPlanAssetsLevel3",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetTransfersIntoLevel3",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetTransfersOutOfLevel3",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetGainLossIncludedInEarnings",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetGainLossIncludedInOtherComprehensiveIncomeLoss",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetPurchases",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetSales",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetSettlements",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetIssues",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisAssetValue",
+    "FairValueMeasurementWithUnobservableInputsReconciliationLiabilityTransfersIntoLevel3",
+    "FairValueMeasurementWithUnobservableInputsReconciliationLiabilityTransfersOutOfLevel3",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisLiabilityGainLossIncludedInEarnings",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisLiabilityGainLossIncludedInOtherComprehensiveIncome",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisLiabilityPurchases",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisLiabilitySales",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisLiabilitySettlements",
+    "FairValueMeasurementWithUnobservableInputsReconciliationRecurringBasisLiabilityIssues",
+    "FairValueMeasurementWithUnobservableInputsReconciliationsRecurringBasisLiabilityValue",
+    "DebtInstrumentFaceAmount",
+    "DebtInstrumentUnamortizedDiscountPremiumNet",
+    "DebtInstrumentCarryingAmount",
+    "DebtInstrumentInterestRateStatedPercentage",
+    "DebtInstrumentInterestRateEffectivePercentage",
+    "DebtInstrumentMaturityDate",
+    "DebtInstrumentMaturityYear",
+    "DerivativeNotionalAmount",
+    "DerivativeAssetNotionalAmount",
+    "DerivativeLiabilityNotionalAmount",
+    "DerivativeFairValueOfDerivativeAsset",
+    "DerivativeFairValueOfDerivativeLiability",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedNumber",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsGrantsInPeriod",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeitedInPeriod",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriod",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsNonvestedWeightedAverageGrantDateFairValue",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsGrantsInPeriodWeightedAverageGrantDateFairValue",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriodWeightedAverageGrantDateFairValue",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsForfeituresWeightedAverageGrantDateFairValue",
+    "ShareBasedCompensationArrangementByShareBasedPaymentAwardEquityInstrumentsOtherThanOptionsVestedInPeriodTotalFairValue",
+    "ShareBasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeLowerRangeLimit",
+    "ShareBasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeUpperRangeLimit",
+    "ShareBasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeNumberOfOutstandingOptions",
+    "SharebasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeOutstandingOptionsWeightedAverageRemainingContractualTerm",
+    "SharebasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeOutstandingOptionsWeightedAverageExercisePriceBeginningBalance",
+    "ShareBasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeNumberOfExercisableOptions",
+    "SharebasedCompensationSharesAuthorizedUnderStockOptionPlansExercisePriceRangeExercisableOptionsWeightedAverageExercisePrice",
+    "DisposalGroup",
+    "FiniteLivedIntangibleAssetsGross",
+    "FiniteLivedIntangibleAssetsAccumulatedAmortization",
+    "FiniteLivedIntangibleAssetsNet",
+    "ImpairmentOfIntangibleAssetsExcludingGoodwill",
+    "IndefiniteLivedIntangibleAssetsExcludingGoodwill",
+    "RealEstateAndAccumulatedDepreciationAmountOfEncumbrances",
+    "RealEstateAndAccumulatedDepreciationInitialCostOfLand",
+    "RealEstateAndAccumulatedDepreciationInitialCostOfBuildingsAndImprovements",
+    "RealEstateAndAccumulatedDepreciationCostsCapitalizedSubsequentToAcquisitionCarryingCosts",
+    "SECScheduleIIIRealEstateAndAccumulatedDepreciationCostsCapitalizedSubsequentToAcquisitionLand",
+    "SECScheduleIIIRealEstateAndAccumulatedDepreciationCostsCapitalizedSubsequentToAcquisitionBuildingsAndImprovements",
+    "RealEstateAndAccumulatedDepreciationCarryingAmountOfLand",
+    "RealEstateAndAccumulatedDepreciationCarryingAmountOfBuildingsAndImprovements",
+    "RealEstateAccumulatedDepreciation",
+    "RealEstateGrossAtCarryingValue",
+    "ConcentrationRiskPercentageCustomer",
+    "ConcentrationRiskPercentageSupplier",
+    "BusinessCombinationConsideration",
+    "BusinessCombination",
+    "BusinessCombinationAdjustment",
+    "BusinessCombinationAsAdjusted",
+    "BusinessCombinationIntangibleAssetsAcquired",
+    "BusinessCombinationIntangibleAssetsAcquiredWeightedAverageUsefulLife",
+    "EquityMethodInvestments",
+    "IncomeLossFromEquityMethodInvestments",
+    "EquityMethodInvestmentDividendsOrDistributions",
+    "EquityMethodInvestmentRealizedGainLossOnDisposal",
+    "filing_date",
+    "BusinessCombinationAcquisitionDate",
+    "BusinessCombinationPurchasePrice",
+    "PaymentsToAcquireBusinessesGross",
+    "PaymentsToAcquireBusinessesNetOfCashAcquired",
+    "BusinessAcquisitionCostOfAcquiredEntityCashPaid",
+    "BusinessCombinationConsiderationTransferredIncludingEquityInterestInAcquireeHeldPriorToCombination1",
+    "BusinessCombinationConsiderationTransferredEquityInterestsIssuedAndIssuable",
+    "BusinessAcquisitionEquityInterestsIssuedOrIssuableNumberOfSharesIssued",
+    "BusinessCombinationAcquisitionRelatedCosts",
+    "BusinessCombinationContingentConsiderationLiability",
+    "BusinessCombinationContingentConsiderationArrangementsRangeOfOutcomesValueLow",
+    "BusinessCombinationContingentConsiderationArrangementsRangeOfOutcomesValueHigh",
+    "BusinessCombinationAssetsAcquiredCashAndEquivalents",
+    "BusinessCombinationAssetsAcquiredReceivables",
+    "BusinessCombinationAssetsAcquiredInventory",
+    "BusinessCombinationAssetsAcquiredPropertyPlantAndEquipment",
+    "BusinessCombinationAssetsAquiredGoodwill",
+    "FinitelivedIntangibleAssetsAcquired",
+    "IndefinitelivedIntangibleAssetsAcquired",
+    "AcquiredFiniteLivedIntangibleAssetsWeightedAverageUsefulLife",
+    "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedAssets",
+    "BusinessCombinationLiabilitiesAssumedCurrentLiabilitiesAccountsPayable",
+    "BusinessCombinationLiabilitiesAssumedLongTermDebt",
+    "BusinessCombinationLiabilitiesAssumedDeferredRevenue",
+    "BusinessCombinationLiabilitiesAssumed",
+    "BusinessCombinationBargainPurchaseGainRecognizedAmount",
+    "BusinessCombinationBargainPurchaseGainAdjustment",
+    "BusinessAcquisitionsProFormaRevenue",
+    "BusinessAcquisitionCostOfAcquiredEntityTransactionCosts",
+    "PlanName",
+    "DefinedBenefitPlanNetPeriodicBenefitCost",
+    "DefinedBenefitPlanServiceCost",
+    "DefinedBenefitPlanInterestCost",
+    "DefinedBenefitPlanExpectedReturnOnPlanAssets",
+    "DefinedBenefitPlanAmortizationOfTransitionObligationsAssets",
+    "DefinedBenefitPlanAmortizationOfPriorServiceCostCredit",
+    "DefinedBenefitPlanAmortizationOfGainsLoss",
+    "DefinedBenefitPlanRecognizedNetGainLossDueToSettlementsAndCurtailments",
+    "DefinedBenefitPlanOtherCosts",
+    "DefinedBenefitPlanBenefitObligation",
+    "DefinedBenefitPlanChangeInBenefitObligationServiceCost",
+    "DefinedBenefitPlanChangeInBenefitObligationInterestCost",
+    "DefinedBenefitPlanContributionsByPlanParticipants",
+    "DefinedBenefitPlanActuarialGainLoss",
+    "DefinedBenefitPlanBenefitsPaid",
+    "DefinedBenefitPlanDirectBenefitsPaid",
+    "DefinedBenefitPlanPlanAmendments",
+    "DefinedBenefitPlanBusinessCombinationsAndAcquisitionsBenefitObligation",
+    "DefinedBenefitPlanChangeInDiscountRate",
+    "DefinedBenefitPlanTransfers",
+    "DefinedBenefitPlanForeignCurrencyExchangeRateChangesBenefitObligation",
+    "DefinedBenefitPlanDBOOtherChanges",
+    "DefinedBenefitPlanAccumulatedBenefitObligation",
+    "DefinedBenefitPlanFairValueOfPlanAssets",
+    "DefinedBenefitPlanActualReturnOnPlanAssets",
+    "DefinedBenefitPlanContributionsByEmployer",
+    "DefinedBenefitPlanContributionsByPlanParticipants_Asset",
+    "DefinedBenefitPlanBenefitsPaid_Asset",
+    "DefinedBenefitPlanPurchasesSalesAndSettlements",
+    "DefinedBenefitPlanForeignCurrencyExchangeRateChangesPlanAssets",
+    "DefinedBenefitPlanAssetsOtherChanges",
+]
+
+
+def dimensional(
     company_identifiers: CompanyIdentifiers = [],
-    metrics: Sequence[str] = [],
+    metrics: Sequence[SEGMENTS] = [],
     start_year: int = None,
     start_period: PeriodArgument = None,
     end_year: int = None,
     end_period: PeriodArgument = None,
     period_type: PeriodType = PeriodType.Annual,
-):
+    all_history: bool = True,
+) -> "pd.DataFrame":
+    raw_data = dimensional_raw(
+        company_identifiers=company_identifiers,
+        metrics=metrics,
+        start_year=start_year,
+        start_period=start_period,
+        end_year=end_year,
+        end_period=end_period,
+        period_type=period_type,
+        all_history=all_history,
+    )
+
+    raw_data = [
+        {
+            **d,
+            **[
+                {"axis": axis, "member": member}
+                for axis, member in d["dimensions"].items()
+            ][0],
+        }
+        for d in raw_data
+    ]
+
+    return pd.DataFrame(raw_data).set_index(
+        [
+            "ticker",
+            "axis",
+            "member",
+            "fiscal_year",
+            "fiscal_period",
+        ]
+    )[["value"]]
+
+
+def dimensional_raw(
+    company_identifiers: CompanyIdentifiers = [],
+    metrics: Sequence[SEGMENTS] = [],
+    start_year: int = None,
+    start_period: PeriodArgument = None,
+    end_year: int = None,
+    end_period: PeriodArgument = None,
+    period_type: PeriodType = PeriodType.Annual,
+    all_history: bool = True,
+) -> Sequence[DimensionalDataPoint]:
     """Segments and Breakouts
 
     The data behind the breakouts/segment page, https://www.calcbench.com/breakout.
@@ -38,8 +263,6 @@ def dimensional_raw(
     """
     if len(metrics) == 0:
         raise (ValueError("Need to supply at least one breakout."))
-    if period_type not in ("annual", "quarterly"):
-        raise (ValueError("period_type must be in ('annual', 'quarterly')"))
 
     payload = {
         "companiesParameters": {
@@ -52,6 +275,7 @@ def dimensional_raw(
             "endYear": start_year,
             "periodType": period_type,
             "asOriginallyReported": False,
+            "allHistory": all_history,
         },
         "pageParameters": {
             "metrics": metrics,

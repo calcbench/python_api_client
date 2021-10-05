@@ -21,6 +21,7 @@ Calcbench Python API Client
    raw-numeric-XBRL
    raw-numeric-non-XBRL
    business-combinations
+   dimensional
 
 Examples
 --------

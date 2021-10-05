@@ -51,9 +51,7 @@ from .raw_numeric_XBRL import raw_XBRL, raw_xbrl_raw
 
 from .raw_numeric_non_XBRL import non_XBRL_numeric_raw, non_XBRL_numeric
 
-from .dimensional import (
-    dimensional_raw,
-)
+from .dimensional import dimensional_raw, dimensional
 
 from .business_combinations import (
     business_combinations_raw,
