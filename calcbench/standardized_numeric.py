@@ -51,9 +51,9 @@ class StandardizedPoint(TypedDict):
     metric: str
     value: Union[str, float, int]
     calendar_year: int
-    calendar_period: int
+    calendar_period: Period
     fiscal_year: int
-    fiscal_period: int
+    fiscal_period: Period
     trace_facts: Sequence[TraceData]
     ticker: str
     calcbench_entity_id: int
@@ -85,6 +85,7 @@ def standardized_raw(
     all_face: bool = False,
     all_footnotes: bool = False,
     include_xbrl: bool = False,
+    exclude_errors: bool = True,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -102,6 +103,7 @@ def standardized_raw(
     :param year: Get data for a single year, defaults to annual data.
     :param period_type: Either "annual" or "quarterly"
     :param include_preliminary: Include data from non-XBRL 8-Ks and press releases.
+    :param exclude_errors: Run another level of error detections, only works for PIT preliminary
     :return: A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
 
     """
@@ -226,6 +228,7 @@ def standardized_raw(
             "periodType": period_type,
             "useFiscalPeriod": use_fiscal_period,
             "accessionID": accession_id,
+            "excludeErrors": exclude_errors,
         },
         "companiesParameters": {
             "entireUniverse": entire_universe,
@@ -254,6 +257,7 @@ def point_in_time(
     accession_id: int = None,
     include_trace: bool = False,
     set_index: bool = False,
+    exclude_errors: bool = False,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -267,6 +271,7 @@ def point_in_time(
     :param include_xbrl: Include facts from XBRL 10-K/Qs.
     :param include_trace: Include a URL that points to the source document.
     :param set_index: Set a useful index on the returned DataFrame
+    :param exclude_errors:  Run the error detection
     :return: DataFrame of facts
 
     Columns:
@@ -332,6 +337,7 @@ def point_in_time(
         accession_id=accession_id,
         include_trace=include_trace,
         include_xbrl=include_xbrl,
+        exclude_errors=exclude_errors,
     )
 
     if not data:
@@ -378,14 +384,21 @@ def point_in_time(
             if date_column in data.columns:
                 data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
     if set_index:
-        if period_type == PeriodType.Quarterly:
-            data = data[
-                data.fiscal_period != 0
-            ]  # Sometime annual data gets into the quarterly stream
-            data["period"] = pd.PeriodIndex(
-                year=data.fiscal_year, quarter=data.fiscal_period, freq="Q"
+        if not period_type:
+            data["period"] = (
+                data.fiscal_year.astype(str) + "-" + data.fiscal_period.astype(str)
             )
-            data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
+        else:
+            if period_type == PeriodType.Quarterly:
+                data = data[
+                    data.fiscal_period != 0
+                ]  # Sometime annual data gets into the quarterly stream
+                data["period"] = pd.PeriodIndex(
+                    year=data.fiscal_year, quarter=data.fiscal_period, freq="Q"
+                )
+            elif period_type == PeriodType.Annual:
+                data["period"] = data["fiscal_year"]
+        data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
         data = data.set_index(["ticker", "metric", "period", "revision_number"])
     else:
         data = data.sort_values(sort_columns).reset_index(drop=True)
@@ -522,7 +535,7 @@ def standardized_data(
     return data
 
 
-def _build_quarter_period(data_point, use_fiscal_period):
+def _build_quarter_period(data_point: StandardizedPoint, use_fiscal_period):
     try:
         return pd.Period(  # type: ignore
             year=data_point.pop(
