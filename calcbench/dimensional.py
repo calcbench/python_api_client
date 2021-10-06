@@ -204,6 +204,25 @@ def dimensional(
     period_type: PeriodType = PeriodType.Annual,
     all_history: bool = True,
 ) -> "pd.DataFrame":
+    """
+    Segments and Breakouts
+
+    The data behind the breakouts/segment page, https://www.calcbench.com/breakout.
+
+    :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
+    :param sequence metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
+    :param int start_year: first year of data to get
+    :param int start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param int end_year: last year of data to get
+    :param int end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param str period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
+    :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
+    :rtype: sequence
+
+    Usage::
+      >>> cb.dimensional_raw(company_identifiers=['fdx'], metrics=['OperatingSegmentRevenue'], start_year=2018)
+
+    """
     raw_data = dimensional_raw(
         company_identifiers=company_identifiers,
         metrics=metrics,
@@ -266,8 +285,6 @@ def dimensional_raw(
     :param int end_year: last year of data to get
     :param int end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param str period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
-    :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
-    :rtype: sequence
 
     Usage::
       >>> cb.dimensional_raw(company_identifiers=['fdx'], metrics=['OperatingSegmentRevenue'], start_year=2018)
