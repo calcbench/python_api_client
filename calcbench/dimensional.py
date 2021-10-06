@@ -274,7 +274,7 @@ def dimensional_raw(
 
     """
     if len(metrics) == 0:
-        raise (ValueError("Need to supply at least one breakout."))
+        raise (ValueError("Need to supply at least one metric."))
 
     payload = {
         "companiesParameters": {
