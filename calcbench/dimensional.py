@@ -220,7 +220,12 @@ def dimensional(
     :rtype: sequence
 
     Usage::
-      >>> cb.dimensional_raw(company_identifiers=['fdx'], metrics=['OperatingSegmentRevenue'], start_year=2018)
+
+      >>> cb.dimensional(
+      >>>   company_identifiers=cb.tickers(index="DJIA"),
+      >>>   metrics=["OperatingSegmentRevenue", "OperatingSegmentOperatingIncome"],
+      >>>   period_type="annual",
+      >>> )
 
     """
     raw_data = dimensional_raw(
@@ -287,7 +292,10 @@ def dimensional_raw(
     :param str period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
 
     Usage::
-      >>> cb.dimensional_raw(company_identifiers=['fdx'], metrics=['OperatingSegmentRevenue'], start_year=2018)
+      >>> cb.dimensional_raw(company_identifiers=['fdx'],
+      >>>   metrics=['OperatingSegmentRevenue'],
+      >>>   start_year=2018
+      >>> )
 
     """
     if len(metrics) == 0:

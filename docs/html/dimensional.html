@@ -144,12 +144,14 @@
 <dd class="field-odd"><p>sequence</p>
 </dd>
 </dl>
-<dl>
-<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fdx&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OperatingSegmentRevenue&#39;</span><span class="p">],</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">2018</span><span class="p">)</span>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">company_identifiers</span><span class="o">=</span><span class="n">cb</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;DJIA&quot;</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OperatingSegmentRevenue&quot;</span><span class="p">,</span> <span class="s2">&quot;OperatingSegmentOperatingIncome&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">period_type</span><span class="o">=</span><span class="s2">&quot;annual&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -171,7 +173,10 @@
 </dd>
 </dl>
 <dl>
-<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fdx&#39;</span><span class="p">],</span> <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OperatingSegmentRevenue&#39;</span><span class="p">],</span> <span class="n">start_year</span><span class="o">=</span><span class="mi">2018</span><span class="p">)</span>
+<dt>Usage::</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cb</span><span class="o">.</span><span class="n">dimensional_raw</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;fdx&#39;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;OperatingSegmentRevenue&#39;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">start_year</span><span class="o">=</span><span class="mi">2018</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
