@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Literal, Sequence
+from typing import Callable, Dict, Literal, Sequence, Union
 
 import pandas as pd
 
@@ -9,7 +9,11 @@ from calcbench.api_client import (
     PeriodType,
     _json_POST,
 )
-from calcbench.standardized_numeric import StandardizedPoint
+from calcbench.standardized_numeric import (
+    StandardizedPoint,
+    _build_annual_period,
+    _build_quarter_period,
+)
 
 
 class DimensionalDataPoint(StandardizedPoint):
@@ -210,6 +214,13 @@ def dimensional(
         period_type=period_type,
         all_history=all_history,
     )
+    build_period: Callable[[DimensionalDataPoint, bool], Union[str, "pd.Period"]]
+    if period_type == PeriodType.Annual:
+        build_period = _build_annual_period
+    elif period_type == PeriodType.Quarterly:
+        build_period = _build_quarter_period
+    else:
+        build_period = lambda d, _: f"{d['fiscal_year']}-{d['fiscal_period']}"
 
     raw_data = [
         {
@@ -218,6 +229,7 @@ def dimensional(
                 {"axis": axis, "member": member}
                 for axis, member in d["dimensions"].items()
             ][0],
+            **{"fiscal_period": build_period(d, use_fiscal_period=True)},
         }
         for d in raw_data
     ]
@@ -226,8 +238,8 @@ def dimensional(
         [
             "ticker",
             "axis",
+            "metric",
             "member",
-            "fiscal_year",
             "fiscal_period",
         ]
     )[["value"]]
