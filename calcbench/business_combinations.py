@@ -238,7 +238,7 @@ DB_NAMES_TO_LEGACY_COLUMNS = {
     "IndefinitelivedIntangibleAssetsAcquired": "Indefinite Lived Intangible Assets Acquired",
     "BusinessCombinationAssetsDeferredTaxAssetsNoncurrent": "Business Combination, Deferred Tax Assets, Noncurrent",
     "BusinessCombinationAssetsFinancialAssets": "Business Combination, Financial Assets",
-    "BusinessCombinationAssetsOtherAssets": "BusinessCombination AssetsOtherAssets",
+    "BusinessCombinationAssetsOtherAssets": "BusinessCombinationAssetsOtherAssets",
     "BusinessCombinationRecognizedIdentifiableAssetsAcquiredAndLiabilitiesAssumedAssets": "Business Combination, Assumed Assets",
     "BusinessCombinationLiabilitiesAssumedCurrentLiabilitiesAccountsPayable": "Business Combination, Assumed Accounts Payable",
     "BusinessCombinationLiabilitiesAssumedDeferredRevenue": "Business Combination, Liabilities Assumed Deferred Revenue",
@@ -251,7 +251,7 @@ DB_NAMES_TO_LEGACY_COLUMNS = {
     "BusinessCombinationLiabilitiesAssumedContingentLiability": "Business Combination, Contingent Liability",
     "BusinessCombinationLiabilitiesAssumedFinancialLiabilities": "Business Combination, Financial Liabilities",
     "BusinessCombinationLiabilitiesAssumedRestructuringLiabilities": "Business Combination, Restructuring Liabilities",
-    "BusinessCombinationLiabilitiesAssumedOtherLiabilities": "BusinessCombination LiabilitiesAssumedOtherLiabilities",
+    "BusinessCombinationLiabilitiesAssumedOtherLiabilities": "BusinessCombinationLiabilitiesAssumedOtherLiabilities",
     "BusinessCombinationLiabilitiesAssumed": "Business Combination, Assumed Liabilities",
     "BusinessCombinationAssetsAcquiredAndLiabilitiesAssumedNet": "Business Combination, Assets Acquired And Liabilities Assumed, Net (Pre GoodWill)",
     "BusinessCombinationAcquiredGoodwillAndLiabilitiesAssumedNet": "Business Combination, Assets Acquired, Goodwill, And Liabilities Assumed, Net",
@@ -286,5 +286,10 @@ def legacy_report(
     for db_field, column in DB_NAMES_TO_LEGACY_COLUMNS.items():
         if db_field.endswith(("useful_life_low", "useful_life_high")):
             continue
-        data[f"{column} As % of Purchase Price"] = data[column] / data["Purchase Price"]
+        column_value = data[column]
+        if column == "BusinessCombinationAssetsOtherAssets":
+            column = "Business Combination, Assumed Other Assets"
+        elif column == "BusinessCombinationLiabilitiesAssumedOtherLiabilities":
+            column = "Business Combination, Assumed Other Liabilities"
+        data[f"{column} As % of Purchase Price"] = column_value / data["Purchase Price"]
     return data
