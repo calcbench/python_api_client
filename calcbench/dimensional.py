@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Callable, Dict, Literal, Sequence, Union
+from typing import Callable, Dict, Sequence, Union
 
 import pandas as pd
 
