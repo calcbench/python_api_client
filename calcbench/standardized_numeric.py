@@ -218,6 +218,7 @@ def standardized_raw(
             "allFootnotes": all_footnotes,
             "allface": all_face,
             "includeXBRL": include_xbrl,
+            "excludeErrors": exclude_errors,
         },
         "periodParameters": {
             "year": start_year,
@@ -229,7 +230,6 @@ def standardized_raw(
             "periodType": period_type,
             "useFiscalPeriod": use_fiscal_period,
             "accessionID": accession_id,
-            "excludeErrors": exclude_errors,
         },
         "companiesParameters": {
             "entireUniverse": entire_universe,
