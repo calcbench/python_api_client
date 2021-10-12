@@ -18,12 +18,6 @@ Our standardized data with timestamps.  Useful for backtesting quantitative stra
 
 .. autofunction:: calcbench.point_in_time
 
-Dimensional
------------
-
-Segments: geographic and operating, and other dimensionalized tabular data.
-
-.. autofunction:: calcbench.dimensional_raw
 
 
 .. autoclass:: calcbench.api_client.Period
