@@ -398,7 +398,7 @@ def point_in_time(
                     year=data.fiscal_year, quarter=data.fiscal_period, freq="Q"
                 )
             elif period_type == PeriodType.Annual:
-                data["period"] = data["fiscal_year"]
+                data["period"] = pd.PeriodIndex(data["fiscal_year"], freq="A")
         data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
         data = data.set_index(["ticker", "metric", "period", "revision_number"])
     else:
