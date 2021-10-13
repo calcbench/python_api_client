@@ -222,7 +222,7 @@ def dimensional(
     :param int end_year: last year of data to get
     :param end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
-    :param trace_url:
+    :param trace_url: include a column with URL that point to the source document.
     :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
     :rtype: sequence
 
@@ -260,7 +260,6 @@ def dimensional(
                 {"axis": axis, "member": member}
                 for axis, member in d["dimensions"].items()
             ][0],
-            **{"fiscal_period": build_period(d, use_fiscal_period=True)},
         }
         for d in raw_data
     ]
@@ -268,7 +267,19 @@ def dimensional(
     columns = ["value"]
     if trace_url:
         columns = columns + ["trace_url"]
-    return pd.DataFrame(raw_data).set_index(
+    df = pd.DataFrame(raw_data)
+    if period_type == PeriodType.Annual:
+        period_index = pd.PeriodIndex(df["fiscal_year"], freq="A")
+    elif period_type == PeriodType.Quarterly:
+        period_index = pd.PeriodIndex(
+            year=df["fiscal_year"], quarter=df["fiscal_period"]
+        )
+    else:
+        period_index = df[["fiscal_year", "fiscal_period"]].apply(
+            lambda x: "-".join(x.astype(str).values), axis=1
+        )
+    df["fiscal_period"] = period_index
+    df = df.set_index(
         [
             "ticker",
             "axis",
@@ -276,7 +287,8 @@ def dimensional(
             "member",
             "fiscal_period",
         ]
-    )[columns]
+    )
+    return df[columns]
 
 
 def dimensional_raw(
