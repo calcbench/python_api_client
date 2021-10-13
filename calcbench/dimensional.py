@@ -10,6 +10,7 @@ from calcbench.api_client import (
     PeriodType,
     _json_POST,
 )
+from calcbench.business_combinations import COLUMNS
 from calcbench.standardized_numeric import (
     StandardizedPoint,
     _build_annual_period,
@@ -207,6 +208,7 @@ def dimensional(
     end_period: PeriodArgument = None,
     period_type: PeriodType = PeriodType.Annual,
     all_history: bool = True,
+    trace_url: bool = False,
 ) -> "pd.DataFrame":
     """
     Segments and Breakouts
@@ -220,6 +222,7 @@ def dimensional(
     :param int end_year: last year of data to get
     :param end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
+    :param trace_url:
     :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
     :rtype: sequence
 
@@ -262,6 +265,9 @@ def dimensional(
         for d in raw_data
     ]
 
+    columns = ["value"]
+    if trace_url:
+        columns = columns + ["trace_url"]
     return pd.DataFrame(raw_data).set_index(
         [
             "ticker",
@@ -270,7 +276,7 @@ def dimensional(
             "member",
             "fiscal_period",
         ]
-    )[["value"]]
+    )[columns]
 
 
 def dimensional_raw(
@@ -314,6 +320,7 @@ def dimensional_raw(
             "year": end_year or start_year,
             "period": start_period,
             "endYear": start_year,
+            "endPeriod": end_period,
             "periodType": period_type,
             "asOriginallyReported": False,
             "allHistory": all_history,
