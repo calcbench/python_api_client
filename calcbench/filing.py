@@ -99,7 +99,7 @@ def filings(
     received_date: date = None,
     start_date: date = None,
     end_date: date = None,
-    filing_types=[],
+    include_press_releases_and_proxies: bool = True,
 ) -> Iterable[Filing]:
     """SEC filings
 
@@ -128,7 +128,7 @@ def filings(
             },
             "pageParameters": {
                 "includeNonXBRL": include_non_xbrl,
-                "filingTypes": filing_types,
+                "includePressReleasesAndProxies": include_press_releases_and_proxies,
             },
             "periodParameters": {
                 "updateDate": received_date and received_date.isoformat(),
