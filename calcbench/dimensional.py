@@ -217,7 +217,7 @@ def dimensional(
     :param start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param int end_year: last year of data to get
     :param end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
-    :param period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
+    :param period_type: only applicable when other period data not supplied.
     :param trace_url: include a column with URL that point to the source document.
     :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
     :rtype: sequence
