@@ -205,6 +205,7 @@ def dimensional(
     period_type: PeriodType = PeriodType.Annual,
     all_history: bool = True,
     trace_url: bool = False,
+    as_originally_reported: bool = False,
 ) -> "pd.DataFrame":
     """
     Segments and Breakouts
@@ -219,6 +220,7 @@ def dimensional(
     :param end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param period_type: only applicable when other period data not supplied.
     :param trace_url: include a column with URL that point to the source document.
+    :param as_originally_reported: Show the first reported, rather than revised, values
     :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
     :rtype: sequence
 
@@ -240,6 +242,7 @@ def dimensional(
         end_period=end_period,
         period_type=period_type,
         all_history=all_history,
+        as_originally_reported=as_originally_reported,
     )
 
     raw_data = [
@@ -289,6 +292,7 @@ def dimensional_raw(
     end_period: PeriodArgument = None,
     period_type: PeriodType = PeriodType.Annual,
     all_history: bool = True,
+    as_originally_reported: bool = False,
 ) -> Sequence[DimensionalDataPoint]:
     """Segments and Breakouts
 
@@ -297,11 +301,12 @@ def dimensional_raw(
     :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
     :param start_year: first year of data to get
-    :param start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
+    :param start_period: first period of data to get.
     :param end_year: last year of data to get
-    :param end_period: last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.
-    :param period_type: 'quarterly' or 'annual', only applicable when other period data not supplied.
-
+    :param end_period: last period of data to get.
+    :param period_type: Only applicable when other period data not supplied.
+    :param all_history: Get data for all history
+    :param as_originally_reported: Show the first reported, rather than revised, values
     Usage::
       >>> cb.dimensional_raw(company_identifiers=['fdx'],
       >>>   metrics=['OperatingSegmentRevenue'],
@@ -329,7 +334,7 @@ def dimensional_raw(
         "pageParameters": {
             "metrics": metrics,
             "dimensionName": "Segment",
-            "AsOriginallyReported": False,
+            "AsOriginallyReported": as_originally_reported,
         },
     }
     return _json_POST("dimensionalData", payload)
