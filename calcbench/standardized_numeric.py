@@ -19,6 +19,7 @@ from calcbench.api_client import (
     PeriodArgument,
     PeriodType,
     _json_POST,
+    logger,
 )
 
 try:
@@ -514,7 +515,7 @@ def standardized_data(
     data.set_index(
         keys=[f"{company_identifier_scheme}", "metric", "period"], inplace=True  # type: ignore
     )  # type: ignore
-    """
+
     try:
         data = data.unstack("metric")  # type: ignore
     except ValueError as e:
@@ -523,7 +524,7 @@ def standardized_data(
             logger.error("Duplicate values \n {0}".format(duplicates))
         raise
     data = data["value"]
-    """
+
     for column_name in data.columns.values:
         # Try to make the columns the right type
         try:
