@@ -59,7 +59,7 @@ class StandardizedPoint(TypedDict):
     ticker: str
     calcbench_entity_id: int
     filing_type: str  # 10-K, 10-Q, 8-K, PRESSRELEASE, etc.
-    is_preliminary_data: bool
+    preliminary: bool
     CIK: str
     trace_url: Optional[str]
     period: Any  # pandas period
