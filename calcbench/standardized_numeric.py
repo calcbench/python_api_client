@@ -511,7 +511,9 @@ def standardized_data(
     if missing_metrics:
         warnings.warn("Did not find metrics {0}".format(missing_metrics))
     data = pd.DataFrame(data)
-    data["metric"] = data["metric"].astype("category")
+    for column in ["metric", "ticker", "CIK"]:
+        data[column] = pd.Categorical(data[column])  # type: ignore
+
     data.set_index(
         keys=[f"{company_identifier_scheme}", "metric", "period"], inplace=True  # type: ignore
     )  # type: ignore
