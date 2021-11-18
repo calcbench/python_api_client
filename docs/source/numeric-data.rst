@@ -20,19 +20,19 @@ Our standardized data with timestamps.  Useful for backtesting quantitative stra
 
 
 
-.. autoclass:: calcbench.api_client.Period
+.. autoclass:: calcbench.api_query_params.Period
     :members:
     :undoc-members:
     :noindex:
 
 
-.. autoclass:: calcbench.api_client.PeriodType
+.. autoclass:: calcbench.api_query_params.PeriodType
     :members:
     :undoc-members:
     :noindex:
 
-.. autoclass:: calcbench.api_client.CompanyIdentifierScheme
+.. autoclass:: calcbench.api_query_params.CompanyIdentifierScheme
     :members:
     :undoc-members:
 
-.. autoclass:: calcbench.api_client.PeriodType
+.. autoclass:: calcbench.api_query_params.PeriodType

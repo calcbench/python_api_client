@@ -14,6 +14,7 @@
     <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Earnings Press Release Numeric" href="press-release.html" />
     <link rel="prev" title="Business Combinations - Purchase Price Allocation" href="business-combinations.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -50,7 +51,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.calendar_period">
-<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_client.Period</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.calendar_period" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_query_params.Period</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.calendar_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -75,17 +76,12 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.fiscal_period">
-<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_client.Period</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_query_params.Period</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.fiscal_period" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.fiscal_year">
 <span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.fiscal_year" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.is_preliminary_data">
-<span class="sig-name descname"><span class="pre">is_preliminary_data</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.is_preliminary_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -96,6 +92,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.period">
 <span class="sig-name descname"><span class="pre">period</span></span><em class="property"><span class="pre">:</span> <span class="pre">Any</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.preliminary">
+<span class="sig-name descname"><span class="pre">preliminary</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.preliminary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -960,7 +961,7 @@
 <li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>end_year</strong> (<em>int</em>) – last year of data to get</p></li>
 <li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – last period of data to get. 0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
-<li><p><strong>period_type</strong> (<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>) – only applicable when other period data not supplied.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>) – only applicable when other period data not supplied.</p></li>
 <li><p><strong>trace_url</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – include a column with URL that point to the source document.</p></li>
 <li><p><strong>as_originally_reported</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Show the first reported, rather than revised, values</p></li>
 </ul>
@@ -996,7 +997,7 @@
 <li><p><strong>start_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – first period of data to get.</p></li>
 <li><p><strong>end_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – last year of data to get</p></li>
 <li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – last period of data to get.</p></li>
-<li><p><strong>period_type</strong> (<a class="reference internal" href="numeric-data.html#calcbench.api_client.PeriodType" title="calcbench.api_client.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>) – Only applicable when other period data not supplied.</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>) – Only applicable when other period data not supplied.</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Get data for all history</p></li>
 <li><p><strong>as_originally_reported</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Show the first reported, rather than revised, values</p></li>
 </ul>
@@ -1050,6 +1051,7 @@
 <li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Segments/Dimensional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="press-release.html">Earnings Press Release Numeric</a></li>
 </ul>
 
 <div class="relations">
@@ -1057,6 +1059,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="business-combinations.html" title="previous chapter">Business Combinations - Purchase Price Allocation</a></li>
+      <li>Next: <a href="press-release.html" title="next chapter">Earnings Press Release Numeric</a></li>
   </ul></li>
 </ul>
 </div>

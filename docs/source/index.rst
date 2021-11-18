@@ -22,6 +22,7 @@ Calcbench Python API Client
    raw-numeric-non-XBRL
    business-combinations
    dimensional
+   press-release
 
 Examples
 --------

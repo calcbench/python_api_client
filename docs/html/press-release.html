@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earnings Press Release Numeric &#8212; Calcbench API Client  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Segments/Dimensional" href="dimensional.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="earnings-press-release-numeric">
+<h1>Earnings Press Release Numeric<a class="headerlink" href="#earnings-press-release-numeric" title="Permalink to this headline">¶</a></h1>
+<p>Numbers from Earnings Press Releases</p>
+<span class="target" id="module-calcbench.press_release"></span><dl class="py class">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">PressReleaseData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">facts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.PressReleaseData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Corresponds to PressReleaseDataWrapper on the server</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.facts">
+<span class="sig-name descname"><span class="pre">facts</span></span><em class="property"><span class="pre">:</span> <span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#calcbench.press_release.PressReleaseDataPoint" title="calcbench.press_release.PressReleaseDataPoint"><span class="pre">calcbench.press_release.PressReleaseDataPoint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.facts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">PressReleaseDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fact_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Corresponds to PressReleaseDataPoint on the server</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.fact_id">
+<span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.fact_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.press_release.press_release_raw">
+<span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">press_release_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.press_release_raw" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#calcbench.press_release.PressReleaseData" title="calcbench.press_release.PressReleaseData"><code class="xref py py-class docutils literal notranslate"><span class="pre">PressReleaseData</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Calcbench API Client</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Standardized Numeric Financials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="face-statements.html">Face Statements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimensional.html">Segments/Dimensional</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Earnings Press Release Numeric</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dimensional.html" title="previous chapter">Segments/Dimensional</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Andrew Kittredge.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/press-release.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
