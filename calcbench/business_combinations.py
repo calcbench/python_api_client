@@ -9,10 +9,11 @@ import itertools
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Dict, Generator
+from calcbench.api_query_params import CompanyIdentifiers
 
 from calcbench.standardized_numeric import StandardizedPoint
 
-from .api_client import CompanyIdentifiers, _json_POST, _try_parse_timestamp
+from .api_client import _json_POST, _try_parse_timestamp
 
 
 @dataclass

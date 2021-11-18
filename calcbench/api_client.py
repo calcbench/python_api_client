@@ -12,20 +12,17 @@ import os
 from datetime import datetime
 from enum import Enum, IntEnum
 from functools import wraps
-from typing import (
-    Callable,
-    Dict,
-    Optional,
-    Sequence,
-    Union,
-)
+from typing import Callable, Dict, Optional, Sequence, Union, TYPE_CHECKING
 
 from requests.sessions import Session
+
+from calcbench.api_query_params import APIQueryParams
 
 try:
     from typing import Literal
 except ImportError:
     from typing_extensions import Literal
+
 
 import requests
 
@@ -98,13 +95,6 @@ def _rig_for_testing(domain="localhost:444", suppress_http_warnings=True):
         requests.packages.urllib3.disable_warnings(InsecureRequestWarning)  # type: ignore
 
 
-CentralIndexKey = Union[str, int]
-Ticker = str
-CalcbenchCompanyIdentifier = int
-CompanyIdentifier = Union[Ticker, CentralIndexKey, CalcbenchCompanyIdentifier]
-CompanyIdentifiers = Sequence[CompanyIdentifier]
-
-
 def _add_backoff(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -124,7 +114,7 @@ def _add_backoff(f):
 
 
 @_add_backoff
-def _json_POST(end_point: str, payload: dict):
+def _json_POST(end_point: str, payload: Union[dict, APIQueryParams]):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
     logger.debug(f"posting to {url}, {payload}")
     start = datetime.now()

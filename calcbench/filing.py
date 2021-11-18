@@ -5,11 +5,11 @@ from typing import Iterable, Optional
 import dataclasses
 
 from calcbench.api_client import (
-    CompanyIdentifiers,
     Period,
     _json_POST,
     _try_parse_timestamp,
 )
+from calcbench.api_query_params import CompanyIdentifiers
 
 
 class FilingType(str, Enum):
@@ -41,7 +41,6 @@ class FilingType(str, Enum):
 class Filing(dict):
     is_xbrl: bool
     is_wire: bool
-    """AKA accession_id"""
     calcbench_id: int
     sec_accession_id: str
     sec_html_url: str
@@ -72,7 +71,7 @@ class Filing(dict):
 
     @property
     def accession_id(self) -> int:
-        """calcbench_id should have been accession_id"""
+        """same as calcbench_id, calcbench_id should have been accession_id"""
         return self.calcbench_id
 
     def __init__(self, **kwargs):

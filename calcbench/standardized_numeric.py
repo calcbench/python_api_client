@@ -2,6 +2,8 @@ import warnings
 from datetime import date
 from typing import Any, Optional, Sequence, TYPE_CHECKING, Union
 
+from calcbench.api_query_params import CompanyIdentifiers
+
 if TYPE_CHECKING:
     # https://github.com/microsoft/pyright/issues/1358
     from typing import TypedDict
@@ -14,7 +16,6 @@ else:
 
 from calcbench.api_client import (
     CompanyIdentifierScheme,
-    CompanyIdentifiers,
     Period,
     PeriodArgument,
     PeriodType,

@@ -1,11 +1,13 @@
 from typing import Optional, Sequence
 
+from calcbench.api_query_params import CompanyIdentifiers
+
 try:
     from typing import Literal
 except ImportError:
     from typing_extensions import Literal
 
-from calcbench.api_client import CompanyIdentifiers, _json_POST
+from calcbench.api_client import _json_POST
 
 try:
     import pandas as pd

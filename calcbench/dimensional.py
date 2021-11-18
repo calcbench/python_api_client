@@ -4,11 +4,11 @@ from typing import Dict, Sequence
 import pandas as pd
 
 from calcbench.api_client import (
-    CompanyIdentifiers,
     PeriodArgument,
     PeriodType,
     _json_POST,
 )
+from calcbench.api_query_params import CompanyIdentifiers
 from calcbench.standardized_numeric import (
     StandardizedPoint,
 )

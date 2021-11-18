@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import Generator, Sequence
 
-from calcbench.api_client import CompanyIdentifiers, Period, _try_parse_timestamp
+from calcbench.api_client import Period, _try_parse_timestamp
+from calcbench.api_query_params import CompanyIdentifiers
 from calcbench.raw_numeric_XBRL import (
     RAW_NON_XBRL_END_POINT,
     RawDataClause,
@@ -18,7 +19,7 @@ except ImportError:
 
 
 def non_XBRL_numeric_raw(
-    company_identifiers: CompanyIdentifiers = [],
+    company_identifiers: CompanyIdentifiers,
     entire_universe: bool = False,
     clauses: Sequence[RawDataClause] = [],
 ) -> Generator["NonXBRLFact", None, None]:
