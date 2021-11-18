@@ -1,7 +1,16 @@
 from dataclasses import dataclass
+from datetime import datetime
+from enum import Enum
 from typing import Sequence
+from decimal import Decimal
 
-from calcbench.api_client import _json_POST
+try:
+    import pandas as pd
+except ImportError:
+    "Can't find pandas, won't be able to use the functions that return DataFrames."
+    pass
+
+from calcbench.api_client import _json_POST, set_field_values
 from calcbench.api_query_params import (
     APIQueryParams,
     CompanyIdentifiers,
@@ -11,6 +20,10 @@ from calcbench.api_query_params import (
 )
 
 
+class FormatType(str, Enum):
+    Text = "text"
+
+
 @dataclass
 class PressReleaseDataPoint:
     """
@@ -18,6 +31,22 @@ class PressReleaseDataPoint:
     """
 
     fact_id: int
+    sec_filing_id: int
+    effective_value: Decimal
+    reported_value: Decimal
+    range_high_value: Decimal
+    reported_value: Decimal
+    is_instant_value: bool
+    UOM: str
+    format_type: FormatType
+    period_start: datetime
+    period_end: datetime
+    presentation_order: int
+    statement_type: str
+    table_id: str
+
+    def __init__(self, **kwargs) -> None:
+        set_field_values(self, kwargs=kwargs)
 
 
 @dataclass
@@ -27,6 +56,20 @@ class PressReleaseData:
     """
 
     facts: Sequence[PressReleaseDataPoint]
+    entity_name: str
+    entity_id: int
+    ticker: str
+    cik: str
+    fiscal_year: int
+    fiscal_period: int
+    url: str
+    date: datetime
+    # filing_id: int
+    filing_type: str
+    fiscal_year_end_date: datetime
+
+    def __init__(self, **kwargs) -> None:
+        set_field_values(self, kwargs)
 
 
 def press_release_raw(
@@ -34,13 +77,13 @@ def press_release_raw(
     all_history: bool = False,
     year: int = None,
     period: Period = None,
-    periodType: PeriodType = None,
+    period_type: PeriodType = None,
 ) -> Sequence[PressReleaseData]:
 
     periodParameters: PeriodParameters = {
         "year": year,
         "period": period,
-        "periodType": periodType,
+        "periodType": period_type,
     }
     payload: APIQueryParams = {
         "companiesParameters": {"companyIdentifiers": company_identifiers},
@@ -51,5 +94,27 @@ def press_release_raw(
             "matchToPreviousPeriod": False,
         },
     }
-    d = _json_POST("pressReleaseGroups", payload)
-    return d
+    data = _json_POST("pressReleaseGroups", payload)
+    for d in data:
+        yield PressReleaseData(**d)
+
+
+CATEGORICAL_COLUMNS = ["fiscal_period", "UOM", "statement_type"]
+
+
+def press_release_data(
+    company_identifiers: CompanyIdentifiers,
+    year: int,
+    period: Period,
+    period_type: PeriodType,
+) -> "pd.DataFrame":
+    filings = press_release_raw(
+        company_identifiers=company_identifiers,
+        year=year,
+        period=period,
+        period_type=period_type,
+    )
+    df = pd.DataFrame([fact for filing in filings for fact in filing.facts])
+    for c in CATEGORICAL_COLUMNS:
+        df[c] = pd.Categorical(df[c])
+    return df

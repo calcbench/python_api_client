@@ -6,6 +6,7 @@ Created on Mar 14, 2015
 @contact: andrew@calcbench.com
 """
 
+import dataclasses
 import json
 import logging
 import os
@@ -203,6 +204,13 @@ def set_proxies(proxies: Dict[str, str]):
 
     """
     _SESSION_STUFF["proxies"] = proxies
+
+
+def set_field_values(dataclass, kwargs: dict):
+    names = set([f.name for f in dataclasses.fields(dataclass)])
+    for k, v in kwargs.items():
+        if k in names:
+            setattr(dataclass, k, v)
 
 
 def face_statement(

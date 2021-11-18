@@ -57,4 +57,4 @@ from .business_combinations import (
     legacy_report as business_combination_legacy_report,
 )
 
-from .press_release import press_release_raw
+from .press_release import press_release_raw, press_release_data

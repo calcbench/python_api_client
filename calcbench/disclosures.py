@@ -27,6 +27,7 @@ from calcbench.api_client import (
     _json_POST,
     _try_parse_timestamp,
     logger,
+    set_field_values,
 )
 
 try:
@@ -216,10 +217,7 @@ class DisclosureContent:
     CIK: str
 
     def __init__(self, **kwargs):
-        names = set([f.name for f in dataclasses.fields(self)])
-        for k, v in kwargs.items():
-            if k in names:
-                setattr(self, k, v)
+        set_field_values(self, kwargs)
 
     @property
     def contents(self) -> str:
