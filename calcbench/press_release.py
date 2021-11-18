@@ -16,7 +16,6 @@ from calcbench.api_query_params import (
     CompanyIdentifiers,
     Period,
     PeriodParameters,
-    PeriodType,
 )
 
 
@@ -94,8 +93,9 @@ def press_release_raw(
         },
     }
     data = _json_POST("pressReleaseGroups", payload)
-    for d in data:
-        yield PressReleaseData(**d)
+    if data:
+        for d in data:
+            yield PressReleaseData(**d)
 
 
 CATEGORICAL_COLUMNS = ["fiscal_period", "UOM", "statement_type"]
@@ -126,6 +126,8 @@ def press_release_data(
             for fact in filing.facts
         ]
     )
+    if df.empty:
+        return df
     for c in CATEGORICAL_COLUMNS:
         df[c] = pd.Categorical(df[c])
     return df
