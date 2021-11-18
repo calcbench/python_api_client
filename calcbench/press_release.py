@@ -67,9 +67,10 @@ class PressReleaseData:
     # filing_id: int
     filing_type: str
     fiscal_year_end_date: datetime
+    date_reported: datetime
 
     def __init__(self, **kwargs) -> None:
-        set_field_values(self, kwargs)
+        set_field_values(self, kwargs, {"date_reported"})
 
 
 def press_release_raw(
@@ -77,13 +78,11 @@ def press_release_raw(
     all_history: bool = False,
     year: int = None,
     period: Period = None,
-    period_type: PeriodType = None,
 ) -> Sequence[PressReleaseData]:
 
     periodParameters: PeriodParameters = {
         "year": year,
         "period": period,
-        "periodType": period_type,
     }
     payload: APIQueryParams = {
         "companiesParameters": {"companyIdentifiers": company_identifiers},
@@ -106,15 +105,27 @@ def press_release_data(
     company_identifiers: CompanyIdentifiers,
     year: int,
     period: Period,
-    period_type: PeriodType,
 ) -> "pd.DataFrame":
     filings = press_release_raw(
         company_identifiers=company_identifiers,
         year=year,
         period=period,
-        period_type=period_type,
     )
-    df = pd.DataFrame([fact for filing in filings for fact in filing.facts])
+
+    df = pd.DataFrame(
+        [
+            {
+                **fact,
+                **{
+                    "ticker": filing.ticker,
+                    "CIK": filing.cik,
+                    "date_reported": filing.date_reported,
+                },
+            }
+            for filing in filings
+            for fact in filing.facts
+        ]
+    )
     for c in CATEGORICAL_COLUMNS:
         df[c] = pd.Categorical(df[c])
     return df

@@ -49,7 +49,7 @@ class CompaniesParameters(TypedDict):
     companyIdentifiers: CompanyIdentifiers
 
 
-class PeriodParameters(TypedDict):
+class PeriodParameters(TypedDict, total=False):
     year: Optional[int]
     period: Optional[Period]
     periodType: Optional[PeriodType]

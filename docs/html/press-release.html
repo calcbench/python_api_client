@@ -35,30 +35,166 @@
 <h1>Earnings Press Release Numeric<a class="headerlink" href="#earnings-press-release-numeric" title="Permalink to this headline">¶</a></h1>
 <p>Numbers from Earnings Press Releases</p>
 <span class="target" id="module-calcbench.press_release"></span><dl class="py class">
+<dt class="sig sig-object py" id="calcbench.press_release.FormatType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">FormatType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.FormatType" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.FormatType.Text">
+<span class="sig-name descname"><span class="pre">Text</span></span><em class="property"> <span class="pre">=</span> <span class="pre">'text'</span></em><a class="headerlink" href="#calcbench.press_release.FormatType.Text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">PressReleaseData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">facts</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.PressReleaseData" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">PressReleaseData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.PressReleaseData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Corresponds to PressReleaseDataWrapper on the server</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.cik">
+<span class="sig-name descname"><span class="pre">cik</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.cik" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.date">
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.date_reported">
+<span class="sig-name descname"><span class="pre">date_reported</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.date_reported" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.entity_id">
+<span class="sig-name descname"><span class="pre">entity_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.entity_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.entity_name">
+<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.entity_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.facts">
 <span class="sig-name descname"><span class="pre">facts</span></span><em class="property"><span class="pre">:</span> <span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#calcbench.press_release.PressReleaseDataPoint" title="calcbench.press_release.PressReleaseDataPoint"><span class="pre">calcbench.press_release.PressReleaseDataPoint</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.facts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.filing_type">
+<span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.filing_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.fiscal_period">
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.fiscal_year">
+<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.fiscal_year_end_date">
+<span class="sig-name descname"><span class="pre">fiscal_year_end_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.fiscal_year_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.ticker">
+<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseData.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseData.url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">PressReleaseDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fact_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">PressReleaseDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Corresponds to PressReleaseDataPoint on the server</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.UOM">
+<span class="sig-name descname"><span class="pre">UOM</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.UOM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.effective_value">
+<span class="sig-name descname"><span class="pre">effective_value</span></span><em class="property"><span class="pre">:</span> <span class="pre">decimal.Decimal</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.effective_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.fact_id">
 <span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.fact_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.format_type">
+<span class="sig-name descname"><span class="pre">format_type</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#calcbench.press_release.FormatType" title="calcbench.press_release.FormatType"><span class="pre">calcbench.press_release.FormatType</span></a></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.format_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.is_instant_value">
+<span class="sig-name descname"><span class="pre">is_instant_value</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.is_instant_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.period_end">
+<span class="sig-name descname"><span class="pre">period_end</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.period_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.period_start">
+<span class="sig-name descname"><span class="pre">period_start</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.period_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.presentation_order">
+<span class="sig-name descname"><span class="pre">presentation_order</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.presentation_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.range_high_value">
+<span class="sig-name descname"><span class="pre">range_high_value</span></span><em class="property"><span class="pre">:</span> <span class="pre">decimal.Decimal</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.range_high_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.reported_value">
+<span class="sig-name descname"><span class="pre">reported_value</span></span><em class="property"><span class="pre">:</span> <span class="pre">decimal.Decimal</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.reported_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.sec_filing_id">
+<span class="sig-name descname"><span class="pre">sec_filing_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.sec_filing_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.statement_type">
+<span class="sig-name descname"><span class="pre">statement_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.statement_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.press_release.PressReleaseDataPoint.table_id">
+<span class="sig-name descname"><span class="pre">table_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.press_release.PressReleaseDataPoint.table_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="calcbench.press_release.press_release_data">
+<span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">press_release_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.press_release_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.press_release.press_release_raw">
-<span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">press_release_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodType</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.press_release_raw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">calcbench.press_release.</span></span><span class="sig-name descname"><span class="pre">press_release_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.press_release.press_release_raw" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#calcbench.press_release.PressReleaseData" title="calcbench.press_release.PressReleaseData"><code class="xref py py-class docutils literal notranslate"><span class="pre">PressReleaseData</span></code></a>]</p>

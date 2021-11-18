@@ -12,7 +12,7 @@ import logging
 import os
 from datetime import datetime
 from functools import wraps
-from typing import Callable, Dict, Union
+from typing import Callable, Dict, Iterable, Sequence, Union
 
 from requests.sessions import Session
 
@@ -206,10 +206,12 @@ def set_proxies(proxies: Dict[str, str]):
     _SESSION_STUFF["proxies"] = proxies
 
 
-def set_field_values(dataclass, kwargs: dict):
+def set_field_values(dataclass, kwargs: dict, date_columns: Iterable[str] = []):
     names = set([f.name for f in dataclasses.fields(dataclass)])
     for k, v in kwargs.items():
         if k in names:
+            if k in date_columns:
+                v = _try_parse_timestamp(v)
             setattr(dataclass, k, v)
 
 
