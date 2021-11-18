@@ -10,18 +10,12 @@ import json
 import logging
 import os
 from datetime import datetime
-from enum import Enum, IntEnum
 from functools import wraps
-from typing import Callable, Dict, Optional, Sequence, Union, TYPE_CHECKING
+from typing import Callable, Dict, Union
 
 from requests.sessions import Session
 
-from calcbench.api_query_params import APIQueryParams, Period
-
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
+from calcbench.api_query_params import APIQueryParams
 
 
 import requests
@@ -209,21 +203,6 @@ def set_proxies(proxies: Dict[str, str]):
 
     """
     _SESSION_STUFF["proxies"] = proxies
-
-
-class CompanyIdentifierScheme(str, Enum):
-    Ticker = "ticker"
-    CentralIndexKey = "CIK"
-
-
-class PeriodType(str, Enum):
-    Annual = "annual"
-    Quarterly = "quarterly"
-    Combined = "combined"
-    TrailingTwelveMonths = "TTM"
-
-
-PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
 
 def face_statement(

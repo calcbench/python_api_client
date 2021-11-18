@@ -1,7 +1,10 @@
-from enum import IntEnum
+from enum import Enum, IntEnum
 from typing import TYPE_CHECKING, Optional, Sequence, Union
 
-from calcbench.api_client import PeriodType
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
 
 CentralIndexKey = Union[str, int]
 Ticker = str
@@ -19,12 +22,27 @@ else:
         from typing_extensions import TypedDict
 
 
+class CompanyIdentifierScheme(str, Enum):
+    Ticker = "ticker"
+    CentralIndexKey = "CIK"
+
+
+class PeriodType(str, Enum):
+    Annual = "annual"
+    Quarterly = "quarterly"
+    Combined = "combined"
+    TrailingTwelveMonths = "TTM"
+
+
 class Period(IntEnum):
     Annual = 0
     Q1 = 1
     Q2 = 2
     Q3 = 3
     Q4 = 4
+
+
+PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
 
 class CompaniesParameters(TypedDict):
