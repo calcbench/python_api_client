@@ -4,7 +4,7 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Generator, Iterable, Optional, Sequence
 
-from calcbench.api_query_params import CompanyIdentifiers
+from calcbench.api_query_params import CompanyIdentifiers, Period
 
 try:
     from typing import Literal
@@ -18,7 +18,6 @@ except ImportError:
 
 
 from calcbench.api_client import (
-    Period,
     PeriodArgument,
     PeriodType,
     _json_GET,

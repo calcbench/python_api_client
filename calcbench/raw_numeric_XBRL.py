@@ -1,10 +1,9 @@
 from enum import IntEnum
 from typing import Mapping, Sequence, TYPE_CHECKING
 from calcbench.api_client import (
-    CompanyIdentifiers,
-    Period,
     _json_POST,
 )
+from calcbench.api_query_params import CompanyIdentifiers
 
 if TYPE_CHECKING:
     # https://github.com/microsoft/pyright/issues/1358

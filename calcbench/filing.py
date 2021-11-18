@@ -5,11 +5,10 @@ from typing import Iterable, Optional
 import dataclasses
 
 from calcbench.api_client import (
-    Period,
     _json_POST,
     _try_parse_timestamp,
 )
-from calcbench.api_query_params import CompanyIdentifiers
+from calcbench.api_query_params import CompanyIdentifiers, Period
 
 
 class FilingType(str, Enum):

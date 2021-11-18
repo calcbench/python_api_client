@@ -16,7 +16,7 @@ from typing import Callable, Dict, Optional, Sequence, Union, TYPE_CHECKING
 
 from requests.sessions import Session
 
-from calcbench.api_query_params import APIQueryParams
+from calcbench.api_query_params import APIQueryParams, Period
 
 try:
     from typing import Literal
@@ -223,14 +223,6 @@ class PeriodType(str, Enum):
     TrailingTwelveMonths = "TTM"
 
 
-class Period(IntEnum):
-    Annual = 0
-    Q1 = 1
-    Q2 = 2
-    Q3 = 3
-    Q4 = 4
-
-
 PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
 
@@ -350,21 +342,3 @@ def document_types():
 def html_diff(html_1, html_2):
     """Diff two pieces of html and return a html diff"""
     return _json_POST("textDiff", {"html1": html_1, "html2": html_2})
-
-
-def press_release_raw(
-    company_identifiers,
-    year,
-    period,
-    match_to_previous_period=False,
-    standardize_beginning_of_period=False,
-):
-    payload = {
-        "companiesParameters": {"companyIdentifiers": list(company_identifiers)},
-        "periodParameters": {"year": year, "period": period},
-        "pageParameters": {
-            "matchToPreviousPeriod": match_to_previous_period,
-            "standardizeBOPPeriods": standardize_beginning_of_period,
-        },
-    }
-    return _json_POST("pressReleaseData", payload)
