@@ -50,9 +50,9 @@ class CompaniesParameters(TypedDict):
 
 
 class PeriodParameters(TypedDict):
-    year: int
-    period: Period
-    periodType: PeriodType
+    year: Optional[int]
+    period: Optional[Period]
+    periodType: Optional[PeriodType]
 
 
 class APIQueryParams(TypedDict):

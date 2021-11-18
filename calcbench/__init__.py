@@ -10,7 +10,6 @@ logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
 __version__ = "5.3.1"
 from .api_client import (
-    CompanyIdentifierScheme,
     as_reported_raw,
     business_combinations,
     company_disclosures,
@@ -19,7 +18,6 @@ from .api_client import (
     enable_backoff,
     face_statement,
     html_diff,
-    press_release_raw,
     set_credentials,
     set_proxies,
     tag_contents,
@@ -58,3 +56,5 @@ from .business_combinations import (
     business_combinations,
     legacy_report as business_combination_legacy_report,
 )
+
+from .press_release import press_release_raw
