@@ -267,7 +267,6 @@ def point_in_time(
 
     Standardized data with a timestamp when it was published by Calcbench
 
-    :param update_date: The date on which the data was received, this does not work prior to ~2016, use all_history to get historical data then use update_date to get updates.
     :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
     :param all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
     :param all_footnotes: Retrive all of the points from the footnotes to the financials
