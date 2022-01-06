@@ -70,7 +70,7 @@ def disclosure_dataframe(
     :param identifier_key: how to index the returned DataFrame.
     :param use_fiscal_period: Index disclosure by fiscal, as opposed to calendar periods.
     :param entire_universe: Data for all companies
-    :return: A DataFrame of DislcosureSearchResults indexed by document name -> company identifier.
+    :return: A DataFrame of DisclosureSearchResults indexed by document name -> company identifier.
 
     Usage::
 
@@ -82,7 +82,7 @@ def disclosure_dataframe(
 
     """
     if block_tag_names:
-        docs: Iterable[DislcosureSearchResults] = []
+        docs: Iterable[DisclosureSearchResults] = []
         for block_tag_name in block_tag_names:
             docs.extend(
                 disclosure_search(
@@ -237,7 +237,7 @@ PERIOD_MAP = {
 
 
 @dataclass
-class DislcosureSearchResults(dict):
+class DisclosureSearchResults(dict):
     """
     Represents a disclosure.
     """
@@ -342,7 +342,7 @@ def disclosure_search(
     progress_bar: "tqdm.std.tqdm" = None,
     accession_id: int = None,
     all_text_blocks: bool = False,
-) -> Generator[DislcosureSearchResults, None, None]:
+) -> Generator[DisclosureSearchResults, None, None]:
     """
     Footnotes and other text
 
@@ -451,7 +451,7 @@ def _document_search_results(payload, progress_bar=None):
         if progress_bar is not None:
             progress_bar.update(len(disclosures))
         for result in disclosures:
-            yield DislcosureSearchResults(**result)
+            yield DisclosureSearchResults(**result)
         payload["pageParameters"]["startOffset"] = results["nextGroupStartOffset"]
     payload["pageParameters"]["startOffset"] = None
 
