@@ -305,6 +305,7 @@ def dimensional_raw(
     :param period_type: Only applicable when other period data not supplied.
     :param all_history: Get data for all history
     :param as_originally_reported: Show the first reported, rather than revised, values
+
     Usage::
       >>> cb.dimensional_raw(company_identifiers=['fdx'],
       >>>   metrics=['OperatingSegmentRevenue'],
