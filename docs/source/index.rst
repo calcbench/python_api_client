@@ -23,6 +23,7 @@ Calcbench Python API Client
    business-combinations
    dimensional
    press-release
+   downloaders
 
 Examples
 --------
