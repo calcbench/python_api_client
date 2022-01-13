@@ -19,8 +19,11 @@ def iterate_and_save_pandas(
 
     Usage::
 
+    >>> %pip install calcbench-api-client[Pandas, Backoff] tqdm
+    >>> from calcbench.downloaders import iterate_and_save_pandas
+    >>> import calcbench as cb
     >>> tickers = cb.tickers(entire_universe=True)
-    >>> get_and_save(
+    >>> iterate_and_save_pandas(
     >>>    tickers,
     >>>    lambda ticker: cb.point_in_time(
     >>>        all_face=True,
