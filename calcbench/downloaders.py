@@ -1,6 +1,6 @@
 import logging
-from pathlib import Path
 from typing import Callable, Sequence, TypeVar
+
 
 import calcbench as cb
 import pandas as pd
@@ -19,7 +19,7 @@ def iterate_and_save_pandas(
 
     Usage::
 
-    >>> %pip install calcbench-api-client[Pandas, Backoff] tqdm
+    >>> %pip install calcbench-api-client[Pandas,Backoff,tqdm]
     >>> from calcbench.downloaders import iterate_and_save_pandas
     >>> import calcbench as cb
     >>> tickers = cb.tickers(entire_universe=True)
@@ -38,6 +38,8 @@ def iterate_and_save_pandas(
 
     """
     argument: T
+    write_mode = "w"
+    write_headers = True
     for argument in tqdm(arguments):
         try:
             data = f(argument)
@@ -48,10 +50,11 @@ def iterate_and_save_pandas(
         except Exception as e:
             tqdm.write(f"Exception getting {argument} {e}")
         else:
-            file_exists = Path(file_name).exists()
             data.to_csv(
                 file_name,
-                mode="a" if file_exists else "w",
+                mode=write_mode,
                 index=False,
-                header=not file_exists,
+                header=write_headers,
             )
+            write_mode = "a"
+            write_headers = False

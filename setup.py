@@ -33,6 +33,7 @@ setup(
         "Listener": ["azure-servicebus==7.2.0"],
         "Backoff": ["backoff"],
         "BeautifulSoup": ["beautifulsoup4"],
+        "tqdm": ["tqdm"],
     },
     url="https://github.com/calcbench/python_api_client",
     long_description=long_description,
