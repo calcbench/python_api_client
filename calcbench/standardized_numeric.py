@@ -66,6 +66,7 @@ class StandardizedPoint(TypedDict):
     CIK: str
     trace_url: Optional[str]
     period: Any  # pandas period
+    date_reported: str  # only on PIT points
 
 
 def standardized_raw(
