@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Sequence
 import dataclasses
 
 from calcbench.api_client import (
@@ -98,6 +98,7 @@ def filings(
     start_date: date = None,
     end_date: date = None,
     include_press_releases_and_proxies: bool = True,
+    filing_types: Sequence[FilingType] = [],
 ) -> Iterable[Filing]:
     """SEC filings
 
@@ -110,6 +111,7 @@ def filings(
     :param received_data: only filings published on this date
     :param start_date: filings received on or after this date
     :param end_date: filings received on or before theis date
+    :param filing_type: types of filings to include
 
     Usage::
         >>> from datetime import date
@@ -127,6 +129,7 @@ def filings(
             "pageParameters": {
                 "includeNonXBRL": include_non_xbrl,
                 "includePressReleasesAndProxies": include_press_releases_and_proxies,
+                "filingTypes": filing_types,
             },
             "periodParameters": {
                 "updateDate": received_date and received_date.isoformat(),
