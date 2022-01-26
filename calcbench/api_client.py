@@ -111,11 +111,12 @@ def _add_backoff(f):
 @_add_backoff
 def _json_POST(end_point: str, payload: Union[dict, APIQueryParams]):
     url = _SESSION_STUFF["api_url_base"].format(end_point)
-    logger.debug(f"posting to {url}, {payload}")
+    data = json.dumps(payload)
+    logger.debug(f"posting to {url}, {data}")
     start = datetime.now()
     response = _calcbench_session().post(
         url,
-        data=json.dumps(payload),
+        data=data,
         headers={"content-type": "application/json"},
         verify=_SESSION_STUFF["ssl_verify"],
         timeout=_SESSION_STUFF["timeout"],
@@ -170,13 +171,16 @@ def set_credentials(cb_username: str, cb_password: str):
 
 
 def enable_backoff(
-    backoff_on: bool = True, giveup: Callable[[Exception], bool] = lambda e: False
+    backoff_on: bool = True,
+    giveup: Callable[[Exception], bool] = lambda e: e.response.status_code == 404,
 ):
     """Re-try failed requests with exponential back-off
 
     Requires the backoff package. ``pip install backoff``
 
     If processes make many requests, failures are inevitable.  Call this to retry failed requests.
+
+    By default gives up immediately if the server returns 404
 
     :param backoff_on: toggle backoff
     :param giveup: function that handles exception and decides whether to continue or not.
