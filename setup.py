@@ -38,4 +38,5 @@ setup(
     url="https://github.com/calcbench/python_api_client",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    copyright="Calcbench",
 )
