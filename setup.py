@@ -36,6 +36,10 @@ setup(
         "tqdm": ["tqdm"],
     },
     url="https://github.com/calcbench/python_api_client",
+    project_urls={
+        "Documentation": "http://calcbench.github.io/python_api_client/html/index.html",
+        "Examples": "https://github.com/calcbench/notebooks",
+    },
     long_description=long_description,
     long_description_content_type="text/markdown",
     copyright="Calcbench",

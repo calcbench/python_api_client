@@ -33,7 +33,7 @@ def iterate_and_save_pandas(
     >>>        include_preliminary=True,
     >>>        include_xbrl=True,
     >>>    ),
-    >>>    "fact_points.csv",
+    >>>    "face_data.csv",
     >>> )
 
     """
