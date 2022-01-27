@@ -34,7 +34,7 @@ from .disclosures import disclosure_dataframe as document_dataframe
 
 from .companies import tickers, companies, companies_raw
 from .listener import handle_filings
-from .filing import filings, Filing
+from .filing import filings, Filing, filings_dataframe
 from .metrics import available_metrics, available_metrics_dataframe
 from .standardized_numeric import (
     normalized_data,

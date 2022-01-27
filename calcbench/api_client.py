@@ -12,7 +12,7 @@ import logging
 import os
 from datetime import datetime
 from functools import wraps
-from typing import Callable, Dict, Iterable, Sequence, Union
+from typing import Callable, Dict, Iterable, Union
 
 from requests.sessions import Session
 

@@ -4,6 +4,14 @@ from enum import Enum
 from typing import Iterable, Optional, Sequence
 import dataclasses
 
+
+try:
+    import pandas as pd
+    from calcbench.standardized_numeric import period_number
+except ImportError:
+    "Can't find pandas, won't be able to use the functions that return DataFrames."
+    pass
+
 from calcbench.api_client import (
     _json_POST,
     _try_parse_timestamp,
@@ -145,3 +153,62 @@ def filings(
     )
     for filing in filings:
         yield Filing(**filing)
+
+
+def filings_dataframe(
+    company_identifiers: CompanyIdentifiers = [],
+    entire_universe: bool = False,
+    include_non_xbrl: bool = True,
+    received_date: date = None,
+    start_date: date = None,
+    end_date: date = None,
+    include_press_releases_and_proxies: bool = True,
+    filing_types: Sequence[FilingType] = [],
+) -> "pd.DataFrame":
+    """SEC filings in a dataframe
+
+    https://www.calcbench.com/filings
+
+    :param company_identifiers: list of tickers or CIK codes
+    :param received_date: get all filings received on this date
+    :param entire_universe: filings for all companies
+    :param include_non_xbrl: include filings that do not have XBRL, 8-Ks, earnings releases etc.
+    :param received_data: only filings published on this date
+    :param start_date: filings received on or after this date
+    :param end_date: filings received on or before theis date
+    :param filing_type: types of filings to include
+
+    Usage::
+        >>> import calcbench as cb
+        >>> from calcbench.filing import FilingType
+        >>> cb.filings_dataframe(
+        >>>     entire_universe=True,
+        >>>     filing_types=[FilingType.commentLetter, FilingType.commentLetterResponse],
+        >>> )
+
+    """
+    f = filings(
+        company_identifiers=company_identifiers,
+        entire_universe=entire_universe,
+        include_non_xbrl=include_non_xbrl,
+        received_date=received_date,
+        start_date=start_date,
+        end_date=end_date,
+        include_press_releases_and_proxies=include_press_releases_and_proxies,
+        filing_types=filing_types,
+    )
+    df = pd.DataFrame(list(f))
+    for column in [
+        "document_type",
+        "filing_type",
+        "filing_sub_type",
+        "CIK",
+        "ticker",
+        "entity_name",
+    ]:
+        df[column] = pd.Categorical(df[column])
+
+    for column in ["calendar_period", "fiscal_period"]:
+        df[column] = df[column].astype(period_number)
+
+    return df
