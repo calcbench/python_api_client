@@ -208,6 +208,9 @@ def filings_dataframe(
     ]:
         df[column] = pd.Categorical(df[column])
 
+    df["filing_date"] = pd.to_datetime(
+        df["filing_date"], errors="coerce"
+    )  # filing dates can be strange
     for column in ["calendar_period", "fiscal_period"]:
         df[column] = df[column].astype(period_number)
 
