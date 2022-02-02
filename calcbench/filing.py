@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
+from msilib import sequence
 from typing import Iterable, Optional, Sequence
 import dataclasses
+
+from pyrsistent import optional
 
 
 try:
@@ -88,6 +91,13 @@ class Filing(dict):
     calendar_year: int
     calendar_period: Period
     standardized_XBRL: bool
+
+    item_types: Optional[Sequence[str]]
+    """
+    Item types for 8-Ks
+
+    5.02,5.03,8.01,9.01 etc.
+    """
 
     @property
     def accession_id(self) -> int:
