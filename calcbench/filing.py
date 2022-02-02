@@ -46,13 +46,24 @@ class FilingType(str, Enum):
 
 @dataclass
 class Filing(dict):
+    """A filing with the SEC or a wire press-release"""
+
     is_xbrl: bool
     is_wire: bool
     calcbench_id: int
     sec_accession_id: str
     sec_html_url: str
+
     document_type: str
+    """
+    The label assigned to the filing by the SEC
+    """
+
     filing_type: FilingType
+    """
+    Standardized FilingType as assigned by Calcbench
+    """
+
     filing_sub_type: str
     filing_date: datetime
     fiscal_period: Period
