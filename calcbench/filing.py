@@ -66,7 +66,6 @@ class Filing(dict):
     Standardized FilingType as assigned by Calcbench
     """
 
-    filing_sub_type: str
     filing_date: datetime
     fiscal_period: Period
     fiscal_year: int
@@ -223,7 +222,6 @@ def filings_dataframe(
     for column in [
         "document_type",
         "filing_type",
-        "filing_sub_type",
         "CIK",
         "ticker",
         "entity_name",
