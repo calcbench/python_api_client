@@ -1,11 +1,8 @@
 from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
-from msilib import sequence
 from typing import Iterable, Optional, Sequence
 import dataclasses
-
-from pyrsistent import optional
 
 
 try:
