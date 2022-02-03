@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 try:
-    from azure.servicebus import AutoLockRenewer, ServiceBusClient
+    from azure.servicebus import AutoLockRenewer, ServiceBusClient, ServiceBusReceiver
     from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
     from azure.servicebus._common.message import ServiceBusReceivedMessage
 except ImportError:
@@ -58,11 +58,13 @@ def handle_filings(
         with ServiceBusClient.from_connection_string(
             conn_str=connection_string, debug=False
         ) as client:
+            client: ServiceBusClient
             with client.get_subscription_receiver(
                 topic_name=TOPIC,
                 subscription_name=subscription_name,
                 auto_lock_renewer=renewer,
             ) as receiver:
+                receiver: ServiceBusReceiver
                 message: ServiceBusReceivedMessage
                 for message in receiver:
                     body_bytes = b"".join(cast(Iterable[bytes], message.body))
@@ -70,7 +72,7 @@ def handle_filings(
                         filing = Filing(**json.loads(body_bytes))
                     except Exception:
                         logger.exception(f"Exception Parsing {body_bytes}")
-                        receiver.abandon_message(message)
+                        receiver.dead_letter_message(message)
                     else:
                         try:
                             logger.info(f"Handling {filing}")
@@ -79,6 +81,7 @@ def handle_filings(
                             logger.exception(
                                 f"Exception Processing {filing}\n delivery count: {message.delivery_count}\n{e}"
                             )
+                            receiver.abandon_message(message=message)
                         else:
                             receiver.complete_message(message)
 
