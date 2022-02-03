@@ -45,7 +45,7 @@ def handle_filings(
         >>>             all_footnotes=True,
         >>>             )
         >>>     print(data)
-        >>>
+        >>> subscription = "talk to calcbench to get a subscription"
         >>> handle_filings(
         >>>     filing_handler,
         >>>     subscription_name=subscription,
