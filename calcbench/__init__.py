@@ -5,6 +5,9 @@ To turn on verbose logging
 import logging
 import sys
 logger = logging.getLogger()
+logging.basicConfig(
+    format="%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s", datefmt="%H:%M:%S"
+)
 logging.getLogger('calcbench').setLevel(logging.DEBUG)
 logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
