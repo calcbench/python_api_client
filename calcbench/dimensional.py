@@ -1,7 +1,10 @@
 from enum import Enum
 from typing import Dict, Sequence
 
-import pandas as pd
+try:
+    import pandas as pd
+except ImportError:
+    pass
 
 from calcbench.api_client import (
     _json_POST,
