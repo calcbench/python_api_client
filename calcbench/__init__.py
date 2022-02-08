@@ -1,16 +1,6 @@
 """
 Client for the Calcbench API
 
-To turn on verbose logging
-import logging
-import sys
-logger = logging.getLogger()
-logging.Formatter.converter = lambda *args: datetime.now(tz=timezone('US/Eastern')).timetuple()
-logging.basicConfig(
-    format="%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s", datefmt="%H:%M:%S"
-)
-logging.getLogger('calcbench').setLevel(logging.DEBUG)
-logger.addHandler(logging.StreamHandler(stream=sys.stdout))
 """
 __version__ = "5.6.1"
 from datetime import datetime
@@ -67,12 +57,12 @@ from .business_combinations import (
 from .press_release import press_release_raw, press_release_data
 
 
-def turn_on_logging(level=logging.DEBUG):
-    from pytz import timezone
+def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern"):
+    import pytz
 
     logger = logging.getLogger()
     logging.Formatter.converter = lambda *args: datetime.now(
-        tz=timezone("US/Eastern")
+        tz=pytz.timezone(timezone)
     ).timetuple()
     logging.basicConfig(
         format="%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s", datefmt="%H:%M:%S"
