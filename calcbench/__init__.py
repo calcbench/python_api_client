@@ -64,12 +64,13 @@ def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern"):
     """
     import pytz
 
-    logger = logging.getLogger()
     logging.Formatter.converter = lambda *args: datetime.now(
         tz=pytz.timezone(timezone)
     ).timetuple()
     logging.basicConfig(
         format="%(asctime)s.%(msecs)03d %(levelname)-8s %(message)s", datefmt="%H:%M:%S"
     )
-    logging.getLogger("calcbench").setLevel(level)
-    logger.addHandler(logging.StreamHandler(stream=sys.stdout))
+    cb_logger = logging.getLogger("calcbench")
+    cb_logger.setLevel(level)
+    cb_logger.addHandler(logging.StreamHandler(stream=sys.stdout))
+    return cb_logger
