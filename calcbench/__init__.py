@@ -2,7 +2,7 @@
 Client for the Calcbench API
 
 """
-__version__ = "5.6.1"
+__version__ = "5.7.0"
 from datetime import datetime
 import logging
 import sys
@@ -58,6 +58,10 @@ from .press_release import press_release_raw, press_release_data
 
 
 def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern"):
+    """
+    Turn on verbose logging
+
+    """
     import pytz
 
     logger = logging.getLogger()
