@@ -262,7 +262,6 @@ def point_in_time(
     accession_id: int = None,
     include_trace: bool = False,
     set_index: bool = False,
-    exclude_errors: bool = False,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -294,7 +293,9 @@ def point_in_time(
     period_end
        Last day of the fiscal period for this fact
     date_reported
-       Timestamp when Calcbench published this fact
+       Timestamp when Calcbench published this fact.
+
+       In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
     metric
        The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
     calendar_year
@@ -345,7 +346,6 @@ def point_in_time(
         accession_id=accession_id,
         include_trace=include_trace,
         include_xbrl=include_xbrl,
-        exclude_errors=exclude_errors,
     )
 
     if not data:
