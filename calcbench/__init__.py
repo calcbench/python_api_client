@@ -1,5 +1,5 @@
 """
-Client for the Calcbench API
+The "public" properties on the cb module
 
 """
 __version__ = "5.7.0"

@@ -285,6 +285,10 @@ def point_in_time(
        The value of the fact
     revision_number
        0 indicates an original, unrevised value for this fact. 1, 2, 3... indicates subsequent revisions to the fact value.  https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&query=revisions&commit=Search
+    preliminary
+        True indicates the number was parsed from non-XBRL 8-K or press release from the wire
+    XBRL
+        Indicates the number was parsed from XBRL
     period_start
        First day of the fiscal period for this fact
     period_end
