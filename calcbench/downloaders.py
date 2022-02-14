@@ -4,7 +4,7 @@ from typing import Callable, Sequence, TypeVar
 
 import calcbench as cb
 import pandas as pd
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 logging.getLogger("calcbench").setLevel(logging.DEBUG)
 cb.enable_backoff(giveup=lambda e: e.response.status_code == 404)
@@ -40,7 +40,7 @@ def iterate_and_save_pandas(
     argument: T
     write_mode = "w"
     write_headers = True
-    for argument in tqdm(arguments):
+    for argument in tqdm(list(arguments)):
         try:
             data = f(argument)
             if data.empty:
