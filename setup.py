@@ -34,6 +34,7 @@ setup(
         "Backoff": ["backoff"],
         "BeautifulSoup": ["beautifulsoup4"],
         "tqdm": ["tqdm"],
+        "Keyring": ["keyring"],
     },
     url="https://github.com/calcbench/python_api_client",
     project_urls={

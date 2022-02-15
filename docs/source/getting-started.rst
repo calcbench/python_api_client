@@ -16,6 +16,11 @@ Obtain Credentials
 
 The API uses the same credentials as calcbench.com.  If you do not have Calcbench credentials you can sign up for free two-week trial @ https://www.calcbench.com/join.
 
+Save Credentials
+----------------
+
+If the keyring package is installed the client will attempt to save the crendentials in your computer's keychain.
+
 .. warning::
      Talk to us before you start coding, Calcbench data is not free.
 

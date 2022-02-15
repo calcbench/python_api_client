@@ -12,7 +12,18 @@ import logging
 import os
 from datetime import datetime
 from functools import wraps
-from typing import Callable, Dict, Iterable, Union
+from typing import TYPE_CHECKING, Callable, Dict, Iterable, Optional, Tuple, Union, cast
+import getpass
+import warnings
+
+if TYPE_CHECKING:
+    # https://github.com/microsoft/pyright/issues/1358
+    from typing import TypedDict
+else:
+    try:
+        from typing import TypedDict
+    except ImportError:
+        from typing_extensions import TypedDict
 
 from requests.sessions import Session
 
@@ -31,9 +42,22 @@ except ImportError:
     pass
 
 
-_SESSION_STUFF = {
-    "calcbench_user_name": os.environ.get("CALCBENCH_USERNAME"),
-    "calcbench_password": os.environ.get("CALCBENCH_PASSWORD"),
+class _SESSION_VARIABLES(TypedDict):
+    calcbench_user_name: Optional[str]
+    calcbench_password: Optional[str]
+    api_url_base: str
+    logon_url: str
+    domain: str
+    session: Optional[Session]
+    ssl_verify: bool
+    timeout: int
+    enable_backoff: bool
+    proxies: Optional[Dict[str, str]]
+
+
+_SESSION_STUFF: _SESSION_VARIABLES = {
+    "calcbench_user_name": None,
+    "calcbench_password": None,
     "api_url_base": "https://www.calcbench.com/api/{0}",
     "logon_url": "https://www.calcbench.com/account/LogOnAjax",
     "domain": "https://www.calcbench.com/{0}",
@@ -44,21 +68,69 @@ _SESSION_STUFF = {
     "proxies": None,
 }
 
+KEYRING_SERVICE_NAME = "calcbench_api"
+
+
+def _get_credentials() -> Tuple[str, str]:
+    """
+    Used to store credentials as environment variables.  Now we use keyring
+
+    """
+    session_user_name = _SESSION_STUFF.get("calcbench_user_name")
+    session_password = _SESSION_STUFF.get("calcbench_password")
+    if session_user_name and session_password:
+        return (session_user_name, session_password)
+    keyring_found = False
+    try:
+        import keyring
+
+        keyring_found = True
+    except ImportError:
+        pass
+    else:
+        try:
+            stored_credentials = keyring.get_credential(KEYRING_SERVICE_NAME, None)
+        except Exception as e:
+            warnings.warn(f"Exception getting credentials from keyring {e}")
+        else:
+            if stored_credentials:
+                user_name = cast(str, stored_credentials.username)
+                password = cast(str, stored_credentials.password)
+                _SESSION_STUFF["calcbench_user_name"] = user_name
+                _SESSION_STUFF["calcbench_password"] = password
+                return (user_name, password)
+    environment_user_name = os.environ.get("CALCBENCH_USERNAME")
+    environment_password = os.environ.get("CALCBENCH_PASSWORD")
+    if environment_user_name and environment_password:
+        _SESSION_STUFF["calcbench_user_name"] = environment_user_name
+        _SESSION_STUFF["calcbench_password"] = environment_password
+        return (cast(str, environment_user_name), cast(str, environment_password))
+    else:
+        user_name = input(
+            'Calcbench username/email. Set the "calcbench_user_name" environment variable, `pip install keyring` to save it in your computer\'s credentials manager, or call "set_credentials" to avoid this prompt::'
+        )
+        password = getpass.getpass(
+            'Calcbench password.  Set the "calcbench_password" enviroment variable to avoid this prompt::'
+        )
+        if keyring_found:
+            import keyring
+
+            try:
+                keyring.set_password(
+                    KEYRING_SERVICE_NAME, username=user_name, password=password
+                )
+            except Exception as e:
+                warnings.warn(f"Exception saving credentials to keyring {e}")
+        _SESSION_STUFF["calcbench_user_name"] = user_name
+        _SESSION_STUFF["calcbench_password"] = password
+        return (user_name, password)
+
 
 def _calcbench_session() -> Session:
     session = _SESSION_STUFF.get("session")
     if not session:
-        user_name = _SESSION_STUFF.get("calcbench_user_name")
-        password = _SESSION_STUFF.get("calcbench_password")
-        if not (user_name and password):
-            import getpass
+        user_name, password = _get_credentials()
 
-            user_name = input(
-                'Calcbench username/email. Set the "calcbench_user_name" environment variable or call "set_credentials" to avoid this prompt::'
-            )
-            password = getpass.getpass(
-                'Calcbench password.  Set the "calcbench_password" enviroment variable to avoid this prompt::'
-            )
         session = requests.Session()
         if _SESSION_STUFF.get("proxies"):
             session.proxies.update(_SESSION_STUFF["proxies"])
@@ -70,6 +142,8 @@ def _calcbench_session() -> Session:
         )
         r.raise_for_status()
         if r.text != "true":
+            _SESSION_STUFF["calcbench_user_name"] = None
+            _SESSION_STUFF["calcbench_password"] = None
             raise ValueError(
                 "Incorrect Credentials, use the email and password you use to login to Calcbench."
             )
@@ -155,7 +229,7 @@ def set_credentials(cb_username: str, cb_password: str):
 
     Call this before any other Calcbench functions.
 
-    Alternatively set the ``CALCBENCH_USERNAME`` and ``CALCBENCH_PASSWORD`` environment variables
+    Alternatively set the ``CALCBENCH_USERNAME`` and ``CALCBENCH_PASSWORD`` environment variables OR set the calcbench_api credentials on your Keychain|Secret Service|Windows Credential Locker
 
     :param str cb_username: Your calcbench.com email address
     :param str cb_password: Your calcbench.com password

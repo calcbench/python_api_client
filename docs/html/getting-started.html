@@ -44,6 +44,10 @@
 <div class="section" id="obtain-credentials">
 <h2>Obtain Credentials<a class="headerlink" href="#obtain-credentials" title="Permalink to this headline">¶</a></h2>
 <p>The API uses the same credentials as calcbench.com.  If you do not have Calcbench credentials you can sign up for free two-week trial &#64; <a class="reference external" href="https://www.calcbench.com/join">https://www.calcbench.com/join</a>.</p>
+</div>
+<div class="section" id="save-credentials">
+<h2>Save Credentials<a class="headerlink" href="#save-credentials" title="Permalink to this headline">¶</a></h2>
+<p>If the keyring package is installed the client will attempt to save the crendentials in your computer’s keychain.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Talk to us before you start coding, Calcbench data is not free.</p>
@@ -56,7 +60,7 @@
 <span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">set_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb_username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb_password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.set_credentials" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set your calcbench credentials.</p>
 <p>Call this before any other Calcbench functions.</p>
-<p>Alternatively set the <code class="docutils literal notranslate"><span class="pre">CALCBENCH_USERNAME</span></code> and <code class="docutils literal notranslate"><span class="pre">CALCBENCH_PASSWORD</span></code> environment variables</p>
+<p>Alternatively set the <code class="docutils literal notranslate"><span class="pre">CALCBENCH_USERNAME</span></code> and <code class="docutils literal notranslate"><span class="pre">CALCBENCH_PASSWORD</span></code> environment variables OR set the calcbench_api credentials on your Keychain|Secret Service|Windows Credential Locker</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -130,6 +134,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installing-the-client">Installing the Client</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#obtain-credentials">Obtain Credentials</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-credentials">Save Credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-credentials">Set Credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#error-retry">Error Retry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network-proxy">Network Proxy</a></li>
