@@ -209,9 +209,11 @@ def dimensional(
     as_originally_reported: bool = False,
 ) -> "pd.DataFrame":
     """
-    Segments and Breakouts
+    Segments and Breakouts in a DataFrame
 
     The data behind the breakouts/segment page, https://www.calcbench.com/breakout.
+
+    If there are no results an empty dataframe is returned
 
     :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
     :param metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
@@ -223,7 +225,7 @@ def dimensional(
     :param trace_url: include a column with URL that point to the source document.
     :param as_originally_reported: Show the first reported, rather than revised, values
     :return: A list of points.  The points correspond to the lines @ https://www.calcbench.com/breakout.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.
-    :rtype: sequence
+    :rtype: pd.DataFrame
 
     Usage::
 
@@ -256,6 +258,9 @@ def dimensional(
         }
         for d in raw_data
     ]
+
+    if not raw_data:
+        return pd.DataFrame()
 
     columns = ["value"]
     if trace_url:

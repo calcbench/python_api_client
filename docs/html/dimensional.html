@@ -955,8 +955,9 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.dimensional.dimensional">
 <span class="sig-prename descclassname"><span class="pre">calcbench.dimensional.</span></span><span class="sig-name descname"><span class="pre">dimensional</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">PeriodType.Annual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_originally_reported</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.dimensional.dimensional" title="Permalink to this definition">¶</a></dt>
-<dd><p>Segments and Breakouts</p>
+<dd><p>Segments and Breakouts in a DataFrame</p>
 <p>The data behind the breakouts/segment page, <a class="reference external" href="https://www.calcbench.com/breakout">https://www.calcbench.com/breakout</a>.</p>
+<p>If there are no results an empty dataframe is returned</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -975,7 +976,7 @@
 <dd class="field-even"><p>A list of points.  The points correspond to the lines &#64; <a class="reference external" href="https://www.calcbench.com/breakout">https://www.calcbench.com/breakout</a>.  For each requested metric there will be a the formatted value and the unformatted value denote bya  _effvalue suffix.  The label is the dimension label associated with the values.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>sequence</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 <p>Usage:</p>
