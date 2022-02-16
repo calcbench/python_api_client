@@ -293,7 +293,7 @@ def point_in_time(
     period_end
        Last day of the fiscal period for this fact
     date_reported
-       Timestamp when Calcbench published this fact.
+       Timestamp (EST) when Calcbench published this fact.
 
        In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
     metric
