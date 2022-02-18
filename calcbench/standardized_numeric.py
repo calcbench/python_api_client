@@ -265,7 +265,16 @@ def point_in_time(
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
-    Standardized data with a timestamp when it was published by Calcbench
+    Standardized data with a timestamp when it was published by Calcbench.
+
+
+    A record is returned for each filing in which a metric value changed (was revised).
+
+    If the company files an 8-K with revenue = $100 then a week later files a 10-K with revenue = $100 one record will be returned for that period.  It will have preliminary=True and XBRL=True.
+
+    If the company files an 8-K with revenue = $100 and then a week later files a 10-K with revenue = $200, two records will be returned.  One with revenue = $100, a revision_number=0, date_reported of 8-K, preliminary=True and XBRL=False.  You will see a second line with revenue = $200, a revision_number=1, and date_reported of the 10-K, preliminary=False and XBRL=False.
+
+    If the value is revised in subsequent XBRL filings you will see a record for each filing with an incremented revision number.
 
     :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
     :param all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
