@@ -5,7 +5,6 @@ import calcbench as cb
 import pandas as pd
 from tqdm.auto import tqdm
 
-logger = cb.turn_on_logging()
 cb.enable_backoff(giveup=lambda e: e.response.status_code in [404, 500])
 
 T = TypeVar("T")
