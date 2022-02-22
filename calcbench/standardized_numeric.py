@@ -183,6 +183,11 @@ def standardized_raw(
             "specifying metrics with all_face or all_footnotes does not make sense"
         )
 
+    if not any([all_face, all_footnotes, metrics]):
+        raise ValueError(
+            "need to specify a metrics argument, 'all_face', 'all_foonotes', or a metric"
+        )
+
     if isinstance(metrics, str):
         raise TypeError("metrics should be a list of strings")
 
