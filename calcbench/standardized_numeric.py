@@ -267,6 +267,7 @@ def point_in_time(
     accession_id: int = None,
     include_trace: bool = False,
     set_index: bool = False,
+    _point_in_time_mode=True,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -288,7 +289,7 @@ def point_in_time(
     :param include_xbrl: Include facts from XBRL 10-K/Qs.
     :param include_trace: Include a URL that points to the source document.
     :param set_index: Set a useful index on the returned DataFrame
-    :param exclude_errors:  Run the error detection
+    :param _point_in_time_mode: DO NOT USE.  For debugging only.
     :return: DataFrame of facts
 
     Columns:
@@ -346,7 +347,7 @@ def point_in_time(
         company_identifiers=company_identifiers,
         all_face=all_face,
         all_footnotes=all_footnotes,
-        point_in_time=True,
+        point_in_time=_point_in_time_mode,
         metrics=metrics,
         all_history=all_history,
         entire_universe=entire_universe,
