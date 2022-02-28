@@ -57,7 +57,7 @@ from .business_combinations import (
 from .press_release import press_release_raw, press_release_data
 
 
-def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern"):
+def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern", add_handler=False):
     """
     Turn on verbose logging
 
@@ -72,5 +72,6 @@ def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern"):
     )
     cb_logger = logging.getLogger("calcbench")
     cb_logger.setLevel(level)
-    cb_logger.addHandler(logging.StreamHandler(stream=sys.stdout))
+    if add_handler:
+        cb_logger.addHandler(logging.StreamHandler(stream=sys.stdout))
     return cb_logger
