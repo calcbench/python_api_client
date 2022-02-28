@@ -2,7 +2,7 @@
 The "public" properties on the cb module
 
 """
-__version__ = "5.7.0"
+__version__ = "5.8.0"
 from datetime import datetime
 import logging
 import sys

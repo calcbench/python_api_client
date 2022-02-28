@@ -15,6 +15,9 @@ from functools import wraps
 from typing import TYPE_CHECKING, Callable, Dict, Iterable, Optional, Tuple, Union, cast
 import getpass
 import warnings
+import subprocess
+import sys
+
 
 if TYPE_CHECKING:
     # https://github.com/microsoft/pyright/issues/1358
@@ -70,6 +73,9 @@ _SESSION_STUFF: _SESSION_VARIABLES = {
 
 KEYRING_SERVICE_NAME = "calcbench_api"
 
+USERNAME_ENVIRONMENT_VARIABLE = "CALCBENCH_USERNAME"
+PASSWORD_ENVIRONMENT_VARIABLE = "CALCBENCH_PASSWORD"
+
 
 def _get_credentials() -> Tuple[str, str]:
     """
@@ -85,44 +91,71 @@ def _get_credentials() -> Tuple[str, str]:
         import keyring
 
         keyring_found = True
+        logger.info("found keyring module")
     except ImportError:
-        pass
+        logger.info("did not find keyring module")
     else:
         try:
-            stored_credentials = keyring.get_credential(KEYRING_SERVICE_NAME, None)
+            keychain_credentials = keyring.get_credential(KEYRING_SERVICE_NAME, None)
         except Exception as e:
             warnings.warn(f"Exception getting credentials from keyring {e}")
         else:
-            if stored_credentials:
-                user_name = cast(str, stored_credentials.username)
-                password = cast(str, stored_credentials.password)
+            if keychain_credentials:
+                user_name = cast(str, keychain_credentials.username)
+                password = cast(str, keychain_credentials.password)
+                logger.info(f"found credentials for {user_name} in keyring")
                 _SESSION_STUFF["calcbench_user_name"] = user_name
                 _SESSION_STUFF["calcbench_password"] = password
                 return (user_name, password)
-    environment_user_name = os.environ.get("CALCBENCH_USERNAME")
-    environment_password = os.environ.get("CALCBENCH_PASSWORD")
+    environment_user_name = os.environ.get(USERNAME_ENVIRONMENT_VARIABLE)
+    environment_password = os.environ.get(PASSWORD_ENVIRONMENT_VARIABLE)
     if environment_user_name and environment_password:
         _SESSION_STUFF["calcbench_user_name"] = environment_user_name
         _SESSION_STUFF["calcbench_password"] = environment_password
+        logger.info(
+            f"found credentials for {environment_user_name} in environment variables"
+        )
         return (cast(str, environment_user_name), cast(str, environment_password))
     else:
-        user_name = input(
-            'Calcbench username/email. Set the "calcbench_user_name" environment variable, `pip install keyring` to save it in your computer\'s credentials manager, or call "set_credentials" to avoid this prompt::'
-        )
-        password = getpass.getpass(
-            'Calcbench password.  Set the "calcbench_password" enviroment variable to avoid this prompt::'
-        )
-        if keyring_found:
-            import keyring
+        user_name = input("Calcbench username/email::")
+        password = getpass.getpass("Calcbench password::")
 
-            try:
-                keyring.set_password(
-                    KEYRING_SERVICE_NAME, username=user_name, password=password
-                )
-            except Exception as e:
-                warnings.warn(f"Exception saving credentials to keyring {e}")
         _SESSION_STUFF["calcbench_user_name"] = user_name
         _SESSION_STUFF["calcbench_password"] = password
+        store_in_keychain = (
+            input(
+                f"Store credentials in keychain? (yes/no).  {'' if keyring_found else 'Will attempt to install the keyring package.'}"
+            ).lower()[0]
+            == "y"
+        )
+
+        if store_in_keychain:
+            if not keyring_found:
+                try:
+                    subprocess.check_call(
+                        [sys.executable, "-m", "pip", "install", "keyring"]
+                    )
+                except Exception as e:
+                    logger.error("exception installing keyring module")
+                else:
+                    logger.info("successfully install keyring package")
+                    keyring_found = True
+            if keyring_found:
+                import keyring
+
+                try:
+                    keyring.set_password(
+                        KEYRING_SERVICE_NAME, username=user_name, password=password
+                    )
+
+                except Exception as e:
+                    warnings.warn(f"Exception saving credentials to keyring {e}")
+                else:
+                    logger.info("saved credentials to keyring")
+        else:
+            print(
+                f'To avoid this prompt: save credentials to keychain, call "cb.set_credentials()" or set the "{USERNAME_ENVIRONMENT_VARIABLE}" and "{PASSWORD_ENVIRONMENT_VARIABLE}" environment variable'
+            )
         return (user_name, password)
 
 

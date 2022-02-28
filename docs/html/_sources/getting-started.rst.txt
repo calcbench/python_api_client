@@ -1,6 +1,9 @@
 Getting Started
 ===============
 
+.. warning::
+     Talk to us before you start coding, Calcbench data is not free.
+
 .. _install:
 
 Installing the Client
@@ -19,10 +22,17 @@ The API uses the same credentials as calcbench.com.  If you do not have Calcbenc
 Save Credentials
 ----------------
 
-If the keyring package is installed the client will attempt to save the crendentials in your computer's keychain.
+Credentials can be stored in the "CALCBENCH_USERNAME" and "CALCBENCH_PASSWORD" environment variables OR set the calcbench_api credentials on your Keychain|Secret Service|Windows Credential Locker
 
-.. warning::
-     Talk to us before you start coding, Calcbench data is not free.
+Set Credentials At Runtime
+--------------------------
+
+Call cb.set_credentials('user@calcbench.com', 'mypassword')
+
+On an interactive shell the package will ask for credentials as input
+
+
+
 
 Set Credentials
 ---------------
