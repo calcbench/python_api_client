@@ -72,19 +72,19 @@ class StandardizedPoint(TypedDict):
 def standardized_raw(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[str] = [],
-    start_year: int = None,
+    start_year: Optional[int] = None,
     start_period: PeriodArgument = None,
-    end_year: int = None,
+    end_year: Optional[int] = None,
     end_period: PeriodArgument = None,
     entire_universe=False,
-    accession_id: int = None,
+    accession_id: Optional[int] = None,
     point_in_time: bool = False,
     include_trace: bool = False,
-    update_date: date = None,
+    update_date: Optional[date] = None,
     all_history=False,
-    year: int = None,
+    year: Optional[int] = None,
     period: PeriodArgument = None,
-    period_type: PeriodType = None,
+    period_type: Optional[PeriodType] = None,
     include_preliminary: bool = False,
     use_fiscal_period: bool = False,
     all_face: bool = False,
@@ -268,6 +268,7 @@ def point_in_time(
     include_trace: bool = False,
     set_index: bool = False,
     _point_in_time_mode=True,
+    filing_id: Optional[int] = None,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -290,6 +291,7 @@ def point_in_time(
     :param include_trace: Include a URL that points to the source document.
     :param set_index: Set a useful index on the returned DataFrame
     :param _point_in_time_mode: DO NOT USE.  For debugging only.
+    :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the Filing type.
     :return: DataFrame of facts
 
     Columns:
@@ -431,20 +433,20 @@ def point_in_time(
 def standardized_data(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[str] = [],
-    start_year: int = None,
+    start_year: Optional[int] = None,
     start_period: PeriodArgument = None,
-    end_year: int = None,
+    end_year: Optional[int] = None,
     end_period: PeriodArgument = None,
     entire_universe: bool = False,
     point_in_time: bool = False,
-    year: int = None,
+    year: Optional[int] = None,
     period: PeriodArgument = None,
     all_history: bool = False,
-    period_type: PeriodType = None,
+    period_type: Optional[PeriodType] = None,
     trace_hyperlinks: bool = False,
     use_fiscal_period: bool = False,
     company_identifier_scheme: CompanyIdentifierScheme = CompanyIdentifierScheme.Ticker,
-    accession_id: int = None,
+    accession_id: Optional[int] = None,
 ) -> "pd.DataFrame":
     """Standardized Data.
 
