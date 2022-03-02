@@ -87,6 +87,9 @@ class Filing(dict):
     calendar_year: int
     calendar_period: Period
     standardized_XBRL: bool
+    """
+    Indicates Calcbench (should have) standardized data from the XBRL in this filing.
+    """
 
     filing_id: int
     """
