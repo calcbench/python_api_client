@@ -88,6 +88,13 @@ class Filing(dict):
     calendar_period: Period
     standardized_XBRL: bool
 
+    filing_id: int
+    """
+    preferred ID for filings.  
+
+    corresponds to the ID column in Calcbench's SECFilings table
+    """
+
     item_types: Optional[Sequence[str]]
     """
     Item types for 8-Ks
@@ -121,9 +128,9 @@ def filings(
     company_identifiers: CompanyIdentifiers = [],
     entire_universe: bool = False,
     include_non_xbrl: bool = True,
-    received_date: date = None,
-    start_date: date = None,
-    end_date: date = None,
+    received_date: Optional[date] = None,
+    start_date: Optional[date] = None,
+    end_date: Optional[date] = None,
     include_press_releases_and_proxies: bool = True,
     filing_types: Sequence[FilingType] = [],
 ) -> Iterable[Filing]:
@@ -180,9 +187,9 @@ def filings_dataframe(
     company_identifiers: CompanyIdentifiers = [],
     entire_universe: bool = False,
     include_non_xbrl: bool = True,
-    received_date: date = None,
-    start_date: date = None,
-    end_date: date = None,
+    received_date: Optional[date] = None,
+    start_date: Optional[date] = None,
+    end_date: Optional[date] = None,
     include_press_releases_and_proxies: bool = True,
     filing_types: Sequence[FilingType] = [],
 ) -> "pd.DataFrame":
