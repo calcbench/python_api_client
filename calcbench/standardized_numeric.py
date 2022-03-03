@@ -90,7 +90,7 @@ def standardized_raw(
     all_face: bool = False,
     all_footnotes: bool = False,
     include_xbrl: bool = False,
-    exclude_errors: bool = True,
+    filing_id: Optional[int] = None,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -109,6 +109,7 @@ def standardized_raw(
     :param period_type: Either "annual" or "quarterly"
     :param include_preliminary: Include data from non-XBRL 8-Ks and press releases.
     :param exclude_errors: Run another level of error detections, only works for PIT preliminary
+    :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
     :return: A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
 
     """
@@ -116,9 +117,10 @@ def standardized_raw(
         bool(company_identifiers),
         bool(entire_universe),
         bool(accession_id),
+        bool(filing_id),
     ].count(True) != 1:
         raise ValueError(
-            "Must pass either company_identifiers and accession id or entire_universe=True"
+            "Must pass either company_identifiers, accession id, filing_id, or entire_universe=True"
         )
     if not any(
         [
@@ -127,13 +129,14 @@ def standardized_raw(
             update_date,
             year,
             accession_id,
+            filing_id,
             all_history,
             period_type,
         ]
     ):
         raise ValueError("Need to specify a period qualifier")
 
-    if accession_id and any(
+    if (accession_id or filing_id) and any(
         [
             company_identifiers,
             start_year,
@@ -146,7 +149,7 @@ def standardized_raw(
         ]
     ):
         raise ValueError(
-            "Accession IDs are specific to a filing, no other qualifiers make sense."
+            "Accession/Filing IDs are specific to a filing, no other qualifiers make sense."
         )
 
     if period is not None:
@@ -227,7 +230,6 @@ def standardized_raw(
             "allFootnotes": all_footnotes,
             "allface": all_face,
             "includeXBRL": include_xbrl,
-            "excludeErrors": exclude_errors,
         },
         "periodParameters": {
             "year": start_year,
@@ -239,6 +241,7 @@ def standardized_raw(
             "periodType": period_type,
             "useFiscalPeriod": use_fiscal_period,
             "accessionID": accession_id,
+            "filingID": filing_id,
         },
         "companiesParameters": {
             "entireUniverse": entire_universe,
@@ -291,7 +294,7 @@ def point_in_time(
     :param include_trace: Include a URL that points to the source document.
     :param set_index: Set a useful index on the returned DataFrame
     :param _point_in_time_mode: DO NOT USE.  For debugging only.
-    :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the Filing type.
+    :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
     :return: DataFrame of facts
 
     Columns:
@@ -363,6 +366,7 @@ def point_in_time(
         accession_id=accession_id,
         include_trace=include_trace,
         include_xbrl=include_xbrl,
+        filing_id=filing_id,
     )
 
     if not data:
