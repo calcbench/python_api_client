@@ -13,7 +13,7 @@ T = TypeVar("T")
 def iterate_to_dataframe(
     arguments: Sequence[T],
     f: Callable[[T], pd.DataFrame],
-):
+) -> pd.DataFrame:
     """Apply arguments to a function that returns a DataFrame append to a dataframe and return.
 
     Usage::
