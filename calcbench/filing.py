@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
-from typing import Iterable, Optional, Sequence
+from typing import List, Optional, Sequence
 import dataclasses
 
 
@@ -136,7 +136,7 @@ def filings(
     end_date: Optional[date] = None,
     include_press_releases_and_proxies: bool = True,
     filing_types: Sequence[FilingType] = [],
-) -> Iterable[Filing]:
+) -> List[Filing]:
     """SEC filings
 
     https://www.calcbench.com/filings.
@@ -182,8 +182,7 @@ def filings(
             },
         },
     )
-    for filing in filings:
-        yield Filing(**filing)
+    return [Filing(**f) for f in filings]
 
 
 def filings_dataframe(
