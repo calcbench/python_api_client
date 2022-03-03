@@ -147,9 +147,9 @@ def filings(
     :param received_date: get all filings received on this date
     :param entire_universe: filings for all companies
     :param include_non_xbrl: include filings that do not have XBRL, 8-Ks, earnings releases etc.
-    :param received_data: only filings published on this date
-    :param start_date: filings received on or after this date
-    :param end_date: filings received on or before theis date
+    :param received_date: only filings published by Calcbench on this date
+    :param start_date: filings published by Calcbench on or after this date
+    :param end_date: filings published by Calcbench on or before theis date
     :param filing_type: types of filings to include
 
     Usage::
@@ -203,9 +203,9 @@ def filings_dataframe(
     :param received_date: get all filings received on this date
     :param entire_universe: filings for all companies
     :param include_non_xbrl: include filings that do not have XBRL, 8-Ks, earnings releases etc.
-    :param received_data: only filings published on this date
-    :param start_date: filings received on or after this date
-    :param end_date: filings received on or before theis date
+    :param received_date: only filings published by Calcbench on this date
+    :param start_date: filings published by Calcbench on or after this date
+    :param end_date: filings published by Calcbench on or before theis date
     :param filing_type: types of filings to include
 
     Usage::
