@@ -231,9 +231,6 @@ def filings_dataframe(
     for column in [
         "document_type",
         "filing_type",
-        "CIK",
-        "ticker",
-        "entity_name",
     ]:
         df[column] = pd.Categorical(df[column])
 
@@ -243,4 +240,4 @@ def filings_dataframe(
     for column in ["calendar_period", "fiscal_period"]:
         df[column] = df[column].astype(period_number)
 
-    return df
+    return df.set_index("filing_id")
