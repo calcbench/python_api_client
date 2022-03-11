@@ -12,7 +12,16 @@ import logging
 import os
 from datetime import datetime
 from functools import wraps
-from typing import TYPE_CHECKING, Callable, Dict, Iterable, Optional, Tuple, Union, cast
+from typing import (
+    TYPE_CHECKING,
+    Callable,
+    Dict,
+    Iterable,
+    Optional,
+    Tuple,
+    Union,
+    cast,
+)
 import getpass
 import warnings
 import subprocess
@@ -34,6 +43,7 @@ from calcbench.api_query_params import APIQueryParams
 
 
 import requests
+from requests import RequestException
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +65,8 @@ class _SESSION_VARIABLES(TypedDict):
     ssl_verify: bool
     timeout: int
     enable_backoff: bool
-    proxies: Optional[Dict[str, str]]
+    proxies: Dict[str, str]
+    backoff_giveup: Optional[Callable[[RequestException], bool]]
 
 
 _SESSION_STUFF: _SESSION_VARIABLES = {
@@ -68,7 +79,8 @@ _SESSION_STUFF: _SESSION_VARIABLES = {
     "session": None,
     "timeout": 60 * 20,  # twenty minute content request timeout, by default
     "enable_backoff": False,
-    "proxies": None,
+    "proxies": {},
+    "backoff_giveup": None,
 }
 
 KEYRING_SERVICE_NAME = "calcbench_api"
@@ -201,7 +213,8 @@ def _add_backoff(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if _SESSION_STUFF["enable_backoff"]:
-            backoff = _SESSION_STUFF["backoff_package"]
+            import backoff
+
             return backoff.on_exception(
                 backoff.expo,
                 requests.exceptions.RequestException,
@@ -279,7 +292,8 @@ def set_credentials(cb_username: str, cb_password: str):
 
 def enable_backoff(
     backoff_on: bool = True,
-    giveup: Callable[[Exception], bool] = lambda e: e.response.status_code == 404,
+    giveup: Callable[[RequestException], bool] = lambda e: e.response
+    and e.response.status_code == 404,
 ):
     """Re-try failed requests with exponential back-off
 
@@ -293,7 +307,7 @@ def enable_backoff(
     :param giveup: function that handles exception and decides whether to continue or not.
 
     Usage::
-        >>> calcbench.enable_backoff(giveup=lambda e: e.response.status_code == 404)
+        >>> calcbench.enable_backoff(giveup=lambda e: e.response and e.response.status_code == 404)
 
     """
     if backoff_on:
@@ -302,11 +316,9 @@ def enable_backoff(
         except ImportError:
             print("backoff package not found, `pip install backoff`")
             raise
-
-        _SESSION_STUFF["backoff_package"] = backoff
+        _SESSION_STUFF["backoff_giveup"] = giveup
 
     _SESSION_STUFF["enable_backoff"] = backoff_on
-    _SESSION_STUFF["backoff_giveup"] = giveup
 
 
 def set_proxies(proxies: Dict[str, str]):
