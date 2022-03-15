@@ -51,6 +51,9 @@ class Filing(dict):
     is_xbrl: bool
     is_wire: bool
     calcbench_id: int
+    """
+    aka accession id
+    """
     sec_accession_id: str
     sec_html_url: str
 

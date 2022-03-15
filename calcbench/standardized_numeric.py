@@ -186,7 +186,7 @@ def standardized_raw(
             "specifying metrics with all_face or all_footnotes does not make sense"
         )
 
-    if not any([all_face, all_footnotes, metrics]):
+    if not any([all_face, all_footnotes, metrics, filing_id]):
         raise ValueError(
             "need to specify a metrics argument, 'all_face', 'all_foonotes', or a metric"
         )
@@ -286,7 +286,7 @@ def point_in_time(
 
     If the value is revised in subsequent XBRL filings you will see a record for each filing with an incremented revision number.
 
-    :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as filing_id in filings objects
+    :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as calcbench_id in filings objects
     :param all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
     :param all_footnotes: Retrive all of the points from the footnotes to the financials
     :param include_preliminary: Include facts from non-XBRL earnings press-releases and 8-Ks.
@@ -428,7 +428,9 @@ def point_in_time(
             elif period_type == PeriodType.Annual:
                 data["period"] = pd.PeriodIndex(data["fiscal_year"], freq="A")
         data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
-        data = data.set_index(["ticker", "metric", "period", "revision_number"])
+        data = data.set_index(
+            ["ticker", "metric", "period", "revision_number"]
+        ).sort_index()
     else:
         data = data.sort_values(sort_columns).reset_index(drop=True)
     return data
