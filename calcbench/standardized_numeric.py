@@ -429,7 +429,7 @@ def point_in_time(
                 data["period"] = pd.PeriodIndex(data["fiscal_year"], freq="A")
         data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
         data = data.set_index(
-            ["ticker", "metric", "period", "revision_number"]
+            ["ticker", "metric", "period", "date_reported"]
         ).sort_index()
     else:
         data = data.sort_values(sort_columns).reset_index(drop=True)
