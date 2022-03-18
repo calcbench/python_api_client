@@ -245,5 +245,22 @@ def filings_dataframe(
     )  # filing dates can be strange
     for column in ["calendar_period", "fiscal_period"]:
         df[column] = df[column].astype(period_number)
-
-    return df.set_index("filing_id")
+    df = df.set_index("filing_id")
+    df = df.sort_index(ascending=False)
+    return df[
+        [
+            "ticker",
+            "entity_name",
+            "CIK",
+            "is_xbrl",
+            "is_wire",
+            "document_type",
+            "filing_type",
+            "filing_date",
+            "calcbench_accepted",
+            "calcbench_finished_load",
+            "fiscal_year",
+            "fiscal_period",
+            "sec_html_url",
+        ]
+    ]
