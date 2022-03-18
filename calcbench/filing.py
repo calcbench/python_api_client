@@ -25,6 +25,9 @@ class FilingType(str, Enum):
     proxy = "proxy"
     annualQuarterlyReport = "annualQuarterlyReport"
     eightk_earningsPressRelease = "eightk_earningsPressRelease"
+    """
+    earnings press releases from the wires or the SEC
+    """
     eightk_guidanceUpdate = "eightk_guidanceUpdate"
     eightk_conferenceCallTranscript = "eightk_conferenceCallTranscript"
     eightk_presentationSlides = "eightk_presentationSlides"
