@@ -40,6 +40,15 @@ class Period(IntEnum):
     Q2 = 2
     Q3 = 3
     Q4 = 4
+    H1 = 5
+    """
+    First half of year
+    """
+    Q3Cum = 6
+    """
+    First three quarters of year
+    """
+    Other = 9
 
 
 PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
