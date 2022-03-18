@@ -1,6 +1,7 @@
 import dataclasses
 from dataclasses import dataclass
 from datetime import datetime
+from enum import IntEnum
 from typing import Generator, Sequence
 
 from calcbench.api_client import _try_parse_timestamp
@@ -85,42 +86,140 @@ def non_XBRL_numeric(
     return pd.DataFrame(facts)
 
 
+class StatementType(IntEnum):
+    unset = -1
+    docEntityInfo = 0
+    IncomeStatement = 1
+    BalanceSheet = 2
+    CashFlow = 3
+    Disclosure = 4
+    StockholdersEquity = 5
+    StatementOfComprehensiveIncome = 6
+    IncomeStatementParenthetical = 11
+    BalanceSheetParenthetical = 12
+    CashFlowParenthetical = 13
+    DisclosureParenthetical = 14
+    stockholdersEquityParenthetical = 15
+    StatementOfComprehensiveIncomeParenthetical = 16
+    extensionAnchoring = 19
+
+
 @dataclass
 class NonXBRLFact:
     """
     Cooresponds to NonXBRLFact on the server
     """
 
+    ticker: str
     CIK: str
+    """
+    Central Index Key
+    """
+
     UOM: str
+    """
+    Examples: USD, PCT, PURE, GBP, EUR. This is specifed when a particular unit of measure appears with a number. 
+    """
+
     Value: float
     XBRLfilingID: int
     column_label: str
+    """
+    full column label for that column
+    """
+
     companyID: int
+    """
+    Calcbench entityID
+    """
+
     document: str
     entity_name: str
+    """
+    Company name
+    """
+
     extract_tag: str
+    """
+    Calcbench's attempt to create a unique tag/identifier (like an XBRL tag) for each concept in the filing. This is often useful for comparing data over time for a particular company, but would rarely be useful for comparing data across companies. 
+    """
+
     fact_id: int
+    """
+    Calcbench database ID for that particular fact
+    """
+
     filingID: int
+
     filing_date: datetime
+    """
+    Date the document was filed with the SEC
+    """
+
     filing_end_date: datetime
+    """
+    The last day of the fiscal period to which this filing refers
+    """
+
     filing_period: Period
+    """
+    Fiscal period to which the filing refers
+    """
+
     filing_year: int
+    """
+    Fiscal year to which this filing refers
+    """
+
     fiscal_period: Period
+    """
+    Fiscal period to which this fact refers
+    """
+
     fiscal_year: int
+    """
+    Fiscal year to which this fact refers
+    """
+
     is_guidance: bool
+    """
+    The value is guidance
+    """
+
     is_non_gaap: bool
+    """
+    This value is a non-GAAP number
+    """
+
     label: str
+    """
+    row label
+    """
+
     metric: str
     metric_id: int
     range_high: bool
+    """
+    is high end of a stated range  
+    """
+
     range_low: bool
+    """
+    is low end of a stated range (eg: 53% to 62%)
+    """
+
     sec_filing_URL: str
-    sec_html_url: str
+    """
+    The SEC url for this filing
+    """
+
     special_fact_type: str
-    statement_type: int
+    statement_type: StatementType
+    """
+    Standardized statement type
+    """
+
     tabular_item: bool
-    ticker: str
 
     def __init__(self, **kwargs):
         names = set([f.name for f in dataclasses.fields(self)])
