@@ -230,11 +230,12 @@ def _add_backoff(f):
 
 @_add_backoff
 def _json_POST(end_point: str, payload: Union[dict, APIQueryParams]):
+    session = _calcbench_session()
     url = _SESSION_STUFF["api_url_base"].format(end_point)
     data = json.dumps(payload)
     logger.debug(f"posting to {url}, {data}")
     start = datetime.now()
-    response = _calcbench_session().post(
+    response = session.post(
         url,
         data=data,
         headers={"content-type": "application/json"},
