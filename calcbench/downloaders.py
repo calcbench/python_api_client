@@ -1,5 +1,5 @@
-from typing import Callable, Sequence, TypeVar
-
+from typing import Callable, Sequence, TypeVar, Union
+from pathlib import Path
 
 import calcbench as cb
 import pandas as pd
@@ -51,7 +51,7 @@ def iterate_to_dataframe(
 
 
 def iterate_and_save_pandas(
-    arguments: Sequence[T], f: Callable[[T], pd.DataFrame], file_name: str
+    arguments: Sequence[T], f: Callable[[T], pd.DataFrame], file_name: Union[str, Path]
 ):
     """Apply arguments to a function that returns a DataFrame and save to a file.
 
