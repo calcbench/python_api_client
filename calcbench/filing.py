@@ -111,6 +111,11 @@ class Filing(dict):
     5.02,5.03,8.01,9.01 etc.
     """
 
+    has_standardized_data: bool
+    """
+    There is/should/will be, standarized data for this filing
+    """
+
     @property
     def accession_id(self) -> int:
         """same as calcbench_id, calcbench_id should have been accession_id"""
