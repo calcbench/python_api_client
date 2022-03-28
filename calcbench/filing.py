@@ -113,7 +113,7 @@ class Filing(dict):
 
     has_standardized_data: bool
     """
-    There is/should/will be, standarized data for this filing
+    There is/should/will be, standardized data for this filing
     """
 
     @property
