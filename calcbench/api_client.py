@@ -48,13 +48,6 @@ from requests import RequestException
 logger = logging.getLogger(__name__)
 
 
-try:
-    import pandas as pd
-except ImportError:
-    "Can't find pandas, won't be able to use the functions that return DataFrames."
-    pass
-
-
 class _SESSION_VARIABLES(TypedDict):
     calcbench_user_name: Optional[str]
     calcbench_password: Optional[str]
