@@ -1,5 +1,5 @@
 import warnings
-from datetime import date
+from datetime import date, datetime
 from typing import Any, Optional, Sequence, TYPE_CHECKING, Union
 
 from calcbench.api_query_params import (
@@ -399,6 +399,7 @@ def point_in_time(
     new_columns = list(set(data.columns) - set(ordered_columns))
     data = data.reindex(columns=ordered_columns + new_columns)
     data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
+    data["date_downloaded"] = datetime.now()
     sort_columns = ["ticker", "metric"]
 
     if "calendar_period" in data.columns:
