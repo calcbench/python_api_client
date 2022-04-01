@@ -91,6 +91,7 @@ def standardized_raw(
     all_footnotes: bool = False,
     include_xbrl: bool = False,
     filing_id: Optional[int] = None,
+    all_non_GAAP: bool = False,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -186,9 +187,9 @@ def standardized_raw(
             "specifying metrics with all_face or all_footnotes does not make sense"
         )
 
-    if not any([all_face, all_footnotes, metrics, filing_id]):
+    if not any([all_face, all_footnotes, metrics, filing_id, all_non_GAAP]):
         raise ValueError(
-            "need to specify a metrics argument, 'all_face', 'all_foonotes', or a metric"
+            "need to specify a metrics argument, 'all_face', 'all_foonotes', 'all_non_GAAP' or a metric"
         )
 
     if isinstance(metrics, str):
@@ -230,6 +231,7 @@ def standardized_raw(
             "allFootnotes": all_footnotes,
             "allface": all_face,
             "includeXBRL": include_xbrl,
+            "allNonGAAP": all_non_GAAP,
         },
         "periodParameters": {
             "year": start_year,
@@ -272,6 +274,7 @@ def point_in_time(
     set_index: bool = False,
     _point_in_time_mode=True,
     filing_id: Optional[int] = None,
+    all_non_GAAP: bool = False,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -295,6 +298,7 @@ def point_in_time(
     :param set_index: Set a useful index on the returned DataFrame
     :param _point_in_time_mode: DO NOT USE.  For debugging only.
     :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
+    :param all_non_GAAP: include all non-GAAP metrics from earnings press releases such as EBITDA_NonGAAP.  This is implied when querying by `filing_id`.
     :return: DataFrame of facts
 
     Columns:
@@ -367,6 +371,7 @@ def point_in_time(
         include_trace=include_trace,
         include_xbrl=include_xbrl,
         filing_id=filing_id,
+        all_non_GAAP=all_non_GAAP,
     )
 
     if not data:
