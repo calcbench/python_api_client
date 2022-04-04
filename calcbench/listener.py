@@ -1,17 +1,16 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import json
 import logging
-from typing import Callable, Iterable, cast
+from typing import Callable, Iterable, Optional, cast
 
 try:
     from azure.servicebus import AutoLockRenewer, ServiceBusClient, ServiceBusReceiver
     from azure.servicebus.aio import ServiceBusClient as AsyncServiceBusClient
     from azure.servicebus._common.message import ServiceBusReceivedMessage
     from azure.servicebus.exceptions import MessageNotFoundError
-    import pytz
 except ImportError:
     "Will not be able to use the listener"
     pass
@@ -29,7 +28,7 @@ CONNECTION_STRING = "Endpoint=sb://calcbench.servicebus.windows.net/;SharedAcces
 def handle_filings(
     handler: Callable[[Filing], None],
     connection_string: str = CONNECTION_STRING,
-    subscription_name: str = None,
+    subscription_name: Optional[str] = None,
 ):
     """Listen for new filings from Calcbench
 
@@ -118,7 +117,7 @@ def _process_message(
 
 def _get_deferred_messages(receiver: "ServiceBusReceiver"):
     """
-    This is the best I could do to figure out how to get deferred messages without maintaining state in the client.
+    This is the best I could do to figure out how to get deferred messages without maintaining state on the client.
 
     I asked about this on stackover flow @ https://stackoverflow.com/questions/70974772/servicebus-retry-logic
 
@@ -131,10 +130,10 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
     )
     for message in peek_messages:
         enqueued_time = cast(datetime, message.enqueued_time_utc)
-        time_in_queue = datetime.utcnow().astimezone(pytz.UTC) - enqueued_time
+        time_in_queue = datetime.now(timezone.utc) - enqueued_time
         minutes_to_wait = 2 ** cast(int, message.delivery_count)
-        retry_factor = timedelta(minutes=minutes_to_wait)
-        if time_in_queue > retry_factor:
+        retry_wait = timedelta(minutes=minutes_to_wait)
+        if time_in_queue > retry_wait:
             try:
                 deferred_message = receiver.receive_deferred_messages(
                     cast(int, message.sequence_number)
@@ -150,7 +149,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
 async def handle_filings_async(
     handler: Callable[[Filing], None],
     connection_string: str = CONNECTION_STRING,
-    subscription_name: str = None,
+    subscription_name: Optional[str] = None,
 ):
     """
     https://github.com/Azure/azure-sdk-for-python/blob/master/sdk/servicebus/azure-servicebus/samples/async_samples/receive_subscription_async.py
