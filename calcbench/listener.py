@@ -78,7 +78,7 @@ def handle_filings(
                     # Every two minutes check if there are any deferred messages and try to process them
                     if datetime.now() - last_deferred_check > timedelta(minutes=2):
                         try:
-                            deferred_messages = list(_get_deferred_messages(receiver))
+                            deferred_messages = _get_deferred_messages(receiver)
                         except Exception:
                             logger.exception("exception getting deferred messages")
                         else:
@@ -124,26 +124,35 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
     If MSFT ever comes up with a fix for https://github.com/Azure/azure-sdk-for-python/issues/22918 this should be replaced.
 
     """
-    peek_messages = receiver.peek_messages(max_message_count=10)
-    logger.debug(
-        f"Found {len(peek_messages)} messages in the queue that might be deferred"
-    )
-    for message in peek_messages:
-        enqueued_time = cast(datetime, message.enqueued_time_utc)
-        time_in_queue = datetime.now(timezone.utc) - enqueued_time
-        minutes_to_wait = 2 ** cast(int, message.delivery_count)
-        retry_wait = timedelta(minutes=minutes_to_wait)
-        if time_in_queue > retry_wait:
-            try:
-                deferred_message = receiver.receive_deferred_messages(
-                    cast(int, message.sequence_number)
-                )[0]
-            except MessageNotFoundError:
-                # This is fine.  If the messages are not deferred getting them with receive_deferred_messages will not work
-                pass
-            else:
-                logger.debug(f"found deferred message {message}")
-                yield deferred_message
+    peeked_messages = receiver.peek_messages(max_message_count=10)
+    while len(peeked_messages) > 0:
+        logger.debug(
+            f"Found {len(peeked_messages)} messages in the queue that might be deferred"
+        )
+        sequence_number: int = 0
+        for peeked_message in peeked_messages:
+            sequence_number = cast(int, peeked_message.sequence_number)
+            if peeked_message.delivery_count == 0:
+                continue
+            enqueued_time = cast(datetime, peeked_message.enqueued_time_utc)
+            time_in_queue = datetime.now(timezone.utc) - enqueued_time
+            minutes_to_wait = 2 ** cast(int, peeked_message.delivery_count)
+            retry_wait = timedelta(minutes=minutes_to_wait)
+            if time_in_queue > retry_wait:
+                try:
+                    deferred_message = receiver.receive_deferred_messages(
+                        sequence_number
+                    )[0]
+                except MessageNotFoundError:
+                    # This is fine.  If the messages are not deferred getting them with receive_deferred_messages will not work.  Also this happens for old messages
+                    pass
+                else:
+                    logger.debug(f"found deferred message {peeked_message}")
+                    yield deferred_message
+        peeked_messages = receiver.peek_messages(
+            max_message_count=10,
+            sequence_number=sequence_number + 1,
+        )
 
 
 async def handle_filings_async(
