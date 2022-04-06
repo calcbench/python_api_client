@@ -103,11 +103,11 @@ def _process_message(
         receiver.dead_letter_message(message)
     else:
         try:
-            logger.info(f"Handling {filing}")
+            logger.info(f"Handling {message}")
             handler(filing)
         except Exception:
             logger.exception(
-                f"Exception Processing {filing}\n delivery count: {message.delivery_count}, deferring",
+                f"Exception Processing {message}\n delivery count: {message.delivery_count}, deferring",
             )
             receiver.defer_message(message=message)
         else:
@@ -124,6 +124,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
     If MSFT ever comes up with a fix for https://github.com/Azure/azure-sdk-for-python/issues/22918 this should be replaced.
 
     """
+    number_peeked = 0
     logger.debug("Looking for deferred messages")
     peeked_messages = receiver.peek_messages(max_message_count=10)
     while len(peeked_messages) > 0:
@@ -132,6 +133,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
         )
         sequence_number: int = 0
         for peeked_message in peeked_messages:
+            number_peeked += 1
             sequence_number = cast(int, peeked_message.sequence_number)
             enqueued_time = cast(datetime, peeked_message.enqueued_time_utc)
             delivery_count = cast(int, peeked_message.delivery_count)
@@ -159,11 +161,13 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
                         f"found deferred message seq # {sequence_number} {peeked_message}"
                     )
                     yield deferred_message
+            else:
+                logger.debug(f"delay time not met for {sequence_number}")
         peeked_messages = receiver.peek_messages(
             max_message_count=10,
             sequence_number=sequence_number + 1,
         )
-    logger.debug("Done looking for deferred messages")
+    logger.debug(f"Done looking for deferred messages, peeked {number_peeked}")
 
 
 async def handle_filings_async(
