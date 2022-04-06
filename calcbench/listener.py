@@ -124,35 +124,46 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
     If MSFT ever comes up with a fix for https://github.com/Azure/azure-sdk-for-python/issues/22918 this should be replaced.
 
     """
+    logger.debug("Looking for deferred messages")
     peeked_messages = receiver.peek_messages(max_message_count=10)
     while len(peeked_messages) > 0:
         logger.debug(
-            f"Found {len(peeked_messages)} messages in the queue that might be deferred"
+            f"Found {','.join(str(m.sequence_number) for m in peeked_messages)} messages in the queue that might be deferred"
         )
         sequence_number: int = 0
         for peeked_message in peeked_messages:
             sequence_number = cast(int, peeked_message.sequence_number)
-            if peeked_message.delivery_count == 0:
-                continue
             enqueued_time = cast(datetime, peeked_message.enqueued_time_utc)
+            delivery_count = cast(int, peeked_message.delivery_count)
             time_in_queue = datetime.now(timezone.utc) - enqueued_time
-            minutes_to_wait = 2 ** cast(int, peeked_message.delivery_count)
+            minutes_to_wait = 2 ** delivery_count
             retry_wait = timedelta(minutes=minutes_to_wait)
+            logger.debug(
+                f"Processing message seq # {sequence_number}, enqued (UTC) @ {enqueued_time}, delivery count {delivery_count} {peeked_message}"
+            )
+            if delivery_count == 0:
+                continue
             if time_in_queue > retry_wait:
                 try:
                     deferred_message = receiver.receive_deferred_messages(
                         sequence_number
                     )[0]
                 except MessageNotFoundError:
-                    # This is fine.  If the messages are not deferred getting them with receive_deferred_messages will not work.  Also this happens for old messages
+                    # This is fine.  If the messages are not deferred getting them with receive_deferred_messages will not work.  This happens for old messages.
+                    logger.debug(
+                        f"message not found for message seq # {sequence_number}"
+                    )
                     pass
                 else:
-                    logger.debug(f"found deferred message {peeked_message}")
+                    logger.debug(
+                        f"found deferred message seq # {sequence_number} {peeked_message}"
+                    )
                     yield deferred_message
         peeked_messages = receiver.peek_messages(
             max_message_count=10,
             sequence_number=sequence_number + 1,
         )
+    logger.debug("Done looking for deferred messages")
 
 
 async def handle_filings_async(
