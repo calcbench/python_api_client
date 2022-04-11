@@ -1,12 +1,16 @@
 import warnings
 from datetime import date, datetime
-from typing import Any, Optional, Sequence, TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Any, Optional, Sequence, Union
+
 
 from calcbench.api_query_params import (
-    CompanyIdentifierScheme,
+    APIQueryParams,
+    CompaniesParameters,
     CompanyIdentifiers,
+    CompanyIdentifierScheme,
     Period,
     PeriodArgument,
+    PeriodParameters,
     PeriodType,
 )
 
@@ -19,11 +23,7 @@ else:
     except ImportError:
         from typing_extensions import TypedDict
 
-
-from calcbench.api_client import (
-    _json_POST,
-    logger,
-)
+from calcbench.api_client import _json_POST, logger
 
 try:
     import numpy as np
@@ -32,7 +32,6 @@ try:
     period_number = pd.api.types.CategoricalDtype(  # type: ignore
         categories=[1, 2, 3, 4, 5, 6, 0], ordered=True
     )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
-
 except ImportError:
     "Can't find pandas, won't be able to use the functions that return DataFrames."
     pass
@@ -92,6 +91,7 @@ def standardized_raw(
     include_xbrl: bool = False,
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
+    all_metrics=False,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -111,6 +111,8 @@ def standardized_raw(
     :param include_preliminary: Include data from non-XBRL 8-Ks and press releases.
     :param exclude_errors: Run another level of error detections, only works for PIT preliminary
     :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
+    :param all_non_GAAP: include all non-GAAP metrics from earnings press releases such as EBITDA_NonGAAP.  This is implied when querying by `filing_id`.
+    :param all_metrics: All metrics.
     :return: A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
 
     """
@@ -187,9 +189,11 @@ def standardized_raw(
             "specifying metrics with all_face or all_footnotes does not make sense"
         )
 
-    if not any([all_face, all_footnotes, metrics, filing_id, all_non_GAAP]):
+    if not any(
+        [all_face, all_footnotes, metrics, filing_id, all_non_GAAP, all_metrics]
+    ):
         raise ValueError(
-            "need to specify a metrics argument, 'all_face', 'all_foonotes', 'all_non_GAAP' or a metric"
+            "need to specify a metrics argument, 'all_face', 'all_foonotes', 'all_non_GAAP', 'all_metrics' or a metric"
         )
 
     if isinstance(metrics, str):
@@ -222,7 +226,26 @@ def standardized_raw(
         end_period = int(end_period)  # type: ignore
     except (ValueError, TypeError):
         pass
-    payload = {
+
+    period_parameters: PeriodParameters = {
+        "year": start_year,
+        "period": start_period,
+        "endYear": end_year,
+        "endPeriod": end_period,
+        "allHistory": all_history,
+        "updateDate": update_date and update_date.isoformat(),
+        "periodType": period_type,
+        "useFiscalPeriod": use_fiscal_period,
+        "accessionID": accession_id,
+        "filingID": filing_id,
+    }  # type: ignore
+
+    companies_parameters: CompaniesParameters = {
+        "entireUniverse": entire_universe,
+        "companyIdentifiers": list(company_identifiers),
+    }
+
+    payload: APIQueryParams = {
         "pageParameters": {
             "metrics": metrics,
             "includeTrace": include_trace,
@@ -232,26 +255,48 @@ def standardized_raw(
             "allface": all_face,
             "includeXBRL": include_xbrl,
             "allNonGAAP": all_non_GAAP,
+            "allMetrics": all_metrics,
         },
-        "periodParameters": {
-            "year": start_year,
-            "period": start_period,
-            "endYear": end_year,
-            "endPeriod": end_period,
-            "allHistory": all_history,
-            "updateDate": update_date and update_date.isoformat(),
-            "periodType": period_type,
-            "useFiscalPeriod": use_fiscal_period,
-            "accessionID": accession_id,
-            "filingID": filing_id,
-        },
-        "companiesParameters": {
-            "entireUniverse": entire_universe,
-            "companyIdentifiers": list(company_identifiers),
-        },
+        "periodParameters": period_parameters,
+        "companiesParameters": companies_parameters,
     }
 
     return _json_POST("mappedData", payload)
+
+
+ORDERED_COLUMNS = [
+    "ticker",
+    "metric",
+    "fiscal_year",
+    "fiscal_period",
+    "value",
+    "revision_number",
+    "preliminary",
+    "XBRL",
+    "date_reported",
+    "filing_type",
+    "CIK",
+    "calcbench_entity_id",
+    "period_start",
+    "period_end",
+    "calendar_year",
+    "calendar_period",
+    "filing_accession_number",
+    "trace_url",
+]
+
+
+def _build_data_frame(raw_data: Sequence[StandardizedPoint]) -> "pd.DataFrame":
+    """
+    The order of the columns should remain constant
+    """
+    if not raw_data:
+        return pd.DataFrame()
+    data = pd.DataFrame(raw_data)
+    new_columns = list(set(data.columns) - set(ORDERED_COLUMNS))
+    data = data.reindex(columns=ORDERED_COLUMNS + new_columns)
+    data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
+    return data
 
 
 def point_in_time(
@@ -376,35 +421,8 @@ def point_in_time(
 
     if not data:
         return pd.DataFrame()
+    data = _build_data_frame(data)
 
-    data = pd.DataFrame(data)
-
-    # specify the order but include all columns
-    ordered_columns = [
-        "ticker",
-        "metric",
-        "fiscal_year",
-        "fiscal_period",
-        "revision_number",
-        "value",
-        "preliminary",
-        "XBRL",
-        "date_reported",
-        "filing_type",
-        "CIK",
-        "calcbench_entity_id",
-        "period_start",
-        "period_end",
-        "calendar_year",
-        "calendar_period",
-        "filing_accession_number",
-        "trace_url",
-    ]
-
-    new_columns = list(set(data.columns) - set(ordered_columns))
-    data = data.reindex(columns=ordered_columns + new_columns)
-    data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
-    data["date_downloaded"] = datetime.now()
     sort_columns = ["ticker", "metric"]
 
     if "calendar_period" in data.columns:
@@ -574,6 +592,56 @@ def standardized_data(
     for missing_metric in missing_metrics:
         data[missing_metric] = np.nan  # We want columns for every requested metric.
     data = data.unstack(f"{company_identifier_scheme}")
+    return data
+
+
+def standardized(
+    company_identifiers: CompanyIdentifiers = [],
+    metrics: Sequence[str] = [],
+    all_history: bool = True,
+    year: Optional[int] = None,
+    period: PeriodArgument = None,
+    point_in_time: bool = False,
+    filing_id: Optional[int] = None,
+):
+    data = standardized_raw(
+        company_identifiers=company_identifiers,
+        all_history=all_history,
+        year=year,
+        period=period,
+        point_in_time=point_in_time,
+        metrics=metrics,
+        entire_universe=not company_identifiers,
+        filing_id=filing_id,
+        all_metrics=not metrics,
+    )
+
+    data = _build_data_frame(data)
+    if data.empty:
+        return data
+    data["fiscal_period"] = (
+        data["fiscal_year"].astype(str) + "-" + data["fiscal_period"].astype(str)
+    )
+    data = data.drop("fiscal_year", axis=1)
+
+    if "calendar_period" in data.columns:
+        data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
+
+    if "calendar_period" in data.columns:
+        data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
+
+    for date_column in ["date_reported", "period_end", "period_start"]:
+        if date_column in data.columns:
+            data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
+    index_columns = [
+        "ticker",
+        "metric",
+        "fiscal_period",
+    ]
+    if point_in_time:
+        index_columns = index_columns + ["date_reported"]
+        data["date_downloaded"] = datetime.now()
+    data = data.set_index(index_columns)
     return data
 
 

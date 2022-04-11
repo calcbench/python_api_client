@@ -40,6 +40,7 @@ from .standardized_numeric import (
     point_in_time,
     standardized_data,
     standardized_raw,
+    standardized,
 )
 
 from .raw_numeric_XBRL import raw_XBRL, raw_xbrl_raw
