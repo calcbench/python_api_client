@@ -636,7 +636,7 @@ def standardized(
         period=fiscal_period,
         point_in_time=point_in_time,
         metrics=metrics,
-        entire_universe=not company_identifiers,
+        entire_universe=not (company_identifiers or filing_id),
         filing_id=filing_id,
         all_metrics=not metrics,
         use_fiscal_period=True,
