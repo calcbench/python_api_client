@@ -598,22 +598,48 @@ def standardized_data(
 def standardized(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[str] = [],
-    all_history: bool = True,
-    year: Optional[int] = None,
-    period: PeriodArgument = None,
+    fiscal_year: Optional[int] = None,
+    fiscal_period: PeriodArgument = None,
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
 ):
+    """Standardized Numeric Data.
+
+
+
+    The data behind the multi-company page, https://www.calcbench.com/multi.
+
+    Example https://github.com/calcbench/notebooks/blob/master/python_client_api_demo.ipynb
+
+    :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740'].  If not specified get data for all companies.
+    :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable'].  If not specified get all metrics.
+    :param fiscal_year: Fiscal year for which to get data.  If not specified get all history.
+    :param fiscal_period: Fiscal period for which to get data.  If not specified get all history.
+    :param point_in_time: Include timestamps when data was published and revision chains.
+    :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
+    :return: Dataframe
+
+    Usage::
+
+      >>> d = calcbench.standardized(company_identifiers=['msft'],
+      >>>                                 point_in_time=True,)
+      >>> )
+      >>> # Put the data in a format amiable to arithmetic on columns
+      >>> d = calcbench.standardized(company_identifiers=['msft', 'orcl'], metrics=['StockholdersEquity', 'NetIncome'])
+      >>> d = d.unstack("metric")["value"]
+      >>> return_on_equity = d['NetIncome'] / d['StockholdersEquity']
+    """
     data = standardized_raw(
         company_identifiers=company_identifiers,
-        all_history=all_history,
-        year=year,
-        period=period,
+        all_history=not fiscal_year,
+        year=fiscal_year,
+        period=fiscal_period,
         point_in_time=point_in_time,
         metrics=metrics,
         entire_universe=not company_identifiers,
         filing_id=filing_id,
         all_metrics=not metrics,
+        use_fiscal_period=True,
     )
 
     data = _build_data_frame(data)
