@@ -74,9 +74,8 @@ class PressReleaseData:
 
 def press_release_raw(
     company_identifiers: CompanyIdentifiers,
-    all_history: bool = False,
-    year: Optional[int] = None,
-    period: Optional[Period] = None,
+    year: int,
+    period: Period,
 ) -> Generator[PressReleaseData, None, None]:
 
     periodParameters: PeriodParameters = {
