@@ -57,7 +57,7 @@ def iterate_to_dataframe(
 def iterate_and_save_pandas(
     arguments: Sequence[T], f: Callable[[T], pd.DataFrame], file_name: Union[str, Path]
 ):
-    """Apply arguments to a function that returns a DataFrame and save to a file.
+    """Apply arguments to a function that returns a DataFrame and save to a .csv file.
 
     Usage::
 
