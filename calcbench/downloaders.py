@@ -1,11 +1,15 @@
 from typing import Callable, Sequence, TypeVar, Union
 from pathlib import Path
 
+
 import calcbench as cb
 import pandas as pd
 from tqdm.auto import tqdm
 
-cb.enable_backoff(giveup=lambda e: e.response and e.response.status_code in [404, 500])
+
+cb.enable_backoff(
+    giveup=lambda e: hasattr(e, "response") and (e.response.status_code in [404, 500])
+)
 
 T = TypeVar("T")
 
