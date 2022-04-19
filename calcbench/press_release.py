@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Sequence
+from typing import Generator, Optional, Sequence
 from decimal import Decimal
 
 try:
@@ -75,9 +75,9 @@ class PressReleaseData:
 def press_release_raw(
     company_identifiers: CompanyIdentifiers,
     all_history: bool = False,
-    year: int = None,
-    period: Period = None,
-) -> Sequence[PressReleaseData]:
+    year: Optional[int] = None,
+    period: Optional[Period] = None,
+) -> Generator[PressReleaseData, None, None]:
 
     periodParameters: PeriodParameters = {
         "year": year,
