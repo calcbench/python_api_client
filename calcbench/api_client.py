@@ -286,7 +286,7 @@ def set_credentials(cb_username: str, cb_password: str):
 
 def enable_backoff(
     backoff_on: bool = True,
-    giveup: Callable[[RequestException], bool] = lambda e: e.response
+    giveup: Callable[[RequestException], bool] = lambda e: hasattr(e, "response")
     and e.response.status_code == 404,
 ):
     """Re-try failed requests with exponential back-off
