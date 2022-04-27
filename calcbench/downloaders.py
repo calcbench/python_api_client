@@ -66,16 +66,9 @@ def iterate_and_save_pandas(
     >>> import calcbench as cb
     >>> tickers = cb.tickers(entire_universe=True)
     >>> iterate_and_save_pandas(
-    >>>    tickers,
-    >>>    lambda ticker: cb.point_in_time(
-    >>>        all_face=True,
-    >>>        all_footnotes=False,
-    >>>        company_identifiers=[ticker],
-    >>>        all_history=True,
-    >>>        include_preliminary=True,
-    >>>        include_xbrl=True,
-    >>>    ),
-    >>>    "face_data.csv",
+    >>>    arguments=tickers,
+    >>>    f=lambda ticker: cb.standardized(company_identifiers=[ticker], point_in_time=True),
+    >>>    file_name="russell_3000_standardized_PIT.csv",
     >>> )
 
     """

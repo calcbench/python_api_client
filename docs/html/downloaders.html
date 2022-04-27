@@ -37,23 +37,16 @@
 <span class="target" id="module-calcbench.downloaders"></span><dl class="py function">
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_and_save_pandas">
 <span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pandas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply arguments to a function that returns a DataFrame and save to a file.</p>
+<dd><p>Apply arguments to a function that returns a DataFrame and save to a .csv file.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">calcbench</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">client</span><span class="p">[</span><span class="n">Pandas</span><span class="p">,</span><span class="n">Backoff</span><span class="p">,</span><span class="n">tqdm</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">calcbench.downloaders</span> <span class="kn">import</span> <span class="n">iterate_and_save_pandas</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">calcbench</span> <span class="k">as</span> <span class="nn">cb</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tickers</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">iterate_and_save_pandas</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="n">tickers</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="k">lambda</span> <span class="n">ticker</span><span class="p">:</span> <span class="n">cb</span><span class="o">.</span><span class="n">point_in_time</span><span class="p">(</span>
-<span class="gp">&gt;&gt;&gt; </span>       <span class="n">all_face</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>       <span class="n">all_footnotes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>       <span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="n">ticker</span><span class="p">],</span>
-<span class="gp">&gt;&gt;&gt; </span>       <span class="n">all_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>       <span class="n">include_preliminary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>       <span class="n">include_xbrl</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="p">),</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="s2">&quot;face_data.csv&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">arguments</span><span class="o">=</span><span class="n">tickers</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ticker</span><span class="p">:</span> <span class="n">cb</span><span class="o">.</span><span class="n">standardized</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="n">ticker</span><span class="p">],</span> <span class="n">point_in_time</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;russell_3000_standardized_PIT.csv&quot;</span><span class="p">,</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
 </pre></div>
 </div>
