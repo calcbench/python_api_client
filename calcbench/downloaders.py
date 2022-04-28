@@ -55,10 +55,18 @@ def iterate_to_dataframe(
 
 
 def iterate_and_save_pandas(
-    arguments: Sequence[T], f: Callable[[T], pd.DataFrame], file_name: Union[str, Path]
+    arguments: Sequence[T],
+    f: Callable[[T], pd.DataFrame],
+    file_name: Union[str, Path],
+    write_index=True,
 ):
     """Apply arguments to a function that returns a DataFrame and save to a .csv file.
 
+
+    :param arguments Each item in this sequence will be passed to f
+    :param f Function that generates a pandas dataframe that will be called on arguments
+    :param file_name Name of the file to write
+    :param write_index Write the pandas index to the csv file
     Usage::
 
     >>> %pip install calcbench-api-client[Pandas,Backoff,tqdm]
@@ -68,7 +76,7 @@ def iterate_and_save_pandas(
     >>> iterate_and_save_pandas(
     >>>    arguments=tickers,
     >>>    f=lambda ticker: cb.standardized(company_identifiers=[ticker], point_in_time=True),
-    >>>    file_name="russell_3000_standardized_PIT.csv",
+    >>>    file_name="calcbench_standardized_PIT.csv",
     >>> )
 
     """
@@ -88,7 +96,7 @@ def iterate_and_save_pandas(
             data.to_csv(
                 file_name,
                 mode=write_mode,
-                index=False,
+                index=write_index,
                 header=write_headers,
             )
             write_mode = "a"
