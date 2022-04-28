@@ -46,15 +46,15 @@ def disclosure_dataframe(
     company_identifiers: CompanyIdentifiers = [],
     disclosure_names: Sequence[str] = [],
     all_history: bool = False,
-    year: int = None,
+    year: Optional[int] = None,
     period: PeriodArgument = None,
-    progress_bar: "tqdm.std.tqdm" = None,
-    period_type: PeriodType = None,
+    progress_bar: Optional["tqdm.std.tqdm"] = None,
+    period_type: Optional[PeriodType] = None,
     identifier_key: Literal["ticker", "CIK"] = "ticker",
     block_tag_names: Sequence[str] = [],
     use_fiscal_period: bool = True,
     entire_universe: bool = False,
-    batch_size=100,
+    batch_size: int = 100,
 ) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
@@ -323,24 +323,24 @@ class DisclosureSearchResults(dict):
 
 
 def disclosure_search(
-    company_identifiers: CompanyIdentifiers = None,
-    full_text_search_term: str = None,
-    year: int = None,
+    company_identifiers: Optional[CompanyIdentifiers] = None,
+    full_text_search_term: Optional[str] = None,
+    year: Optional[int] = None,
     period: PeriodArgument = Period.Annual,
     period_type: Optional[PeriodType] = None,
-    document_type: str = None,
-    block_tag_name: str = None,
+    document_type: Optional[str] = None,
+    block_tag_name: Optional[str] = None,
     entire_universe: bool = False,
     use_fiscal_period: bool = False,
-    document_name: bool = None,
+    document_name: Optional[bool] = None,
     all_history: bool = False,
-    updated_from: date = None,
+    updated_from: Optional[date] = None,
     batch_size: int = 100,
     sub_divide: bool = False,
     all_documents: bool = False,
     disclosure_names: Sequence[str] = [],
-    progress_bar: "tqdm.std.tqdm" = None,
-    accession_id: int = None,
+    progress_bar: Optional["tqdm.std.tqdm"] = None,
+    accession_id: Optional[int] = None,
     all_text_blocks: bool = False,
 ) -> Generator[DisclosureSearchResults, None, None]:
     """
@@ -469,7 +469,7 @@ def _document_contents_by_network_id(network_id) -> DisclosureContent:
 
 
 def _document_by_block_tag_name(
-    accession_id: int, block_tag_name=str
+    accession_id: int, block_tag_name: str
 ) -> DisclosureContent:
     payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
     json = _json_GET("query/disclosuresByTag", payload)

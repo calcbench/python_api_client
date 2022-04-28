@@ -58,7 +58,7 @@ def iterate_and_save_pandas(
     arguments: Sequence[T],
     f: Callable[[T], pd.DataFrame],
     file_name: Union[str, Path],
-    write_index=True,
+    write_index: bool = True,
 ):
     """Apply arguments to a function that returns a DataFrame and save to a .csv file.
 
