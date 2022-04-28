@@ -62,11 +62,11 @@ def iterate_and_save_pandas(
 ):
     """Apply arguments to a function that returns a DataFrame and save to a .csv file.
 
+    :param arguments: Each item in this sequence will be passed to f
+    :param f: Function that generates a pandas dataframe that will be called on arguments
+    :param file_name: Name of the file to write
+    :param write_index: Write the pandas index to the csv file
 
-    :param arguments Each item in this sequence will be passed to f
-    :param f Function that generates a pandas dataframe that will be called on arguments
-    :param file_name Name of the file to write
-    :param write_index Write the pandas index to the csv file
     Usage::
 
     >>> %pip install calcbench-api-client[Pandas,Backoff,tqdm]
