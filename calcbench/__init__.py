@@ -2,10 +2,9 @@
 The "public" properties on the cb module
 
 """
-__version__ = "5.13.0"
+__version__ = "5.13.2"
 from datetime import datetime
 import logging
-import sys
 from .api_client import (
     as_reported_raw,
     business_combinations,
@@ -58,7 +57,7 @@ from .business_combinations import (
 from .press_release import press_release_raw, press_release_data
 
 
-def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern", add_handler=False):
+def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern") -> logging.Logger:
     """
     Turn on verbose logging
 
@@ -73,6 +72,5 @@ def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern", add_handler=Fals
     )
     cb_logger = logging.getLogger("calcbench")
     cb_logger.setLevel(level)
-    if add_handler:
-        cb_logger.addHandler(logging.StreamHandler(stream=sys.stdout))
+
     return cb_logger

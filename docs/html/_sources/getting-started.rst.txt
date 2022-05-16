@@ -47,3 +47,8 @@ Error Retry
 Network Proxy
 -------------
 .. autofunction:: calcbench.set_proxies
+
+
+Logging
+-------
+.. autofunction:: calcbench.turn_on_logging
