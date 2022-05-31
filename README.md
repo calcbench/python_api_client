@@ -5,10 +5,7 @@ A Python client for Calcbench's API.
 Calcbench is an interface to the XBRL encoded 10-(K|Q) documents public companies file on the SEC's Edgar system.
 
     >>>import calcbench as cb
-    >>>cb.standardized_data(entire_universe=True,
-                            all_history=True,
-                            metrics=['Assets', 'AssetRetirementObligation'],
-                            period_type='annual')
+    >>>cb.standardized(company_identifiers=["MSFT", "GOOG"], point_in_time=True)
 
 ## Documentation
 
