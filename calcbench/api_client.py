@@ -332,56 +332,7 @@ def set_field_values(dataclass, kwargs: dict, date_columns: Iterable[str] = []):
             setattr(dataclass, k, v)
 
 
-def face_statement(
-    company_identifier,
-    statement_type,
-    period_type="annual",
-    all_history=False,
-    descending_dates=False,
-):
-    """Face Statements.
 
-    face statements as reported by the filing company
-
-
-    :param string company_identifier: a ticker or a CIK code, eg 'msft'
-    :param string statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
-    :param string period_type: annual|quarterly|cummulative|combined
-    :param string all_periods: get all history or only the last four, True or False.
-    :param bool descending_dates: return columns in oldest -> newest order.
-
-    :rtype: object
-
-    Returns:
-    An object with columns and line items lists.  The columns have fiscal_period, period_start, period_end and instant values.
-    The line items have label, local_name (the XBRL tag name), tree_depth (the indent amount), is_subtotal (whether or not the line item is computed from above metrics) and facts.
-    The facts are in the same order as the columns and have fact_ids (an internal Calcbench ID), unit_of_measure (USD etc), effective_value (the reported value), and format_type.
-
-
-    Usage::
-        >>> calcbench.face_statement('msft', 'income')
-
-    """
-    url = _SESSION_STUFF["api_url_base"].format("asReported")
-    payload = {
-        "companyIdentifier": company_identifier,
-        "statementType": statement_type,
-        "periodType": period_type,
-        "allPeriods": all_history,
-        "descendingDates": descending_dates,
-    }
-    response = _calcbench_session().get(
-        url,
-        params=payload,
-        headers={"content-type": "application/json"},
-        verify=_SESSION_STUFF["ssl_verify"],
-    )
-    response.raise_for_status()
-    data = response.json()
-    return data
-
-
-as_reported_raw = face_statement
 
 
 def tag_contents(accession_id, block_tag_name):

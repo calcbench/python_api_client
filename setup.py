@@ -25,6 +25,7 @@ setup(
         "requests",
         "typing_extensions; python_version <= '3.7'",
         "dataclasses; python_version < '3.7'",
+        "pydantic",
     ],
     python_requires=">=3.6",
     packages=["calcbench"],

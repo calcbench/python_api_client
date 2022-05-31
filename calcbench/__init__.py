@@ -2,17 +2,15 @@
 The "public" properties on the cb module
 
 """
-__version__ = "5.13.2"
+__version__ = "6.0.0"
 from datetime import datetime
 import logging
 from .api_client import (
-    as_reported_raw,
     business_combinations,
     company_disclosures,
     disclosure_text,
     document_types,
     enable_backoff,
-    face_statement,
     html_diff,
     set_credentials,
     set_proxies,
@@ -55,6 +53,8 @@ from .business_combinations import (
 )
 
 from .press_release import press_release_raw, press_release_data
+
+from .face_statements import face_statement
 
 
 def turn_on_logging(level=logging.DEBUG, timezone="US/Eastern") -> logging.Logger:
