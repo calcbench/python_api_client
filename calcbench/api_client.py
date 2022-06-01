@@ -332,50 +332,6 @@ def set_field_values(dataclass, kwargs: dict, date_columns: Iterable[str] = []):
             setattr(dataclass, k, v)
 
 
-
-
-
-def tag_contents(accession_id, block_tag_name):
-    payload = {"accession_ids": accession_id, "block_tag_name": block_tag_name}
-    json = _json_GET("query/disclosuresByTag", payload)
-    return json[0]["blobs"][0]
-
-
-def company_disclosures(ticker, period=None, year=None, statement_type=None):
-    payload = {"companyIdentifier": ticker}
-    if period:
-        payload["period"] = period
-    if year:
-        payload["year"] = year
-    if statement_type:
-        payload["statementType"] = statement_type
-    url = _SESSION_STUFF["api_url_base"].format("companyDisclosures")
-    r = _calcbench_session().get(
-        url, params=payload, verify=_SESSION_STUFF["ssl_verify"]
-    )
-    r.raise_for_status()
-    return r.json()
-
-
-def disclosure_text(network_id):
-    url = _SESSION_STUFF["api_url_base"].format("disclosure")
-    r = _calcbench_session().get(
-        url, params={"networkID": network_id}, verify=_SESSION_STUFF["ssl_verify"]
-    )
-    r.raise_for_status()
-    return r.json()
-
-
-def business_combinations(company_identifiers):
-    payload = {
-        "companiesParameters": {"companyIdentifiers": company_identifiers},
-        "pageParameters": {},
-    }
-    period_parameters = {}
-    payload["periodParameters"] = period_parameters
-    return _json_POST("businessCombinations", payload)
-
-
 def _try_parse_timestamp(timestamp: str):
     """
     We did not always have milliseconds
@@ -387,13 +343,6 @@ def _try_parse_timestamp(timestamp: str):
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f")
     except ValueError:
         return datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S")
-
-
-def document_types():
-    url = _SESSION_STUFF["api_url_base"].format("documentTypes")
-    r = _calcbench_session().get(url, verify=_SESSION_STUFF["ssl_verify"])
-    r.raise_for_status()
-    return r.json()
 
 
 def html_diff(html_1, html_2):

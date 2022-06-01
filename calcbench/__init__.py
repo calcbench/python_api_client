@@ -6,15 +6,10 @@ __version__ = "6.0.0"
 from datetime import datetime
 import logging
 from .api_client import (
-    business_combinations,
-    company_disclosures,
-    disclosure_text,
-    document_types,
     enable_backoff,
     html_diff,
     set_credentials,
     set_proxies,
-    tag_contents,
 )
 
 from .disclosures import (
