@@ -143,7 +143,7 @@ def _get_credentials() -> Tuple[str, str]:
                 except Exception as e:
                     logger.error("exception installing keyring module")
                 else:
-                    logger.info("successfully install keyring package")
+                    logger.info("successfully installed keyring package")
                     keyring_found = True
             if keyring_found:
                 import keyring
