@@ -139,7 +139,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
             delivery_count = cast(int, peeked_message.delivery_count)
             time_in_queue = datetime.now(timezone.utc) - enqueued_time
             minutes_to_wait = 4 ** delivery_count
-            retry_wait = timedelta(minutes=minutes_to_wait)
+            retry_wait = min(timedelta(minutes=minutes_to_wait), timedelta(days=1))
             logger.debug(
                 f"Processing message seq # {sequence_number}, enqued (UTC) @ {enqueued_time}, delivery count {delivery_count} {peeked_message}"
             )
