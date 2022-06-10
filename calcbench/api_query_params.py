@@ -56,6 +56,7 @@ PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
 class CompaniesParameters(TypedDict):
     companyIdentifiers: CompanyIdentifiers
+    entireUniverse: bool
 
 
 class PeriodParameters(TypedDict, total=False):
