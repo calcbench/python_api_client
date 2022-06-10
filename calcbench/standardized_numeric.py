@@ -199,6 +199,9 @@ def standardized_raw(
     if isinstance(metrics, str):
         raise TypeError("metrics should be a list of strings")
 
+    if isinstance(company_identifiers, str):
+        raise TypeError("company_identifiers should be a list of strings")
+
     if all_history and any(
         [year, period, start_period, start_year, end_period, end_year]
     ):
