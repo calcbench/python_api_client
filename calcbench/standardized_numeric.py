@@ -326,6 +326,9 @@ def point_in_time(
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
+    .. deprecated:: 6.0.1
+        Use :func:`standardized` with the `point_in_time=True` argument.
+
     Standardized data with a timestamp when it was published by Calcbench.
 
 
@@ -400,6 +403,7 @@ def point_in_time(
 
     """
 
+    warnings.warn("Prefer standardized with point_in_time=True.", DeprecationWarning)
     data = standardized_raw(
         company_identifiers=company_identifiers,
         all_face=all_face,
