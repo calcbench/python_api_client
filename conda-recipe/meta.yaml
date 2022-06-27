@@ -18,6 +18,10 @@ requirements:
   host:
     - pip
     - python
+    - requests
+    - dataclasses  # [py<37]
+    - pydantic
+    - typing-extensions  # [py<=37]
   run:
     - dataclasses  # [py<37]
     - pydantic
@@ -37,7 +41,6 @@ about:
   home: https://github.com/calcbench/python_api_client
   summary: Client for Calcbench data.
   license: Apache-1.1
-  license_file: PLEASE_ADD_LICENSE_FILE
 
 extra:
   recipe-maintainers:
