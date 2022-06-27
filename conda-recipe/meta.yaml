@@ -9,6 +9,7 @@ build:
   skip: true  # [py2k]
   script: {{ PYTHON }} -m pip install . -vv
   number: 0
+  noarch: python
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/calcbench_api_client-{{ version }}.tar.gz
