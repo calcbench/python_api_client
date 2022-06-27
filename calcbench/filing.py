@@ -4,6 +4,7 @@ from enum import Enum
 from typing import List, Optional, Sequence
 import dataclasses
 
+from pydantic import BaseModel, Extra, validator
 
 try:
     import pandas as pd
@@ -47,17 +48,20 @@ class FilingType(str, Enum):
     institutionalOwnsership_13F = "institutionalOwnsership_13F"
 
 
-@dataclass
-class Filing(dict):
+
+class Filing(
+    BaseModel,
+    extra=Extra.allow,
+):
     """A filing with the SEC or a wire press-release"""
 
-    is_xbrl: bool
-    is_wire: bool
+    is_xbrl: Optional[bool]
+    is_wire: Optional[bool]
     calcbench_id: int
     """
     aka accession id
     """
-    sec_accession_id: str
+    sec_accession_id: Optional[str]
     sec_html_url: str
 
     document_type: str
@@ -73,25 +77,25 @@ class Filing(dict):
     """
 
     filing_date: datetime
-    fiscal_period: Period
-    fiscal_year: int
+    fiscal_period: Optional[Period]
+    fiscal_year: Optional[int]
     calcbench_accepted: datetime
     calcbench_finished_load: datetime
     entity_id: int
     ticker: str
     entity_name: str
     CIK: str
-    period_index: int
-    associated_proxy_SEC_URL: str
-    associated_earnings_press_release_SEC_URL: str
-    period_end_date: datetime
+    period_index: Optional[int]
+    associated_proxy_SEC_URL: Optional[str]
+    associated_earnings_press_release_SEC_URL: Optional[str]
+    period_end_date: Optional[datetime]
     percentage_revenue_change: Optional[float]
     this_period_revenue: Optional[float]
     link1: str
     link2: str
     link3: str
-    calendar_year: int
-    calendar_period: Period
+    calendar_year: Optional[int]
+    calendar_period: Optional[Period]
     standardized_XBRL: bool
     """
     Indicates Calcbench (should have) standardized data from the XBRL in this filing.
@@ -121,21 +125,15 @@ class Filing(dict):
         """same as calcbench_id, calcbench_id should have been accession_id"""
         return self.calcbench_id
 
-    def __init__(self, **kwargs):
-        names = set([f.name for f in dataclasses.fields(self)])
-        for name in names:
-            setattr(self, name, None)
-        for k, v in kwargs.items():
-            if k in (
-                "calcbench_finished_load",
-                "calcbench_accepted",
-                "filing_date",
-                "period_end_date",
-            ):
-                v = _try_parse_timestamp(v)
-            if k in names:
-                setattr(self, k, v)
-            self[k] = v
+    @validator(
+        "calcbench_finished_load",
+        "calcbench_accepted",
+        "filing_date",
+        "period_end_date",
+        pre=True,
+    )
+    def parse_date(cls, value):
+        return _try_parse_timestamp(value)
 
 
 def filings(
