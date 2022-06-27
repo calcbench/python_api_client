@@ -20,7 +20,6 @@ Our standardized data with timestamps.  Useful for backtesting quantitative stra
 .. autofunction:: calcbench.point_in_time
 
 
-
 .. autoclass:: calcbench.api_query_params.Period
     :members:
     :undoc-members:

@@ -352,9 +352,11 @@ def disclosure_search(
 
     :param company_identifiers: list of tickers or CIK codes
     :param year: Year to get data for
+    :param full_text_search_term: Use Calcbench's full text index to search documents.  Documents are returned in decreasing order of relevance as defined by TF-IDF.  Use Lucene query syntax, https://lucene.apache.org/core/2_9_4/queryparsersyntax.html.  You can restrict the documents search by setting the document_type.  For instance, 'commentLetter', 'EarningsPressReleaseFrom8K', 'eightk_all_types'
     :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param use_fiscal_period: interpret the passed period as a fiscal period, as opposed to calendar period
     :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year disclosures, "quarterly" is all history all periods
+    :param document_type: Search a specific document type.
     :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
