@@ -1,21 +1,44 @@
-package:
-  name: calcbench-api-client
-  version: "6.0.1"
+{% set name = "calcbench-api-client" %}
+{% set version = "6.0.1" %}
 
-source:
-  # Relative path to the parent directory.
-  path: ..
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
 
 build:
+  skip: true  # [py2k]
+  script: {{ PYTHON }} -m pip install . -vv
   number: 0
 
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/calcbench_api_client-{{ version }}.tar.gz
+  sha256: a9016c3962cffccdf471d80cf874dcc2192b466cdb8a5676f7035610c560dc65
+
 requirements:
-  build:
+  host:
     - pip
-    - python=3.6
-    - setuptools
+    - python
   run:
-    - python=3.7
-    - pandas
+    - dataclasses  # [py<37]
     - pydantic
+    - python
     - requests
+    - typing-extensions  # [py<=37]
+
+test:
+  imports:
+    - calcbench
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/calcbench/python_api_client
+  summary: Client for Calcbench data.
+  license: Apache-1.1
+  license_file: PLEASE_ADD_LICENSE_FILE
+
+extra:
+  recipe-maintainers:
+    - andrewkittredge
