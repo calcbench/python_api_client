@@ -1,0 +1,21 @@
+package:
+  name: calcbench-api-client
+  version: "6.0.1"
+
+source:
+  # Relative path to the parent directory.
+  path: ..
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - pip
+    - python=3.6
+    - setuptools
+  run:
+    - python=3.7
+    - pandas
+    - pydantic
+    - requests
