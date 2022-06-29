@@ -648,6 +648,7 @@ def standardized(
         all_metrics=not metrics,
         use_fiscal_period=True,
         include_preliminary=point_in_time,
+        include_xbrl=True,
     )
 
     data = _build_data_frame(data)
