@@ -48,7 +48,6 @@ class FilingType(str, Enum):
     institutionalOwnsership_13F = "institutionalOwnsership_13F"
 
 
-
 class Filing(
     BaseModel,
     extra=Extra.allow,
@@ -236,7 +235,7 @@ def filings_dataframe(
         include_press_releases_and_proxies=include_press_releases_and_proxies,
         filing_types=filing_types,
     )
-    df = pd.DataFrame(list(f))
+    df = pd.DataFrame([filing.dict() for filing in f])
     for column in [
         "document_type",
         "filing_type",
