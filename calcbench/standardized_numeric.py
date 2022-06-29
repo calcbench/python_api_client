@@ -676,6 +676,7 @@ def standardized(
         index_columns = index_columns + ["date_reported"]
         data["date_downloaded"] = datetime.now()
     data = data.set_index(index_columns)
+    data = data.sort_index()
     return data
 
 
