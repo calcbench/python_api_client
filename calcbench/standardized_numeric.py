@@ -647,6 +647,7 @@ def standardized(
         filing_id=filing_id,
         all_metrics=not metrics,
         use_fiscal_period=True,
+        include_preliminary=point_in_time,
     )
 
     data = _build_data_frame(data)
