@@ -1,8 +1,6 @@
-from dataclasses import dataclass
 from datetime import date, datetime
 from enum import Enum
 from typing import List, Optional, Sequence
-import dataclasses
 
 from pydantic import BaseModel, Extra, validator
 
