@@ -70,13 +70,18 @@ def handle_filings(
             )
             with receiver:
                 message: ServiceBusReceivedMessage
+                # Getting deferred messages before starting the iterator works better
+                for message in _get_deferred_messages(receiver):
+                    _process_message(
+                        handler=handler, message=message, receiver=receiver
+                    )
                 for message in receiver:
                     _process_message(
                         handler=handler, message=message, receiver=receiver
                     )
 
                     # Every two minutes check if there are any deferred messages and try to process them
-                    if datetime.now() - last_deferred_check > timedelta(minutes=2):
+                    if (datetime.now() - last_deferred_check) > timedelta(minutes=2):
                         try:
                             deferred_messages = _get_deferred_messages(receiver)
                         except Exception:
