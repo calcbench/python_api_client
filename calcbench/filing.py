@@ -80,7 +80,7 @@ class Filing(
     calcbench_finished_load: datetime
     entity_id: int
     ticker: str
-    entity_name: str
+    entity_name: Optional[str]
     CIK: str
     period_index: Optional[int]
     associated_proxy_SEC_URL: Optional[str]
