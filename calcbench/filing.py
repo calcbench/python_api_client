@@ -78,10 +78,10 @@ class Filing(
     fiscal_year: Optional[int]
     calcbench_accepted: datetime
     calcbench_finished_load: datetime
-    entity_id: int
-    ticker: str
+    entity_id: Optional[int]
+    ticker: Optional[str]
     entity_name: Optional[str]
-    CIK: str
+    CIK: Optional[str]
     period_index: Optional[int]
     associated_proxy_SEC_URL: Optional[str]
     associated_earnings_press_release_SEC_URL: Optional[str]
