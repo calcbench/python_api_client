@@ -88,9 +88,9 @@ class Filing(
     period_end_date: Optional[datetime]
     percentage_revenue_change: Optional[float]
     this_period_revenue: Optional[float]
-    link1: str
-    link2: str
-    link3: str
+    link1: Optional[str]
+    link2: Optional[str]
+    link3: Optional[str]
     calendar_year: Optional[int]
     calendar_period: Optional[Period]
     standardized_XBRL: bool
