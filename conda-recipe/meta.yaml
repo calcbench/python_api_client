@@ -13,7 +13,7 @@ build:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/calcbench_api_client-{{ version }}.tar.gz
-  sha256: a9016c3962cffccdf471d80cf874dcc2192b466cdb8a5676f7035610c560dc65
+
 
 requirements:
   host:
