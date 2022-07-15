@@ -95,7 +95,7 @@ class Filing(
     calendar_period: Optional[Period]
     standardized_XBRL: bool
     """
-    Indicates Calcbench (should have) standardized data from the XBRL in this filing.
+    Calcbench (should have) standardized data for this filing.
     """
 
     filing_id: int
@@ -129,7 +129,7 @@ class Filing(
         "period_end_date",
         pre=True,
     )
-    def parse_date(cls, value):
+    def _parse_date(cls, value):
         return _try_parse_timestamp(value)
 
 
