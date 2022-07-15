@@ -254,6 +254,7 @@ def filings_dataframe(
             "CIK",
             "is_xbrl",
             "is_wire",
+            "has_standardized_data",
             "document_type",
             "filing_type",
             "filing_date",
