@@ -7,6 +7,8 @@ Calcbench is an interface to the XBRL encoded 10-(K|Q) documents public companie
     >>>import calcbench as cb
     >>>cb.standardized(company_identifiers=["MSFT", "GOOG"], point_in_time=True)
 
+:warning: **API access is not included in the standard Calcbench subscription. Talk to us before you start coding.**
+
 ## Documentation
 
 http://calcbench.github.io/python_api_client/html/index.html

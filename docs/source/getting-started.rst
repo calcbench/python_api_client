@@ -2,7 +2,7 @@ Getting Started
 ===============
 
 .. warning::
-     Talk to us before you start coding, Calcbench data is not free.
+     Calcbench data is not free and API access is not included in the standard Calcbench subscription.
 
 .. _install:
 
