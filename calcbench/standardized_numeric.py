@@ -92,6 +92,7 @@ def standardized_raw(
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics=False,
+    pit_V2=False,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -259,6 +260,7 @@ def standardized_raw(
             "includeXBRL": include_xbrl,
             "allNonGAAP": all_non_GAAP,
             "allMetrics": all_metrics,
+            "pointInTimeV2": pit_V2,
         },
         "periodParameters": period_parameters,
         "companiesParameters": companies_parameters,
@@ -609,6 +611,7 @@ def standardized(
     fiscal_period: PeriodArgument = None,
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
+    pit_V2=False,
 ):
     """Standardized Numeric Data.
 
@@ -650,6 +653,7 @@ def standardized(
         include_preliminary=point_in_time,
         include_xbrl=True,
         include_trace=True,
+        pit_V2=pit_V2,
     )
 
     data = _build_data_frame(data)
