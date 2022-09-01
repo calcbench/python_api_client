@@ -77,7 +77,7 @@ class Filing(
     fiscal_period: Optional[Period]
     fiscal_year: Optional[int]
     calcbench_accepted: datetime
-    calcbench_finished_load: datetime
+    calcbench_finished_load: Optional[datetime]
     entity_id: Optional[int]
     ticker: Optional[str]
     entity_name: Optional[str]
