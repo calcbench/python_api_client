@@ -132,6 +132,9 @@ class Filing(
     def _parse_date(cls, value):
         return _try_parse_timestamp(value)
 
+    def __str__(self) -> str:
+        return f"Filing: ID {self.filing_id} Ticker {self.ticker} {self.filing_type} Fiscal Period {self.fiscal_year}-{self.fiscal_period}"
+
 
 def filings(
     company_identifiers: CompanyIdentifiers = [],
