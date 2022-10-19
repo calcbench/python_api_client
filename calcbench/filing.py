@@ -2,7 +2,7 @@ from datetime import date, datetime
 from enum import Enum
 from typing import List, Optional, Sequence
 
-from pydantic import BaseModel, Extra, validator
+from pydantic import BaseModel, Extra, Field, validator
 
 try:
     import pandas as pd
@@ -52,14 +52,14 @@ class Filing(
 ):
     """A filing with the SEC or a wire press-release"""
 
-    is_xbrl: Optional[bool]
-    is_wire: Optional[bool]
-    calcbench_id: int
+    is_xbrl: Optional[bool] = Field(repr=False)
+    is_wire: Optional[bool] = Field(repr=False)
+    calcbench_id: int = Field(repr=False)
     """
     aka accession id
     """
-    sec_accession_id: Optional[str]
-    sec_html_url: str
+    sec_accession_id: Optional[str] = Field(repr=False)
+    sec_html_url: str = Field(repr=False)
 
     document_type: str
     """
@@ -76,23 +76,23 @@ class Filing(
     filing_date: datetime
     fiscal_period: Optional[Period]
     fiscal_year: Optional[int]
-    calcbench_accepted: datetime
+    calcbench_accepted: datetime = Field(repr=False)
     calcbench_finished_load: Optional[datetime]
-    entity_id: Optional[int]
+    entity_id: Optional[int] = Field(repr=False)
     ticker: Optional[str]
-    entity_name: Optional[str]
-    CIK: Optional[str]
-    period_index: Optional[int]
-    associated_proxy_SEC_URL: Optional[str]
-    associated_earnings_press_release_SEC_URL: Optional[str]
-    period_end_date: Optional[datetime]
-    percentage_revenue_change: Optional[float]
-    this_period_revenue: Optional[float]
-    link1: Optional[str]
-    link2: Optional[str]
-    link3: Optional[str]
-    calendar_year: Optional[int]
-    calendar_period: Optional[Period]
+    entity_name: Optional[str] = Field(repr=False)
+    CIK: Optional[str] = Field(repr=False)
+    period_index: Optional[int] = Field(repr=False)
+    associated_proxy_SEC_URL: Optional[str] = Field(repr=False)
+    associated_earnings_press_release_SEC_URL: Optional[str] = Field(repr=False)
+    period_end_date: Optional[datetime] = Field(repr=False)
+    percentage_revenue_change: Optional[float] = Field(repr=False)
+    this_period_revenue: Optional[float] = Field(repr=False)
+    link1: Optional[str] = Field(repr=False)
+    link2: Optional[str] = Field(repr=False)
+    link3: Optional[str] = Field(repr=False)
+    calendar_year: Optional[int] = Field(repr=False)
+    calendar_period: Optional[Period] = Field(repr=False)
     standardized_XBRL: bool
     """
     Calcbench (should have) standardized data for this filing.
@@ -105,14 +105,14 @@ class Filing(
     corresponds to the ID column in Calcbench's SECFilings table
     """
 
-    item_types: Optional[Sequence[str]]
+    item_types: Optional[Sequence[str]] = Field(repr=False)
     """
     Item types for 8-Ks
 
     5.02,5.03,8.01,9.01 etc.
     """
 
-    has_standardized_data: bool
+    has_standardized_data: bool = Field(repr=False)
     """
     There is/should/will be, standardized data for this filing
     """
@@ -131,9 +131,6 @@ class Filing(
     )
     def _parse_date(cls, value):
         return _try_parse_timestamp(value)
-
-    def __str__(self) -> str:
-        return f"Filing: ID {self.filing_id} Ticker {self.ticker} {self.filing_type} Fiscal Period {self.fiscal_year}-{self.fiscal_period}"
 
 
 def filings(
