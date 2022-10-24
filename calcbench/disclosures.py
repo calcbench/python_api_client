@@ -76,7 +76,8 @@ def disclosure_dataframe(
 
       >>> data = calcbench.disclosure_dataframe(company_identifiers=["msft", "goog"],
       >>>                                     all_history=True,
-      >>>                                     disclosure_names=["ManagementsDiscussionAndAnalysis", "RiskFactors"])
+      >>>                                     disclosure_names=["ManagementsDiscussionAndAnalysis", "RiskFactors"],
+      >>>                                     period_type="annual")
       >>> word_counts = data.applymap(lambda disclosure: disclosure.get_contents_text().split()
       >>>                             na_action="ignore")
 
@@ -130,6 +131,8 @@ def disclosure_dataframe(
                             quarter = doc.fiscal_period
                     else:
                         quarter = doc.calendar_period
+                else:
+                    raise ValueError("Must pass period_type or period")
 
             except KeyError:
                 # This happens for non-XBRL companies

@@ -27,7 +27,7 @@ Credentials can be stored in the "CALCBENCH_USERNAME" and "CALCBENCH_PASSWORD" e
 Set Credentials At Runtime
 --------------------------
 
-Call cb.set_credentials('user@calcbench.com', 'mypassword')
+Call cb.set_credentials("user@calcbench.com", "password")
 
 On an interactive shell the package will ask for credentials as input
 
