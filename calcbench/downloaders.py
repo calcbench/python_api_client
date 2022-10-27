@@ -51,7 +51,10 @@ def iterate_to_dataframe(
             tqdm.write(f"Exception getting {argument} {e}")
         else:
             chunks.append(d)
-    return pd.concat(chunks)
+    if chunks:
+        return pd.concat(chunks)
+    else:
+        return pd.DataFrame()
 
 
 def iterate_and_save_pandas(
