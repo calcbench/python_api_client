@@ -1,5 +1,9 @@
+from datetime import datetime, date
 from enum import Enum, IntEnum
-from typing import TYPE_CHECKING, Optional, Sequence, Union
+from typing import Optional, Sequence, Union
+
+from pydantic import BaseModel
+
 
 try:
     from typing import Literal
@@ -11,15 +15,6 @@ Ticker = str
 CalcbenchCompanyIdentifier = int
 CompanyIdentifier = Union[Ticker, CentralIndexKey, CalcbenchCompanyIdentifier]
 CompanyIdentifiers = Sequence[CompanyIdentifier]
-
-if TYPE_CHECKING:
-    # https://github.com/microsoft/pyright/issues/1358
-    from typing import TypedDict
-else:
-    try:
-        from typing import TypedDict
-    except ImportError:
-        from typing_extensions import TypedDict
 
 
 class CompanyIdentifierScheme(str, Enum):
@@ -54,18 +49,28 @@ class Period(IntEnum):
 PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
 
-class CompaniesParameters(TypedDict):
-    companyIdentifiers: CompanyIdentifiers
-    entireUniverse: bool
+class CompaniesParameters(BaseModel):
+    companyIdentifiers: Optional[CompanyIdentifiers]
+    entireUniverse: Optional[bool]
 
 
-class PeriodParameters(TypedDict, total=False):
+class DateRange(BaseModel):
+    startDate: Optional[Union[datetime, date]]
+    endDate: Optional[Union[datetime, date]]
+
+
+class PeriodParameters(BaseModel):
+    """
+    Corresponds to PeriodParameter.cs
+    """
+
     year: Optional[int]
-    period: Optional[Period]
+    period: Optional[PeriodArgument]
     periodType: Optional[PeriodType]
+    dateRange: Optional[DateRange]
 
 
-class APIQueryParams(TypedDict):
+class APIQueryParams(BaseModel):
     companiesParameters: Optional[CompaniesParameters]
     periodParameters: Optional[PeriodParameters]
     pageParameters: Optional[object]

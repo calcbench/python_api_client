@@ -78,19 +78,23 @@ def press_release_raw(
     period: Period,
 ) -> Generator[PressReleaseData, None, None]:
 
-    periodParameters: PeriodParameters = {
-        "year": year,
-        "period": period,
-    }
-    payload: APIQueryParams = {
-        "companiesParameters": {"companyIdentifiers": company_identifiers},
-        "periodParameters": periodParameters,
-        "pageParameters": {
-            "standardizeBOPPeriods": True,
-            "allowTwoToOneTableMatching": False,
-            "matchToPreviousPeriod": False,
-        },
-    }
+    periodParameters = PeriodParameters(
+        **{
+            "year": year,
+            "period": period,
+        }
+    )
+    payload = APIQueryParams(
+        **{
+            "companiesParameters": {"companyIdentifiers": company_identifiers},
+            "periodParameters": periodParameters,
+            "pageParameters": {
+                "standardizeBOPPeriods": True,
+                "allowTwoToOneTableMatching": False,
+                "matchToPreviousPeriod": False,
+            },
+        }
+    )
     data = _json_POST("pressReleaseGroups", payload)
     if data:
         for d in data:

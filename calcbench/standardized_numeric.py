@@ -8,6 +8,7 @@ from calcbench.api_query_params import (
     CompaniesParameters,
     CompanyIdentifiers,
     CompanyIdentifierScheme,
+    DateRange,
     Period,
     PeriodArgument,
     PeriodParameters,
@@ -93,6 +94,8 @@ def standardized_raw(
     all_non_GAAP: bool = False,
     all_metrics=False,
     pit_V2=False,
+    start_date: Optional[Union[datetime, date]] = None,
+    end_date: Optional[Union[datetime, date]] = None,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -114,6 +117,8 @@ def standardized_raw(
     :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
     :param all_non_GAAP: include all non-GAAP metrics from earnings press releases such as EBITDA_NonGAAP.  This is implied when querying by `filing_id`.
     :param all_metrics: All metrics.
+    :param start_date: points modified from this date (inclusive).  If no time is specified all points from that date are returned.
+    :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
     :return: A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
 
     """
@@ -136,6 +141,8 @@ def standardized_raw(
             filing_id,
             all_history,
             period_type,
+            start_date,
+            end_date,
         ]
     ):
         raise ValueError("Need to specify a period qualifier")
@@ -231,6 +238,10 @@ def standardized_raw(
     except (ValueError, TypeError):
         pass
 
+    date_range = None
+    if start_date or end_date:
+        date_range = DateRange(startDate=start_date, endDate=end_date)
+
     period_parameters: PeriodParameters = {
         "year": start_year,
         "period": start_period,
@@ -242,29 +253,32 @@ def standardized_raw(
         "useFiscalPeriod": use_fiscal_period,
         "accessionID": accession_id,
         "filingID": filing_id,
+        "dateRange": date_range,
     }  # type: ignore
 
-    companies_parameters: CompaniesParameters = {
-        "entireUniverse": entire_universe,
-        "companyIdentifiers": list(company_identifiers),
-    }
+    companies_parameters = CompaniesParameters(
+        entireUniverse=entire_universe,
+        companyIdentifiers=list(company_identifiers),
+    )
 
-    payload: APIQueryParams = {
-        "pageParameters": {
-            "metrics": metrics,
-            "includeTrace": include_trace,
-            "pointInTime": point_in_time,
-            "includePreliminary": include_preliminary,
-            "allFootnotes": all_footnotes,
-            "allface": all_face,
-            "includeXBRL": include_xbrl,
-            "allNonGAAP": all_non_GAAP,
-            "allMetrics": all_metrics,
-            "pointInTimeV2": pit_V2,
-        },
-        "periodParameters": period_parameters,
-        "companiesParameters": companies_parameters,
-    }
+    payload = APIQueryParams(
+        **{
+            "pageParameters": {
+                "metrics": metrics,
+                "includeTrace": include_trace,
+                "pointInTime": point_in_time,
+                "includePreliminary": include_preliminary,
+                "allFootnotes": all_footnotes,
+                "allface": all_face,
+                "includeXBRL": include_xbrl,
+                "allNonGAAP": all_non_GAAP,
+                "allMetrics": all_metrics,
+                "pointInTimeV2": pit_V2,
+            },
+            "periodParameters": period_parameters,
+            "companiesParameters": companies_parameters,
+        }
+    )
 
     return _json_POST("mappedData", payload)
 
@@ -325,6 +339,7 @@ def point_in_time(
     _point_in_time_mode=True,
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
+    pit_V2: bool = False,
 ) -> "pd.DataFrame":
     """Point-in-Time Data
 
@@ -426,6 +441,7 @@ def point_in_time(
         include_xbrl=include_xbrl,
         filing_id=filing_id,
         all_non_GAAP=all_non_GAAP,
+        pit_V2=pit_V2,
     )
 
     if not data:
@@ -609,6 +625,8 @@ def standardized(
     metrics: Sequence[str] = [],
     fiscal_year: Optional[int] = None,
     fiscal_period: PeriodArgument = None,
+    start_date: Optional[Union[datetime, date]] = None,
+    end_date: Optional[Union[datetime, date]] = None,
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
     pit_V2=False,
@@ -654,6 +672,8 @@ def standardized(
         include_xbrl=True,
         include_trace=True,
         pit_V2=pit_V2,
+        start_date=start_date,
+        end_date=end_date,
     )
 
     data = _build_data_frame(data)
