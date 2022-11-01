@@ -3,6 +3,7 @@ from enum import Enum, IntEnum
 from typing import Optional, Sequence, Union
 
 from pydantic import BaseModel
+from pyrsistent import optional
 
 
 try:
@@ -68,6 +69,13 @@ class PeriodParameters(BaseModel):
     period: Optional[PeriodArgument]
     periodType: Optional[PeriodType]
     dateRange: Optional[DateRange]
+    endYear: Optional[int]
+    endPeriod: Optional[PeriodArgument]
+    allHistory: Optional[bool]
+    updateDate: Optional[date]
+    useFiscalPeriod: Optional[bool]
+    accessionID: Optional[int]
+    filingID: Optional[int]
 
 
 class APIQueryParams(BaseModel):

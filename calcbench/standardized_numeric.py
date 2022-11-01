@@ -242,19 +242,19 @@ def standardized_raw(
     if start_date or end_date:
         date_range = DateRange(startDate=start_date, endDate=end_date)
 
-    period_parameters: PeriodParameters = {
-        "year": start_year,
-        "period": start_period,
-        "endYear": end_year,
-        "endPeriod": end_period,
-        "allHistory": all_history,
-        "updateDate": update_date and update_date.isoformat(),
-        "periodType": period_type,
-        "useFiscalPeriod": use_fiscal_period,
-        "accessionID": accession_id,
-        "filingID": filing_id,
-        "dateRange": date_range,
-    }  # type: ignore
+    period_parameters = PeriodParameters(
+        year=start_year,
+        period=start_period,
+        endYear=end_year,
+        endPeriod=end_period,
+        allHistory=all_history,
+        updateDate=update_date,
+        periodType=period_type,
+        useFiscalPeriod=use_fiscal_period,
+        accessionID=accession_id,
+        filingID=filing_id,
+        dateRange=date_range,
+    )
 
     companies_parameters = CompaniesParameters(
         entireUniverse=entire_universe,
