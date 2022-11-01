@@ -4,6 +4,9 @@ from typing import List, Optional, Sequence
 
 from pydantic import BaseModel, Extra, Field, validator
 
+
+from calcbench.standardized_numeric import standardized
+
 try:
     import pandas as pd
     from calcbench.standardized_numeric import period_number
@@ -131,6 +134,13 @@ class Filing(
     )
     def _parse_date(cls, value):
         return _try_parse_timestamp(value)
+
+    def get_standardized_data(self, **args):
+        """
+        Standardized point-in-time data for this filing
+        """
+        args = {"filing_id": self.filing_id, "point_in_time": True, **args}
+        return standardized(**args)
 
 
 def filings(
