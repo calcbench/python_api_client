@@ -64,17 +64,17 @@ class PeriodParameters(BaseModel):
     Corresponds to PeriodParameter.cs
     """
 
-    year: Optional[int]
-    period: Optional[PeriodArgument]
-    periodType: Optional[PeriodType]
-    dateRange: Optional[DateRange]
-    endYear: Optional[int]
-    endPeriod: Optional[PeriodArgument]
-    allHistory: Optional[bool]
-    updateDate: Optional[date]
-    useFiscalPeriod: Optional[bool]
-    accessionID: Optional[int]
-    filingID: Optional[int]
+    year: Optional[int] = None
+    period: Optional[PeriodArgument] = None
+    periodType: Optional[PeriodType] = None
+    dateRange: Optional[DateRange] = None
+    endYear: Optional[int] = None
+    endPeriod: Optional[PeriodArgument] = None
+    allHistory: Optional[bool] = None
+    updateDate: Optional[date] = None
+    useFiscalPeriod: Optional[bool] = None
+    accessionID: Optional[int] = None
+    filingID: Optional[int] = None
 
 
 class APIQueryParams(BaseModel):

@@ -79,10 +79,8 @@ def press_release_raw(
 ) -> Generator[PressReleaseData, None, None]:
 
     periodParameters = PeriodParameters(
-        **{
-            "year": year,
-            "period": period,
-        }
+        year=year,
+        period=period,
     )
     payload = APIQueryParams(
         **{
