@@ -3,7 +3,6 @@ from enum import Enum, IntEnum
 from typing import Optional, Sequence, Union
 
 from pydantic import BaseModel
-from pyrsistent import optional
 
 
 try:
