@@ -85,17 +85,18 @@ def standardized_raw(
     year: Optional[int] = None,
     period: PeriodArgument = None,
     period_type: Optional[PeriodType] = None,
-    include_preliminary: bool = False,
+    include_preliminary: Optional[bool] = False,
     use_fiscal_period: bool = False,
     all_face: bool = False,
     all_footnotes: bool = False,
-    include_xbrl: bool = False,
+    include_xbrl: Optional[bool] = False,
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics=False,
     pit_V2=False,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
+    exclude_unconfirmed_preliminary: Optional[bool] = False,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -274,6 +275,7 @@ def standardized_raw(
                 "allNonGAAP": all_non_GAAP,
                 "allMetrics": all_metrics,
                 "pointInTimeV2": pit_V2,
+                "excludeUnconfirmedPreliminary": exclude_unconfirmed_preliminary,
             },
             "periodParameters": period_parameters,
             "companiesParameters": companies_parameters,
@@ -629,6 +631,8 @@ def standardized(
     end_date: Optional[Union[datetime, date]] = None,
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
+    exclude_unconfirmed_preliminary: Optional[bool] = False,
+    include_XBRL: Optional[bool] = True,
     pit_V2=False,
 ):
     """Standardized Numeric Data.
@@ -645,6 +649,7 @@ def standardized(
     :param fiscal_period: Fiscal period for which to get data.  If not specified get all history.
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
+    :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
     :return: Dataframe
 
     Usage::
@@ -668,12 +673,12 @@ def standardized(
         filing_id=filing_id,
         all_metrics=not metrics,
         use_fiscal_period=True,
-        include_preliminary=point_in_time,
-        include_xbrl=True,
         include_trace=True,
         pit_V2=pit_V2,
         start_date=start_date,
         end_date=end_date,
+        exclude_unconfirmed_preliminary=exclude_unconfirmed_preliminary,
+        include_xbrl=include_XBRL,
     )
 
     data = _build_data_frame(data)
