@@ -85,7 +85,7 @@ def standardized_raw(
     year: Optional[int] = None,
     period: PeriodArgument = None,
     period_type: Optional[PeriodType] = None,
-    include_preliminary: Optional[bool] = False,
+    include_preliminary: Optional[bool] = True,
     use_fiscal_period: bool = False,
     all_face: bool = False,
     all_footnotes: bool = False,
