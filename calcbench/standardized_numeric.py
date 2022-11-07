@@ -91,7 +91,7 @@ def standardized_raw(
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics=False,
-    pit_V2=False,
+    pit_V2=True,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
@@ -329,7 +329,7 @@ def standardized(
     filing_id: Optional[int] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
     include_XBRL: Optional[bool] = True,
-    pit_V2=False,
+    pit_V2=True,
 ):
     """Standardized Numeric Data.
 
