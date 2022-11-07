@@ -74,12 +74,10 @@ def standardized_raw(
     start_period: PeriodArgument = None,
     end_year: Optional[int] = None,
     end_period: PeriodArgument = None,
-    entire_universe=False,
-    accession_id: Optional[int] = None,
+    entire_universe: bool = False,
     point_in_time: bool = False,
     include_trace: bool = False,
-    update_date: Optional[date] = None,
-    all_history=False,
+    all_history: bool = False,
     year: Optional[int] = None,
     period: PeriodArgument = None,
     period_type: Optional[PeriodType] = None,
@@ -88,8 +86,8 @@ def standardized_raw(
     all_footnotes: bool = False,
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
-    all_metrics=False,
-    pit_V2=True,
+    all_metrics: bool = False,
+    pit_V2: bool = True,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
@@ -105,18 +103,15 @@ def standardized_raw(
     :param end_year: last year of data
     :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
     :param entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
-    :param accession_id: Calcbench Accession ID
     :param include_trace: Include the facts used to calculate the normalized value.
     :param year: Get data for a single year, defaults to annual data.
     :param period_type: Either "annual" or "quarterly"
-    :param include_preliminary: Include data from non-XBRL 8-Ks and press releases.
-    :param exclude_errors: Run another level of error detections, only works for PIT preliminary
     :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
     :param all_non_GAAP: include all non-GAAP metrics from earnings press releases such as EBITDA_NonGAAP.  This is implied when querying by `filing_id`.
     :param all_metrics: All metrics.
     :param start_date: points modified from this date (inclusive).  If no time is specified all points from that date are returned.
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
-    :return: A list of dictionaries with keys ['ticker', 'calendar_year', 'calendar_period', 'metric', 'value'].
+    :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
 
     """
     if [
