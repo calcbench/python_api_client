@@ -343,7 +343,7 @@ def standardized(
     :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
     :return: Dataframe
 
-        Columns:
+
 
     Standardized data with a timestamp when it was published by Calcbench.
 
@@ -356,6 +356,18 @@ def standardized(
 
     If the value is revised in subsequent XBRL filings you will see a record for each filing with an incremented revision number.
 
+        Columns:
+
+    ticker
+       Ticker of reporting company
+    metric
+       The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
+    fiscal_period
+       fiscal_year-fiscal_period the fiscal period the value applies to.
+    date_reported (PIT only)
+       Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.
+
+       In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
 
     value
        The value of the fact
@@ -364,35 +376,33 @@ def standardized(
     preliminary
         True indicates the number was parsed from non-XBRL 8-K or press release from the wire
     XBRL
-        Indicates the number was parsed from XBRL
+        Indicates the number was parsed from XBRL.
+
+        The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then "confirmed" in an XBRL document.
     period_start
        First day of the fiscal period for this fact
     period_end
        Last day of the fiscal period for this fact
-    date_reported
-       Timestamp (EST) when Calcbench published this fact.
-
-       In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
-    metric
-       The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
     calendar_year
        The calendar year for this fact.  https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM-
     calendar_period
        The calendar period for this fact
-    fiscal_year
-       Company reported fiscal year for this fact
-    fiscal_period
-       Company reported fiscal period for this fact
-    ticker
-       Ticker of reporting company
     CIK
        SEC assigned Central Index Key for reporting company
     calcbench_entity_id
        Internal Calcbench identifier for reporting company
     filing_type
        The document type this fact came from, 10-K|Q, S-1 etc...
+    date_modified (PIT only)
+        The datetime Calcbench wrote/modified this value.
 
+        Post November 2022 if this differs from the date_reported the fact was modified by Calcbench subsequent to the filing first being processed.
+    original_value (PIT only)
+        The value that Calcbench extracted when it first processed the filing.
 
+        Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.
+    date_downloaded
+        The timestamp on your computer when you downloaded this data.
 
     Usage::
 
@@ -403,6 +413,7 @@ def standardized(
       >>> d = calcbench.standardized(company_identifiers=['msft', 'orcl'], metrics=['StockholdersEquity', 'NetIncome'])
       >>> d = d.unstack("metric")["value"]
       >>> return_on_equity = d['NetIncome'] / d['StockholdersEquity']
+
     """
     data = standardized_raw(
         company_identifiers=company_identifiers,

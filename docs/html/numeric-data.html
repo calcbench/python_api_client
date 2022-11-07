@@ -59,9 +59,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><p>Dataframe</p>
-<p>Columns:</p>
-</p>
+<dd class="field-even"><p>Dataframe</p>
 </dd>
 </dl>
 <p>Standardized data with a timestamp when it was published by Calcbench.</p>
@@ -69,39 +67,49 @@
 <p>If the company files an 8-K with revenue = $100 then a week later files a 10-K with revenue = $100 one record will be returned for that period.  It will have preliminary=True and XBRL=True.</p>
 <p>If the company files an 8-K with revenue = $100 and then a week later files a 10-K with revenue = $200, two records will be returned.  One with revenue = $100, a revision_number=0, date_reported of 8-K, preliminary=True and XBRL=False.  You will see a second line with revenue = $200, a revision_number=1, and date_reported of the 10-K, preliminary=False and XBRL=False.</p>
 <p>If the value is revised in subsequent XBRL filings you will see a record for each filing with an incremented revision number.</p>
+<blockquote>
+<div><p>Columns:</p>
+</div></blockquote>
 <dl>
+<dt>ticker</dt><dd><p>Ticker of reporting company</p>
+</dd>
+<dt>metric</dt><dd><p>The metric name, see the definitions &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
+</dd>
+<dt>fiscal_period</dt><dd><p>fiscal_year-fiscal_period the fiscal period the value applies to.</p>
+</dd>
+<dt>date_reported (PIT only)</dt><dd><p>Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.</p>
+<p>In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.</p>
+</dd>
 <dt>value</dt><dd><p>The value of the fact</p>
 </dd>
 <dt>revision_number</dt><dd><p>0 indicates an original, unrevised value for this fact. 1, 2, 3… indicates subsequent revisions to the fact value.  <a class="reference external" href="https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&amp;query=revisions&amp;commit=Search">https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&amp;query=revisions&amp;commit=Search</a></p>
 </dd>
 <dt>preliminary</dt><dd><p>True indicates the number was parsed from non-XBRL 8-K or press release from the wire</p>
 </dd>
-<dt>XBRL</dt><dd><p>Indicates the number was parsed from XBRL</p>
+<dt>XBRL</dt><dd><p>Indicates the number was parsed from XBRL.</p>
+<p>The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then “confirmed” in an XBRL document.</p>
 </dd>
 <dt>period_start</dt><dd><p>First day of the fiscal period for this fact</p>
 </dd>
 <dt>period_end</dt><dd><p>Last day of the fiscal period for this fact</p>
 </dd>
-<dt>date_reported</dt><dd><p>Timestamp (EST) when Calcbench published this fact.</p>
-<p>In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.</p>
-</dd>
-<dt>metric</dt><dd><p>The metric name, see the definitions &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
-</dd>
 <dt>calendar_year</dt><dd><p>The calendar year for this fact.  <a class="reference external" href="https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM">https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM</a>-</p>
 </dd>
 <dt>calendar_period</dt><dd><p>The calendar period for this fact</p>
-</dd>
-<dt>fiscal_year</dt><dd><p>Company reported fiscal year for this fact</p>
-</dd>
-<dt>fiscal_period</dt><dd><p>Company reported fiscal period for this fact</p>
-</dd>
-<dt>ticker</dt><dd><p>Ticker of reporting company</p>
 </dd>
 <dt>CIK</dt><dd><p>SEC assigned Central Index Key for reporting company</p>
 </dd>
 <dt>calcbench_entity_id</dt><dd><p>Internal Calcbench identifier for reporting company</p>
 </dd>
 <dt>filing_type</dt><dd><p>The document type this fact came from, 10-K|Q, S-1 etc…</p>
+</dd>
+<dt>date_modified (PIT only)</dt><dd><p>The datetime Calcbench wrote/modified this value.</p>
+<p>Post November 2022 if this differs from the date_reported the fact was modified by Calcbench subsequent to the filing first being processed.</p>
+</dd>
+<dt>original_value (PIT only)</dt><dd><p>The value that Calcbench extracted when it first processed the filing.</p>
+<p>Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.</p>
+</dd>
+<dt>date_downloaded</dt><dd><p>The timestamp on your computer when you downloaded this data.</p>
 </dd>
 </dl>
 <p>Usage:</p>
