@@ -83,11 +83,9 @@ def standardized_raw(
     year: Optional[int] = None,
     period: PeriodArgument = None,
     period_type: Optional[PeriodType] = None,
-    include_preliminary: Optional[bool] = True,
     use_fiscal_period: bool = False,
     all_face: bool = False,
     all_footnotes: bool = False,
-    include_xbrl: Optional[bool] = False,
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics=False,
@@ -188,9 +186,6 @@ def standardized_raw(
             'period_type must be in "annual", "quarterly", "combined", "ttm"'
         )
 
-    if include_preliminary and not point_in_time:
-        raise ValueError("include_preliminary only works for PIT")
-
     if metrics and (all_face or all_footnotes):
         raise ValueError(
             "specifying metrics with all_face or all_footnotes does not make sense"
@@ -266,14 +261,13 @@ def standardized_raw(
                 "metrics": metrics,
                 "includeTrace": include_trace,
                 "pointInTime": point_in_time,
-                "includePreliminary": include_preliminary,
                 "allFootnotes": all_footnotes,
                 "allface": all_face,
-                "includeXBRL": include_xbrl,
                 "allNonGAAP": all_non_GAAP,
                 "allMetrics": all_metrics,
                 "pointInTimeV2": pit_V2,
                 "excludeUnconfirmedPreliminary": exclude_unconfirmed_preliminary,
+                "includePreliminary": True,  # only applies to PIT V1
             },
             "periodParameters": period_parameters,
             "companiesParameters": companies_parameters,
@@ -328,7 +322,6 @@ def standardized(
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
-    include_XBRL: Optional[bool] = True,
     pit_V2=True,
 ):
     """Standardized Numeric Data.
@@ -427,7 +420,6 @@ def standardized(
         start_date=start_date,
         end_date=end_date,
         exclude_unconfirmed_preliminary=exclude_unconfirmed_preliminary,
-        include_xbrl=include_XBRL,
     )
 
     data = _build_data_frame(data)
