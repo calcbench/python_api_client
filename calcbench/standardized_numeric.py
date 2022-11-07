@@ -25,7 +25,6 @@ else:
 from calcbench.api_client import _json_POST
 
 try:
-    import numpy as np
     import pandas as pd
 
     period_number = pd.api.types.CategoricalDtype(  # type: ignore
