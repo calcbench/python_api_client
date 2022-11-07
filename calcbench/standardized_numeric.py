@@ -117,7 +117,6 @@ def standardized_raw(
     if [
         bool(company_identifiers),
         bool(entire_universe),
-        bool(accession_id),
         bool(filing_id),
     ].count(True) != 1:
         raise ValueError(
@@ -127,9 +126,7 @@ def standardized_raw(
         [
             start_year,
             end_year,
-            update_date,
             year,
-            accession_id,
             filing_id,
             all_history,
             period_type,
@@ -139,7 +136,7 @@ def standardized_raw(
     ):
         raise ValueError("Need to specify a period qualifier")
 
-    if (accession_id or filing_id) and any(
+    if filing_id and any(
         [
             company_identifiers,
             start_year,
@@ -237,10 +234,8 @@ def standardized_raw(
         endYear=end_year,
         endPeriod=end_period,
         allHistory=all_history,
-        updateDate=update_date,
         periodType=period_type,
         useFiscalPeriod=use_fiscal_period,
-        accessionID=accession_id,
         filingID=filing_id,
         dateRange=date_range,
     )
