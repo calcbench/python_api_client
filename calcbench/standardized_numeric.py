@@ -1,4 +1,3 @@
-import warnings
 from datetime import date, datetime
 from typing import TYPE_CHECKING, Any, Optional, Sequence, Union
 
@@ -7,7 +6,6 @@ from calcbench.api_query_params import (
     APIQueryParams,
     CompaniesParameters,
     CompanyIdentifiers,
-    CompanyIdentifierScheme,
     DateRange,
     Period,
     PeriodArgument,
@@ -24,7 +22,7 @@ else:
     except ImportError:
         from typing_extensions import TypedDict
 
-from calcbench.api_client import _json_POST, logger
+from calcbench.api_client import _json_POST
 
 try:
     import numpy as np
