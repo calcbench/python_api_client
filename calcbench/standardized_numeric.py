@@ -93,7 +93,6 @@ def standardized_raw(
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics=False,
-    pit_V2=False,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
@@ -274,7 +273,7 @@ def standardized_raw(
                 "includeXBRL": include_xbrl,
                 "allNonGAAP": all_non_GAAP,
                 "allMetrics": all_metrics,
-                "pointInTimeV2": pit_V2,
+                "pointInTimeV2": True,
                 "excludeUnconfirmedPreliminary": exclude_unconfirmed_preliminary,
             },
             "periodParameters": period_parameters,
@@ -331,7 +330,6 @@ def standardized(
     filing_id: Optional[int] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
     include_XBRL: Optional[bool] = True,
-    pit_V2=False,
 ):
     """Standardized Numeric Data.
 
@@ -425,7 +423,6 @@ def standardized(
         all_metrics=not metrics,
         use_fiscal_period=True,
         include_trace=True,
-        pit_V2=pit_V2,
         start_date=start_date,
         end_date=end_date,
         exclude_unconfirmed_preliminary=exclude_unconfirmed_preliminary,
