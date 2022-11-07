@@ -320,33 +320,39 @@ def _build_data_frame(raw_data: Sequence[StandardizedPoint]) -> "pd.DataFrame":
     return data
 
 
-def point_in_time(
+def standardized(
     company_identifiers: CompanyIdentifiers = [],
-    all_footnotes: bool = False,
     metrics: Sequence[str] = [],
-    all_history: bool = False,
-    entire_universe: bool = False,
-    start_year: Optional[int] = None,
-    start_period: PeriodArgument = None,
-    end_year: Optional[int] = None,
-    end_period: PeriodArgument = None,
-    period_type: Optional[PeriodType] = None,
-    use_fiscal_period: bool = False,
-    include_preliminary: bool = False,
-    all_face: bool = False,
-    include_xbrl: bool = True,
-    accession_id: Optional[int] = None,
-    include_trace: bool = False,
-    set_index: bool = False,
-    _point_in_time_mode=True,
+    fiscal_year: Optional[int] = None,
+    fiscal_period: PeriodArgument = None,
+    start_date: Optional[Union[datetime, date]] = None,
+    end_date: Optional[Union[datetime, date]] = None,
+    point_in_time: bool = False,
     filing_id: Optional[int] = None,
-    all_non_GAAP: bool = False,
-    pit_V2: bool = False,
-) -> "pd.DataFrame":
-    """Point-in-Time Data
+    exclude_unconfirmed_preliminary: Optional[bool] = False,
+    include_XBRL: Optional[bool] = True,
+    pit_V2=False,
+):
+    """Standardized Numeric Data.
 
-    .. deprecated:: 6.0.1
-        Use :func:`standardized` with the `point_in_time=True` argument.
+
+
+    The data behind the multi-company page, https://www.calcbench.com/multi.
+
+    Example https://github.com/calcbench/notebooks/blob/master/python_client_api_demo.ipynb
+
+    :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740'].  If not specified get data for all companies.
+    :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable'].  If not specified get all metrics.
+    :param fiscal_year: Fiscal year for which to get data.  If not specified get all history.
+    :param fiscal_period: Fiscal period for which to get data.  If not specified get all history.
+    :param start_date:  Restrict to records received on or after (inclusive) this date/datetime
+    :param end_date:  Restric to records received prior (exclusive) thie date/datetime
+    :param point_in_time: Include timestamps when data was published and revision chains.
+    :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
+    :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
+    :return: Dataframe
+
+        Columns:
 
     Standardized data with a timestamp when it was published by Calcbench.
 
@@ -358,20 +364,6 @@ def point_in_time(
     If the company files an 8-K with revenue = $100 and then a week later files a 10-K with revenue = $200, two records will be returned.  One with revenue = $100, a revision_number=0, date_reported of 8-K, preliminary=True and XBRL=False.  You will see a second line with revenue = $200, a revision_number=1, and date_reported of the 10-K, preliminary=False and XBRL=False.
 
     If the value is revised in subsequent XBRL filings you will see a record for each filing with an incremented revision number.
-
-    :param accession_id: Unique identifier for the filing for which to recieve data.  Pass this to recieve data for one filing.  Same as calcbench_id in filings objects
-    :param all_face: Retrieve all of the points from the face financials, income/balance/statement of cash flows
-    :param all_footnotes: Retrive all of the points from the footnotes to the financials
-    :param include_preliminary: Include facts from non-XBRL earnings press-releases and 8-Ks.
-    :param include_xbrl: Include facts from XBRL 10-K/Qs.
-    :param include_trace: Include a URL that points to the source document.
-    :param set_index: Set a useful index on the returned DataFrame
-    :param _point_in_time_mode: DO NOT USE.  For debugging only.
-    :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
-    :param all_non_GAAP: include all non-GAAP metrics from earnings press releases such as EBITDA_NonGAAP.  This is implied when querying by `filing_id`.
-    :return: DataFrame of facts
-
-    Columns:
 
 
     value
@@ -410,247 +402,6 @@ def point_in_time(
        The document type this fact came from, 10-K|Q, S-1 etc...
 
 
-
-    Usage::
-       >>> calcbench.point_in_time(company_identifiers=["msft", "goog"],
-       >>>                          all_history=True,
-       >>>                          all_face=True,
-       >>>                          all_footnotes=True)
-
-    .. _Example: https://github.com/calcbench/notebooks/blob/master/standardized_numeric_point_in_time.ipynb
-
-
-    """
-
-    warnings.warn("Prefer standardized with point_in_time=True.", DeprecationWarning)
-    data = standardized_raw(
-        company_identifiers=company_identifiers,
-        all_face=all_face,
-        all_footnotes=all_footnotes,
-        point_in_time=_point_in_time_mode,
-        metrics=metrics,
-        all_history=all_history,
-        entire_universe=entire_universe,
-        start_year=start_year,
-        start_period=start_period,
-        end_year=end_year,
-        end_period=end_period,
-        period_type=period_type,
-        use_fiscal_period=use_fiscal_period,
-        include_preliminary=include_preliminary,
-        accession_id=accession_id,
-        include_trace=include_trace,
-        include_xbrl=include_xbrl,
-        filing_id=filing_id,
-        all_non_GAAP=all_non_GAAP,
-        pit_V2=pit_V2,
-    )
-
-    if not data:
-        return pd.DataFrame()
-    data = _build_data_frame(data)
-
-    sort_columns = ["ticker", "metric"]
-
-    if "calendar_period" in data.columns:
-        data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
-        sort_columns.extend(["calendar_year", "calendar_period"])
-    if "fiscal_period" in data.columns:
-        data.fiscal_period = data.fiscal_period.astype(period_number)  # type: ignore
-    if "calendar_period" in data.columns:
-        data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
-    if not data.empty:
-        for date_column in ["date_reported", "period_end", "period_start"]:
-            if date_column in data.columns:
-                data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
-    if set_index:
-        if not period_type:
-            data["period"] = (
-                data.fiscal_year.astype(str) + "-" + data.fiscal_period.astype(str)
-            )
-        else:
-            if period_type == PeriodType.Quarterly:
-                data = data[
-                    data.fiscal_period != 0
-                ]  # Sometime annual data gets into the quarterly stream
-                data["period"] = pd.PeriodIndex(
-                    year=data.fiscal_year, quarter=data.fiscal_period, freq="Q"
-                )
-            elif period_type == PeriodType.Annual:
-                data["period"] = pd.PeriodIndex(data["fiscal_year"], freq="A")
-        data.drop(["fiscal_year", "fiscal_period"], axis=1, inplace=True)
-        data = data.set_index(
-            ["ticker", "metric", "period", "date_reported"]
-        ).sort_index()
-    else:
-        data = data.sort_values(sort_columns).reset_index(drop=True)
-    return data
-
-
-def standardized_data(
-    company_identifiers: CompanyIdentifiers = [],
-    metrics: Sequence[str] = [],
-    start_year: Optional[int] = None,
-    start_period: PeriodArgument = None,
-    end_year: Optional[int] = None,
-    end_period: PeriodArgument = None,
-    entire_universe: bool = False,
-    point_in_time: bool = False,
-    year: Optional[int] = None,
-    period: PeriodArgument = None,
-    all_history: bool = False,
-    period_type: Optional[PeriodType] = None,
-    trace_hyperlinks: bool = False,
-    use_fiscal_period: bool = False,
-    company_identifier_scheme: CompanyIdentifierScheme = CompanyIdentifierScheme.Ticker,
-    accession_id: Optional[int] = None,
-) -> "pd.DataFrame":
-    """Standardized Data.
-
-    Metrics are standardized by economic concept and time period.
-
-    The data behind the multi-company page, https://www.calcbench.com/multi.
-
-    Example https://github.com/calcbench/notebooks/blob/master/python_client_api_demo.ipynb
-
-    :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
-    :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
-    :param start_year: first year of data
-    :param start_period: first quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-    :param end_year: last year of data
-    :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
-    :param entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
-    :param accession_id: Calcbench Accession ID
-    :param year: Get data for a single year, defaults to annual data.
-    :param period_type: Either "annual" or "quarterly".
-    :param trace_hyperlinks: Values are URLs to the source documents
-    :return: Dataframe with the periods as the index and columns indexed by metric and ticker
-
-    Usage::
-
-      >>> d = calcbench.standardized_data(company_identifiers=['msft', 'goog'],
-      >>>                                 metrics=['revenue', 'assets'],
-      >>>                                 all_history=True,
-      >>>                                 period_type='annual')
-
-      >>> # Make it look like Compustat data
-      >>> d.stack(level=1)
-
-    """
-
-    if all_history and not period_type:
-        raise ValueError("For all history you must specify a period_type")
-    if period_type == PeriodType.Combined:
-        raise ValueError(
-            "Cannot use combined because we can't build the time-series index"
-        )
-
-    data = standardized_raw(
-        company_identifiers=list(company_identifiers),
-        metrics=metrics,
-        start_year=start_year,
-        start_period=start_period,
-        end_year=end_year,
-        end_period=end_period,
-        entire_universe=entire_universe,
-        point_in_time=point_in_time,
-        year=year,
-        period=period,
-        all_history=all_history,
-        period_type=period_type,
-        use_fiscal_period=use_fiscal_period,
-        accession_id=accession_id,
-        include_trace=trace_hyperlinks,
-    )
-    if not data:
-        warnings.warn("No data found")
-        return pd.DataFrame()
-
-    quarterly = (start_period and end_period) or period_type in (
-        PeriodType.Quarterly,
-        PeriodType.TrailingTwelveMonths,
-    )
-    if quarterly:
-        build_period = _build_quarter_period
-    else:
-        build_period = _build_annual_period
-
-    metrics_found = set()
-    for d in data:
-        d["period"] = build_period(d, use_fiscal_period)
-        d["ticker"] = d["ticker"].upper()
-        try:  # This is probably not necessary, we're doing it in the dataframe. akittredge January 2017.
-            value = float(d["value"])
-            if trace_hyperlinks:
-                value = f'=HYPERLINK("{d["trace_url"]}", {value})'
-            d["value"] = value
-        except (ValueError, KeyError):
-            pass
-        metrics_found.add(d["metric"])
-
-    missing_metrics = set(metrics) - metrics_found
-    if missing_metrics:
-        warnings.warn("Did not find metrics {0}".format(missing_metrics))
-    data = pd.DataFrame(data)
-    for column in ["metric", "ticker", "CIK"]:
-        data[column] = pd.Categorical(data[column])  # type: ignore
-
-    data.set_index(
-        keys=[f"{company_identifier_scheme}", "metric", "period"], inplace=True  # type: ignore
-    )  # type: ignore
-
-    try:
-        data = data.unstack("metric")  # type: ignore
-    except ValueError as e:
-        if str(e) == "Index contains duplicate entries, cannot reshape":
-            duplicates = data[data.index.duplicated()]["value"]  # type: ignore
-            logger.error("Duplicate values \n {0}".format(duplicates))
-        raise
-    data = data["value"]
-
-    for column_name in data.columns.values:
-        # Try to make the columns the right type
-        try:
-            data[column_name] = pd.to_numeric(data[column_name], errors="raise")
-        except ValueError:
-            if "date" in column_name.lower():
-                data[column_name] = pd.to_datetime(data[column_name], errors="coerce")  # type: ignore
-
-    for missing_metric in missing_metrics:
-        data[missing_metric] = np.nan  # We want columns for every requested metric.
-    data = data.unstack(f"{company_identifier_scheme}")
-    return data
-
-
-def standardized(
-    company_identifiers: CompanyIdentifiers = [],
-    metrics: Sequence[str] = [],
-    fiscal_year: Optional[int] = None,
-    fiscal_period: PeriodArgument = None,
-    start_date: Optional[Union[datetime, date]] = None,
-    end_date: Optional[Union[datetime, date]] = None,
-    point_in_time: bool = False,
-    filing_id: Optional[int] = None,
-    exclude_unconfirmed_preliminary: Optional[bool] = False,
-    include_XBRL: Optional[bool] = True,
-    pit_V2=False,
-):
-    """Standardized Numeric Data.
-
-
-
-    The data behind the multi-company page, https://www.calcbench.com/multi.
-
-    Example https://github.com/calcbench/notebooks/blob/master/python_client_api_demo.ipynb
-
-    :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740'].  If not specified get data for all companies.
-    :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable'].  If not specified get all metrics.
-    :param fiscal_year: Fiscal year for which to get data.  If not specified get all history.
-    :param fiscal_period: Fiscal period for which to get data.  If not specified get all history.
-    :param point_in_time: Include timestamps when data was published and revision chains.
-    :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
-    :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
-    :return: Dataframe
 
     Usage::
 
@@ -737,8 +488,3 @@ def _build_annual_period(
         year=data_point.pop("fiscal_year" if use_fiscal_period else "calendar_year"),
         freq="a",
     )
-
-
-normalized_data = standardized_data  # used to call it normalized_data.
-normalized_dataframe = standardized_data
-normalized_raw = standardized_raw

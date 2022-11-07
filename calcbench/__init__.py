@@ -2,7 +2,7 @@
 The "public" properties on the cb module
 
 """
-__version__ = "6.0.8"
+__version__ = "7.0.0"
 from datetime import datetime
 import logging
 from .api_client import (
@@ -26,11 +26,6 @@ from .listener import handle_filings
 from .filing import filings, Filing, filings_dataframe
 from .metrics import available_metrics, available_metrics_dataframe
 from .standardized_numeric import (
-    normalized_data,
-    normalized_dataframe,
-    normalized_raw,
-    point_in_time,
-    standardized_data,
     standardized_raw,
     standardized,
 )
