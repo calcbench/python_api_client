@@ -86,7 +86,7 @@ def standardized_raw(
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics: bool = False,
-    pit_V2: bool = True,
+    pit_V2: bool = False,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
