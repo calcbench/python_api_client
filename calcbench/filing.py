@@ -28,7 +28,7 @@ class FilingType(str, Enum):
     """
     BusinessWirePR_replaced = "BusinessWirePR_replaced"
     """
-    Wire press release for which an 8-K has not yet been filed.
+    Wire press release for which an 8-K has subsequently been received.
     """
     proxy = "proxy"
     annualQuarterlyReport = "annualQuarterlyReport"
