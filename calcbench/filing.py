@@ -23,12 +23,18 @@ from calcbench.api_query_params import CompanyIdentifiers, Period
 
 class FilingType(str, Enum):
     BusinessWirePR_filedAfterAn8K = "BusinessWirePR_filedAfterAn8K"
+    """
+    Wire press release recieved after an earnings 8-K.  Calcbench does not process these.
+    """
     BusinessWirePR_replaced = "BusinessWirePR_replaced"
+    """
+    Wire press release for which an 8-K has not yet been filed.
+    """
     proxy = "proxy"
     annualQuarterlyReport = "annualQuarterlyReport"
     eightk_earningsPressRelease = "eightk_earningsPressRelease"
     """
-    earnings press releases from the wires or the SEC
+    Wirepress release which has not been "replaced" by an 8-K, OR an earning 8-K.
     """
     eightk_guidanceUpdate = "eightk_guidanceUpdate"
     eightk_conferenceCallTranscript = "eightk_conferenceCallTranscript"
@@ -38,12 +44,21 @@ class FilingType(str, Enum):
     eightk_earningsPressRelease_correction = "eightk_earningsPressRelease_correction"
     eightk_other = "eightk_other"
     commentLetter = "commentLetter"
+    """
+    from the SEC - UPLOAD
+    """
     commentLetterResponse = "commentLetterResponse"
+    """
+    From the filer - CORRESP
+    """
     form_3 = "form_3"
     form_4 = "form_4"
     form_5 = "form_5"
     eightk_nonfinancial = "eightk_nonfinancial"
     NT10KorQ = "NT10KorQ"
+    """
+    Not in Time 10-K/Q.  Notification that 10-K/Q will not be filed in time.
+    """
     S = "S"
     Four24B = "Four24B"
     institutionalOwnsership_13F = "institutionalOwnsership_13F"
