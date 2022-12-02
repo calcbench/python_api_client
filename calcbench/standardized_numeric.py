@@ -330,6 +330,7 @@ def standardized(
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
+    :param pit_V2: use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
     :return: Dataframe
 
 
