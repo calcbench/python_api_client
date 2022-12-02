@@ -86,7 +86,7 @@ def standardized_raw(
     filing_id: Optional[int] = None,
     all_non_GAAP: bool = False,
     all_metrics: bool = False,
-    pit_V2: bool = False,
+    pit_V2: Optional[bool] = False,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
@@ -223,6 +223,9 @@ def standardized_raw(
     except (ValueError, TypeError):
         pass
 
+    if pit_V2 and not point_in_time:
+        raise ValueError("setting pit_V2 without point_in_time does not make sense")
+
     date_range = None
     if start_date or end_date:
         date_range = DateRange(startDate=start_date, endDate=end_date)
@@ -311,7 +314,7 @@ def standardized(
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
     exclude_unconfirmed_preliminary: Optional[bool] = False,
-    pit_V2=True,
+    pit_V2: Optional[bool] = None,
 ):
     """Standardized Numeric Data.
 
@@ -330,7 +333,7 @@ def standardized(
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
-    :param pit_V2: use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
+    :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
     :return: Dataframe
 
 
@@ -405,6 +408,8 @@ def standardized(
       >>> return_on_equity = d['NetIncome'] / d['StockholdersEquity']
 
     """
+    if point_in_time and pit_V2 is None:
+        pit_V2 = True
     data = standardized_raw(
         company_identifiers=company_identifiers,
         all_history=not fiscal_year,
