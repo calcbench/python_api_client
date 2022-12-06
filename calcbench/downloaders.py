@@ -1,4 +1,4 @@
-from typing import Callable, Optional, Sequence, TypeVar, Union
+from typing import Callable, Literal, Optional, Sequence, TypeVar, Union
 from pathlib import Path
 
 
@@ -63,6 +63,7 @@ def iterate_and_save_pandas(
     file_name: Union[str, Path],
     write_index: bool = True,
     columns: Optional[Sequence[str]] = None,
+    write_mode: Literal["w", "a"] = "w",
 ):
     """Apply arguments to a function that returns a DataFrame and save to a .csv file.
 
@@ -71,6 +72,7 @@ def iterate_and_save_pandas(
     :param file_name: Name of the file to write
     :param write_index: Write the pandas index to the csv file
     :param columns: which columns to write.  If this is set the index is not written
+    :param write_mode: set the initial write mode.  "a" to append, "w" to overwrite.  Useful for resuming downloading.
 
     Usage::
 
@@ -86,8 +88,7 @@ def iterate_and_save_pandas(
 
     """
     argument: T
-    write_mode = "w"
-    write_headers = True
+    write_headers = write_mode != "a"
     for argument in tqdm(list(arguments)):
         try:
             data = f(argument)
