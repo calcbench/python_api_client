@@ -29,12 +29,18 @@ class FilingType(str, Enum):
     BusinessWirePR_replaced = "BusinessWirePR_replaced"
     """
     Wire press release for which an 8-K has subsequently been received.
+
+    This value should no longer be returned by the filings API.
     """
     proxy = "proxy"
     annualQuarterlyReport = "annualQuarterlyReport"
     eightk_earningsPressRelease = "eightk_earningsPressRelease"
     """
-    Wirepress release which has not been "replaced" by an 8-K, OR an earning 8-K.
+    Wire press release, OR an earnings press release filed as an 8-K.
+
+    The wire should be filed again as an 8-K.
+
+    The wire will have the document_type of "WIREPR" while the 8-K will have the document_type of "8-K"
     """
     eightk_guidanceUpdate = "eightk_guidanceUpdate"
     eightk_conferenceCallTranscript = "eightk_conferenceCallTranscript"
