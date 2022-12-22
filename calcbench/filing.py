@@ -178,7 +178,7 @@ def filings(
 
     https://www.calcbench.com/filings.
 
-    Note that records are returned from the API that do not appear on the filings page.  On the filings page we only show records for which the is a record for the filer in our entities table.
+    Note that records are returned from the API that do not appear on the filings page.  On the filings page we only show records for which there is a record for the filer in our entities table.
 
     :param company_identifiers: list of tickers or CIK codes
     :param received_date: get all filings received on this date
