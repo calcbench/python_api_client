@@ -45,6 +45,13 @@ class Period(IntEnum):
     """
     Other = 9
 
+    @classmethod
+    def _missing_(cls, value: object):
+        """
+        There are other kinds of fiscal periods
+        """
+        return cls.Other
+
 
 PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
