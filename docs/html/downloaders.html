@@ -65,6 +65,16 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="calcbench.downloaders.iterate_and_save_pyarrow_dataset">
+<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pyarrow_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pyarrow_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply the arguments to a function a save to a pyarrow dataset.</p>
+<p>Usage::
+&gt;&gt;&gt; # Read the dataset
+&gt;&gt;&gt; import pyarrow.parquet as pq
+&gt;&gt;&gt; pq.read_table(&lt;root_path&gt;).to_pandas()</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_to_dataframe">
 <span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_to_dataframe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply arguments to a function that returns a DataFrame append to a dataframe and return.</p>

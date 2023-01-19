@@ -120,6 +120,12 @@ def iterate_and_save_pyarrow_dataset(
 ):
     """
     Apply the arguments to a function a save to a pyarrow dataset.
+
+    Usage::
+    >>> # Read the dataset
+    >>> import pyarrow.parquet as pq
+    >>> pq.read_table(<root_path>).to_pandas()
+
     """
     import pyarrow as pa
     import pyarrow.parquet as pq
