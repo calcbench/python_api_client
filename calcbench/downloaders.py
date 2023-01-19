@@ -112,27 +112,24 @@ def iterate_and_save_pandas(
             write_headers = False
 
 
-def iterate_and_save_parquet(
+def iterate_and_save_pyarrow_dataset(
     arguments: Sequence[T],
     f: Callable[[T], pd.DataFrame],
-    base_dir: Union[str, Path],
+    root_path: Union[str, Path],
     partition_cols: Optional[List[str]] = ["ticker"],
 ):
+    """
+    Apply the arguments to a function a save to a pyarrow dataset.
+    """
     import pyarrow as pa
-    import pyarrow.dataset as ds
+    import pyarrow.parquet as pq
 
-    parquet_format = ds.ParquetFileFormat()
-    file_options = parquet_format.make_write_options(
-        coerce_timestamps="us", allow_truncated_timestamps=True
-    )
     for argument in tqdm(list(arguments)):
         df = f(argument)
         table = pa.Table.from_pandas(df)
-        ds.write_dataset(
-            data=table,
-            base_dir=base_dir,
-            file_options=file_options,
-            format="parquet",
-            existing_data_behavior="overwrite_or_ignore",
-            partitioning=partition_cols,
+        pq.write_to_dataset(
+            table=table,
+            root_path=root_path,
+            partition_cols=partition_cols,
+            **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},  #
         )
