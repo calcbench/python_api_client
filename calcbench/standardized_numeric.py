@@ -433,7 +433,7 @@ def standardized(
         return data
     data["fiscal_period"] = (
         data["fiscal_year"].astype(str) + "-" + data["fiscal_period"].astype(str)
-    )
+    ).astype("string")
     data = data.drop("fiscal_year", axis=1)
 
     if "calendar_period" in data.columns:
@@ -442,9 +442,20 @@ def standardized(
     if "calendar_period" in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)  # type: ignore
 
-    for date_column in ["date_reported", "period_end", "period_start"]:
+    for date_column in ["date_reported", "period_end", "period_start", "date_modified"]:
         if date_column in data.columns:
             data[date_column] = pd.to_datetime(data[date_column], errors="coerce")  # type: ignore
+    for string_column in [
+        "ticker",
+        "metric",
+        "CIK",
+        "filing_type",
+        "filing_accession_number",
+        "trace_url",
+    ]:
+        if string_column in data.columns:
+            data[string_column] = data[string_column].astype("string")
+
     index_columns = [
         "ticker",
         "metric",
