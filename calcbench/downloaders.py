@@ -1,4 +1,4 @@
-from typing import Callable, Literal, Optional, Sequence, TypeVar, Union
+from typing import Callable, List, Literal, Optional, Sequence, TypeVar, Union
 from pathlib import Path
 
 
@@ -110,3 +110,29 @@ def iterate_and_save_pandas(
             )
             write_mode = "a"
             write_headers = False
+
+
+def iterate_and_save_parquet(
+    arguments: Sequence[T],
+    f: Callable[[T], pd.DataFrame],
+    base_dir: Union[str, Path],
+    partition_cols: Optional[List[str]] = ["ticker"],
+):
+    import pyarrow as pa
+    import pyarrow.dataset as ds
+
+    parquet_format = ds.ParquetFileFormat()
+    file_options = parquet_format.make_write_options(
+        coerce_timestamps="us", allow_truncated_timestamps=True
+    )
+    for argument in tqdm(list(arguments)):
+        df = f(argument)
+        table = pa.Table.from_pandas(df)
+        ds.write_dataset(
+            data=table,
+            base_dir=base_dir,
+            file_options=file_options,
+            format="parquet",
+            existing_data_behavior="overwrite_or_ignore",
+            partitioning=partition_cols,
+        )
