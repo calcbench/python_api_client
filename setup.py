@@ -30,7 +30,7 @@ setup(
     python_requires=">=3.6",
     packages=["calcbench"],
     extras_require={
-        "Pandas": ["Pandas"],
+        "Pandas": ["Pandas>=1.0.0"],
         "Listener": ["azure-servicebus==7.2.0", "pytz"],
         "Backoff": ["backoff"],
         "BeautifulSoup": ["beautifulsoup4"],
