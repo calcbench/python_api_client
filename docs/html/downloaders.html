@@ -71,7 +71,10 @@
 <p>Usage::
 &gt;&gt;&gt; # Read the dataset
 &gt;&gt;&gt; import pyarrow.parquet as pq
-&gt;&gt;&gt; pq.read_table(&lt;root_path&gt;).to_pandas()</p>
+&gt;&gt;&gt; import pyarrow.compute as pc
+&gt;&gt;&gt; table = pq.read_table(&lt;root_path&gt;)
+&gt;&gt;&gt; expr = pc.field(“ticker”) == “MSFT”
+&gt;&gt;&gt; msft_data = table.filter(expr).to_pandas()</p>
 </dd></dl>
 
 <dl class="py function">

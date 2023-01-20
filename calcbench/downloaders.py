@@ -124,7 +124,10 @@ def iterate_and_save_pyarrow_dataset(
     Usage::
     >>> # Read the dataset
     >>> import pyarrow.parquet as pq
-    >>> pq.read_table(<root_path>).to_pandas()
+    >>> import pyarrow.compute as pc
+    >>> table = pq.read_table(<root_path>)
+    >>> expr = pc.field("ticker") == "MSFT"
+    >>> msft_data = table.filter(expr).to_pandas()
 
     """
     import pyarrow as pa
@@ -132,10 +135,12 @@ def iterate_and_save_pyarrow_dataset(
 
     for argument in tqdm(list(arguments)):
         df = f(argument)
+        if df.empty:
+            continue
         table = pa.Table.from_pandas(df)
         pq.write_to_dataset(
             table=table,
             root_path=root_path,
             partition_cols=partition_cols,
-            **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},  #
+            **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},
         )
