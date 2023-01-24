@@ -44,6 +44,10 @@ class Period(IntEnum):
     First three quarters of year
     """
     Other = 9
+    Failure = -1
+    """
+    Should be few and far between, indicates something went wrong during loading
+    """
 
     @classmethod
     def _missing_(cls, value: object):
