@@ -100,8 +100,11 @@ def iterate_and_save_pandas(
             tqdm.write(f"Exception getting {argument} {e}")
         else:
             if columns:
-                data = data.reset_index()[columns]
-                write_index = False
+                try:
+                    data = data.reset_index()[columns]
+                except Exception as e:
+                    tqdm.write(f"Exception getting columns for {argument} {e}")
+                    continue
             data.to_csv(
                 file_name,
                 mode=write_mode,
