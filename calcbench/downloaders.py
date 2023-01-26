@@ -125,15 +125,15 @@ def iterate_and_save_pyarrow_dataset(
     Apply the arguments to a function a save to a pyarrow dataset.
 
     Usage::
+
+    >>> %pip install calcbench-api-client[Pandas,Backoff,tqdm,pyarrow]
     >>> tickers = sorted(cb.tickers(entire_universe=True), key=lambda ticker: hash(ticker)) # randomize the order so the time estimate is better
-    >>>
     >>> iterate_and_save_pyarrow_dataset(
     >>>     arguments=tickers,
     >>>     f=lambda ticker: cb.standardized(company_identifiers=[ticker], point_in_time=True),
     >>>     root_path="~/standardized_PIT_arrow/",
     >>>     partition_cols=["ticker"],
-    >>>)
-    >>>
+    >>> )
     >>> # Read the dataset
     >>> import pyarrow.parquet as pq
     >>> import pyarrow.compute as pc

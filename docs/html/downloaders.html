@@ -68,22 +68,23 @@
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_and_save_pyarrow_dataset">
 <span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pyarrow_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pyarrow_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the arguments to a function a save to a pyarrow dataset.</p>
-<p>Usage::
-&gt;&gt;&gt; tickers = sorted(cb.tickers(entire_universe=True), key=lambda ticker: hash(ticker)) # randomize the order so the time estimate is better
-&gt;&gt;&gt;
-&gt;&gt;&gt; iterate_and_save_pyarrow_dataset(
-&gt;&gt;&gt;     arguments=tickers,
-&gt;&gt;&gt;     f=lambda ticker: cb.standardized(company_identifiers=[ticker], point_in_time=True),
-&gt;&gt;&gt;     root_path=”~/standardized_PIT_arrow/”,
-&gt;&gt;&gt;     partition_cols=[“ticker”],
-&gt;&gt;&gt;)
-&gt;&gt;&gt;
-&gt;&gt;&gt; # Read the dataset
-&gt;&gt;&gt; import pyarrow.parquet as pq
-&gt;&gt;&gt; import pyarrow.compute as pc
-&gt;&gt;&gt; table = pq.read_table(&lt;root_path&gt;)
-&gt;&gt;&gt; expr = pc.field(“ticker”) == “MSFT”
-&gt;&gt;&gt; msft_data = table.filter(expr).to_pandas()</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">calcbench</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">client</span><span class="p">[</span><span class="n">Pandas</span><span class="p">,</span><span class="n">Backoff</span><span class="p">,</span><span class="n">tqdm</span><span class="p">,</span><span class="n">pyarrow</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tickers</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ticker</span><span class="p">:</span> <span class="nb">hash</span><span class="p">(</span><span class="n">ticker</span><span class="p">))</span> <span class="c1"># randomize the order so the time estimate is better</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iterate_and_save_pyarrow_dataset</span><span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">arguments</span><span class="o">=</span><span class="n">tickers</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ticker</span><span class="p">:</span> <span class="n">cb</span><span class="o">.</span><span class="n">standardized</span><span class="p">(</span><span class="n">company_identifiers</span><span class="o">=</span><span class="p">[</span><span class="n">ticker</span><span class="p">],</span> <span class="n">point_in_time</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">root_path</span><span class="o">=</span><span class="s2">&quot;~/standardized_PIT_arrow/&quot;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">partition_cols</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;ticker&quot;</span><span class="p">],</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Read the dataset</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyarrow.parquet</span> <span class="k">as</span> <span class="nn">pq</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyarrow.compute</span> <span class="k">as</span> <span class="nn">pc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="o">&lt;</span><span class="n">root_path</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;ticker&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;MSFT&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msft_data</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
