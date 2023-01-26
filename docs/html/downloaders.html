@@ -69,6 +69,15 @@
 <span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pyarrow_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pyarrow_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the arguments to a function a save to a pyarrow dataset.</p>
 <p>Usage::
+&gt;&gt;&gt; tickers = sorted(cb.tickers(entire_universe=True), key=lambda ticker: hash(ticker)) # randomize the order so the time estimate is better
+&gt;&gt;&gt;
+&gt;&gt;&gt; iterate_and_save_pyarrow_dataset(
+&gt;&gt;&gt;     arguments=tickers,
+&gt;&gt;&gt;     f=lambda ticker: cb.standardized(company_identifiers=[ticker], point_in_time=True),
+&gt;&gt;&gt;     root_path=”~/standardized_PIT_arrow/”,
+&gt;&gt;&gt;     partition_cols=[“ticker”],
+&gt;&gt;&gt;)
+&gt;&gt;&gt;
 &gt;&gt;&gt; # Read the dataset
 &gt;&gt;&gt; import pyarrow.parquet as pq
 &gt;&gt;&gt; import pyarrow.compute as pc
