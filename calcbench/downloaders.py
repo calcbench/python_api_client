@@ -8,7 +8,9 @@ from tqdm.auto import tqdm
 
 
 cb.enable_backoff(
-    giveup=lambda e: hasattr(e, "response") and (e.response.status_code in [404, 500])
+    giveup=lambda e: hasattr(e, "response")
+    and e.response
+    and (e.response.status_code in [404, 500])
 )
 
 T = TypeVar("T")
