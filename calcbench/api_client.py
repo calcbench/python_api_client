@@ -38,6 +38,7 @@ else:
         from typing_extensions import TypedDict
 
 from requests.sessions import Session
+from requests import HTTPError
 
 from calcbench.api_query_params import APIQueryParams
 
@@ -290,7 +291,7 @@ def set_credentials(cb_username: str, cb_password: str):
 
 def enable_backoff(
     backoff_on: bool = True,
-    giveup: Callable[[RequestException], bool] = lambda e: hasattr(e, "response")
+    giveup: Callable[[RequestException], bool] = lambda e: isinstance(e, HTTPError)
     and e.response.status_code == 404,
 ):
     """Re-try failed requests with exponential back-off

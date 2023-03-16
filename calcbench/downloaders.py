@@ -1,6 +1,8 @@
 from typing import Callable, List, Literal, Optional, Sequence, TypeVar, Union
 from pathlib import Path
 
+from requests import HTTPError
+
 
 import calcbench as cb
 import pandas as pd
@@ -8,9 +10,7 @@ from tqdm.auto import tqdm
 
 
 cb.enable_backoff(
-    giveup=lambda e: hasattr(e, "response")
-    and e.response
-    and (e.response.status_code in [404, 500])
+    giveup=lambda e: isinstance(e, HTTPError) and (e.response.status_code in [404, 500])
 )
 
 T = TypeVar("T")
