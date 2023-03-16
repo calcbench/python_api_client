@@ -148,13 +148,20 @@ def iterate_and_save_pyarrow_dataset(
     import pyarrow.parquet as pq
 
     for argument in tqdm(list(arguments)):
-        df = f(argument)
-        if df.empty:
-            continue
-        table = pa.Table.from_pandas(df)
-        pq.write_to_dataset(
-            table=table,
-            root_path=root_path,
-            partition_cols=partition_cols,
-            **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},
-        )
+        try:
+
+            df = f(argument)
+            if df.empty:
+                continue
+        except KeyboardInterrupt:
+            raise
+        except Exception as e:
+            tqdm.write(f"Exception getting {argument} {e}")
+        else:
+            table = pa.Table.from_pandas(df)
+            pq.write_to_dataset(
+                table=table,
+                root_path=root_path,
+                partition_cols=partition_cols,
+                **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},
+            )
