@@ -469,31 +469,3 @@ def standardized(
     data = data.set_index(index_columns)
     data = data.sort_index()
     return data
-
-
-def _build_quarter_period(
-    data_point: StandardizedPoint, use_fiscal_period: bool
-) -> "pd.Period":
-    try:
-        return pd.Period(  # type: ignore
-            year=data_point.pop(
-                "fiscal_year" if use_fiscal_period else "calendar_year"
-            ),
-            quarter=data_point.pop(
-                "fiscal_period" if use_fiscal_period else "calendar_period"
-            ),
-            freq="q",
-        )
-    except ValueError:
-        # DEI points (entity_name) etc, don't have periods.
-        return pd.Period()  # type: ignore
-
-
-def _build_annual_period(
-    data_point: StandardizedPoint, use_fiscal_period: bool
-) -> "pd.Period":
-    data_point.pop("fiscal_period" if use_fiscal_period else "calendar_period")
-    return pd.Period(  # type: ignore
-        year=data_point.pop("fiscal_year" if use_fiscal_period else "calendar_year"),
-        freq="a",
-    )
