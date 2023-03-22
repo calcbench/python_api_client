@@ -408,6 +408,8 @@ def standardized(
       >>> return_on_equity = d['NetIncome'] / d['StockholdersEquity']
 
     """
+
+    company_identifiers = list(company_identifiers)
     if point_in_time and pit_V2 is None:
         pit_V2 = True
     data = standardized_raw(
