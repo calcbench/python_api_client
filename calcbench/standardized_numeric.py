@@ -390,10 +390,16 @@ def standardized(
         The datetime Calcbench wrote/modified this value.
 
         Post November 2022 if this differs from the date_reported the fact was modified by Calcbench subsequent to the filing first being processed.
+    fling_accession_number
+        Accession number as assigned by the SEC for the filing from which this value came.
+    trace_url
+        URL for a page showing the source document for this value.
     original_value (PIT only)
         The value that Calcbench extracted when it first processed the filing.
 
         Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.
+    standardized_id
+        A unique identifier Calcbench assigns to each standardized value.
     date_downloaded
         The timestamp on your computer when you downloaded this data.
 
