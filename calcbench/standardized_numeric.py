@@ -288,6 +288,9 @@ ORDERED_COLUMNS = [
     "calendar_period",
     "filing_accession_number",
     "trace_url",
+    "date_modified",
+    "date_XBRL_confirmed",
+    "original_value",
 ]
 
 
@@ -328,8 +331,8 @@ def standardized(
     :param metrics: Standardized metrics.  Full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable'].  If not specified get all metrics.
     :param fiscal_year: Fiscal year for which to get data.  If not specified get all history.
     :param fiscal_period: Fiscal period for which to get data.  If not specified get all history.
-    :param start_date:  Restrict to records received on or after (inclusive) this date/datetime
-    :param end_date:  Restric to records received prior (exclusive) thie date/datetime
+    :param start_date:  Restrict to records modified on or after (inclusive) this date/datetime
+    :param end_date:  Restric to records modified prior (exclusive) thie date/datetime
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
@@ -372,6 +375,10 @@ def standardized(
         Indicates the number was parsed from XBRL.
 
         The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then "confirmed" in an XBRL document.
+    date_XBRL_confirmed
+        Time at which the point was confirmed by an point from an XBRL filing.
+        If the point originally came from an XBRL filing this will be the original write time.
+        If this is null, for points post April 2023, the point has not been confirmed.
     period_start
        First day of the fiscal period for this fact
     period_end
@@ -402,6 +409,8 @@ def standardized(
         A unique identifier Calcbench assigns to each standardized value.
     date_downloaded
         The timestamp on your computer when you downloaded this data.
+
+
 
     Usage::
 
@@ -450,7 +459,13 @@ def standardized(
     if "calendar_period" in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)
 
-    for date_column in ["date_reported", "period_end", "period_start", "date_modified"]:
+    for date_column in [
+        "date_reported",
+        "period_end",
+        "period_start",
+        "date_modified",
+        "date_XBRL_confirmed",
+    ]:
         if date_column in data.columns:
             data[date_column] = pd.to_datetime(data[date_column], errors="coerce")
     for string_column in [
