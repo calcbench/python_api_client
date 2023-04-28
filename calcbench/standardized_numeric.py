@@ -376,7 +376,7 @@ def standardized(
 
         The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then "confirmed" in an XBRL document.
     date_XBRL_confirmed
-        Time at which the point was confirmed by an point from an XBRL filing.
+        Time at which the point was confirmed by a point from an XBRL filing.
         If the point originally came from an XBRL filing this will be the original write time.
         If this is null, for points post April 2023, the point has not been confirmed.
     period_start
