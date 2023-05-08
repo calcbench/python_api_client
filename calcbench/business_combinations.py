@@ -166,7 +166,7 @@ def business_combinations(
     )
     rows = []
     for datum in data:
-        row = {key: datum[key] for key in COLUMNS}
+        row = {key: datum.get(key) for key in COLUMNS}
         for metric in STANDARDIZED_METRICS:
             standardized_point = datum.standardized_PPA_points.get(metric)
             if standardized_point:
