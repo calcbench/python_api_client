@@ -8,7 +8,7 @@ import dataclasses
 import itertools
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Dict, Generator
+from typing import Dict, Generator, Optional
 from calcbench.api_query_params import CompanyIdentifiers
 
 from calcbench.standardized_numeric import StandardizedPoint
@@ -132,7 +132,8 @@ USEFUL_LIFE_HIGH_COLUMN_LABEL = "useful_life_high"
 
 
 def business_combinations_raw(
-    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
+    company_identifiers: Optional[CompanyIdentifiers] = [],
+    accession_id: Optional[int] = None,
 ) -> Generator[BusinessCombination, None, None]:
     """Purchase price allocation for mergers and acquisitions.
 
@@ -149,7 +150,8 @@ def business_combinations_raw(
 
 
 def business_combinations(
-    company_identifiers: CompanyIdentifiers = [], accession_id: int = None
+    company_identifiers: Optional[CompanyIdentifiers] = [],
+    accession_id: Optional[int] = None,
 ) -> "pd.DataFrame":
     """Purchase price allocation for mergers and acquisitions.
 
