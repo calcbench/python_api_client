@@ -269,7 +269,21 @@ def standardized_raw(
     return _json_POST("mappedData", payload)
 
 
-ORDERED_COLUMNS = [
+ORDERED_REGULAR_COLUMNS = [
+    "ticker",
+    "metric",
+    "fiscal_year",
+    "fiscal_period",
+    "value",
+    "CIK",
+    "calendar_year",
+    "calendar_period",
+]
+"""
+Fields returned by non-point-in-time calls
+"""
+
+ORDERED_PIT_COLUMNS = [
     "ticker",
     "metric",
     "fiscal_year",
@@ -292,18 +306,28 @@ ORDERED_COLUMNS = [
     "date_XBRL_confirmed",
     "original_value",
 ]
+"""
+Fields return by point-in-time calls
+"""
 
 
-def _build_data_frame(raw_data: Sequence[StandardizedPoint]) -> "pd.DataFrame":
+def _build_data_frame(
+    raw_data: Sequence[StandardizedPoint], point_in_time: bool
+) -> "pd.DataFrame":
     """
     The order of the columns should remain constant
     """
+
     if not raw_data:
         return pd.DataFrame()
+    columns = ORDERED_PIT_COLUMNS if point_in_time else ORDERED_REGULAR_COLUMNS
     data = pd.DataFrame(raw_data)
-    new_columns = list(set(data.columns) - set(ORDERED_COLUMNS))
-    data = data.reindex(columns=ORDERED_COLUMNS + new_columns)
-    data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
+    if point_in_time:
+        new_columns = list(set(data.columns) - set(columns))
+        data = data.reindex(columns=columns + new_columns)
+        data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
+    else:
+        data = data.reindex(columns=columns)
     return data
 
 
@@ -445,7 +469,7 @@ def standardized(
         exclude_unconfirmed_preliminary=exclude_unconfirmed_preliminary,
     )
 
-    data = _build_data_frame(data)
+    data = _build_data_frame(data, point_in_time=point_in_time)
     if data.empty:
         return data
     data["fiscal_period"] = (
