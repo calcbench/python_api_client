@@ -142,6 +142,11 @@ def iterate_and_save_pyarrow_dataset(
     >>> table = pq.read_table(<root_path>)
     >>> expr = pc.field("ticker") == "MSFT"
     >>> msft_data = table.filter(expr).to_pandas()
+    >>>
+    >>> # Write the data
+    >>> pq.write_table(table, "C:/Users/andre/Downloads/standardized_data.parquet")
+    >>> from pyarrow import csv
+    >>> csv.write_csv(table, "C:/Users/andre/Downloads/entire_universe_standardized_PIT.csv")
 
     """
     import pyarrow as pa
@@ -149,7 +154,6 @@ def iterate_and_save_pyarrow_dataset(
 
     for argument in tqdm(list(arguments)):
         try:
-
             df = f(argument)
             if df.empty:
                 continue
