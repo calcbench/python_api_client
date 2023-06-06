@@ -383,7 +383,7 @@ def standardized(
     metric
        The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
     fiscal_period
-       fiscal_year-fiscal_period the fiscal period the value applies to.
+       fiscal_year-fiscal_period the fiscal period the value applies to.  Like "2020-0" or "2021-3".  0 indicates annual, 1,2,3,4 are quarters.
     date_reported (PIT only)
        Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.
 
