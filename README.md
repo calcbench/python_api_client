@@ -13,6 +13,10 @@ Calcbench is an interface to the XBRL encoded 10-(K|Q) documents public companie
 
 http://calcbench.github.io/python_api_client/html/index.html
 
+## Examples
+
+https://github.com/calcbench/notebooks.
+
 ## Installation
 
     pip install calcbench-api-client
@@ -21,11 +25,7 @@ http://calcbench.github.io/python_api_client/html/index.html
 
 ## Credentials
 
-Use your Calcbench username (email) and password. Get a free two week Calcbench trial @ https://www.calcbench.com/join.
-
-## Examples
-
-https://github.com/calcbench/notebooks.
+Use your Calcbench username (email) and password. Get a free two week Calcbench trial @ https://www.calcbench.com/join
 
 ## Support
 
