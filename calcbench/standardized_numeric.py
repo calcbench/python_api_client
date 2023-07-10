@@ -89,7 +89,6 @@ def standardized_raw(
     pit_V2: Optional[bool] = False,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
-    exclude_unconfirmed_preliminary: Optional[bool] = False,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -110,8 +109,6 @@ def standardized_raw(
     :param all_metrics: All metrics.
     :param start_date: points modified from this date (inclusive).  If no time is specified all points from that date are returned.
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
-    :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
-
     """
     if [
         bool(company_identifiers),
@@ -258,7 +255,6 @@ def standardized_raw(
                 "allNonGAAP": all_non_GAAP,
                 "allMetrics": all_metrics,
                 "pointInTimeV2": pit_V2,
-                "excludeUnconfirmedPreliminary": exclude_unconfirmed_preliminary,
                 "includePreliminary": True,  # only applies to PIT V1
             },
             "periodParameters": period_parameters,
@@ -340,7 +336,6 @@ def standardized(
     end_date: Optional[Union[datetime, date]] = None,
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
-    exclude_unconfirmed_preliminary: Optional[bool] = False,
     pit_V2: Optional[bool] = None,
 ):
     """Standardized Numeric Data.
@@ -359,7 +354,6 @@ def standardized(
     :param end_date:  Restric to records modified prior (exclusive) thie date/datetime
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
-    :param exclude_unconfirmed_preliminary: Exclude points from press-releases or 8-Ks that have not been "confirmed" in an XBRL filing.  Preliminary points have a higher error rate than XBRL points.
     :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
     :return: Dataframe
 
@@ -466,7 +460,6 @@ def standardized(
         pit_V2=pit_V2,
         start_date=start_date,
         end_date=end_date,
-        exclude_unconfirmed_preliminary=exclude_unconfirmed_preliminary,
     )
 
     data = _build_data_frame(data, point_in_time=point_in_time)
