@@ -89,6 +89,7 @@ def standardized_raw(
     pit_V2: Optional[bool] = False,
     start_date: Optional[Union[datetime, date]] = None,
     end_date: Optional[Union[datetime, date]] = None,
+    XBRL_only: Optional[bool] = False,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -109,6 +110,7 @@ def standardized_raw(
     :param all_metrics: All metrics.
     :param start_date: points modified from this date (inclusive).  If no time is specified all points from that date are returned.
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
+    :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by the "confirming" filing_id.
     """
     if [
         bool(company_identifiers),
@@ -300,6 +302,7 @@ ORDERED_PIT_COLUMNS = [
     "trace_url",
     "date_modified",
     "date_XBRL_confirmed",
+    "confirming_XBRL_filing_ID",
     "original_value",
 ]
 """
@@ -337,6 +340,7 @@ def standardized(
     point_in_time: bool = False,
     filing_id: Optional[int] = None,
     pit_V2: Optional[bool] = None,
+    XBRL_only: Optional[bool] = False,
 ):
     """Standardized Numeric Data.
 
@@ -355,6 +359,7 @@ def standardized(
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
+    :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by the "confirming" filing_id.
     :return: Dataframe
 
 
@@ -425,6 +430,11 @@ def standardized(
         Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.
     standardized_id
         A unique identifier Calcbench assigns to each standardized value.
+
+    date_XBRL_confirmed
+        The date this value was "confirmed" by an XBRL document.  For values originally appearing in press-release, this will be the date of the associated 10-K/Q.
+    confirming_XBRL_filing_ID
+        The filing_id of the XBRL document which contained this value.
     date_downloaded
         The timestamp on your computer when you downloaded this data.
 
@@ -460,6 +470,7 @@ def standardized(
         pit_V2=pit_V2,
         start_date=start_date,
         end_date=end_date,
+        XBRL_only=XBRL_only,
     )
 
     data = _build_data_frame(data, point_in_time=point_in_time)
@@ -504,6 +515,7 @@ def standardized(
     if point_in_time:
         index_columns = index_columns + ["date_reported"]
         data["date_downloaded"] = datetime.now()
+        data["preliminary_only"] = data["preliminary"] & ~data["XBRL"]
     data = data.set_index(index_columns)
     data = data.sort_index()
     return data

@@ -83,6 +83,11 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">table</span> <span class="o">=</span> <span class="n">pq</span><span class="o">.</span><span class="n">read_table</span><span class="p">(</span><span class="o">&lt;</span><span class="n">root_path</span><span class="o">&gt;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">expr</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">field</span><span class="p">(</span><span class="s2">&quot;ticker&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;MSFT&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">msft_data</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Write the data</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pq</span><span class="o">.</span><span class="n">write_table</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="s2">&quot;C:/Users/andre/Downloads/standardized_data.parquet&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyarrow</span> <span class="kn">import</span> <span class="n">csv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csv</span><span class="o">.</span><span class="n">write_csv</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="s2">&quot;C:/Users/andre/Downloads/entire_universe_standardized_PIT.csv&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
