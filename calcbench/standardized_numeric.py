@@ -110,7 +110,7 @@ def standardized_raw(
     :param all_metrics: All metrics.
     :param start_date: points modified from this date (inclusive).  If no time is specified all points from that date are returned.
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
-    :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by the "confirming" filing_id.
+    :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
     """
     if [
         bool(company_identifiers),
@@ -359,7 +359,7 @@ def standardized(
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
-    :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by the "confirming" filing_id.
+    :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
     :return: Dataframe
 
 
@@ -400,7 +400,7 @@ def standardized(
         The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then "confirmed" in an XBRL document.
     date_XBRL_confirmed
         Time at which the point was confirmed by a point from an XBRL filing.
-        If the point originally came from an XBRL filing this will be the original write time.
+        If the point originally came from an XBRL filing this will be the original write time.  For values originally appearing in press-release, this will be the date of the associated 10-K/Q.
         If this is null, for points post April 2023, the point has not been confirmed.
     period_start
        First day of the fiscal period for this fact
@@ -430,9 +430,6 @@ def standardized(
         Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.
     standardized_id
         A unique identifier Calcbench assigns to each standardized value.
-
-    date_XBRL_confirmed
-        The date this value was "confirmed" by an XBRL document.  For values originally appearing in press-release, this will be the date of the associated 10-K/Q.
     confirming_XBRL_filing_ID
         The filing_id of the XBRL document which contained this value.
     date_downloaded
