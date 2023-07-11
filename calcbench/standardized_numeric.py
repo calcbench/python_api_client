@@ -257,7 +257,8 @@ def standardized_raw(
                 "allNonGAAP": all_non_GAAP,
                 "allMetrics": all_metrics,
                 "pointInTimeV2": pit_V2,
-                "includePreliminary": True,  # only applies to PIT V1
+                "includePreliminary": True,  # only applies to PIT V1,
+                "XBRLOnly": XBRL_only,
             },
             "periodParameters": period_parameters,
             "companiesParameters": companies_parameters,
