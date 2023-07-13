@@ -86,6 +86,7 @@ class PeriodParameters(BaseModel):
     useFiscalPeriod: Optional[bool] = None
     accessionID: Optional[int] = None
     filingID: Optional[int] = None
+    allModifications: Optional[bool] = False
 
 
 class APIQueryParams(BaseModel):

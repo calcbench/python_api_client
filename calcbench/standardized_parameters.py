@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 class StandardizedParameters(BaseModel):
     """
-    Cooresponds to MappedDataSearchParameters.cs on the server
+    Cooresponds to StandardizedQueryParameters.cs on the server
     """
 
     metrics: Optional[Sequence[str]] = None
