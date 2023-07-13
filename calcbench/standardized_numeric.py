@@ -113,8 +113,7 @@ def standardized_raw(
     :param start_date: points modified from this date (inclusive).  If no time is specified all points from that date are returned.
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
     :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
-
-    :param all_modifications: Include data for which the metadata (XBRL confirmed) was modified in the specified date-range or filing_id.
+    :param all_modifications: Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.
 
     """
     if [
@@ -373,7 +372,7 @@ def standardized(
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
     :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
-    :param all_modifications: Include data for which the metadata (XBRL confirmed) was modified in the specified date-range or filing_id.
+    :param all_modifications: Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.
 
     :return: Dataframe
 
