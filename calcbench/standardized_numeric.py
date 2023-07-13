@@ -12,6 +12,7 @@ from calcbench.api_query_params import (
     PeriodParameters,
     PeriodType,
 )
+from calcbench.standardized_parameters import StandardizedParameters
 
 if TYPE_CHECKING:
     # https://github.com/microsoft/pyright/issues/1358
@@ -246,23 +247,23 @@ def standardized_raw(
         companyIdentifiers=list(company_identifiers),
     )
 
+    page_parameters = StandardizedParameters(
+        metrics=metrics,
+        includeTrace=include_trace,
+        pointInTime=point_in_time,
+        allFootnotes=all_footnotes,
+        allFace=all_face,
+        allNonGAAP=all_non_GAAP,
+        allMetrics=all_metrics,
+        pointInTimeV2=pit_V2,
+        includePreliminary=True,
+        XBRLOnly=XBRL_only,
+    )
+
     payload = APIQueryParams(
-        **{
-            "pageParameters": {
-                "metrics": metrics,
-                "includeTrace": include_trace,
-                "pointInTime": point_in_time,
-                "allFootnotes": all_footnotes,
-                "allface": all_face,
-                "allNonGAAP": all_non_GAAP,
-                "allMetrics": all_metrics,
-                "pointInTimeV2": pit_V2,
-                "includePreliminary": True,  # only applies to PIT V1,
-                "XBRLOnly": XBRL_only,
-            },
-            "periodParameters": period_parameters,
-            "companiesParameters": companies_parameters,
-        }
+        pageParameters=page_parameters,
+        periodParameters=period_parameters,
+        companiesParameters=companies_parameters,
     )
 
     return _json_POST("mappedData", payload)
