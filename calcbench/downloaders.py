@@ -1,3 +1,5 @@
+import os
+import shutil
 from typing import Callable, List, Literal, Optional, Sequence, TypeVar, Union
 from pathlib import Path
 
@@ -122,9 +124,15 @@ def iterate_and_save_pyarrow_dataset(
     f: Callable[[T], pd.DataFrame],
     root_path: Union[str, Path],
     partition_cols: Optional[List[str]] = ["ticker"],
+    write_mode: Literal["w", "a"] = "w",
 ):
     """
     Apply the arguments to a function a save to a pyarrow dataset.
+    :param arguments: Each item in this sequence will be passed to f
+    :param f: Function that generates a pandas dataframe that will be called on arguments
+    :param root_path: folder in which to write the pyarrow dataset
+    :param partion_cols: what to name the files in the dataset
+    :param write_mode: "w" to start by deleting the dataset directory, "a" to add files.
 
     Usage::
 
@@ -152,6 +160,9 @@ def iterate_and_save_pyarrow_dataset(
     import pyarrow as pa
     import pyarrow.parquet as pq
 
+    root_path = os.path.expanduser(root_path)
+    if write_mode == "w":
+        shutil.rmtree(root_path)
     for argument in tqdm(list(arguments)):
         try:
             df = f(argument)
