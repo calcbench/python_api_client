@@ -37,91 +37,16 @@
 <p>Data from dimensionalized tables, operating and geographic segments for example.  The data behind the Calcbench Segment page www.calcbench.com/segments.</p>
 <span class="target" id="module-calcbench.dimensional"></span><dl class="py class">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.dimensional.</span></span><span class="sig-name descname"><span class="pre">DimensionalDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.dimensional.</span></span><span class="sig-name descname"><span class="pre">DimensionalDataPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>The data returned by calls to the dimensional api end-point</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.CIK">
-<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.CIK" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.calcbench_entity_id">
-<span class="sig-name descname"><span class="pre">calcbench_entity_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.calcbench_entity_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.calendar_period">
-<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_query_params.Period</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.calendar_period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.calendar_year">
-<span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.calendar_year" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.container">
 <span class="sig-name descname"><span class="pre">container</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.container" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.date_reported">
-<span class="sig-name descname"><span class="pre">date_reported</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.date_reported" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.dimensions">
 <span class="sig-name descname"><span class="pre">dimensions</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.dimensions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.filing_type">
-<span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.filing_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.fiscal_period">
-<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_query_params.Period</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.fiscal_period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.fiscal_year">
-<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.fiscal_year" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.metric">
-<span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.metric" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.period">
-<span class="sig-name descname"><span class="pre">period</span></span><em class="property"><span class="pre">:</span> <span class="pre">Any</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.preliminary">
-<span class="sig-name descname"><span class="pre">preliminary</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.preliminary" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.ticker">
-<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.ticker" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.trace_facts">
-<span class="sig-name descname"><span class="pre">trace_facts</span></span><em class="property"><span class="pre">:</span> <span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">calcbench.standardized_numeric.TraceData</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.trace_facts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.trace_url">
-<span class="sig-name descname"><span class="pre">trace_url</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.trace_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.dimensional.DimensionalDataPoint.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="pre">:</span> <span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#calcbench.dimensional.DimensionalDataPoint.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

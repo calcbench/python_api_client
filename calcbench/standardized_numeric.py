@@ -12,6 +12,7 @@ from calcbench.api_query_params import (
     PeriodParameters,
     PeriodType,
 )
+from calcbench.models.standardized import StandardizedPoint
 from calcbench.standardized_parameters import StandardizedParameters
 
 if TYPE_CHECKING:
@@ -34,37 +35,6 @@ try:
 except ImportError:
     "Can't find pandas, won't be able to use the functions that return DataFrames."
     pass
-
-
-class TraceData(TypedDict):
-    local_name: str
-    negative_weight: str
-    XBRL_fact_value: Union[str, float, int]
-    fact_id: int
-    dimensions: int
-    trace_url: str
-
-
-class StandardizedPoint(TypedDict):
-    """
-    Replicates MappedDataPoint on the server
-    """
-
-    metric: str
-    value: Union[str, float, int]
-    calendar_year: int
-    calendar_period: Period
-    fiscal_year: int
-    fiscal_period: Period
-    trace_facts: Sequence[TraceData]
-    ticker: str
-    calcbench_entity_id: int
-    filing_type: str  # 10-K, 10-Q, 8-K, PRESSRELEASE, etc.
-    preliminary: bool
-    CIK: str
-    trace_url: Optional[str]
-    period: Any  # pandas period
-    date_reported: str  # only on PIT points
 
 
 def standardized_raw(
@@ -275,7 +245,7 @@ def standardized_raw(
         companiesParameters=companies_parameters,
     )
 
-    return _json_POST("mappedData", payload)
+    return [StandardizedPoint(**d) for d in _json_POST("mappedData", payload)]
 
 
 ORDERED_REGULAR_COLUMNS = [
@@ -331,7 +301,7 @@ def _build_data_frame(
     if not raw_data:
         return pd.DataFrame()
     columns = ORDERED_PIT_COLUMNS if point_in_time else ORDERED_REGULAR_COLUMNS
-    data = pd.DataFrame(raw_data)
+    data = pd.DataFrame(dict(r) for r in raw_data)
     if point_in_time:
         new_columns = list(set(data.columns) - set(columns))
         data = data.reindex(columns=columns + new_columns)
@@ -500,12 +470,9 @@ def standardized(
         data.calendar_period = data.calendar_period.astype(period_number)
 
     for date_column in [
-        "date_reported",
         "period_end",
         "period_start",
-        "date_modified",
-        "date_XBRL_confirmed",
-    ]:
+    ]:  # These fields are dates in the base model so we need to convert them.
         if date_column in data.columns:
             if pd.__version__ > "2":
                 dates = pd.to_datetime(data[date_column], format="ISO8601")
