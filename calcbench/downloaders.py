@@ -161,7 +161,7 @@ def iterate_and_save_pyarrow_dataset(
     import pyarrow.parquet as pq
 
     root_path = os.path.expanduser(root_path)
-    if write_mode == "w":
+    if write_mode == "w" and os.path.exists(root_path):
         shutil.rmtree(root_path)
     for argument in tqdm(list(arguments)):
         try:
