@@ -507,7 +507,7 @@ def standardized(
         "date_XBRL_confirmed",
     ]:
         if date_column in data.columns:
-            data[date_column] = pd.to_datetime(data[date_column], errors="coerce")
+            data[date_column] = pd.to_datetime(data[date_column], format="ISO8601")
     for string_column in [
         "ticker",
         "metric",
