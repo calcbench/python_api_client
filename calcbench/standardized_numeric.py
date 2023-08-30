@@ -429,7 +429,7 @@ def standardized(
     company_identifiers = list(company_identifiers)
     if point_in_time and pit_V2 is None:
         pit_V2 = True
-    data = standardized_raw(
+    data_points = standardized_raw(
         company_identifiers=company_identifiers,
         all_history=not fiscal_year,
         year=fiscal_year,
@@ -448,7 +448,7 @@ def standardized(
         all_modifications=all_modifications,
     )
 
-    data = _build_data_frame(data, point_in_time=point_in_time)
+    data = _build_data_frame(data_points, point_in_time=point_in_time)
     if data.empty:
         return data
     data["fiscal_period"] = (
