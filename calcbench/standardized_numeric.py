@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import TYPE_CHECKING, Any, Optional, Sequence, Union
+from typing import Optional, Sequence, Union
 
 
 from calcbench.api_query_params import (
@@ -7,7 +7,6 @@ from calcbench.api_query_params import (
     CompaniesParameters,
     CompanyIdentifiers,
     DateRange,
-    Period,
     PeriodArgument,
     PeriodParameters,
     PeriodType,
@@ -15,14 +14,6 @@ from calcbench.api_query_params import (
 from calcbench.models.standardized import StandardizedPoint
 from calcbench.standardized_parameters import StandardizedParameters
 
-if TYPE_CHECKING:
-    # https://github.com/microsoft/pyright/issues/1358
-    from typing import TypedDict
-else:
-    try:
-        from typing import TypedDict
-    except ImportError:
-        from typing_extensions import TypedDict
 
 from calcbench.api_client import _json_POST
 
@@ -244,8 +235,10 @@ def standardized_raw(
         periodParameters=period_parameters,
         companiesParameters=companies_parameters,
     )
-
-    return [StandardizedPoint(**d) for d in _json_POST("mappedData", payload)]
+    response = _json_POST("mappedData", payload)
+    return [
+        StandardizedPoint(**d) for d in response
+    ]  # It might be faster to use TypeAdapter(List[StandardizedPoint]).validate_python(response) but that signature changed between pydantic 1 and 2 so I am not doing it.
 
 
 ORDERED_REGULAR_COLUMNS = [
@@ -287,7 +280,7 @@ ORDERED_PIT_COLUMNS = [
     "original_value",
 ]
 """
-Fields return by point-in-time calls
+Fields returned by point-in-time calls
 """
 
 
@@ -469,16 +462,6 @@ def standardized(
     if "calendar_period" in data.columns:
         data.calendar_period = data.calendar_period.astype(period_number)
 
-    for date_column in [
-        "period_end",
-        "period_start",
-    ]:  # These fields are dates in the base model so we need to convert them.
-        if date_column in data.columns:
-            if pd.__version__ > "2":
-                dates = pd.to_datetime(data[date_column], format="ISO8601")
-            else:
-                dates = pd.to_datetime(data[date_column])
-            data[date_column] = dates
     for string_column in [
         "ticker",
         "metric",
