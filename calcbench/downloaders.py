@@ -119,12 +119,13 @@ def iterate_and_save_pandas(
             write_headers = False
 
 
-def iterate_and_save_pyarrow_dataset(
+def iterate_and_save_parquet(
     arguments: Sequence[T],
     f: Callable[[T], pd.DataFrame],
     root_path: Union[str, Path],
     partition_cols: Optional[List[str]] = ["ticker"],
     write_mode: Literal["w", "a"] = "w",
+    parquet_file: Optional[Union[str, Path]] = None,
 ):
     """
     Apply the arguments to a function a save to a pyarrow dataset.
@@ -133,6 +134,7 @@ def iterate_and_save_pyarrow_dataset(
     :param root_path: folder in which to write the pyarrow dataset
     :param partion_cols: what to name the files in the dataset
     :param write_mode: "w" to start by deleting the dataset directory, "a" to add files.
+    :param parquet_file: If supplied, create a single parquet file after we have all the data.
 
     Usage::
 
@@ -159,6 +161,7 @@ def iterate_and_save_pyarrow_dataset(
     """
     import pyarrow as pa
     import pyarrow.parquet as pq
+    import pyarrow.dataset as ds
 
     root_path = os.path.expanduser(root_path)
     if write_mode == "w" and os.path.exists(root_path):
@@ -173,10 +176,20 @@ def iterate_and_save_pyarrow_dataset(
         except Exception as e:
             tqdm.write(f"Exception getting {argument} {e}")
         else:
-            table = pa.Table.from_pandas(df)
+            table = pa.Table.from_pandas(df, preserve_index=True)
             pq.write_to_dataset(
                 table=table,
                 root_path=root_path,
                 partition_cols=partition_cols,
                 **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},
             )
+
+    if parquet_file:
+        dataset = ds.dataset(root_path)
+        with pq.ParquetWriter(parquet_file, schema=dataset.schema) as writer:
+            for batch in tqdm(dataset.to_batches()):
+                writer.write_batch(batch)
+
+
+# old name
+iterate_and_save_pyarrow_dataset = iterate_and_save_parquet
