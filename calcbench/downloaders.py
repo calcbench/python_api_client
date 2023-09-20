@@ -185,7 +185,7 @@ def iterate_and_save_parquet(
             )
 
     if parquet_file:
-        dataset = ds.dataset(root_path)
+        dataset = ds.dataset(root_path, format="parquet", partitioning="hive")
         with pq.ParquetWriter(parquet_file, schema=dataset.schema) as writer:
             for batch in tqdm(dataset.to_batches()):
                 writer.write_batch(batch)
