@@ -6,7 +6,7 @@ Created on Mar 18, 2015
 @copyright: Calcbench, Inc.
 @contact: andrew@calcbench.com
 """
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md") as f:
     long_description = f.read()
@@ -28,7 +28,7 @@ setup(
         "pydantic",
     ],
     python_requires=">=3.6",
-    packages=["calcbench"],
+    packages=find_packages(),
     extras_require={
         "Pandas": ["Pandas>=1.0.0"],
         "Listener": ["azure-servicebus==7.2.0", "pytz"],
