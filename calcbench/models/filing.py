@@ -1,6 +1,6 @@
 from datetime import datetime
-from typing import Optional, Sequence
-from pydantic import BaseModel, Extra, Field, validator
+from typing import List, Optional, Sequence
+from pydantic import BaseModel, Field, validator, TypeAdapter
 from calcbench.api_client import _try_parse_timestamp
 from calcbench.api_query_params import Period
 
@@ -10,18 +10,19 @@ from calcbench.models.standardized import StandardizedPoint
 
 class Filing(
     BaseModel,
-    extra=Extra.allow,
+    extra="allow",
 ):
     """A filing with the SEC or a wire press-release"""
 
-    is_xbrl: Optional[bool] = Field(repr=False)
-    is_wire: Optional[bool] = Field(repr=False)
-    calcbench_id: int = Field(repr=False)
+    is_xbrl: Optional[bool] = Field(repr=False, default=None)
+    is_wire: Optional[bool] = Field(repr=False, default=None)
+
+    calcbench_id: int = Field(repr=False, default=None)
     """
     aka accession id
     """
-    sec_accession_id: Optional[str] = Field(repr=False)
-    sec_html_url: str = Field(repr=False)
+    sec_accession_id: Optional[str] = Field(repr=False, default=None)
+    sec_html_url: str = Field(repr=False, default=None)
 
     document_type: str
     """
@@ -36,28 +37,35 @@ class Filing(
     """
 
     filing_date: datetime
-    fiscal_period: Optional[Period]
-    fiscal_year: Optional[int]
-    calcbench_accepted: datetime = Field(repr=False)
+    fiscal_period: Optional[Period] = None
+    fiscal_year: Optional[int] = None
+    calcbench_accepted: datetime = Field(repr=False, default=None)
     calcbench_finished_load: Optional[datetime]
-    entity_id: Optional[int] = Field(repr=False)
-    ticker: Optional[str]
-    entity_name: Optional[str] = Field(repr=False)
-    CIK: Optional[str] = Field(repr=False)
-    period_index: Optional[int] = Field(repr=False)
-    associated_proxy_SEC_URL: Optional[str] = Field(repr=False)
-    associated_earnings_press_release_SEC_URL: Optional[str] = Field(repr=False)
-    period_end_date: Optional[datetime] = Field(repr=False)
-    percentage_revenue_change: Optional[float] = Field(repr=False)
-    this_period_revenue: Optional[float] = Field(repr=False)
-    link1: Optional[str] = Field(repr=False)
-    link2: Optional[str] = Field(repr=False)
-    link3: Optional[str] = Field(repr=False)
-    calendar_year: Optional[int] = Field(repr=False)
-    calendar_period: Optional[Period] = Field(repr=False)
+    entity_id: Optional[int] = Field(repr=False, default=None)
+    ticker: Optional[str] = None
+    entity_name: Optional[str] = Field(repr=False, default=None)
+    CIK: Optional[str] = Field(repr=False, default=None)
+    period_index: Optional[int] = Field(repr=False, default=None)
+    associated_proxy_SEC_URL: Optional[str] = Field(repr=False, default=None)
+    associated_earnings_press_release_SEC_URL: Optional[str] = Field(
+        repr=False, default=None
+    )
+    period_end_date: Optional[datetime] = Field(repr=False, default=None)
+    percentage_revenue_change: Optional[float] = Field(repr=False, default=None)
+    this_period_revenue: Optional[float] = Field(repr=False, default=None)
+    link1: Optional[str] = Field(repr=False, default=None)
+    link2: Optional[str] = Field(repr=False, default=None)
+    link3: Optional[str] = Field(repr=False, default=None)
+    calendar_year: Optional[int] = Field(repr=False, default=None)
+    calendar_period: Optional[Period] = Field(repr=False, default=None)
     standardized_XBRL: bool
     """
-    Calcbench (should have) standardized data for this filing.
+    Calcbench (should have) standardized XBRL data for this filing.
+    """
+
+    standardized_data_compressed: Optional[str] = None
+    """
+    GZipped UTF8 standardized points for the filing.
     """
 
     filing_id: int
@@ -67,14 +75,14 @@ class Filing(
     corresponds to the ID column in Calcbench's SECFilings table
     """
 
-    item_types: Optional[Sequence[str]] = Field(repr=False)
+    item_types: Optional[Sequence[str]] = Field(repr=False, default=None)
     """
     Item types for 8-Ks
 
     5.02,5.03,8.01,9.01 etc.
     """
 
-    has_standardized_data: bool = Field(repr=False)
+    has_standardized_data: bool = Field(repr=False, default=None)
     """
     There is/should/will be, standardized data for this filing
     """
