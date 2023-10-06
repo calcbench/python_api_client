@@ -253,6 +253,7 @@ def standardized(
     pit_V2: Optional[bool] = None,
     XBRL_only: Optional[bool] = False,
     all_modifications: Optional[bool] = False,
+    period_type: Optional[PeriodType] = None,
 ):
     """Standardized Numeric Data.
 
@@ -273,6 +274,7 @@ def standardized(
     :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
     :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
     :param all_modifications: Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.
+    :param period_type: Restrict results to quarterly or annual fiscal periods.
 
     :return: Dataframe
 
@@ -325,6 +327,7 @@ def standardized(
         end_date=end_date,
         XBRL_only=XBRL_only,
         all_modifications=all_modifications,
+        period_type=period_type,
     )
     if len(data_points) == 0:
         return pd.DataFrame()
