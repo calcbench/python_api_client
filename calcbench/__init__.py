@@ -2,7 +2,7 @@
 The "public" properties on the cb module
 
 """
-__version__ = "10.1.2"
+__version__ = "11.0.1"
 from datetime import datetime
 import logging
 from .api_client import (
