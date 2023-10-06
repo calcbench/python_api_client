@@ -241,69 +241,6 @@ def standardized_raw(
     ]  # It might be faster to use TypeAdapter(List[StandardizedPoint]).validate_python(response) but that signature changed between pydantic 1 and 2 so I am not doing it.
 
 
-ORDERED_REGULAR_COLUMNS = [
-    "ticker",
-    "metric",
-    "fiscal_year",
-    "fiscal_period",
-    "value",
-    "CIK",
-    "calendar_year",
-    "calendar_period",
-]
-"""
-Fields returned by non-point-in-time calls
-"""
-
-ORDERED_PIT_COLUMNS = [
-    "ticker",
-    "metric",
-    "fiscal_year",
-    "fiscal_period",
-    "value",
-    "revision_number",
-    "preliminary",
-    "XBRL",
-    "date_reported",
-    "filing_type",
-    "CIK",
-    "calcbench_entity_id",
-    "period_start",
-    "period_end",
-    "calendar_year",
-    "calendar_period",
-    "filing_accession_number",
-    "trace_url",
-    "date_modified",
-    "date_XBRL_confirmed",
-    "confirming_XBRL_filing_ID",
-    "original_value",
-]
-"""
-Fields returned by point-in-time calls
-"""
-
-
-def _build_data_frame(
-    raw_data: Sequence[StandardizedPoint], point_in_time: bool
-) -> "pd.DataFrame":
-    """
-    The order of the columns should remain constant
-    """
-
-    if not raw_data:
-        return pd.DataFrame()
-    columns = ORDERED_PIT_COLUMNS if point_in_time else ORDERED_REGULAR_COLUMNS
-    data = pd.DataFrame(dict(r) for r in raw_data)
-    if point_in_time:
-        new_columns = list(set(data.columns) - set(columns))
-        data = data.reindex(columns=columns + new_columns)
-        data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
-    else:
-        data = data.reindex(columns=columns)
-    return data
-
-
 def standardized(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[str] = [],
@@ -447,10 +384,71 @@ def standardized(
         XBRL_only=XBRL_only,
         all_modifications=all_modifications,
     )
+    if len(data_points) == 0:
+        return pd.DataFrame()
+    data = build_data_frame(data_points, point_in_time=point_in_time)
 
-    data = _build_data_frame(data_points, point_in_time=point_in_time)
-    if data.empty:
-        return data
+    return data
+
+
+ORDERED_REGULAR_COLUMNS = [
+    "ticker",
+    "metric",
+    "fiscal_year",
+    "fiscal_period",
+    "value",
+    "CIK",
+    "calendar_year",
+    "calendar_period",
+]
+"""
+Fields returned by non-point-in-time calls
+"""
+
+ORDERED_PIT_COLUMNS = [
+    "ticker",
+    "metric",
+    "fiscal_year",
+    "fiscal_period",
+    "value",
+    "revision_number",
+    "preliminary",
+    "XBRL",
+    "date_reported",
+    "filing_type",
+    "CIK",
+    "calcbench_entity_id",
+    "period_start",
+    "period_end",
+    "calendar_year",
+    "calendar_period",
+    "filing_accession_number",
+    "trace_url",
+    "date_modified",
+    "date_XBRL_confirmed",
+    "confirming_XBRL_filing_ID",
+    "original_value",
+]
+"""
+Fields returned by point-in-time calls
+"""
+
+
+def build_data_frame(
+    raw_data: Sequence[StandardizedPoint], point_in_time: bool
+) -> "pd.DataFrame":
+    """
+    The order of the columns should remain constant
+    """
+
+    columns = ORDERED_PIT_COLUMNS if point_in_time else ORDERED_REGULAR_COLUMNS
+    data = pd.DataFrame(dict(r) for r in raw_data)
+    if point_in_time:
+        new_columns = list(set(data.columns) - set(columns))
+        data = data.reindex(columns=columns + new_columns)
+        data = data.drop(columns=["trace_facts"], errors="ignore")  # type: ignore
+    else:
+        data = data.reindex(columns=columns)
     data["fiscal_period"] = (
         data["fiscal_year"].astype(str) + "-" + data["fiscal_period"].astype(str)
     ).astype("string")
