@@ -49,14 +49,14 @@ class FinancialStatementColumn(BaseModel, extra=Extra.allow):
 class Fact(BaseModel, extra=Extra.allow):
     fact_id: int
     effective_value: Decimal
-    negated_label: str
+    negated_label: bool
     fact_value: Any
     unit_of_measure: str
     special_fact_type: str
-    dimension_members: Optional[Sequence[str]]
+    dimension_members: Optional[Sequence[str]] = None
     has_been_revised: bool
     revised: bool
-    text_fact_id: Optional[int]
+    text_fact_id: Optional[int] = None
     focus: bool
     focus_negative: bool
     format_type: str
@@ -75,8 +75,8 @@ class LineItem(BaseModel, extra=Extra.allow):
     is_extension: bool
     is_non_xbrl: bool
     normalized_point_name: str
-    footnote_fact_id: Optional[int]
-    facts: Optional[Sequence[Fact]]
+    footnote_fact_id: Optional[int] = None
+    facts: Optional[Sequence[Fact]] = None
 
 
 class FaceStatement(BaseModel, extra=Extra.allow):
