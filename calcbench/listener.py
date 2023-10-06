@@ -29,6 +29,7 @@ def handle_filings(
     handler: Callable[[Filing], None],
     connection_string: str = CONNECTION_STRING,
     subscription_name: Optional[str] = None,
+    topic=TOPIC,
 ):
     """Listen for new filings from Calcbench
 
@@ -64,7 +65,7 @@ def handle_filings(
         )
         with client:
             receiver = client.get_subscription_receiver(
-                topic_name=TOPIC,
+                topic_name=topic,
                 subscription_name=subscription_name,
                 auto_lock_renewer=renewer,
             )
@@ -102,7 +103,8 @@ def _process_message(
 ):
     body_bytes = b"".join(cast(Iterable[bytes], message.body))
     try:
-        filing = Filing(**json.loads(body_bytes))
+        body_json = json.loads(body_bytes)
+        filing = Filing(**body_json)
     except Exception:
         logger.exception(f"Exception Parsing {body_bytes}")
         receiver.dead_letter_message(message)
@@ -143,7 +145,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
             enqueued_time = cast(datetime, peeked_message.enqueued_time_utc)
             delivery_count = cast(int, peeked_message.delivery_count)
             time_in_queue = datetime.now(timezone.utc) - enqueued_time
-            minutes_to_wait = 4 ** delivery_count
+            minutes_to_wait = 4**delivery_count
             retry_wait = min(timedelta(minutes=minutes_to_wait), timedelta(days=1))
             logger.debug(
                 f"Processing message seq # {sequence_number}, enqued (UTC) @ {enqueued_time}, delivery count {delivery_count} {peeked_message}"
