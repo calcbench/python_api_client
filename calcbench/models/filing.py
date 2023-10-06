@@ -1,14 +1,11 @@
-import base64
 from datetime import datetime
-import gzip
-from typing import List, Optional, Sequence
-from pydantic import BaseModel, Field, validator, TypeAdapter
+from typing import Optional, Sequence
+from pydantic import BaseModel, Field, validator
 from calcbench.api_client import _try_parse_timestamp
 from calcbench.api_query_params import Period
 
 from calcbench.models.filing_type import FilingType
-from calcbench.models.standardized import StandardizedPoint
-from calcbench.standardized_numeric import build_data_frame, standardized
+from calcbench.standardized_numeric import standardized
 
 
 class Filing(

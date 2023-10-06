@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "Calcbench API Client"
-copyright = "2022, Calcbench"
+copyright = "2023, Calcbench"
 author = "Andrew Kittredge"
 
 
