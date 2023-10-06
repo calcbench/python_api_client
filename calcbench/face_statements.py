@@ -34,6 +34,6 @@ def face_statement(
         "allPeriods": all_history,
         "descendingDates": descending_dates,
     }
-    data = _json_GET("api/asReported", payload)
+    data = _json_GET("api/faceStatement", payload)
 
     return FaceStatement(**data)
