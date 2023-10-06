@@ -48,10 +48,10 @@ class FinancialStatementColumn(BaseModel, extra=Extra.allow):
 
 class Fact(BaseModel, extra=Extra.allow):
     fact_id: int
-    effective_value: Decimal
+    effective_value: Optional[Decimal] = None
     negated_label: bool
     fact_value: Any
-    unit_of_measure: str
+    unit_of_measure: Optional[str] = None
     special_fact_type: str
     dimension_members: Optional[Sequence[str]] = None
     has_been_revised: bool
