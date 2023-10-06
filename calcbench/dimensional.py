@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Dict, Sequence
+from typing import Dict, Optional, Sequence
 
 try:
     import pandas as pd
@@ -199,9 +199,9 @@ Metric = Enum(
 def dimensional(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[Metric] = [],
-    start_year: int = None,
+    start_year: Optional[int] = None,
     start_period: PeriodArgument = None,
-    end_year: int = None,
+    end_year: Optional[int] = None,
     end_period: PeriodArgument = None,
     period_type: PeriodType = PeriodType.Annual,
     all_history: bool = True,
@@ -292,9 +292,9 @@ def dimensional(
 def dimensional_raw(
     company_identifiers: CompanyIdentifiers = [],
     metrics: Sequence[Metric] = [],
-    start_year: int = None,
+    start_year: Optional[int] = None,
     start_period: PeriodArgument = None,
-    end_year: int = None,
+    end_year: Optional[int] = None,
     end_period: PeriodArgument = None,
     period_type: PeriodType = PeriodType.Annual,
     all_history: bool = True,
