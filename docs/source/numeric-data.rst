@@ -28,8 +28,6 @@ Calcbench standardizes +1000 metrics to handle differences in filers's tagging. 
 
 .. autoclass:: calcbench.api_query_params.PeriodType
 
-.. autoclass:: calcbench.models.standardized
+.. automodule:: calcbench.models.standardized
     :members:
     :undoc-members:
-
-.. autoclass:: calcbench.models.trace

@@ -165,7 +165,7 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">StandardizedPoint</span></code>]</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#calcbench.models.standardized.StandardizedPoint" title="calcbench.models.standardized.StandardizedPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardizedPoint</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -272,16 +272,136 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 <dd><p>An enumeration.</p>
 </dd></dl>
 
+<span class="target" id="module-calcbench.models.standardized"></span><dl class="py class">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.standardized.</span></span><span class="sig-name descname"><span class="pre">StandardizedPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replicates MappedDataPoint on the server</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.standardized">
-<span class="sig-prename descclassname"><span class="pre">calcbench.models.</span></span><span class="sig-name descname"><span class="pre">standardized</span></span><a class="headerlink" href="#calcbench.models.standardized" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of &lt;module ‘calcbench.models.standardized’ from ‘C:\Users\andre\repos\python_api_client\calcbench\models\standardized.py’&gt;</p>
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.CIK">
+<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.CIK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.XBRL">
+<span class="sig-name descname"><span class="pre">XBRL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.XBRL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.calcbench_entity_id">
+<span class="sig-name descname"><span class="pre">calcbench_entity_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.calcbench_entity_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.calendar_period">
+<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.calendar_year">
+<span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.confirming_XBRL_filing_ID">
+<span class="sig-name descname"><span class="pre">confirming_XBRL_filing_ID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.confirming_XBRL_filing_ID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.date_XBRL_confirmed">
+<span class="sig-name descname"><span class="pre">date_XBRL_confirmed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.date_XBRL_confirmed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.date_modified">
+<span class="sig-name descname"><span class="pre">date_modified</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.date_modified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.date_reported">
+<span class="sig-name descname"><span class="pre">date_reported</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.date_reported" title="Permalink to this definition">¶</a></dt>
+<dd><p>only on PIT points</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.trace">
-<span class="sig-prename descclassname"><span class="pre">calcbench.models.</span></span><span class="sig-name descname"><span class="pre">trace</span></span><a class="headerlink" href="#calcbench.models.trace" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of &lt;module ‘calcbench.models.trace’ from ‘C:\Users\andre\repos\python_api_client\calcbench\models\trace.py’&gt;</p>
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.filing_accession_number">
+<span class="sig-name descname"><span class="pre">filing_accession_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.filing_accession_number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.filing_id">
+<span class="sig-name descname"><span class="pre">filing_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.filing_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.filing_type">
+<span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.filing_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>10-K, 10-Q, 8-K, PRESSRELEASE, etc.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.fiscal_period">
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.fiscal_year">
+<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.metric">
+<span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.metric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'allow'}</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.model_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CIK':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'XBRL':</span> <span class="pre">FieldInfo(annotation=Union[bool,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'calcbench_entity_id':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'calendar_period':</span> <span class="pre">FieldInfo(annotation=Period,</span> <span class="pre">required=True),</span> <span class="pre">'calendar_year':</span> <span class="pre">FieldInfo(annotation=int,</span> <span class="pre">required=True),</span> <span class="pre">'confirming_XBRL_filing_ID':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'date_XBRL_confirmed':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'date_modified':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'date_reported':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'filing_accession_number':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'filing_id':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'filing_type':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'fiscal_period':</span> <span class="pre">FieldInfo(annotation=Period,</span> <span class="pre">required=True),</span> <span class="pre">'fiscal_year':</span> <span class="pre">FieldInfo(annotation=int,</span> <span class="pre">required=True),</span> <span class="pre">'metric':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'period_end':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'period_start':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'preliminary':</span> <span class="pre">FieldInfo(annotation=bool,</span> <span class="pre">required=True),</span> <span class="pre">'ticker':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'trace_facts':</span> <span class="pre">FieldInfo(annotation=Union[Sequence[calcbench.models.trace.TraceData],</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'trace_url':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'value':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">float,</span> <span class="pre">int],</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.model_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.period_end">
+<span class="sig-name descname"><span class="pre">period_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.period_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.period_start">
+<span class="sig-name descname"><span class="pre">period_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.period_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.preliminary">
+<span class="sig-name descname"><span class="pre">preliminary</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.preliminary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.ticker">
+<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.trace_facts">
+<span class="sig-name descname"><span class="pre">trace_facts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">TraceData</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.trace_facts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.trace_url">
+<span class="sig-name descname"><span class="pre">trace_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.trace_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
