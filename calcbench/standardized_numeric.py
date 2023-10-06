@@ -479,7 +479,6 @@ def build_data_frame(
     if point_in_time:
         index_columns = index_columns + ["date_reported"]
         data["date_downloaded"] = datetime.now()
-        data["preliminary_only"] = data["preliminary"] & ~data["XBRL"]
     data = data.set_index(index_columns)
     data = data.sort_index()
     return data
