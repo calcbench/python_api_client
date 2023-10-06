@@ -276,8 +276,6 @@ def standardized(
 
     :return: Dataframe
 
-
-
     Standardized data with a timestamp when it was published by Calcbench.
 
 
@@ -289,63 +287,7 @@ def standardized(
 
     If the value is revised in subsequent XBRL filings you will see a record for each filing with an incremented revision number.
 
-        Columns:
 
-    ticker
-       Ticker of reporting company
-    metric
-       The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
-    fiscal_period
-       fiscal_year-fiscal_period the fiscal period the value applies to.  Like "2020-0" or "2021-3".  0 indicates annual, 1,2,3,4 are quarters.
-    date_reported (PIT only)
-       Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.
-
-       In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
-
-    value
-       The value of the fact
-    revision_number
-       0 indicates an original, unrevised value for this fact. 1, 2, 3... indicates subsequent revisions to the fact value.  https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&query=revisions&commit=Search
-    preliminary
-        True indicates the number was parsed from non-XBRL 8-K or press release from the wire
-    XBRL
-        Indicates the number was parsed from XBRL.
-
-        The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then "confirmed" in an XBRL document.
-    date_XBRL_confirmed
-        Time at which the point was confirmed by a point from an XBRL filing.
-        If the point originally came from an XBRL filing this will be the original write time.  For values originally appearing in press-release, this will be the date of the associated 10-K/Q.
-        If this is null, for points post April 2023, the point has not been confirmed.
-    period_start
-       First day of the fiscal period for this fact
-    period_end
-       Last day of the fiscal period for this fact
-    calendar_year
-       The calendar year for this fact.  https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM-
-    calendar_period
-       The calendar period for this fact
-    CIK
-       SEC assigned Central Index Key for reporting company
-    calcbench_entity_id
-       Internal Calcbench identifier for reporting company
-    filing_type
-       The document type this fact came from, 10-K|Q, S-1 etc...
-    date_modified (PIT only)
-        The datetime Calcbench wrote/modified this value.
-
-        Post November 2022 if this differs from the date_reported the fact was modified by Calcbench subsequent to the filing first being processed.
-    fling_accession_number
-        Accession number as assigned by the SEC for the filing from which this value came.
-    trace_url
-        URL for a page showing the source document for this value.
-    original_value (PIT only)
-        The value that Calcbench extracted when it first processed the filing.
-
-        Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.
-    standardized_id
-        A unique identifier Calcbench assigns to each standardized value.
-    confirming_XBRL_filing_ID
-        The filing_id of the XBRL document which contained this value.
     date_downloaded
         The timestamp on your computer when you downloaded this data.
 

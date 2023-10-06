@@ -8,6 +8,7 @@
     <title>Filings &#8212; Calcbench API Client  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css?v=a0a71c94" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=4825356b"></script>
@@ -104,14 +105,180 @@
 </dl>
 </dd></dl>
 
-<span class="target" id="module-calcbench.models.filing"></span><dl class="py class">
+<span class="target" id="module-calcbench.models.filing"></span><dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="calcbench.models.filing.Filing">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.filing.</span></span><span class="sig-name descname"><span class="pre">Filing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.models.filing.Filing" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.filing.</span></span><span class="sig-name descname"><span class="pre">Filing</span></span><a class="headerlink" href="#calcbench.models.filing.Filing" title="Permalink to this definition">¶</a></dt>
 <dd><p>A filing with the SEC or a wire press-release</p>
-<dl class="py attribute">
+<dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.filing.Filing.CIK">
-<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.CIK" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.CIK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.associated_earnings_press_release_SEC_URL">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">associated_earnings_press_release_SEC_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.associated_earnings_press_release_SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.associated_proxy_SEC_URL">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">associated_proxy_SEC_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.associated_proxy_SEC_URL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calcbench_accepted">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calcbench_accepted</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calcbench_accepted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calcbench_finished_load">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calcbench_finished_load</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calcbench_finished_load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calcbench_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calcbench_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calcbench_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>aka accession id</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calendar_period">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calendar_year">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.document_type">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.document_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The label assigned to the filing by the SEC</p>
+<p>/FI,/MD,10-12B ,10-12B [Cover],10-12B/A [Amend] ,10-12B/A [Amend] [Cover],10-12G ,10-12G [Cover],10-12G/A,10-12G/A [Amend] ,10-12G/A [Amend] [Cover],10-D ,10-D/A [Amend] ,10-K,10-K [Cover],10-K [Paper],10-K/A,10-K/A [Amend] ,10-K/A [Amend] [Cover],10-KT ,10-KT/A,10-KT/A [Amend] ,10-KT/A [Amend] [Cover],10-Q,10-Q [Cover],10-Q [Paper],10-Q/A,10-Q/A [Amend] ,10-Q/A [Amend] [Cover],10-QT ,10-QT/A,10-QT/A [Amend] ,13F-HR,20-F,20-F/A,20FR12G,3,4,4/A,40-F,40-F/A,424B3,424B4,424B5,425,485APOS,485BPOS,485BXT,497,5,6-K,6-K/A,8-K,8-K [Cover],8-K/A,8-K/A [Amend] ,8-K/A [Amend] [Cover],8-K12B,8-K12B/A,8-K12B/A [Amend] ,8-K12G3,8-K12G3/A,8-K12G3/A [Amend] ,8-K15D5 ,ANNLRPT,Annual,ARS,CORRESP,DEF 14A,DEF 14C,DEFA14A,DEFC14A,DEFM14A,DEFM14C,DEFN14A,DEFR14A,DEFR14C,ESMA,F-1,F-1/A,F-3,F-3/A,F-3ASR,F-4,F-4/A,FOCUSN,HalfYear,MSD/A,MSDW,N-1A/A,NT 10-D ,NT 10-K,NT 10-K/A,NT 10-K/A [Amend] ,NT 10-Q,NT 10-Q/A,NT 10-Q/A [Amend] ,NT 11-K ,NT 20-F,NT 20-F/A,NT 20-F/A [Amend] ,NT N-CEN,NT N-MFP ,NT NPORT-EX,NT NPORT-P,NT-NCSR ,NT-NSAR ,NTN 10K ,NTN 10Q ,POS AM,POS EX,POSASR,PRE 14A,S-1,S-1/A,S-11,S-11/A,S-11MEF,S-1MEF,S-3,S-3/A,S-3ASR,S-4,S-4/A,SDR/A,SP 15D2,UPLOAD,WIREPR,X-17A-5,X-17A-5/A’</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.entity_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entity_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.entity_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.entity_name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.entity_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.filing_date">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.filing_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.filing_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.filing_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>preferred ID for filings.</p>
+<p>corresponds to the ID column in Calcbench’s SECFilings table</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.filing_type">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">FilingType</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardized FilingType as assigned by Calcbench</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.fiscal_period">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.fiscal_year">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.has_standardized_data">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_standardized_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.has_standardized_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>There is/should/will be, standardized data for this filing</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.is_wire">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_wire</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.is_wire" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.is_xbrl">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_xbrl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.is_xbrl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.item_types">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">item_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.item_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Item types for 8-Ks</p>
+<p>5.02,5.03,8.01,9.01 etc.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.link1">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">link1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.link1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.link2">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">link2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.link2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.link3">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">link3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.link3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.percentage_revenue_change">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">percentage_revenue_change</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.percentage_revenue_change" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.period_end_date">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">period_end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.period_end_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.period_index">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">period_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.period_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.sec_accession_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sec_accession_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.sec_accession_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.sec_html_url">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sec_html_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.sec_html_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.standardized_XBRL">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">standardized_XBRL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.standardized_XBRL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calcbench (should have) standardized XBRL data for this filing.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.this_period_revenue">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">this_period_revenue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.this_period_revenue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.ticker">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.ticker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calcbench.models.filing.Filing.get_standardized_data">
+<span class="sig-name descname"><span class="pre">get_standardized_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.models.filing.Filing.get_standardized_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardized point-in-time data for this filing.</p>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="calcbench.models.filing.Filing.accession_id">
@@ -123,186 +290,6 @@
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.associated_earnings_press_release_SEC_URL">
-<span class="sig-name descname"><span class="pre">associated_earnings_press_release_SEC_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.associated_earnings_press_release_SEC_URL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.associated_proxy_SEC_URL">
-<span class="sig-name descname"><span class="pre">associated_proxy_SEC_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.associated_proxy_SEC_URL" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calcbench_accepted">
-<span class="sig-name descname"><span class="pre">calcbench_accepted</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calcbench_accepted" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calcbench_finished_load">
-<span class="sig-name descname"><span class="pre">calcbench_finished_load</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calcbench_finished_load" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calcbench_id">
-<span class="sig-name descname"><span class="pre">calcbench_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calcbench_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>aka accession id</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calendar_period">
-<span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calendar_period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.calendar_year">
-<span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.calendar_year" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.document_type">
-<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.document_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The label assigned to the filing by the SEC</p>
-<p>/FI,/MD,10-12B ,10-12B [Cover],10-12B/A [Amend] ,10-12B/A [Amend] [Cover],10-12G ,10-12G [Cover],10-12G/A,10-12G/A [Amend] ,10-12G/A [Amend] [Cover],10-D ,10-D/A [Amend] ,10-K,10-K [Cover],10-K [Paper],10-K/A,10-K/A [Amend] ,10-K/A [Amend] [Cover],10-KT ,10-KT/A,10-KT/A [Amend] ,10-KT/A [Amend] [Cover],10-Q,10-Q [Cover],10-Q [Paper],10-Q/A,10-Q/A [Amend] ,10-Q/A [Amend] [Cover],10-QT ,10-QT/A,10-QT/A [Amend] ,13F-HR,20-F,20-F/A,20FR12G,3,4,4/A,40-F,40-F/A,424B3,424B4,424B5,425,485APOS,485BPOS,485BXT,497,5,6-K,6-K/A,8-K,8-K [Cover],8-K/A,8-K/A [Amend] ,8-K/A [Amend] [Cover],8-K12B,8-K12B/A,8-K12B/A [Amend] ,8-K12G3,8-K12G3/A,8-K12G3/A [Amend] ,8-K15D5 ,ANNLRPT,Annual,ARS,CORRESP,DEF 14A,DEF 14C,DEFA14A,DEFC14A,DEFM14A,DEFM14C,DEFN14A,DEFR14A,DEFR14C,ESMA,F-1,F-1/A,F-3,F-3/A,F-3ASR,F-4,F-4/A,FOCUSN,HalfYear,MSD/A,MSDW,N-1A/A,NT 10-D ,NT 10-K,NT 10-K/A,NT 10-K/A [Amend] ,NT 10-Q,NT 10-Q/A,NT 10-Q/A [Amend] ,NT 11-K ,NT 20-F,NT 20-F/A,NT 20-F/A [Amend] ,NT N-CEN,NT N-MFP ,NT NPORT-EX,NT NPORT-P,NT-NCSR ,NT-NSAR ,NTN 10K ,NTN 10Q ,POS AM,POS EX,POSASR,PRE 14A,S-1,S-1/A,S-11,S-11/A,S-11MEF,S-1MEF,S-3,S-3/A,S-3ASR,S-4,S-4/A,SDR/A,SP 15D2,UPLOAD,WIREPR,X-17A-5,X-17A-5/A’</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.entity_id">
-<span class="sig-name descname"><span class="pre">entity_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.entity_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.entity_name">
-<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.entity_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.filing_date">
-<span class="sig-name descname"><span class="pre">filing_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.filing_date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.filing_id">
-<span class="sig-name descname"><span class="pre">filing_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.filing_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>preferred ID for filings.</p>
-<p>corresponds to the ID column in Calcbench’s SECFilings table</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.filing_type">
-<span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">FilingType</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.filing_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Standardized FilingType as assigned by Calcbench</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.fiscal_period">
-<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.fiscal_period" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.fiscal_year">
-<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.fiscal_year" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.get_standardized_data">
-<span class="sig-name descname"><span class="pre">get_standardized_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.models.filing.Filing.get_standardized_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Standardized point-in-time data for this filing.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.has_standardized_data">
-<span class="sig-name descname"><span class="pre">has_standardized_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.has_standardized_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>There is/should/will be, standardized data for this filing</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.is_wire">
-<span class="sig-name descname"><span class="pre">is_wire</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.is_wire" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.is_xbrl">
-<span class="sig-name descname"><span class="pre">is_xbrl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.is_xbrl" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.item_types">
-<span class="sig-name descname"><span class="pre">item_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.item_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Item types for 8-Ks</p>
-<p>5.02,5.03,8.01,9.01 etc.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.link1">
-<span class="sig-name descname"><span class="pre">link1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.link1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.link2">
-<span class="sig-name descname"><span class="pre">link2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.link2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.link3">
-<span class="sig-name descname"><span class="pre">link3</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.link3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.model_config">
-<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'extra':</span> <span class="pre">'allow'}</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.model_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.model_fields">
-<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CIK':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'associated_earnings_press_release_SEC_URL':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'associated_proxy_SEC_URL':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'calcbench_accepted':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'calcbench_finished_load':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=True),</span> <span class="pre">'calcbench_id':</span> <span class="pre">FieldInfo(annotation=int,</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'calendar_period':</span> <span class="pre">FieldInfo(annotation=Union[Period,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'calendar_year':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'document_type':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True),</span> <span class="pre">'entity_id':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'entity_name':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'filing_date':</span> <span class="pre">FieldInfo(annotation=datetime,</span> <span class="pre">required=True),</span> <span class="pre">'filing_id':</span> <span class="pre">FieldInfo(annotation=int,</span> <span class="pre">required=True),</span> <span class="pre">'filing_type':</span> <span class="pre">FieldInfo(annotation=FilingType,</span> <span class="pre">required=True),</span> <span class="pre">'fiscal_period':</span> <span class="pre">FieldInfo(annotation=Union[Period,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'fiscal_year':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'has_standardized_data':</span> <span class="pre">FieldInfo(annotation=bool,</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'is_wire':</span> <span class="pre">FieldInfo(annotation=Union[bool,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'is_xbrl':</span> <span class="pre">FieldInfo(annotation=Union[bool,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'item_types':</span> <span class="pre">FieldInfo(annotation=Union[Sequence[str],</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'link1':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'link2':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'link3':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'percentage_revenue_change':</span> <span class="pre">FieldInfo(annotation=Union[float,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'period_end_date':</span> <span class="pre">FieldInfo(annotation=Union[datetime,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'period_index':</span> <span class="pre">FieldInfo(annotation=Union[int,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'sec_accession_id':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'sec_html_url':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'standardized_XBRL':</span> <span class="pre">FieldInfo(annotation=bool,</span> <span class="pre">required=True),</span> <span class="pre">'this_period_revenue':</span> <span class="pre">FieldInfo(annotation=Union[float,</span> <span class="pre">NoneType],</span> <span class="pre">required=False,</span> <span class="pre">repr=False),</span> <span class="pre">'ticker':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False)}</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.model_fields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Metadata about the fields defined on the model,
-mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
-<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.percentage_revenue_change">
-<span class="sig-name descname"><span class="pre">percentage_revenue_change</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.percentage_revenue_change" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.period_end_date">
-<span class="sig-name descname"><span class="pre">period_end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.period_end_date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.period_index">
-<span class="sig-name descname"><span class="pre">period_index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.period_index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.sec_accession_id">
-<span class="sig-name descname"><span class="pre">sec_accession_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.sec_accession_id" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.sec_html_url">
-<span class="sig-name descname"><span class="pre">sec_html_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.sec_html_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.standardized_XBRL">
-<span class="sig-name descname"><span class="pre">standardized_XBRL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.standardized_XBRL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calcbench (should have) standardized XBRL data for this filing.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.this_period_revenue">
-<span class="sig-name descname"><span class="pre">this_period_revenue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.this_period_revenue" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="calcbench.models.filing.Filing.ticker">
-<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.filing.Filing.ticker" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
