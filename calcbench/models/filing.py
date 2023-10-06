@@ -64,11 +64,6 @@ class Filing(
     Calcbench (should have) standardized XBRL data for this filing.
     """
 
-    standardized_data_compressed: Optional[str] = None
-    """
-    GZipped base64 encoded standardized points for the filing.
-    """
-
     filing_id: int
     """
     preferred ID for filings.  
@@ -106,16 +101,6 @@ class Filing(
     def get_standardized_data(self, **args):
         """
         Standardized point-in-time data for this filing.
-
-        standardized_data_compressed should be set in the message sent through the ServiceBus.
         """
-        if self.standardized_data_compressed:
-            decoded = base64.b64decode(self.standardized_data_compressed)
-            unzipped = gzip.decompress(decoded)
-            points = TypeAdapter(List[StandardizedPoint]).validate_json(unzipped)
-            return build_data_frame(
-                points,
-                point_in_time=True,
-            )
         args = {"filing_id": self.filing_id, "point_in_time": True, **args}
         return standardized(**args)
