@@ -1,4 +1,6 @@
+import base64
 from datetime import datetime
+import gzip
 from typing import List, Optional, Sequence
 from pydantic import BaseModel, Field, validator, TypeAdapter
 from calcbench.api_client import _try_parse_timestamp
@@ -6,6 +8,7 @@ from calcbench.api_query_params import Period
 
 from calcbench.models.filing_type import FilingType
 from calcbench.models.standardized import StandardizedPoint
+from calcbench.standardized_numeric import build_data_frame, standardized
 
 
 class Filing(
@@ -16,14 +19,12 @@ class Filing(
 
     is_xbrl: Optional[bool] = Field(repr=False, default=None)
     is_wire: Optional[bool] = Field(repr=False, default=None)
-
     calcbench_id: int = Field(repr=False, default=None)
     """
     aka accession id
     """
     sec_accession_id: Optional[str] = Field(repr=False, default=None)
     sec_html_url: str = Field(repr=False, default=None)
-
     document_type: str
     """
     The label assigned to the filing by the SEC
@@ -65,7 +66,7 @@ class Filing(
 
     standardized_data_compressed: Optional[str] = None
     """
-    GZipped UTF8 standardized points for the filing.
+    GZipped base64 encoded standardized points for the filing.
     """
 
     filing_id: int
@@ -104,7 +105,17 @@ class Filing(
 
     def get_standardized_data(self, **args):
         """
-        Standardized point-in-time data for this filing
+        Standardized point-in-time data for this filing.
+
+        standardized_data_compressed should be set in the message sent through the ServiceBus.
         """
+        if self.standardized_data_compressed:
+            decoded = base64.b64decode(self.standardized_data_compressed)
+            unzipped = gzip.decompress(decoded)
+            points = TypeAdapter(List[StandardizedPoint]).validate_json(unzipped)
+            return build_data_frame(
+                points,
+                point_in_time=True,
+            )
         args = {"filing_id": self.filing_id, "point_in_time": True, **args}
-        return StandardizedPoint(**args)
+        return standardized(**args)
