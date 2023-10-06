@@ -20,7 +20,7 @@ class StandardizedPoint(BaseModel, extra="allow"):
     The value of the fact
     """
 
-    original_value: Optional[float]
+    original_value: Optional[float] = None
     """    
     The value that Calcbench extracted when it first processed the filing.
 
