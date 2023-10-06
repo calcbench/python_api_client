@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Filings &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Companies" href="companies.html" />
@@ -32,8 +31,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="module-calcbench.filing">
-<span id="filings"></span><h1>Filings<a class="headerlink" href="#module-calcbench.filing" title="Permalink to this headline">¶</a></h1>
+  <section id="module-calcbench.filing">
+<span id="filings"></span><h1>Filings<a class="headerlink" href="#module-calcbench.filing" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.filing.filings">
 <span class="sig-prename descclassname"><span class="pre">calcbench.filing.</span></span><span class="sig-name descname"><span class="pre">filings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_non_xbrl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">received_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_press_releases_and_proxies</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.filing.filings" title="Permalink to this definition">¶</a></dt>
@@ -41,7 +40,7 @@
 <p><a class="reference external" href="https://www.calcbench.com/filings">https://www.calcbench.com/filings</a>.</p>
 <p>Note that records are returned from the API that do not appear on the filings page.  On the filings page we only show records for which there is a record for the filer in our entities table.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>received_date</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – get all filings received on this date</p></li>
@@ -62,7 +61,7 @@
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Filing</span></code>]</p>
 </dd>
 </dl>
@@ -74,7 +73,7 @@
 <dd><p>SEC filings in a dataframe</p>
 <p><a class="reference external" href="https://www.calcbench.com/filings">https://www.calcbench.com/filings</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>received_date</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]) – get all filings received on this date</p></li>
@@ -99,13 +98,13 @@
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
           </div>
@@ -129,7 +128,11 @@
 <li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Standardized Numeric Financials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
 <li class="toctree-l1"><a class="reference internal" href="face-statements.html">Face Statements</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Filings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calcbench.filing.filings"><code class="docutils literal notranslate"><span class="pre">filings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calcbench.filing.filings_dataframe"><code class="docutils literal notranslate"><span class="pre">filings_dataframe()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
@@ -159,7 +162,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -176,7 +179,7 @@
       &copy;2022, Calcbench.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

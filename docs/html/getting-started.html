@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Getting Started &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Standardized Numeric Financials" href="numeric-data.html" />
@@ -32,34 +31,34 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+  <section id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Calcbench data is not free and API access is not included in the standard Calcbench subscription.  Talk to <a class="reference external" href="mailto:us&#37;&#52;&#48;calcbench&#46;com">us<span>&#64;</span>calcbench<span>&#46;</span>com</a> before you start coding.</p>
 </div>
-<div class="section" id="installing-the-client">
-<span id="install"></span><h2>Installing the Client<a class="headerlink" href="#installing-the-client" title="Permalink to this headline">¶</a></h2>
+<section id="installing-the-client">
+<span id="install"></span><h2>Installing the Client<a class="headerlink" href="#installing-the-client" title="Permalink to this heading">¶</a></h2>
 <p>Install the Calcbench client from pip:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install calcbench-api-client
 </pre></div>
 </div>
-</div>
-<div class="section" id="obtain-credentials">
-<h2>Obtain Credentials<a class="headerlink" href="#obtain-credentials" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="obtain-credentials">
+<h2>Obtain Credentials<a class="headerlink" href="#obtain-credentials" title="Permalink to this heading">¶</a></h2>
 <p>The API uses the same credentials as calcbench.com.  If you do not have Calcbench credentials you can sign up for free two-week trial &#64; <a class="reference external" href="https://www.calcbench.com/join">https://www.calcbench.com/join</a>.</p>
-</div>
-<div class="section" id="save-credentials">
-<h2>Save Credentials<a class="headerlink" href="#save-credentials" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="save-credentials">
+<h2>Save Credentials<a class="headerlink" href="#save-credentials" title="Permalink to this heading">¶</a></h2>
 <p>Credentials can be stored in the “CALCBENCH_USERNAME” and “CALCBENCH_PASSWORD” environment variables OR set the calcbench_api credentials on your Keychain|Secret Service|Windows Credential Locker</p>
-</div>
-<div class="section" id="set-credentials-at-runtime">
-<h2>Set Credentials At Runtime<a class="headerlink" href="#set-credentials-at-runtime" title="Permalink to this headline">¶</a></h2>
-<p>Call cb.set_credentials(“<a class="reference external" href="mailto:user&#37;&#52;&#48;calcbench&#46;com">user<span>&#64;</span>calcbench<span>&#46;</span>com</a>”, “password”)</p>
+</section>
+<section id="set-credentials-at-runtime">
+<h2>Set Credentials At Runtime<a class="headerlink" href="#set-credentials-at-runtime" title="Permalink to this heading">¶</a></h2>
+<p>Call cb.set_credentials(”<a class="reference external" href="mailto:user&#37;&#52;&#48;calcbench&#46;com">user<span>&#64;</span>calcbench<span>&#46;</span>com</a>”, “password”)</p>
 <p>On an interactive shell the package will ask for credentials as input</p>
-</div>
-<div class="section" id="set-credentials">
-<h2>Set Credentials<a class="headerlink" href="#set-credentials" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="set-credentials">
+<h2>Set Credentials<a class="headerlink" href="#set-credentials" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.set_credentials">
 <span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">set_credentials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cb_username</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cb_password</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.set_credentials" title="Permalink to this definition">¶</a></dt>
@@ -67,7 +66,7 @@
 <p>Call this before any other Calcbench functions.</p>
 <p>Alternatively set the <code class="docutils literal notranslate"><span class="pre">CALCBENCH_USERNAME</span></code> and <code class="docutils literal notranslate"><span class="pre">CALCBENCH_PASSWORD</span></code> environment variables OR set the calcbench_api credentials on your Keychain|Secret Service|Windows Credential Locker</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cb_username</strong> (<em>str</em>) – Your calcbench.com email address</p></li>
 <li><p><strong>cb_password</strong> (<em>str</em>) – Your calcbench.com password</p></li>
@@ -80,18 +79,18 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="error-retry">
-<h2>Error Retry<a class="headerlink" href="#error-retry" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="error-retry">
+<h2>Error Retry<a class="headerlink" href="#error-retry" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.enable_backoff">
-<span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">enable_backoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">backoff_on=True</span></em>, <em class="sig-param"><span class="pre">giveup=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.enable_backoff" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">enable_backoff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">backoff_on=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">giveup=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.enable_backoff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Re-try failed requests with exponential back-off</p>
 <p>Requires the backoff package. <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">backoff</span></code></p>
 <p>If processes make many requests, failures are inevitable.  Call this to retry failed requests.</p>
 <p>By default gives up immediately if the server returns 404</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>backoff_on</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – toggle backoff</p></li>
 <li><p><strong>giveup</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">RequestException</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – function that handles exception and decides whether to continue or not.</p></li>
@@ -106,31 +105,31 @@
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="network-proxy">
-<h2>Network Proxy<a class="headerlink" href="#network-proxy" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="network-proxy">
+<h2>Network Proxy<a class="headerlink" href="#network-proxy" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.set_proxies">
 <span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">set_proxies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proxies</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.set_proxies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set proxies used for requests.  See <a class="reference external" href="https://requests.readthedocs.io/en/master/user/advanced/#proxies">https://requests.readthedocs.io/en/master/user/advanced/#proxies</a></p>
 </dd></dl>
 
-</div>
-<div class="section" id="logging">
-<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.turn_on_logging">
 <span class="sig-prename descclassname"><span class="pre">calcbench.</span></span><span class="sig-name descname"><span class="pre">turn_on_logging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timezone</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'US/Eastern'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.turn_on_logging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turn on verbose logging</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -194,7 +193,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -211,7 +210,7 @@
       &copy;2022, Calcbench.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Calcbench Python API Client &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started" href="getting-started.html" />
@@ -31,8 +30,8 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="calcbench-python-api-client">
-<h1>Calcbench Python API Client<a class="headerlink" href="#calcbench-python-api-client" title="Permalink to this headline">¶</a></h1>
+  <section id="calcbench-python-api-client">
+<h1>Calcbench Python API Client<a class="headerlink" href="#calcbench-python-api-client" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a><ul>
@@ -50,25 +49,95 @@
 <li class="toctree-l2"><a class="reference internal" href="numeric-data.html#standardized">Standardized</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="face-statements.html">Face Statements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a></li>
-<li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dimensional.html">Segments/Dimensional</a></li>
-<li class="toctree-l1"><a class="reference internal" href="press-release.html">Earnings Press Release Numeric</a></li>
-<li class="toctree-l1"><a class="reference internal" href="downloaders.html">Downloaders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disclosures.html">Disclosures/Text</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="disclosures.html#calcbench.disclosures.DisclosureContent"><code class="docutils literal notranslate"><span class="pre">DisclosureContent</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="disclosures.html#calcbench.disclosures.DisclosureSearchResults"><code class="docutils literal notranslate"><span class="pre">DisclosureSearchResults</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="disclosures.html#calcbench.disclosures.FootnoteTypeTitle"><code class="docutils literal notranslate"><span class="pre">FootnoteTypeTitle</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="disclosures.html#calcbench.disclosures.disclosure_dataframe"><code class="docutils literal notranslate"><span class="pre">disclosure_dataframe()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="disclosures.html#calcbench.disclosures.disclosure_search"><code class="docutils literal notranslate"><span class="pre">disclosure_search()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="face-statements.html">Face Statements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.FaceStatement"><code class="docutils literal notranslate"><span class="pre">FaceStatement</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.Fact"><code class="docutils literal notranslate"><span class="pre">Fact</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.FinancialStatementColumn"><code class="docutils literal notranslate"><span class="pre">FinancialStatementColumn</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.LineItem"><code class="docutils literal notranslate"><span class="pre">LineItem</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.SECLink"><code class="docutils literal notranslate"><span class="pre">SECLink</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.StatementType"><code class="docutils literal notranslate"><span class="pre">StatementType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="face-statements.html#calcbench.face_statements.face_statement"><code class="docutils literal notranslate"><span class="pre">face_statement()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filings.html">Filings</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="filings.html#calcbench.filing.filings"><code class="docutils literal notranslate"><span class="pre">filings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="filings.html#calcbench.filing.filings_dataframe"><code class="docutils literal notranslate"><span class="pre">filings_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="companies.html">Companies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="companies.html#calcbench.companies.companies"><code class="docutils literal notranslate"><span class="pre">companies()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="companies.html#calcbench.companies.companies_raw"><code class="docutils literal notranslate"><span class="pre">companies_raw()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="companies.html#calcbench.companies.tickers"><code class="docutils literal notranslate"><span class="pre">tickers()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="push-notification.html#calcbench.handle_filings"><code class="docutils literal notranslate"><span class="pre">handle_filings()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#calcbench.metrics.available_metrics"><code class="docutils literal notranslate"><span class="pre">available_metrics()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#calcbench.metrics.available_metrics_dataframe"><code class="docutils literal notranslate"><span class="pre">available_metrics_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-XBRL.html#calcbench.raw_numeric_XBRL.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-XBRL.html#calcbench.raw_numeric_XBRL.RawDataClause"><code class="docutils literal notranslate"><span class="pre">RawDataClause</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-XBRL.html#calcbench.raw_numeric_XBRL.raw_XBRL"><code class="docutils literal notranslate"><span class="pre">raw_XBRL()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-XBRL.html#calcbench.raw_numeric_XBRL.raw_xbrl_raw"><code class="docutils literal notranslate"><span class="pre">raw_xbrl_raw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="raw-numeric-non-XBRL.html">Raw numeric Non-XBRL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-non-XBRL.html#calcbench.raw_numeric_non_XBRL.NonXBRLFact"><code class="docutils literal notranslate"><span class="pre">NonXBRLFact</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-non-XBRL.html#calcbench.raw_numeric_non_XBRL.StatementType"><code class="docutils literal notranslate"><span class="pre">StatementType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-non-XBRL.html#calcbench.raw_numeric_non_XBRL.non_XBRL_numeric"><code class="docutils literal notranslate"><span class="pre">non_XBRL_numeric()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="raw-numeric-non-XBRL.html#calcbench.raw_numeric_non_XBRL.non_XBRL_numeric_raw"><code class="docutils literal notranslate"><span class="pre">non_XBRL_numeric_raw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="business-combinations.html#calcbench.business_combinations.BusinessCombination"><code class="docutils literal notranslate"><span class="pre">BusinessCombination</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="business-combinations.html#calcbench.business_combinations.IntangibleCategory"><code class="docutils literal notranslate"><span class="pre">IntangibleCategory</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="business-combinations.html#calcbench.business_combinations.business_combinations"><code class="docutils literal notranslate"><span class="pre">business_combinations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="business-combinations.html#calcbench.business_combinations.business_combinations_raw"><code class="docutils literal notranslate"><span class="pre">business_combinations_raw()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="business-combinations.html#calcbench.business_combinations.legacy_report"><code class="docutils literal notranslate"><span class="pre">legacy_report()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dimensional.html">Segments/Dimensional</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dimensional.html#calcbench.dimensional.DimensionalDataPoint"><code class="docutils literal notranslate"><span class="pre">DimensionalDataPoint</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dimensional.html#calcbench.dimensional.Metric"><code class="docutils literal notranslate"><span class="pre">Metric</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dimensional.html#calcbench.dimensional.dimensional"><code class="docutils literal notranslate"><span class="pre">dimensional()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dimensional.html#calcbench.dimensional.dimensional_raw"><code class="docutils literal notranslate"><span class="pre">dimensional_raw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="press-release.html">Earnings Press Release Numeric</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="press-release.html#calcbench.press_release.FormatType"><code class="docutils literal notranslate"><span class="pre">FormatType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="press-release.html#calcbench.press_release.PressReleaseData"><code class="docutils literal notranslate"><span class="pre">PressReleaseData</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="press-release.html#calcbench.press_release.PressReleaseDataPoint"><code class="docutils literal notranslate"><span class="pre">PressReleaseDataPoint</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="press-release.html#calcbench.press_release.press_release_data"><code class="docutils literal notranslate"><span class="pre">press_release_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="press-release.html#calcbench.press_release.press_release_raw"><code class="docutils literal notranslate"><span class="pre">press_release_raw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="downloaders.html">Downloaders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="downloaders.html#calcbench.downloaders.iterate_and_save_pandas"><code class="docutils literal notranslate"><span class="pre">iterate_and_save_pandas()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloaders.html#calcbench.downloaders.iterate_and_save_parquet"><code class="docutils literal notranslate"><span class="pre">iterate_and_save_parquet()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloaders.html#calcbench.downloaders.iterate_and_save_pyarrow_dataset"><code class="docutils literal notranslate"><span class="pre">iterate_and_save_pyarrow_dataset()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="downloaders.html#calcbench.downloaders.iterate_to_dataframe"><code class="docutils literal notranslate"><span class="pre">iterate_to_dataframe()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/calcbench/notebooks">https://github.com/calcbench/notebooks</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
@@ -121,7 +190,7 @@
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -138,7 +207,7 @@
       &copy;2022, Calcbench.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

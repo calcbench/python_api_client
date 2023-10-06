@@ -1,17 +1,16 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>Raw numeric Non-XBRL &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Business Combinations - Purchase Price Allocation" href="business-combinations.html" />
@@ -32,257 +31,257 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="raw-numeric-non-xbrl">
-<h1>Raw numeric Non-XBRL<a class="headerlink" href="#raw-numeric-non-xbrl" title="Permalink to this headline">¶</a></h1>
+  <section id="raw-numeric-non-xbrl">
+<h1>Raw numeric Non-XBRL<a class="headerlink" href="#raw-numeric-non-xbrl" title="Permalink to this heading">¶</a></h1>
 <p>Numbers extracted from non-XBRL sections of 10-K/Q, earnings press-releases and 8-K</p>
 <span class="target" id="module-calcbench.raw_numeric_non_XBRL"></span><dl class="py class">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.raw_numeric_non_XBRL.</span></span><span class="sig-name descname"><span class="pre">NonXBRLFact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.raw_numeric_non_XBRL.</span></span><span class="sig-name descname"><span class="pre">NonXBRLFact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cooresponds to NonXBRLFact on the server</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.CIK">
-<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.CIK" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.CIK" title="Permalink to this definition">¶</a></dt>
 <dd><p>Central Index Key</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.UOM">
-<span class="sig-name descname"><span class="pre">UOM</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.UOM" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">UOM</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.UOM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Examples: USD, PCT, PURE, GBP, EUR. This is specifed when a particular unit of measure appears with a number.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.Value">
-<span class="sig-name descname"><span class="pre">Value</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.Value" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.Value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.XBRLfilingID">
-<span class="sig-name descname"><span class="pre">XBRLfilingID</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.XBRLfilingID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">XBRLfilingID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.XBRLfilingID" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.column_label">
-<span class="sig-name descname"><span class="pre">column_label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.column_label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">column_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.column_label" title="Permalink to this definition">¶</a></dt>
 <dd><p>full column label for that column</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.companyID">
-<span class="sig-name descname"><span class="pre">companyID</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.companyID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">companyID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.companyID" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calcbench entityID</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.document">
-<span class="sig-name descname"><span class="pre">document</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.document" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">document</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.document" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.entity_name">
-<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.entity_name" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.entity_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Company name</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.extract_tag">
-<span class="sig-name descname"><span class="pre">extract_tag</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.extract_tag" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extract_tag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.extract_tag" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calcbench’s attempt to create a unique tag/identifier (like an XBRL tag) for each concept in the filing. This is often useful for comparing data over time for a particular company, but would rarely be useful for comparing data across companies.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.fact_id">
-<span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.fact_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.fact_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calcbench database ID for that particular fact</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.filingID">
-<span class="sig-name descname"><span class="pre">filingID</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filingID" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filingID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filingID" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_date">
-<span class="sig-name descname"><span class="pre">filing_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_date" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filing_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>Date the document was filed with the SEC</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_end_date">
-<span class="sig-name descname"><span class="pre">filing_end_date</span></span><em class="property"><span class="pre">:</span> <span class="pre">datetime.datetime</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_end_date" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filing_end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_end_date" title="Permalink to this definition">¶</a></dt>
 <dd><p>The last day of the fiscal period to which this filing refers</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_period">
-<span class="sig-name descname"><span class="pre">filing_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_query_params.Period</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_period" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filing_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_period" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fiscal period to which the filing refers</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_year">
-<span class="sig-name descname"><span class="pre">filing_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_year" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">filing_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.filing_year" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fiscal year to which this filing refers</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.fiscal_period">
-<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="pre">:</span> <span class="pre">calcbench.api_query_params.Period</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.fiscal_period" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fiscal period to which this fact refers</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.fiscal_year">
-<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.fiscal_year" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fiscal year to which this fact refers</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.is_guidance">
-<span class="sig-name descname"><span class="pre">is_guidance</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.is_guidance" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_guidance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.is_guidance" title="Permalink to this definition">¶</a></dt>
 <dd><p>The value is guidance</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.is_non_gaap">
-<span class="sig-name descname"><span class="pre">is_non_gaap</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.is_non_gaap" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">is_non_gaap</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.is_non_gaap" title="Permalink to this definition">¶</a></dt>
 <dd><p>This value is a non-GAAP number</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.label">
-<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.label" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.label" title="Permalink to this definition">¶</a></dt>
 <dd><p>row label</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.metric">
-<span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.metric" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.metric" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.metric_id">
-<span class="sig-name descname"><span class="pre">metric_id</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.metric_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">metric_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.metric_id" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.range_high">
-<span class="sig-name descname"><span class="pre">range_high</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.range_high" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">range_high</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.range_high" title="Permalink to this definition">¶</a></dt>
 <dd><p>is high end of a stated range</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.range_low">
-<span class="sig-name descname"><span class="pre">range_low</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.range_low" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">range_low</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.range_low" title="Permalink to this definition">¶</a></dt>
 <dd><p>is low end of a stated range (eg: 53% to 62%)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.sec_filing_URL">
-<span class="sig-name descname"><span class="pre">sec_filing_URL</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.sec_filing_URL" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">sec_filing_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.sec_filing_URL" title="Permalink to this definition">¶</a></dt>
 <dd><p>The SEC url for this filing</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.special_fact_type">
-<span class="sig-name descname"><span class="pre">special_fact_type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.special_fact_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">special_fact_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.special_fact_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.statement_type">
-<span class="sig-name descname"><span class="pre">statement_type</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.StatementType" title="calcbench.raw_numeric_non_XBRL.StatementType"><span class="pre">calcbench.raw_numeric_non_XBRL.StatementType</span></a></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.statement_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">statement_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.StatementType" title="calcbench.raw_numeric_non_XBRL.StatementType"><span class="pre">StatementType</span></a></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.statement_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized statement type</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.tabular_item">
-<span class="sig-name descname"><span class="pre">tabular_item</span></span><em class="property"><span class="pre">:</span> <span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.tabular_item" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">tabular_item</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.tabular_item" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.NonXBRLFact.ticker">
-<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.ticker" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact.ticker" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">calcbench.raw_numeric_non_XBRL.</span></span><span class="sig-name descname"><span class="pre">StatementType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.raw_numeric_non_XBRL.</span></span><span class="sig-name descname"><span class="pre">StatementType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.BalanceSheet">
-<span class="sig-name descname"><span class="pre">BalanceSheet</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.BalanceSheet" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">BalanceSheet</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.BalanceSheet" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.BalanceSheetParenthetical">
-<span class="sig-name descname"><span class="pre">BalanceSheetParenthetical</span></span><em class="property"> <span class="pre">=</span> <span class="pre">12</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.BalanceSheetParenthetical" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">BalanceSheetParenthetical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">12</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.BalanceSheetParenthetical" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.CashFlow">
-<span class="sig-name descname"><span class="pre">CashFlow</span></span><em class="property"> <span class="pre">=</span> <span class="pre">3</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.CashFlow" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CashFlow</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.CashFlow" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.CashFlowParenthetical">
-<span class="sig-name descname"><span class="pre">CashFlowParenthetical</span></span><em class="property"> <span class="pre">=</span> <span class="pre">13</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.CashFlowParenthetical" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CashFlowParenthetical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">13</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.CashFlowParenthetical" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.Disclosure">
-<span class="sig-name descname"><span class="pre">Disclosure</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.Disclosure" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Disclosure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.Disclosure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.DisclosureParenthetical">
-<span class="sig-name descname"><span class="pre">DisclosureParenthetical</span></span><em class="property"> <span class="pre">=</span> <span class="pre">14</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.DisclosureParenthetical" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DisclosureParenthetical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">14</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.DisclosureParenthetical" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.IncomeStatement">
-<span class="sig-name descname"><span class="pre">IncomeStatement</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.IncomeStatement" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">IncomeStatement</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.IncomeStatement" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.IncomeStatementParenthetical">
-<span class="sig-name descname"><span class="pre">IncomeStatementParenthetical</span></span><em class="property"> <span class="pre">=</span> <span class="pre">11</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.IncomeStatementParenthetical" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">IncomeStatementParenthetical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.IncomeStatementParenthetical" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.StatementOfComprehensiveIncome">
-<span class="sig-name descname"><span class="pre">StatementOfComprehensiveIncome</span></span><em class="property"> <span class="pre">=</span> <span class="pre">6</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.StatementOfComprehensiveIncome" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">StatementOfComprehensiveIncome</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.StatementOfComprehensiveIncome" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.StatementOfComprehensiveIncomeParenthetical">
-<span class="sig-name descname"><span class="pre">StatementOfComprehensiveIncomeParenthetical</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.StatementOfComprehensiveIncomeParenthetical" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">StatementOfComprehensiveIncomeParenthetical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">16</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.StatementOfComprehensiveIncomeParenthetical" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.StockholdersEquity">
-<span class="sig-name descname"><span class="pre">StockholdersEquity</span></span><em class="property"> <span class="pre">=</span> <span class="pre">5</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.StockholdersEquity" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">StockholdersEquity</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.StockholdersEquity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.docEntityInfo">
-<span class="sig-name descname"><span class="pre">docEntityInfo</span></span><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.docEntityInfo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">docEntityInfo</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.docEntityInfo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.extensionAnchoring">
-<span class="sig-name descname"><span class="pre">extensionAnchoring</span></span><em class="property"> <span class="pre">=</span> <span class="pre">19</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.extensionAnchoring" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">extensionAnchoring</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.extensionAnchoring" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.stockholdersEquityParenthetical">
-<span class="sig-name descname"><span class="pre">stockholdersEquityParenthetical</span></span><em class="property"> <span class="pre">=</span> <span class="pre">15</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.stockholdersEquityParenthetical" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">stockholdersEquityParenthetical</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.stockholdersEquityParenthetical" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.raw_numeric_non_XBRL.StatementType.unset">
-<span class="sig-name descname"><span class="pre">unset</span></span><em class="property"> <span class="pre">=</span> <span class="pre">-1</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.unset" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">unset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#calcbench.raw_numeric_non_XBRL.StatementType.unset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -294,7 +293,7 @@
 <p>Data behind <a class="reference external" href="https://www.calcbench.com/pressReleaseRaw">https://www.calcbench.com/pressReleaseRaw</a>.
 A professional Calcbench subscription is required to access this data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all companies</p></li>
@@ -312,7 +311,7 @@ A professional Calcbench subscription is required to access this data.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
 </dd>
 </dl>
@@ -325,7 +324,7 @@ A professional Calcbench subscription is required to access this data.</p>
 <p>The data behind <a class="reference external" href="https://www.calcbench.com/nonXBRLRawData">https://www.calcbench.com/nonXBRLRawData</a>.</p>
 <p>A professional Calcbench subscription is required to access this data.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifiers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – list of tickers or CIK codes</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all companies</p></li>
@@ -349,13 +348,13 @@ A professional Calcbench subscription is required to access this data.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Generator</span></code>[<a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact" title="calcbench.raw_numeric_non_XBRL.NonXBRLFact"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonXBRLFact</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
+</section>
 
 
           </div>
@@ -384,7 +383,13 @@ A professional Calcbench subscription is required to access this data.</p>
 <li class="toctree-l1"><a class="reference internal" href="push-notification.html">Low-latency New Data Notification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="raw-numeric-XBRL.html">Raw Numeric XBRL</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Raw numeric Non-XBRL</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Raw numeric Non-XBRL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.NonXBRLFact"><code class="docutils literal notranslate"><span class="pre">NonXBRLFact</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.StatementType"><code class="docutils literal notranslate"><span class="pre">StatementType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.non_XBRL_numeric"><code class="docutils literal notranslate"><span class="pre">non_XBRL_numeric()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#calcbench.raw_numeric_non_XBRL.non_XBRL_numeric_raw"><code class="docutils literal notranslate"><span class="pre">non_XBRL_numeric_raw()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="business-combinations.html">Business Combinations - Purchase Price Allocation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dimensional.html">Segments/Dimensional</a></li>
 <li class="toctree-l1"><a class="reference internal" href="press-release.html">Earnings Press Release Numeric</a></li>
@@ -409,7 +414,7 @@ A professional Calcbench subscription is required to access this data.</p>
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
 
 
 
@@ -426,7 +431,7 @@ A professional Calcbench subscription is required to access this data.</p>
       &copy;2022, Calcbench.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
