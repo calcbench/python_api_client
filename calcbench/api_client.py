@@ -48,6 +48,10 @@ from requests import RequestException
 
 logger = logging.getLogger(__name__)
 
+__version__ = "11.0.4"
+
+USER_AGENT = f"cb_python_api_client {__version__}"
+
 
 class _SESSION_VARIABLES(TypedDict):
     calcbench_user_name: Optional[str]
@@ -222,6 +226,12 @@ def _add_backoff(f):
     return wrapper
 
 
+HEADERS = {
+    "content-type": "application/json",
+    "User-Agent": USER_AGENT,
+}
+
+
 @_add_backoff
 def _json_POST(end_point: str, payload: Union[dict, APIQueryParams]):
     session = _calcbench_session()
@@ -236,7 +246,7 @@ def _json_POST(end_point: str, payload: Union[dict, APIQueryParams]):
     response = session.post(
         url,
         data=data,
-        headers={"content-type": "application/json"},
+        headers=HEADERS,
         verify=_SESSION_STUFF["ssl_verify"],
         timeout=_SESSION_STUFF["timeout"],
     )
@@ -256,7 +266,7 @@ def _json_GET(path: str, params: dict = {}):
     response = _calcbench_session().get(
         url,
         params=params,
-        headers={"content-type": "application/json"},
+        headers=HEADERS,
         verify=_SESSION_STUFF["ssl_verify"],
         timeout=_SESSION_STUFF["timeout"],
     )
