@@ -126,7 +126,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
     """
     This is the best I could do to figure out how to get deferred messages without maintaining state on the client.
 
-    I asked about this on stackover flow @ https://stackoverflow.com/questions/70974772/servicebus-retry-logic
+    I asked about this on stackoverflow @ https://stackoverflow.com/questions/70974772/servicebus-retry-logic
 
     If MSFT ever comes up with a fix for https://github.com/Azure/azure-sdk-for-python/issues/22918 this should be replaced.
 
