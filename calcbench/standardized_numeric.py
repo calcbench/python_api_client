@@ -56,7 +56,7 @@ def standardized_raw(
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
-    Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.
+    Get standardized data from Calcbench.  Each point is standardized by economic concept and time period.
 
     :param company_identifiers: a sequence of tickers (or CIK codes), eg ['msft', 'goog', 'appl']
     :param metrics: a sequence of metrics, see the full list @ https://www.calcbench.com/home/standardizedmetrics eg. ['revenue', 'accountsreceivable']
@@ -65,7 +65,7 @@ def standardized_raw(
     :param end_year: last year of data
     :param end_period: last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4
     :param entire_universe: Get data for all companies, this can take a while, talk to Calcbench before you do this in production.
-    :param include_trace: Include the facts used to calculate the normalized value.
+    :param include_trace: Include the facts used to calculate the standardized value.
     :param year: Get data for a single year, defaults to annual data.
     :param period_type: Either "annual" or "quarterly"
     :param filing_id: Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.
