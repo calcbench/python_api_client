@@ -139,9 +139,168 @@
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">StandardizedPoint</span></code>]</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#calcbench.models.standardized.StandardizedPoint" title="calcbench.models.standardized.StandardizedPoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardizedPoint</span></code></a>]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<span class="target" id="module-calcbench.models.standardized"></span><dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.standardized.</span></span><span class="sig-name descname"><span class="pre">StandardizedPoint</span></span><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replicates MappedDataPoint on the server</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.CIK">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.CIK" title="Permalink to this definition">¶</a></dt>
+<dd><p>SEC assigned Central Index Key for reporting company</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.XBRL">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">XBRL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.XBRL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates the number was parsed from XBRL.</p>
+<p>The case where preliminary and XBRL are both true indicates the number was first parsed from a non-XBRL document then “confirmed” in an XBRL document.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.calcbench_entity_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calcbench_entity_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.calcbench_entity_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal Calcbench identifier for reporting company</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.calendar_period">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calendar_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.calendar_period" title="Permalink to this definition">¶</a></dt>
+<dd><p>The calendar period for this fact</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.calendar_year">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.calendar_year" title="Permalink to this definition">¶</a></dt>
+<dd><p>The calendar year for this fact.  <a class="reference external" href="https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM">https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM</a>-</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.confirming_XBRL_filing_ID">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">confirming_XBRL_filing_ID</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.confirming_XBRL_filing_ID" title="Permalink to this definition">¶</a></dt>
+<dd><p>The filing_id of the XBRL document which contained this value.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.date_XBRL_confirmed">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_XBRL_confirmed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.date_XBRL_confirmed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time at which the point was confirmed by a point from an XBRL filing.
+If the point originally came from an XBRL filing this will be the original write time.  For values originally appearing in press-release, this will be the date of the associated 10-K/Q.
+If this is null, for points post April 2023, the point has not been confirmed.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.date_modified">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_modified</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.date_modified" title="Permalink to this definition">¶</a></dt>
+<dd><p>The datetime Calcbench wrote/modified this value.</p>
+<p>Post November 2022 if this differs from the date_reported the fact was modified by Calcbench subsequent to the filing first being processed.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.date_reported">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">date_reported</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.date_reported" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.</p>
+<p>In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.</p>
+<p>only on PIT points</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.filing_accession_number">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_accession_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.filing_accession_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accession number as assigned by the SEC for the filing from which this value came.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.filing_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.filing_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.filing_type">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filing_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.filing_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>10-K, 10-Q, 8-K, PRESSRELEASE, etc.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.fiscal_period">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Period</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.fiscal_period" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.fiscal_year">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.fiscal_year" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.metric">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">metric</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>The metric name, see the definitions &#64; <a class="reference external" href="https://www.calcbench.com/home/standardizedmetrics">https://www.calcbench.com/home/standardizedmetrics</a></p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.original_value">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">original_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.original_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value that Calcbench extracted when it first processed the filing.</p>
+<p>Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.period_end">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">period_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.period_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Last day of the fiscal period for this fact</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.period_start">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">period_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.period_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>First day of the fiscal period for this fact</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.preliminary">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preliminary</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.preliminary" title="Permalink to this definition">¶</a></dt>
+<dd><p>True indicates the number was parsed from non-XBRL 8-K or press release from the wire</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.revision_number">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">revision_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.revision_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>0 indicates an original, unrevised value for this fact. 1, 2, 3… indicates subsequent revisions to the fact value.  <a class="reference external" href="https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&amp;query=revisions&amp;commit=Search">https://knowledge.calcbench.com/hc/en-us/search?utf8=%E2%9C%93&amp;query=revisions&amp;commit=Search</a></p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.standardized_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">standardized_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.standardized_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A unique identifier Calcbench assigns to each standardized value.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.ticker">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ticker</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.ticker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ticker of reporting company</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.trace_facts">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trace_facts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">TraceData</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.trace_facts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.trace_url">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trace_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.trace_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>URL for a page showing the source document for this value.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.value">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>The value of the fact</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>

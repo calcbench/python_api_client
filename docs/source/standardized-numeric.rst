@@ -11,3 +11,6 @@ Calcbench standardizes +1000 metrics to handle differences in filers's tagging. 
 .. automodule:: calcbench.standardized_numeric
     :members:
     :undoc-members:
+
+.. automodule:: calcbench.models.standardized
+    :members:
