@@ -11,7 +11,7 @@ Calcbench Python API Client
 
 
    getting-started
-   numeric-data
+   standardized-numeric
    disclosures
    face-statements
    filings

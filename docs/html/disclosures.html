@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Face Statements" href="face-statements.html" />
-    <link rel="prev" title="Standardized Numeric Financials" href="numeric-data.html" />
+    <link rel="prev" title="Standardized Numeric" href="standardized-numeric.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -479,7 +479,7 @@ Public date_reported As DateTime</p>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – The year to search</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_query_params.PeriodType" title="calcbench.api_query_params.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]) – Only applicable when other period data not supplied.  Use “annual” to only search end-of-year documents, “quarterly” is all history all periods</p></li>
 <li><p><strong>progress_bar</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">tqdm</span></code>]) – Pass a tqdm progress bar to keep an eye on things.</p></li>
 <li><p><strong>identifier_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘ticker’, ‘CIK’]) – how to index the returned DataFrame.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Index disclosure by fiscal, as opposed to calendar periods.</p></li>
@@ -518,7 +518,7 @@ Public date_reported As DateTime</p>
 <li><p><strong>full_text_search_term</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Use Calcbench’s full text index to search documents.  Documents are returned in decreasing order of relevance as defined by TF-IDF.  Use Lucene query syntax, <a class="reference external" href="https://lucene.apache.org/core/2_9_4/queryparsersyntax.html">https://lucene.apache.org/core/2_9_4/queryparsersyntax.html</a>.  You can restrict the documents search by setting the <cite>document_type</cite>.  For instance, ‘commentLetter’, ‘EarningsPressReleaseFrom8K’, ‘eightk_all_types’</p></li>
 <li><p><strong>period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
-<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="numeric-data.html#calcbench.api_query_params.PeriodType" title="calcbench.api_query_params.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year disclosures, “quarterly” is all history all periods</p></li>
+<li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year disclosures, “quarterly” is all history all periods</p></li>
 <li><p><strong>document_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Search a specific document type.</p></li>
 <li><p><strong>disclosure_names</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Search all time periods</p></li>
@@ -573,7 +573,7 @@ Public date_reported As DateTime</p>
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="numeric-data.html">Standardized Numeric Financials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardized-numeric.html">Standardized Numeric</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Disclosures/Text</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#calcbench.disclosures.DisclosureContent"><code class="docutils literal notranslate"><span class="pre">DisclosureContent</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#calcbench.disclosures.DisclosureSearchResults"><code class="docutils literal notranslate"><span class="pre">DisclosureSearchResults</span></code></a></li>
@@ -599,7 +599,7 @@ Public date_reported As DateTime</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="numeric-data.html" title="previous chapter">Standardized Numeric Financials</a></li>
+      <li>Previous: <a href="standardized-numeric.html" title="previous chapter">Standardized Numeric</a></li>
       <li>Next: <a href="face-statements.html" title="next chapter">Face Statements</a></li>
   </ul></li>
 </ul>

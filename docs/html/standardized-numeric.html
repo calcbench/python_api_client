@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Standardized Numeric Financials &#8212; Calcbench API Client  documentation</title>
+    <title>Standardized Numeric &#8212; Calcbench API Client  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css?v=a0a71c94" />
@@ -32,8 +32,8 @@
 
           <div class="body" role="main">
             
-  <section id="standardized-numeric-financials">
-<h1>Standardized Numeric Financials<a class="headerlink" href="#standardized-numeric-financials" title="Permalink to this heading">¶</a></h1>
+  <section id="standardized-numeric">
+<h1>Standardized Numeric<a class="headerlink" href="#standardized-numeric" title="Permalink to this heading">¶</a></h1>
 <p>Calcbench extracts all of the GAAP numbers in section 8, face statments and footnotes, of the 10-K/Qs.  Face financials from earnings press-releases and 8-Ks are also included.</p>
 <section id="standardized">
 <h2>Standardized<a class="headerlink" href="#standardized" title="Permalink to this heading">¶</a></h2>
@@ -82,6 +82,7 @@
 <li><p><strong>XBRL_only</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.</p></li>
 <li><p><strong>all_modifications</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]) – Restrict results to quarterly or annual fiscal periods.</p></li>
+<li><p><strong>revisions</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Revisions</span></code>]) – Restrict results to first or last reported values.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -113,7 +114,7 @@
 <dt class="sig sig-object py" id="calcbench.standardized_numeric.standardized_raw">
 <span class="sig-prename descclassname"><span class="pre">calcbench.standardized_numeric.</span></span><span class="sig-name descname"><span class="pre">standardized_raw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">company_identifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entire_universe</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_in_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_trace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_history</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_fiscal_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_face</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_footnotes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filing_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_non_GAAP</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pit_V2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">XBRL_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_modifications</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">revisions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Revisions.All</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.standardized_numeric.standardized_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized data.</p>
-<p>Get normalized data from Calcbench.  Each point is normalized by economic concept and time period.</p>
+<p>Get standardized data from Calcbench.  Each point is standardized by economic concept and time period.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -124,7 +125,7 @@
 <li><p><strong>end_year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – last year of data</p></li>
 <li><p><strong>end_period</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[0, 1, 2, 3, 4], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – last_quarter to get, for annual data pass 0, for quarters pass 1, 2, 3, 4</p></li>
 <li><p><strong>entire_universe</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Get data for all companies, this can take a while, talk to Calcbench before you do this in production.</p></li>
-<li><p><strong>include_trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Include the facts used to calculate the normalized value.</p></li>
+<li><p><strong>include_trace</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Include the facts used to calculate the standardized value.</p></li>
 <li><p><strong>year</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Get data for a single year, defaults to annual data.</p></li>
 <li><p><strong>period_type</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]) – Either “annual” or “quarterly”</p></li>
 <li><p><strong>filing_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Filing id for which to get data.  corresponds to the filing_id in the objects returned by the filings API.</p></li>
@@ -134,6 +135,7 @@
 <li><p><strong>end_date</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.</p></li>
 <li><p><strong>XBRL_only</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.</p></li>
 <li><p><strong>all_modifications</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>]) – Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.</p></li>
+<li><p><strong>revisions</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Revisions</span></code>]) – Restrict results to first or last reported values.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -164,7 +166,7 @@
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting Started</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Standardized Numeric Financials</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Standardized Numeric</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#standardized">Standardized</a></li>
 </ul>
 </li>
@@ -221,7 +223,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/numeric-data.rst.txt"
+      <a href="_sources/standardized-numeric.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

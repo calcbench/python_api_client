@@ -30,6 +30,10 @@ class PeriodType(str, Enum):
 
 
 class Period(IntEnum):
+    """
+    Fiscal period.
+    """
+
     Annual = 0
     Q1 = 1
     Q2 = 2
@@ -87,6 +91,14 @@ class PeriodParameters(BaseModel):
     accessionID: Optional[int] = None
     filingID: Optional[int] = None
     allModifications: Optional[bool] = False
+    asOriginallyReported: Optional[bool] = False
+    """
+    Return only the first reported value
+    """
+    mostRecentOnly: Optional[bool] = False
+    """
+    Return only the most recent reported value.
+    """
 
 
 class APIQueryParams(BaseModel):

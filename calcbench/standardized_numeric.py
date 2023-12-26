@@ -11,6 +11,7 @@ from calcbench.api_query_params import (
     PeriodParameters,
     PeriodType,
 )
+from calcbench.models.revisions import Revisions
 from calcbench.models.standardized import StandardizedPoint
 from calcbench.standardized_parameters import StandardizedParameters
 
@@ -53,6 +54,7 @@ def standardized_raw(
     end_date: Optional[Union[datetime, date]] = None,
     XBRL_only: Optional[bool] = False,
     all_modifications: Optional[bool] = False,
+    revisions: Optional[Revisions] = Revisions.All,
 ) -> Sequence[StandardizedPoint]:
     """Standardized data.
 
@@ -75,6 +77,7 @@ def standardized_raw(
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
     :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
     :param all_modifications: Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.
+    :param revisions: Restrict results to first or last reported values.
 
     """
     if [
@@ -194,6 +197,11 @@ def standardized_raw(
         raise ValueError(
             "specifying all_modifications without date range or filing_id does not make sense"
         )
+    if revisions != Revisions.All:
+        """
+        Revisions puts you into pit_V2 mode, which means you get data from the standardized table on the back end.
+        """
+        point_in_time = pit_V2 = True
 
     date_range = None
     if start_date or end_date:
@@ -210,6 +218,8 @@ def standardized_raw(
         filingID=filing_id,
         dateRange=date_range,
         allModifications=all_modifications,
+        mostRecentOnly=revisions == Revisions.MostRecent,
+        asOriginallyReported=revisions == Revisions.AsOriginallyreported,
     )
 
     companies_parameters = CompaniesParameters(
@@ -254,6 +264,7 @@ def standardized(
     XBRL_only: Optional[bool] = False,
     all_modifications: Optional[bool] = False,
     period_type: Optional[PeriodType] = None,
+    revisions: Optional[Revisions] = Revisions.All,
 ):
     """Standardized Numeric Data.
 
@@ -275,6 +286,7 @@ def standardized(
     :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
     :param all_modifications: Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.
     :param period_type: Restrict results to quarterly or annual fiscal periods.
+    :param revisions: Restrict results to first or last reported values.
 
     :return: Dataframe
 
@@ -328,6 +340,7 @@ def standardized(
         XBRL_only=XBRL_only,
         all_modifications=all_modifications,
         period_type=period_type,
+        revisions=revisions,
     )
     if len(data_points) == 0:
         return pd.DataFrame()
