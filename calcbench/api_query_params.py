@@ -1,6 +1,6 @@
 from datetime import datetime, date
 from enum import Enum, IntEnum
-from typing import Optional, Sequence, Union
+from typing import Generic, Optional, Sequence, TypeVar, Union
 
 from pydantic import BaseModel
 
@@ -101,7 +101,14 @@ class PeriodParameters(BaseModel):
     """
 
 
-class APIQueryParams(BaseModel):
+PageParametersT = TypeVar("PageParametersT")
+
+
+class APIQueryParams(BaseModel, Generic[PageParametersT]):
+    """
+    Most Calcbench API endpoints take objects that look like this.
+    """
+
     companiesParameters: Optional[CompaniesParameters]
     periodParameters: Optional[PeriodParameters]
-    pageParameters: Optional[object]
+    pageParameters: PageParametersT
