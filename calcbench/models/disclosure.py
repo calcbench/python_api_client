@@ -36,6 +36,10 @@ class FootnoteTypeTitle(str, Enum):
     TextBlock = "Text Block"
 
 
+def build_period(p: str) -> Union[Period, str]:
+    return PERIOD_MAP.get(p, p)
+
+
 class DisclosureContent(BaseModel, extra="allow"):
     """
     Corresponds to XBRLDisclosure on the server
@@ -51,7 +55,7 @@ class DisclosureContent(BaseModel, extra="allow"):
     document_type: str
 
     sec_html_url: str
-    sec_accession_number: str
+    sec_accession_number: Optional[str] = None
     accession_id: int
     label: str
     fact_id: int
@@ -60,22 +64,18 @@ class DisclosureContent(BaseModel, extra="allow"):
     ArcRole
     """
     is_detail: bool
-    fiscal_period: str
+    fiscal_period: Annotated[Optional[Period], BeforeValidator(build_period)]
     fiscal_year: int
     last_in_group: bool
     networkID: int
-    ticker: str
-    table_list: list
-    local_name: str
-    CIK: str
+    ticker: Optional[str] = None
+    table_list: Optional[list] = None
+    local_name: Optional[str] = None
+    CIK: Optional[str] = None
 
     @property
     def contents(self) -> str:
         return "</br>".join(self.blobs)
-
-
-def build_period(p: str) -> Union[Period, str]:
-    return PERIOD_MAP.get(p, p)
 
 
 class DisclosureSearchResults(BaseModel, extra="allow"):
@@ -120,6 +120,8 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     period_end_date: str
     footnote_type_title: FootnoteTypeTitle
     content: Optional[DisclosureContent] = None
+    date_reported: Optional[datetime]
+    """Time (EST) the document was available from Calcbench"""
 
     def get_contents(self) -> str:
         """
@@ -137,21 +139,14 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
         """
         if self.content:
             return self.content
-        elif self.get("network_id"):
+        elif self.network_id:
             return _document_contents_by_network_id(self.network_id)
         elif self.local_name:
             return _document_by_block_tag_name(
                 accession_id=self.accession_id, block_tag_name=self.local_name
             )
         else:
-            return _document_contents(
-                blob_id=self.blob_id, SEC_ID=self["sec_filing_id"]
-            )
-
-    @property
-    def date_reported(self) -> Optional[datetime]:
-        """Time (EST) the document was available from Calcbench"""
-        return self.get("date_reported") and _try_parse_timestamp(self["date_reported"])
+            return _document_contents(blob_id=self.blob_id, SEC_ID=self.sec_filing_id)
 
 
 def _document_contents(blob_id, SEC_ID, SEC_URL=None) -> DisclosureContent:

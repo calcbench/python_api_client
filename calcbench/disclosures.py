@@ -271,16 +271,17 @@ def disclosure_dataframe(
 
             except KeyError:
                 # This happens for non-XBRL companies
-                logger.info("Strange period for {ticker}".format(**doc))
+                logger.info("Strange period for {ticker}".format(doc.ticker))
                 p = None
             else:
                 p = pd.Period(year=period_year, quarter=quarter, freq="q")  # type: ignore
+        doc_dict = doc.model_dump()
         all_docs.append(
             {
-                **doc,
+                **doc_dict,
                 **{
                     "period": p,
-                    identifier_key: (doc[identifier_key] or ""),
+                    identifier_key: (doc_dict[identifier_key] or ""),
                     "value": doc,
                 },
             },
