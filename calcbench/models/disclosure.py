@@ -1,12 +1,10 @@
-import dataclasses
 from datetime import datetime
 from enum import Enum
 from typing import Optional, Sequence, Union
 from typing_extensions import Annotated
-from attr import dataclass
 from bs4 import BeautifulSoup
 from pydantic import BaseModel, BeforeValidator
-from calcbench.api_client import _json_GET, _try_parse_timestamp, set_field_values
+from calcbench.api_client import _json_GET
 from calcbench.api_query_params import Period
 
 
