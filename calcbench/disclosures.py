@@ -187,7 +187,7 @@ class FootnoteTypeTitle(str, Enum):
 @dataclass
 class DisclosureContent:
     """
-    Cooresponds to XBRLDisclosure on the server
+    Corresponds to XBRLDisclosure on the server
     """
 
     # There will be more than one blob when multiple blocks map to the same network.
