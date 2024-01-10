@@ -1,5 +1,5 @@
 from datetime import date, datetime
-from typing import Optional, Sequence, Union
+from typing import TYPE_CHECKING, Optional, Sequence, Union
 
 
 from calcbench.api_query_params import (
@@ -18,15 +18,24 @@ from calcbench.standardized_parameters import StandardizedParameters
 
 from calcbench.api_client import _json_POST
 
-try:
+
+if TYPE_CHECKING:
     import pandas as pd
 
     period_number = pd.api.types.CategoricalDtype(  # type: ignore
         categories=[1, 2, 3, 4, 5, 6, 0, -1], ordered=True
     )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
-except ImportError:
-    "Can't find pandas, won't be able to use the functions that return DataFrames."
+else:
     pass
+    try:
+        import pandas as pd
+
+        period_number = pd.api.types.CategoricalDtype(  # type: ignore
+            categories=[1, 2, 3, 4, 5, 6, 0, -1], ordered=True
+        )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
+    except ImportError:
+        "Can't find pandas, won't be able to use the functions that return DataFrames."
+        pass
 
 
 def standardized_raw(
