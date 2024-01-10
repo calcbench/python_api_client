@@ -1,6 +1,8 @@
 from typing import Optional, Sequence
 
+
 from calcbench.api_query_params import CompanyIdentifiers
+from calcbench.models.company import Company
 
 try:
     from typing import Literal
@@ -88,6 +90,7 @@ def companies(
             "most_recent_full_year_end",
         ]:
             companies[column] = pd.to_datetime(companies[column], errors="coerce")
+
     return companies
 
 
@@ -120,7 +123,9 @@ def _companies(
     else:
         payload["universe"] = True
     payload["includeMostRecentFilingExtras"] = include_most_recent_filing_dates
-    return _json_POST("companies", payload)
+    response = _json_POST("companies", payload)
+
+    return [Company(**d) for d in response]
 
 
 def companies_raw(

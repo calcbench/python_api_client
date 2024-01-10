@@ -265,7 +265,7 @@ def standardized(
     all_modifications: Optional[bool] = False,
     period_type: Optional[PeriodType] = None,
     revisions: Optional[Revisions] = Revisions.All,
-):
+) -> "pd.DataFrame":
     """Standardized Numeric Data.
 
 
