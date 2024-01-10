@@ -34,7 +34,7 @@ class FootnoteTypeTitle(str, Enum):
     TextBlock = "Text Block"
 
 
-def build_period(p: str) -> Union[Period, str]:
+def _build_period(p: str) -> Union[Period, str]:
     return PERIOD_MAP.get(p, p)
 
 
@@ -62,7 +62,7 @@ class DisclosureContent(BaseModel, extra="allow"):
     ArcRole
     """
     is_detail: bool
-    fiscal_period: Annotated[Optional[Period], BeforeValidator(build_period)]
+    fiscal_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
     fiscal_year: int
     last_in_group: bool
     networkID: int
@@ -89,9 +89,9 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     sec_filing_id: int
     blob_id: str
     fiscal_year: int
-    fiscal_period: Annotated[Period, BeforeValidator(build_period)]
+    fiscal_period: Annotated[Period, BeforeValidator(_build_period)]
     calendar_year: int
-    calendar_period: Annotated[Optional[Period], BeforeValidator(build_period)]
+    calendar_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
     filing_date: str
     received_date: str
     document_type: str
@@ -182,6 +182,8 @@ PERIOD_MAP = {
 class DisclosureAPIPageParameters(BaseModel):
     """
     Parameters specific the disclosure API end-point
+
+    :meta private:
     """
 
     fullTextQuery: Optional[str] = None
