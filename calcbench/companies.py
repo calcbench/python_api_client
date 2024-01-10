@@ -3,6 +3,7 @@ from typing import Optional, Sequence
 
 from calcbench.api_query_params import CompanyIdentifiers
 from calcbench.models.company import Company
+from calcbench.pydantic_to_pandas import pydantic_to_pandas
 
 try:
     from typing import Literal
@@ -47,8 +48,7 @@ def tickers(
         entire_universe,
         NAICS_codes=NAICS_codes,
     )
-    tickers = [co["ticker"] for co in companies]
-    return tickers
+    return [co.ticker for co in companies]
 
 
 def companies(
@@ -82,16 +82,7 @@ def companies(
         NAICS_codes=NAICS_codes,
     )
 
-    companies = pd.DataFrame(companies)
-    if not companies.empty:
-        for column in [
-            "first_filing",
-            "most_recent_filing",
-            "most_recent_full_year_end",
-        ]:
-            companies[column] = pd.to_datetime(companies[column], errors="coerce")
-
-    return companies
+    return pydantic_to_pandas(companies)
 
 
 def _companies(
@@ -101,7 +92,7 @@ def _companies(
     entire_universe=False,
     include_most_recent_filing_dates=False,
     NAICS_codes=None,
-):
+) -> Sequence[Company]:
     if not (SIC_code or index or entire_universe or company_identifiers, NAICS_codes):
         raise ValueError(
             "Must supply SIC_code, NAICS_codes, index or company_identifiers or entire_universe."
