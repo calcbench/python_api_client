@@ -205,7 +205,7 @@ def disclosure_dataframe(
     :param identifier_key: how to index the returned DataFrame.
     :param use_fiscal_period: Index disclosure by fiscal, as opposed to calendar periods.
     :param entire_universe: Data for all companies
-    :return: A DataFrame of DisclosureSearchResults indexed by document name -> company identifier.
+    :return: A DataFrame of DisclosureSearchResults indexed by document name -> company identifier.  An empty frame if no results are found.
 
     Usage::
 
@@ -286,6 +286,9 @@ def disclosure_dataframe(
                 },
             },
         )
+    if not all_docs:
+        # No results, return an empty frame.
+        return pd.DataFrame()
     data = pd.DataFrame(all_docs)
     data = data.set_index(keys=[identifier_key, "disclosure_type_name", "period"])  # type: ignore
     data = data.loc[~data.index.duplicated()]  # type:ignore There can be duplicates
@@ -304,6 +307,8 @@ def _document_search_results(
     results = {"moreResults": True}
     while results["moreResults"]:
         results = _json_POST("footnoteSearch", payload)
+        if not results:
+            return
         disclosures = results["footnotes"]
         if progress_bar is not None:
             progress_bar.update(len(disclosures))
