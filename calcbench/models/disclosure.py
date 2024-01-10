@@ -86,8 +86,8 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     accession_id: int
     footnote_type: Optional[int]
     SEC_URL: str
-    sec_filing_id: int
-    blob_id: str
+    sec_filing_id: Optional[int]
+    blob_id: Optional[str]
     fiscal_year: int
     fiscal_period: Annotated[Period, BeforeValidator(_build_period)]
     calendar_year: int
@@ -96,7 +96,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     received_date: str
     document_type: str
     guide_link: Optional[str]
-    page_url: str
+    page_url: Optional[str]
     entity_id: int
     id_detail: bool
     local_name: Optional[str]
