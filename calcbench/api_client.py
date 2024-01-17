@@ -50,7 +50,7 @@ logger = logging.getLogger(__name__)
 
 __version__ = "12.0.0"
 
-USER_AGENT = f"cb_python_api_client {__version__}"
+USER_AGENT = f"cb_python_api_client/{__version__}"
 
 
 class _SESSION_VARIABLES(TypedDict):
