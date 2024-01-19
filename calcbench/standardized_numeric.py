@@ -26,7 +26,6 @@ if TYPE_CHECKING:
         categories=[1, 2, 3, 4, 5, 6, 0, -1], ordered=True
     )  # So annual is last in sorting.  5 and 6 are first half and 3QCUM.
 else:
-    pass
     try:
         import pandas as pd
 
