@@ -1,11 +1,21 @@
 from datetime import datetime
 from enum import Enum
-from typing import Optional, Sequence, Union
+from typing import TYPE_CHECKING, Optional, Sequence, Union
 from typing_extensions import Annotated
-from bs4 import BeautifulSoup
+
 from pydantic import BaseModel, BeforeValidator
 from calcbench.api_client import _json_GET
 from calcbench.api_query_params import Period
+
+
+if TYPE_CHECKING:
+    # https://github.com/microsoft/pyright/issues/1358
+    from bs4 import BeautifulSoup
+else:
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        pass
 
 
 class FootnoteTypeTitle(str, Enum):

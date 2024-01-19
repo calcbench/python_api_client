@@ -25,7 +25,7 @@ setup(
         "requests",
         "typing_extensions; python_version <= '3.7'",
         "dataclasses; python_version < '3.7'",
-        "pydantic",
+        "pydantic>=2.0.0",
     ],
     python_requires=">=3.6",
     packages=find_packages(),
