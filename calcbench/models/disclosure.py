@@ -92,7 +92,10 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     """
 
     fact_id: Optional[int] = None
-    entity_name: str
+    entity_name: Optional[str]
+    """
+    Not set in single company mode
+    """
     accession_id: int
     footnote_type: Optional[int]
     SEC_URL: str
@@ -100,7 +103,10 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     blob_id: Optional[str]
     fiscal_year: int
     fiscal_period: Annotated[Period, BeforeValidator(_build_period)]
-    calendar_year: int
+    calendar_year: Optional[int]
+    """
+    Not set in single company mode
+    """
     calendar_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
     filing_date: str
     received_date: str
@@ -110,7 +116,10 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     entity_id: int
     id_detail: bool
     local_name: Optional[str]
-    CIK: str
+    CIK: Optional[str]
+    """
+    Not set in single company mode
+    """
     sec_accession_number: Optional[str]
     network_id: Optional[int]
     ticker: str
@@ -124,9 +133,18 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     The name passed to the API, not set for 8-Ks, assigned by Calcbench.  We try to assign each disclosure to a category.
     """
 
-    disclosure_type_name: str
-    period_end_date: str
-    footnote_type_title: FootnoteTypeTitle
+    disclosure_type_name: Optional[str]
+    """
+    Not set in single company mode
+    """
+    period_end_date: Optional[str]
+    """
+    Not set in single company mode
+    """
+    footnote_type_title: Optional[FootnoteTypeTitle]
+    """
+    Not set in single company mode
+    """
     content: Optional[DisclosureContent] = None
     date_reported: Optional[datetime]
     """Time (EST) the document was available from Calcbench"""
