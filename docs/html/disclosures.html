@@ -151,8 +151,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureContent.document_type">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureContent.document_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureContent.document_type" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureContent.entity_id">
@@ -172,14 +173,11 @@
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureContent.fiscal_period">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Annotated</span></code><span class="pre">[</span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code><span class="pre">]]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureContent.fiscal_period" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Not set in single company mode</p>
+<dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<<<<<<< HEAD
-<li><p><strong>func</strong> = &lt;function _build_period at 0x000001C8699665E0&gt;</p></li>
-=======
-<li><p><strong>func</strong> = &lt;function _build_period at 0x00000179E86EE0C0&gt;</p></li>
->>>>>>> 568faed (doc update)
+<li><p><strong>func</strong> = &lt;function _build_period at 0x00000184BFD40B80&gt;</p></li>
 </ul>
 </dd>
 </dl>
@@ -187,8 +185,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureContent.fiscal_year">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureContent.fiscal_year" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureContent.fiscal_year" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureContent.is_detail">
@@ -248,18 +247,21 @@
 <dd><p>An individual disclosure.</p>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.CIK">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.CIK" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CIK</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.CIK" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.SEC_URL">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SEC_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.SEC_URL" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SEC_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.SEC_URL" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.accession_id">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accession_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.accession_id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">accession_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.accession_id" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.blob_id">
@@ -272,11 +274,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<<<<<<< HEAD
-<li><p><strong>func</strong> = &lt;function _build_period at 0x000001C8699665E0&gt;</p></li>
-=======
-<li><p><strong>func</strong> = &lt;function _build_period at 0x00000179E86EE0C0&gt;</p></li>
->>>>>>> 568faed (doc update)
+<li><p><strong>func</strong> = &lt;function _build_period at 0x00000184BFD40B80&gt;</p></li>
 </ul>
 </dd>
 </dl>
@@ -284,8 +282,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.calendar_year">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.calendar_year" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calendar_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.calendar_year" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.content">
@@ -306,13 +305,15 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.disclosure_type_name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disclosure_type_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.disclosure_type_name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">disclosure_type_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.disclosure_type_name" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.document_type">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.document_type" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.document_type" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.entity_id">
@@ -321,8 +322,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.entity_name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.entity_name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entity_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.entity_name" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.fact_id">
@@ -342,15 +344,12 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.fiscal_period">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Annotated</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.fiscal_period" title="Link to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Annotated</span></code><span class="pre">[</span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code><span class="pre">]]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.fiscal_period" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+<dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<<<<<<< HEAD
-<li><p><strong>func</strong> = &lt;function _build_period at 0x000001C8699665E0&gt;</p></li>
-=======
-<li><p><strong>func</strong> = &lt;function _build_period at 0x00000179E86EE0C0&gt;</p></li>
->>>>>>> 568faed (doc update)
+<li><p><strong>func</strong> = &lt;function _build_period at 0x00000184BFD40B80&gt;</p></li>
 </ul>
 </dd>
 </dl>
@@ -358,8 +357,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.fiscal_year">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.fiscal_year" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fiscal_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.fiscal_year" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.footnote_type">
@@ -368,8 +368,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.footnote_type_title">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">footnote_type_title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#calcbench.models.disclosure.FootnoteTypeTitle" title="calcbench.models.disclosure.FootnoteTypeTitle"><code class="xref py py-class docutils literal notranslate"><span class="pre">FootnoteTypeTitle</span></code></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.footnote_type_title" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">footnote_type_title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="#calcbench.models.disclosure.FootnoteTypeTitle" title="calcbench.models.disclosure.FootnoteTypeTitle"><code class="xref py py-class docutils literal notranslate"><span class="pre">FootnoteTypeTitle</span></code></a><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.footnote_type_title" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.guide_link">
@@ -398,8 +399,9 @@
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.period_end_date">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">period_end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.period_end_date" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">period_end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.disclosure.DisclosureSearchResults.period_end_date" title="Link to this definition">¶</a></dt>
+<dd><p>Not set in single company mode</p>
+</dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.DisclosureSearchResults.received_date">
@@ -556,7 +558,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.models.disclosure.FootnoteTypeTitle.RelatedDocuments">
-<span class="sig-name descname"><span class="pre">RelatedDocuments</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Related</span> <span class="pre">Documents</span> <span class="pre">(8-Ks,</span> <span class="pre">Proxys</span> <span class="pre">&amp;</span> <span class="pre">Letters)'</span></em><a class="headerlink" href="#calcbench.models.disclosure.FootnoteTypeTitle.RelatedDocuments" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">RelatedDocuments</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Related</span> <span class="pre">Documents</span> <span class="pre">(Earnings,</span> <span class="pre">Proxys</span> <span class="pre">&amp;</span> <span class="pre">Letters)'</span></em><a class="headerlink" href="#calcbench.models.disclosure.FootnoteTypeTitle.RelatedDocuments" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
