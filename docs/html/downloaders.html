@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Downloaders &#8212; Calcbench API Client  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=cb25574f" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css?v=a0a71c94" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Earnings Press Release Numeric" href="press-release.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
+
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  
 
   </head><body>
   
@@ -32,21 +33,21 @@
           <div class="body" role="main">
             
   <section id="downloaders">
-<h1>Downloaders<a class="headerlink" href="#downloaders" title="Permalink to this heading">¶</a></h1>
+<h1>Downloaders<a class="headerlink" href="#downloaders" title="Link to this heading">¶</a></h1>
 <p>Utilities to get data in bulk</p>
-<span class="target" id="module-calcbench.downloaders"></span><dl class="py function">
+<dl class="py function" id="module-calcbench.downloaders">
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_and_save_pandas">
-<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pandas" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pandas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pandas" title="Link to this definition">¶</a></dt>
 <dd><p>Apply arguments to a function that returns a DataFrame and save to a .csv file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>arguments</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[~T]) – Each item in this sequence will be passed to f</p></li>
-<li><p><strong>f</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[~T], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]) – Function that generates a pandas dataframe that will be called on arguments</p></li>
-<li><p><strong>file_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]) – Name of the file to write</p></li>
-<li><p><strong>write_index</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Write the pandas index to the csv file</p></li>
-<li><p><strong>columns</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – which columns to write.  If this is set the index is not written</p></li>
-<li><p><strong>write_mode</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[‘w’, ‘a’]) – set the initial write mode.  “a” to append, “w” to overwrite.  Useful for resuming downloading.</p></li>
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – Each item in this sequence will be passed to f</p></li>
+<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]</span>) – Function that generates a pandas dataframe that will be called on arguments</p></li>
+<li><p><strong>file_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</span>) – Name of the file to write</p></li>
+<li><p><strong>write_index</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Write the pandas index to the csv file</p></li>
+<li><p><strong>columns</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span>) – which columns to write.  If this is set the index is not written</p></li>
+<li><p><strong>write_mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'w'</span></code>, <code class="docutils literal notranslate"><span class="pre">'a'</span></code>]</span>) – set the initial write mode.  “a” to append, “w” to overwrite.  Useful for resuming downloading.</p></li>
 </ul>
 </dd>
 </dl>
@@ -66,6 +67,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_and_save_parquet">
+<<<<<<< HEAD
 <span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parquet_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_parquet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the arguments to a function a save to a pyarrow dataset.
 :type arguments: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[~T]
@@ -79,6 +81,22 @@
 :param write_mode: “w” to start by deleting the dataset directory, “a” to add files.
 :type parquet_file: <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]
 :param parquet_file: If supplied, create a single parquet file after we have all the data.</p>
+=======
+<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_parquet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parquet_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_parquet" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the arguments to a function a save to a pyarrow dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – Each item in this sequence will be passed to f</p></li>
+<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]</span>) – Function that generates a pandas dataframe that will be called on arguments</p></li>
+<li><p><strong>root_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</span>) – folder in which to write the pyarrow dataset</p></li>
+<li><p><strong>partion_cols</strong> – what to name the files in the dataset</p></li>
+<li><p><strong>write_mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'w'</span></code>, <code class="docutils literal notranslate"><span class="pre">'a'</span></code>]</span>) – “w” to start by deleting the dataset directory, “a” to add files.</p></li>
+<li><p><strong>parquet_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – If supplied, create a single parquet file after we have all the data.</p></li>
+</ul>
+</dd>
+</dl>
+>>>>>>> 568faed (doc update)
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">calcbench</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">client</span><span class="p">[</span><span class="n">Pandas</span><span class="p">,</span><span class="n">Backoff</span><span class="p">,</span><span class="n">tqdm</span><span class="p">,</span><span class="n">pyarrow</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tickers</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ticker</span><span class="p">:</span> <span class="nb">hash</span><span class="p">(</span><span class="n">ticker</span><span class="p">))</span> <span class="c1"># randomize the order so the time estimate is better</span>
@@ -105,6 +123,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_and_save_pyarrow_dataset">
+<<<<<<< HEAD
 <span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pyarrow_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parquet_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pyarrow_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply the arguments to a function a save to a pyarrow dataset.
 :type arguments: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[~T]
@@ -118,6 +137,22 @@
 :param write_mode: “w” to start by deleting the dataset directory, “a” to add files.
 :type parquet_file: <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]
 :param parquet_file: If supplied, create a single parquet file after we have all the data.</p>
+=======
+<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_and_save_pyarrow_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partition_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['ticker']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'w'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parquet_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_and_save_pyarrow_dataset" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the arguments to a function a save to a pyarrow dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]</span>) – Each item in this sequence will be passed to f</p></li>
+<li><p><strong>f</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)], <code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code>]</span>) – Function that generates a pandas dataframe that will be called on arguments</p></li>
+<li><p><strong>root_path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>]</span>) – folder in which to write the pyarrow dataset</p></li>
+<li><p><strong>partion_cols</strong> – what to name the files in the dataset</p></li>
+<li><p><strong>write_mode</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">'w'</span></code>, <code class="docutils literal notranslate"><span class="pre">'a'</span></code>]</span>) – “w” to start by deleting the dataset directory, “a” to add files.</p></li>
+<li><p><strong>parquet_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – If supplied, create a single parquet file after we have all the data.</p></li>
+</ul>
+</dd>
+</dl>
+>>>>>>> 568faed (doc update)
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">calcbench</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">client</span><span class="p">[</span><span class="n">Pandas</span><span class="p">,</span><span class="n">Backoff</span><span class="p">,</span><span class="n">tqdm</span><span class="p">,</span><span class="n">pyarrow</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tickers</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cb</span><span class="o">.</span><span class="n">tickers</span><span class="p">(</span><span class="n">entire_universe</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ticker</span><span class="p">:</span> <span class="nb">hash</span><span class="p">(</span><span class="n">ticker</span><span class="p">))</span> <span class="c1"># randomize the order so the time estimate is better</span>
@@ -144,7 +179,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="calcbench.downloaders.iterate_to_dataframe">
-<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_to_dataframe" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">calcbench.downloaders.</span></span><span class="sig-name descname"><span class="pre">iterate_to_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arguments</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.downloaders.iterate_to_dataframe" title="Link to this definition">¶</a></dt>
 <dd><p>Apply arguments to a function that returns a DataFrame append to a dataframe and return.</p>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="n">calcbench</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">client</span><span class="p">[</span><span class="n">Pandas</span><span class="p">,</span><span class="n">Backoff</span><span class="p">,</span><span class="n">tqdm</span><span class="p">]</span>
@@ -166,7 +201,7 @@
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -244,11 +279,11 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2023, Calcbench.
+      &#169;2023, Calcbench.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.1.2</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
       
       |
       <a href="_sources/downloaders.rst.txt"
