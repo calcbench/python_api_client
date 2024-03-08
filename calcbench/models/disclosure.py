@@ -37,7 +37,7 @@ class FootnoteTypeTitle(str, Enum):
     Leases = "Leases"
     Other = "Other"
     OtherExpenses = "Other Expenses"
-    RelatedDocuments = "Related Documents (8-Ks, Proxys & Letters)"
+    RelatedDocuments = "Related Documents (Earnings, Proxys & Letters)"
     RevenueFromContractWithCustomer = "Revenuefrom Contract With Customer"
     Segment = "Segment"
     PolicyTextBlock = "Policy Text Block"
@@ -60,7 +60,10 @@ class DisclosureContent(BaseModel, extra="allow"):
     entity_id: int
 
     entity_name: str
-    document_type: str
+    document_type: Optional[str]
+    """
+    Not set in single company mode
+    """
 
     sec_html_url: str
     sec_accession_number: Optional[str] = None
@@ -73,7 +76,13 @@ class DisclosureContent(BaseModel, extra="allow"):
     """
     is_detail: bool
     fiscal_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
-    fiscal_year: int
+    """
+    Not set in single company mode
+    """
+    fiscal_year: Optional[int]
+    """
+    Not set in single company mode
+    """
     last_in_group: bool
     networkID: int
     ticker: Optional[str] = None
@@ -96,13 +105,25 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     """
     Not set in single company mode
     """
-    accession_id: int
+    accession_id: Optional[int]
+    """
+    Not set in single company mode
+    """
     footnote_type: Optional[int]
-    SEC_URL: str
+    SEC_URL: Optional[str]
+    """
+    Not set in single company mode
+    """
     sec_filing_id: Optional[int]
     blob_id: Optional[str]
-    fiscal_year: int
-    fiscal_period: Annotated[Period, BeforeValidator(_build_period)]
+    fiscal_year: Optional[int]
+    """
+    Not set in single company mode
+    """
+    fiscal_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
+    """
+    Not set in single company mode
+    """
     calendar_year: Optional[int]
     """
     Not set in single company mode
@@ -110,7 +131,11 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     calendar_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
     filing_date: str
     received_date: str
-    document_type: str
+    document_type: Optional[str]
+    """
+    Not set in single company mode
+    """
+
     guide_link: Optional[str]
     page_url: Optional[str]
     entity_id: int
