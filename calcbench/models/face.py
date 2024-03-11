@@ -3,7 +3,14 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Optional, Sequence
 
-from pydantic import BaseModel, Extra, validator
+try:
+    import pandas as pd
+except ImportError:
+    "Can't find pandas, won't be able to use the functions that return DataFrames."
+    pass
+
+
+from pydantic import BaseModel, validator
 
 
 class StatementType(str, Enum):
@@ -14,7 +21,7 @@ class StatementType(str, Enum):
     ComprehensiveIncome = "StatementOfComprehensiveIncome"
 
 
-class SECLink(BaseModel, extra=Extra.allow):
+class SECLink(BaseModel, extra="allow"):
     document_type: str
     """10-K, 8-K etc"""
     link: str
@@ -27,10 +34,10 @@ class SECLink(BaseModel, extra=Extra.allow):
         return datetime.strptime(value, "%m/%d/%Y").date()
 
 
-class FinancialStatementColumn(BaseModel, extra=Extra.allow):
+class FinancialStatementColumn(BaseModel, extra="allow"):
     fiscal_period: str
     '''Human readable, like "Y 2018"'''
-    period_start: date
+    period_start: Optional[date]
     period_end: date
     date_range: str
     '''Human readable, like "7/1/2017 to 6/30/2018"'''
@@ -46,7 +53,7 @@ class FinancialStatementColumn(BaseModel, extra=Extra.allow):
     fiscal_period_period: str
 
 
-class Fact(BaseModel, extra=Extra.allow):
+class Fact(BaseModel, extra="allow"):
     fact_id: int
     effective_value: Optional[Decimal] = None
     negated_label: bool
@@ -62,7 +69,7 @@ class Fact(BaseModel, extra=Extra.allow):
     format_type: str
 
 
-class LineItem(BaseModel, extra=Extra.allow):
+class LineItem(BaseModel, extra="allow"):
     tree_depth: int
     type: str
     label: str
@@ -79,9 +86,24 @@ class LineItem(BaseModel, extra=Extra.allow):
     facts: Optional[Sequence[Fact]] = None
 
 
-class FaceStatement(BaseModel, extra=Extra.allow):
+class FaceStatement(BaseModel, extra="allow"):
     entity_name: str
     name: str
     """The name of the statement from the filer"""
     columns: Sequence[FinancialStatementColumn]
     line_items: Sequence[LineItem]
+
+    def as_dataframe(self):
+        """
+        Render the statement in a Pandas dataframe
+        """
+        return pd.DataFrame(
+            columns=pd.MultiIndex.from_tuples(
+                [(self.entity_name, self.name, c.fiscal_period) for c in self.columns]
+            ),
+            index=[l.label for l in self.line_items],
+            data=[
+                [f.effective_value for f in facts]
+                for facts in [l.facts or [] for l in self.line_items]
+            ],
+        )
