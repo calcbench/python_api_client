@@ -153,7 +153,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     ticker: str
     filing_type: int
     """
-    Human readable disclosure name as reported by the filer, "Related Party Transactions", "Subsequent Events"
+    Filing type from the filing type enum
     """
 
     description: str
