@@ -50,6 +50,7 @@ def _build_period(p: str) -> Union[Period, str]:
 
 class DisclosureContent(BaseModel, extra="allow"):
     """
+    Contents of an individual disclosure
     Corresponds to XBRLDisclosure on the server
     """
 
@@ -98,6 +99,8 @@ class DisclosureContent(BaseModel, extra="allow"):
 class DisclosureSearchResults(BaseModel, extra="allow"):
     """
     An individual disclosure.
+
+    A list of these is returned by the disclosure_search function.
     """
 
     fact_id: Optional[int] = None
@@ -170,7 +173,12 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     """
     Not set in single company mode
     """
+
     content: Optional[DisclosureContent] = None
+    """
+    Not always set.  Set for MD&A sections for example.
+    """
+
     date_reported: Optional[datetime]
     """Time (EST) the document was available from Calcbench"""
 
@@ -186,7 +194,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
 
     def get_disclosure(self) -> DisclosureContent:
         """
-        Content of the document, with the filers HTML
+        Content of the document, with the filer's HTML
         """
         if self.content:
             return self.content
