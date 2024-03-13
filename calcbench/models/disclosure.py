@@ -1,9 +1,9 @@
 from datetime import datetime
 from enum import Enum
-from typing import TYPE_CHECKING, Optional, Sequence, Union
+from typing import TYPE_CHECKING, Any, Callable, Optional, Sequence, Union
 from typing_extensions import Annotated
 
-from pydantic import BaseModel, BeforeValidator
+from pydantic import BaseModel, BeforeValidator, ValidationError, WrapValidator
 from calcbench.api_client import _json_GET
 from calcbench.api_query_params import Period
 
@@ -19,6 +19,10 @@ else:
 
 
 class FootnoteTypeTitle(str, Enum):
+    """
+    This should probably not exist.  I think there are an infinite number of titles.
+    """
+
     EigthKsByItemType = "8-Ks By Item Type"
     AccountingPolicies = "Accounting Policies"
     AdditionalSections = "Additional 10-K and 10-Q Sections"
@@ -42,6 +46,20 @@ class FootnoteTypeTitle(str, Enum):
     Segment = "Segment"
     PolicyTextBlock = "Policy Text Block"
     TextBlock = "Text Block"
+    DeferredRevenue = "Deferred Revenue"
+    ExitOrDisposalCostObligations = "Exit Or Disposal Cost Obligations"
+    FinancialInstrumentsAtFairValue = "Financial Instruments At Fair Value"
+    InvestmentsDebtAndEquitySecurities = "Investments Debt And Equity Securities"
+
+
+def footnote_type_title_validator(v: Any, handler: Callable[[Any], Any]) -> Any:
+    """
+    The enum does not have all of the possible Type Titles.
+    """
+    try:
+        return handler(v)
+    except ValidationError:
+        return None
 
 
 def _build_period(p: str) -> Union[Period, str]:
@@ -151,6 +169,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     sec_accession_number: Optional[str]
     network_id: Optional[int]
     ticker: str
+
     filing_type: int
     """
     Filing type from the filing type enum
@@ -163,13 +182,15 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
 
     disclosure_type_name: Optional[str]
     """
-    Not set in single company mode
+    Pass this to the API.  For XBRL tagged notes this is the DisclosureCategory as defined by the FASB.
     """
     period_end_date: Optional[str]
     """
     Not set in single company mode
     """
-    footnote_type_title: Optional[FootnoteTypeTitle]
+    footnote_type_title: Annotated[
+        Union[FootnoteTypeTitle, None], WrapValidator(footnote_type_title_validator)
+    ]
     """
     Not set in single company mode
     """
@@ -181,6 +202,11 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
 
     date_reported: Optional[datetime]
     """Time (EST) the document was available from Calcbench"""
+
+    name: str
+    """
+    Section or disclosure name, block tag name.  Use this instead of description or local name.
+    """
 
     def get_contents(self) -> str:
         """
@@ -206,6 +232,9 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
             )
         else:
             return _document_contents(blob_id=self.blob_id, SEC_ID=self.sec_filing_id)
+
+    def __str__(self):
+        return f'DisclosureSearchResults(ticker="{self.ticker}", name="{self.name}", fiscal_year={self.fiscal_year}, fiscal_period={self.fiscal_period})'
 
 
 def _document_contents(blob_id, SEC_ID, SEC_URL=None) -> DisclosureContent:
