@@ -111,6 +111,9 @@ class DisclosureContent(BaseModel, extra="allow"):
 
     @property
     def contents(self) -> str:
+        """
+        Unaltered HTML from the filing.
+        """
         return "</br>".join(self.blobs)
 
 
@@ -220,7 +223,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
 
     def get_disclosure(self) -> DisclosureContent:
         """
-        Content of the document, with the filer's HTML
+        Get the disclosure contents from the Calcbench server
         """
         if self.content:
             return self.content
