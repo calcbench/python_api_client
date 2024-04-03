@@ -126,6 +126,7 @@ def iterate_and_save_parquet(
     partition_cols: Optional[List[str]] = ["ticker"],
     write_mode: Literal["w", "a"] = "w",
     parquet_file: Optional[Union[str, Path]] = None,
+    csv_root: Optional[Union[str, Path]] = None,
 ):
     """
     Apply the arguments to a function a save to a pyarrow dataset.
@@ -135,6 +136,7 @@ def iterate_and_save_parquet(
     :param partion_cols: what to name the files in the dataset
     :param write_mode: "w" to start by deleting the dataset directory, "a" to add files.
     :param parquet_file: If supplied, create a single parquet file after we have all the data.
+    :param csv_root: folder in which to write the data set as csv files.
 
     Usage::
 
@@ -163,9 +165,9 @@ def iterate_and_save_parquet(
     import pyarrow.parquet as pq
     import pyarrow.dataset as ds
 
-    root_path = os.path.expanduser(root_path)
-    if write_mode == "w" and os.path.exists(root_path):
-        shutil.rmtree(root_path)
+    root_path = _set_up_directory(root_path=root_path, write_mode=write_mode)
+    if csv_root:
+        csv_root = _set_up_directory(root_path=csv_root, write_mode=write_mode)
     for argument in tqdm(list(arguments)):
         try:
             df = f(argument)
@@ -183,12 +185,28 @@ def iterate_and_save_parquet(
                 partition_cols=partition_cols,
                 **{"allow_truncated_timestamps": True, "coerce_timestamps": "us"},
             )
+            if csv_root:
+                ds.write_dataset(
+                    data=table,
+                    base_dir=csv_root,
+                    partitioning=partition_cols,
+                    schema=table.schema,
+                    format="csv",
+                    existing_data_behavior="delete_matching",
+                )
 
     if parquet_file:
         dataset = ds.dataset(root_path, format="parquet", partitioning="hive")
         with pq.ParquetWriter(parquet_file, schema=dataset.schema) as writer:
             for batch in tqdm(dataset.to_batches()):
                 writer.write_batch(batch)
+
+
+def _set_up_directory(root_path: Union[str, Path], write_mode: Literal["w", "a"]):
+    root_path = os.path.expanduser(root_path)
+    if write_mode == "w" and os.path.exists(root_path):
+        shutil.rmtree(root_path)
+    return root_path
 
 
 # old name
