@@ -1,5 +1,7 @@
 from enum import Enum
-from typing import Dict, Optional, Sequence
+from typing import Optional, Sequence
+
+from calcbench.models.dimensional import DimensionalDataPoint
 
 try:
     import pandas as pd
@@ -10,19 +12,6 @@ from calcbench.api_client import (
     _json_POST,
 )
 from calcbench.api_query_params import CompanyIdentifiers, PeriodArgument, PeriodType
-from calcbench.standardized_numeric import (
-    StandardizedPoint,
-)
-
-
-class DimensionalDataPoint(StandardizedPoint):
-    """
-    The data returned by calls to the dimensional api end-point
-
-    """
-
-    container: str
-    dimensions: Dict[str, str]
 
 
 Metric = Enum(
@@ -248,44 +237,22 @@ def dimensional(
         as_originally_reported=as_originally_reported,
     )
 
-    raw_data = [
-        {
-            **d,
-            **[
-                {"axis": axis, "member": member}
-                for axis, member in d["dimensions"].items()
-            ][0],
-        }
-        for d in raw_data
-    ]
-
     if not raw_data:
         return pd.DataFrame()
 
-    columns = ["value"]
+    df = pd.DataFrame(r.dict() for r in raw_data)
+
+    df["fiscal_period"] = (
+        df["fiscal_year"].astype(str) + "-" + df["fiscal_period"].astype(str)
+    ).astype("string")
+
+    df = df.set_index(
+        ["ticker", "fiscal_period", "metric", "label", "standardized_label"]
+    )
+
+    columns = ["value", "CIK", "calendar_year", "calendar_period"]
     if trace_url:
         columns = columns + ["trace_url"]
-    df = pd.DataFrame(raw_data)
-    if period_type == PeriodType.Annual:
-        period_index = pd.PeriodIndex(df["fiscal_year"], freq="A")
-    elif period_type == PeriodType.Quarterly:
-        period_index = pd.PeriodIndex(
-            year=df["fiscal_year"], quarter=df["fiscal_period"]
-        )
-    else:
-        period_index = df[["fiscal_year", "fiscal_period"]].apply(
-            lambda x: "-".join(x.astype(str).values), axis=1
-        )
-    df["fiscal_period"] = period_index
-    df = df.set_index(
-        [
-            "ticker",
-            "axis",
-            "metric",
-            "member",
-            "fiscal_period",
-        ]
-    )
     return df[columns]
 
 
@@ -344,4 +311,4 @@ def dimensional_raw(
             "AsOriginallyReported": as_originally_reported,
         },
     }
-    return _json_POST("dimensionalData", payload)
+    return [DimensionalDataPoint(**p) for p in _json_POST("dimensionalData", payload)]
