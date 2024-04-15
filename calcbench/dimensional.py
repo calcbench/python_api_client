@@ -34,7 +34,7 @@ def dimensional(
     If there are no results an empty dataframe is returned
 
     :param sequence company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
-    :param metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
+    :param metrics: Specific line item to get, for instance `OperatingSegmentRevenue` or `ConcentrationRiskPercentageCustomer`, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
     :param int start_year: first year of data to get
     :param start_period: first period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param int end_year: last year of data to get
@@ -87,7 +87,7 @@ def dimensional(
 
 def dimensional_raw(
     company_identifiers: CompanyIdentifiers = [],
-    metrics: Sequence[Metric] = [],
+    metrics: Sequence[str] = [],
     start_year: Optional[int] = None,
     start_period: PeriodArgument = None,
     end_year: Optional[int] = None,
@@ -101,7 +101,7 @@ def dimensional_raw(
     The data behind the breakouts/segment page, https://www.calcbench.com/breakout.
 
     :param company_identifiers: Tickers/CIK codes. eg. ['msft', 'goog', 'appl', '0000066740']
-    :param metrics: list of dimension tuple strings, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
+    :param metrics: Specific line item to get, for instance `OperatingSegmentRevenue` or `ConcentrationRiskPercentageCustomer`, get the list @ https://www.calcbench.com/api/availableBreakouts, pass in the "databaseName"
     :param start_year: first year of data to get
     :param start_period: first period of data to get.
     :param end_year: last year of data to get
