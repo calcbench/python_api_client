@@ -82,7 +82,7 @@ def dimensional(
     columns = ["value", "CIK", "calendar_year", "calendar_period"]
     if trace_url:
         columns = columns + ["trace_url"]
-    return df[columns]
+    return df[columns].sort_index()
 
 
 def dimensional_raw(
