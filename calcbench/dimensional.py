@@ -69,7 +69,7 @@ def dimensional(
     if not raw_data:
         return pd.DataFrame()
 
-    df = pd.DataFrame(r.dict() for r in raw_data)
+    df = pd.DataFrame(r.model_dump() for r in raw_data).convert_dtypes()
 
     df["fiscal_period"] = (
         df["fiscal_year"].astype(str) + "-" + df["fiscal_period"].astype(str)
