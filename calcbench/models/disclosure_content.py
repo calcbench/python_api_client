@@ -55,3 +55,6 @@ class DisclosureContent(BaseModel, extra="allow"):
         Unaltered HTML from the filing.
         """
         return "</br>".join(self.blobs)
+
+    def __str__(self) -> str:
+        return f'DisclosureContent(contents="{self.contents[:100]}")'
