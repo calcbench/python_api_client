@@ -49,6 +49,13 @@ class DisclosureContent(BaseModel, extra="allow"):
     local_name: Optional[str] = None
     CIK: Optional[str] = None
 
+    paragraphs: Optional[Sequence[str]] = None
+    """
+    Contents split into paragraphs.
+
+    Only set if split_into_paragraphs is true in the request.
+    """
+
     @property
     def contents(self) -> str:
         """

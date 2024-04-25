@@ -130,14 +130,16 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
         """Contents of the HTML of the document"""
         return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
 
-    def get_disclosure(self) -> DisclosureContent:
+    def get_disclosure(self, split_into_paragraphs: bool = False) -> DisclosureContent:
         """
         Get the disclosure contents from the Calcbench server
         """
         if self.content:
             return self.content
         else:
-            payload = DisclosureContentsParams(disclosure=self)
+            payload = DisclosureContentsParams(
+                disclosure=self, split_into_paragraphs=split_into_paragraphs
+            )
             json = _json_POST("disclosureContents", payload)
             return DisclosureContent(**json)
 
@@ -153,3 +155,11 @@ class DisclosureContentsParams(BaseModel):
     """
 
     disclosure: DisclosureSearchResults
+    """
+    Disclosure for which to get contents
+    """
+
+    split_into_paragraphs: Optional[bool] = False
+    """
+    split the disclosure into paragraphs
+    """

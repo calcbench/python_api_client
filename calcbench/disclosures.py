@@ -12,8 +12,8 @@ from calcbench.api_query_params import (
 )
 from calcbench.models.disclosure import (
     DisclosureAPIPageParameters,
-    DisclosureSearchResults,
 )
+from calcbench.models.disclosure_search_results import DisclosureSearchResults
 
 try:
     from typing import Literal
