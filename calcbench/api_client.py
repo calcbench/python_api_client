@@ -37,6 +37,8 @@ else:
     except ImportError:
         from typing_extensions import TypedDict
 
+
+from pydantic import BaseModel
 from requests.sessions import Session
 from requests import HTTPError
 
@@ -233,14 +235,15 @@ HEADERS = {
 
 
 @_add_backoff
-def _json_POST(end_point: str, payload: Union[dict, APIQueryParams]):
+def _json_POST(end_point: str, payload: Union[dict, BaseModel]):
     session = _calcbench_session()
     url = _SESSION_STUFF["api_url_base"].format(end_point)
-    data = (
-        payload.json(exclude_unset=True, exclude_none=True)
-        if isinstance(payload, APIQueryParams)
-        else json.dumps(payload)
-    )
+
+    if isinstance(payload, dict):
+        data = json.dumps(payload)
+    else:
+        data = payload.model_dump_json(exclude_unset=True, exclude_none=True)
+
     logger.debug(f"posting to {url}, {data}")
     start = datetime.now()
     response = session.post(
