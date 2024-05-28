@@ -120,26 +120,24 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     Section or disclosure name, block tag name.  Use this instead of description or local name.
     """
 
-    def get_contents(self) -> str:
+    def get_contents(self, standardize=False) -> str:
         """
         Content of the document, with the filers HTML
         """
-        return self.get_disclosure().contents
+        return self.get_disclosure(standardize=standardize).contents
 
     def get_contents_text(self) -> str:
         """Contents of the HTML of the document"""
         return "".join(BeautifulSoup(self.get_contents(), "html.parser").strings)
 
-    def get_disclosure(self, split_into_paragraphs: bool = False) -> DisclosureContent:
+    def get_disclosure(self, standardize: bool = False) -> DisclosureContent:
         """
         Get the disclosure contents from the Calcbench server
         """
         if self.content:
             return self.content
         else:
-            payload = DisclosureContentsParams(
-                disclosure=self, split_into_paragraphs=split_into_paragraphs
-            )
+            payload = DisclosureContentsParams(disclosure=self, standardize=standardize)
             json = _json_POST("disclosureContents", payload)
             return DisclosureContent(**json)
 
@@ -159,7 +157,7 @@ class DisclosureContentsParams(BaseModel):
     Disclosure for which to get contents
     """
 
-    split_into_paragraphs: Optional[bool] = False
+    standardize: Optional[bool] = False
     """
-    split the disclosure into paragraphs
+    Standardize the disclosure
     """
