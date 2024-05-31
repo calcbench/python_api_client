@@ -38,29 +38,35 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     """
     Not set in single company mode
     """
+
     accession_id: Optional[int]
     """
     Not set in single company mode
     """
+
     footnote_type: Optional[int]
     SEC_URL: Optional[str]
     """
     Not set in single company mode
     """
+
     sec_filing_id: Optional[int]
     blob_id: Optional[str]
     fiscal_year: Optional[int]
     """
     Not set in single company mode
     """
+
     fiscal_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
     """
     Not set in single company mode
     """
+
     calendar_year: Optional[int]
     """
     Not set in single company mode
     """
+
     calendar_period: Annotated[Optional[Period], BeforeValidator(_build_period)]
     filing_date: str
     received_date: str
@@ -78,6 +84,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     """
     Not set in single company mode
     """
+
     sec_accession_number: Optional[str]
     network_id: Optional[int]
     ticker: str
