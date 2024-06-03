@@ -12,3 +12,7 @@ Calcbench parses the sections of the 10-K/Q such as Management's Discussion and 
 .. automodule:: calcbench.models.disclosure
     :members:
     :undoc-members:
+
+.. automodule:: calcbench.models.disclosure_search_results
+    :members:
+    :undoc-members:
