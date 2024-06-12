@@ -130,6 +130,8 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     def get_contents(self, standardize=False) -> str:
         """
         Content of the document, with the filers HTML
+
+        :param standardize: Translate the contents into standardized/idiomatic HTML
         """
         return self.get_disclosure(standardize=standardize).contents
 
@@ -140,6 +142,8 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     def get_disclosure(self, standardize: bool = False) -> DisclosureContent:
         """
         Get the disclosure contents from the Calcbench server
+
+        :param standardize: Translate the contents into standardized/idiomatic HTML
         """
         if self.content:
             return self.content
