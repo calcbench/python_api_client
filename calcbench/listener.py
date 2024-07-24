@@ -128,7 +128,7 @@ def _get_deferred_messages(receiver: "ServiceBusReceiver"):
 
     I asked about this on stackoverflow @ https://stackoverflow.com/questions/70974772/servicebus-retry-logic
 
-    If MSFT ever comes up with a fix for https://github.com/Azure/azure-sdk-for-python/issues/22918 this should be replaced.
+    If MSFT ever comes up with a fix for https://github.com/Azure/azure-service-bus/issues/454 this should be replaced.
 
     """
     number_peeked = 0

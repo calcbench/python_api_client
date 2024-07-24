@@ -17,7 +17,7 @@ class Company(BaseModel, extra="allow"):
     most_recent_complete_fiscal_year: Optional[int] = None
     most_recent_filing_calendar_period: Period
     first_filing: Optional[date] = None
-    naics_code: int
+    naics_code: Optional[int] = None
     sic_code: Optional[int] = None
     SICCategory: Optional[str] = None
     SICGroupMinorGroupTitle: Optional[str] = None
