@@ -90,7 +90,7 @@
 <li><p><strong>period</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Period</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Literal</span></code>[<code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">3</span></code>, <code class="docutils literal notranslate"><span class="pre">4</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]</span>) – period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.</p></li>
 <li><p><strong>use_fiscal_period</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – interpret the passed period as a fiscal period, as opposed to calendar period</p></li>
 <li><p><strong>period_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code>]</span>) – only applicable when other period data not supplied.  Use “annual” to only search end-of-year disclosures, “quarterly” is all history all periods</p></li>
-<li><p><strong>document_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Search a specific document type.</p></li>
+<li><p><strong>document_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Search a specific document type. DEPRECATED use disclosure_names.</p></li>
 <li><p><strong>disclosure_names</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – The sections to retrieve, see the full list &#64; <a class="reference external" href="https://www.calcbench.com/disclosure_list">https://www.calcbench.com/disclosure_list</a>.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  [‘Management’s Discussion And Analysis’, ‘Risk Factors’]</p></li>
 <li><p><strong>all_history</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Search all time periods</p></li>
 <li><p><strong>updated_from</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">date</span></code>]</span>) – include filings from this date and after.</p></li>
@@ -328,7 +328,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> = &lt;function _build_period at 0x000002336ED0CEA0&gt;</p></li>
+<li><p><strong>func</strong> = &lt;function _build_period at 0x000001EEEA470EA0&gt;</p></li>
 </ul>
 </dd>
 </dl>
@@ -404,7 +404,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> = &lt;function _build_period at 0x000002336ED0CEA0&gt;</p></li>
+<li><p><strong>func</strong> = &lt;function _build_period at 0x000001EEEA470EA0&gt;</p></li>
 </ul>
 </dd>
 </dl>
@@ -428,7 +428,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> = &lt;function footnote_type_title_validator at 0x000002336ED0CE00&gt;</p></li>
+<li><p><strong>func</strong> = &lt;function footnote_type_title_validator at 0x000001EEEA470E00&gt;</p></li>
 </ul>
 </dd>
 </dl>
