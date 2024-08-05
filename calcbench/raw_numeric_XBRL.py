@@ -59,7 +59,7 @@ def raw_XBRL(
         >>>     {"value": "Y", "parameter": "fiscalPeriod", "operator": 1},
         >>>     {"value": "2018", "parameter": "fiscalYear", "operator": 1}
         >>> ]
-        >>> cb.raw_xbrl(company_identifiers=['mmm'], clauses=clauses)
+        >>> cb.raw_XBRL(company_identifiers=['mmm'], clauses=clauses)
     """
 
     d = _raw_data_raw(
