@@ -72,7 +72,7 @@ def disclosure_search(
     :param period: period of data to get.  0 for annual data, 1, 2, 3, 4 for quarterly data.
     :param use_fiscal_period: interpret the passed period as a fiscal period, as opposed to calendar period
     :param period_type: only applicable when other period data not supplied.  Use "annual" to only search end-of-year disclosures, "quarterly" is all history all periods
-    :param document_type: Search a specific document type.
+    :param document_type: Search a specific document type. DEPRECATED use disclosure_names.
     :param disclosure_names:  The sections to retrieve, see the full list @ https://www.calcbench.com/disclosure_list.  You cannot request XBRL and non-XBRL sections in the same request.  eg.  ['Management's Discussion And Analysis', 'Risk Factors']
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
