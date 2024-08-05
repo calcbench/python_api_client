@@ -53,6 +53,8 @@ def raw_XBRL(
     :param entire_universe: Search all companies
     :param clauses: See the parameters that can be passed @ https://www.calcbench.com/api/rawdataxbrlpoints
 
+    :return: an empty dataframe if no records are found.
+
     Usage:
         >>> clauses = [
         >>>     {"value": "Revenues", "parameter": "XBRLtag", "operator": 10},
@@ -69,6 +71,8 @@ def raw_XBRL(
         end_point=RAW_XBRL_END_POINT,
     )
     df = pd.DataFrame(d)
+    if df.empty:
+        return df
     for date_column in [
         "filing_date",
         "filing_end_date",
