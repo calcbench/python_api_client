@@ -77,7 +77,7 @@ def disclosure_search(
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
     :param sub_divide: return the disclosures split into sections based on headers.
-    :param all_documents: all of the documents for a single company/period.
+    :param all_documents: All of the documents for a single company/period.  For single company mode on the front-end.
     :param entire_universe: Search all companies
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param block_tag_name: Level 2 or 3 XBRL tag.  See the list of FASB tags @ https://www.calcbench.com/disclosure_list#blockTags
