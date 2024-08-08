@@ -62,6 +62,10 @@ PERIOD_MAP = {
     "2": Period.Q2,
     "3": Period.Q3,
     "4": Period.Q4,
+    "Q1": Period.Q1,
+    "Q2": Period.Q2,
+    "Q3": Period.Q3,
+    "Q4": Period.Q4,
 }
 
 
@@ -79,6 +83,10 @@ class DisclosureAPIPageParameters(BaseModel):
     limit: Optional[int] = None
     subDivide: Optional[bool] = False
     allFootnotes: Optional[bool] = None
+    """
+    Bad name, get all disclosure for one company/period, single company mode on the front-end.
+    """
     disclosureNames: Optional[Sequence[str]] = None
     AllTextBlocks: Optional[bool] = False
     startOffset: Optional[int] = None
+    allDisclosures: Optional[bool] = False

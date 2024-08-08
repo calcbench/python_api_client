@@ -53,11 +53,12 @@ def disclosure_search(
     updated_from: Optional[date] = None,
     batch_size: int = 100,
     sub_divide: bool = False,
-    all_documents: bool = False,
+    single_company_period_all_disclosures: bool = False,
     disclosure_names: Sequence[str] = [],
     progress_bar: Optional["tqdm.std.tqdm"] = None,
     accession_id: Optional[int] = None,
     all_text_blocks: bool = False,
+    all_disclosures: bool = False,
 ) -> Generator[DisclosureSearchResults, None, None]:
     """
     Footnotes and other text
@@ -77,11 +78,12 @@ def disclosure_search(
     :param all_history: Search all time periods
     :param updated_from: include filings from this date and after.
     :param sub_divide: return the disclosures split into sections based on headers.
-    :param all_documents: All of the documents for a single company/period.  For single company mode on the front-end.
+    :param single_company_period_all_disclosures: All of the documents for a single company/period.  For single company mode on the front-end.  Probably not what you want.  See all_disclosures
     :param entire_universe: Search all companies
     :param progress_bar: Pass a tqdm progress bar to keep an eye on things.
     :param block_tag_name: Level 2 or 3 XBRL tag.  See the list of FASB tags @ https://www.calcbench.com/disclosure_list#blockTags
     :param all_text_blocks: All level 1 and accounting policy text blocks
+    :param all_disclosures: All disclosures, 10-K/Q XBRL notes, 10-K/Q non-XBRL sections and 8-Ks.  Does not include MD&A sections.
     :return: A iterator of DisclosureSearchResults
 
     Usage::
@@ -103,9 +105,10 @@ def disclosure_search(
             document_type,
             block_tag_name,
             document_name,
-            all_documents,
+            single_company_period_all_disclosures,
             disclosure_names,
             all_text_blocks,
+            all_disclosures,
         ]
     ):
         raise (ValueError("Need to supply at least one search parameter."))
@@ -133,9 +136,10 @@ def disclosure_search(
             "disclosureName": document_name,
             "limit": batch_size,
             "subDivide": sub_divide,
-            "allFootnotes": all_documents,
+            "allFootnotes": single_company_period_all_disclosures,
             "disclosureNames": disclosure_names,
             "AllTextBlocks": all_text_blocks,
+            "allDisclosures": all_disclosures,
         }
     )
     period_parameters = PeriodParameters(
@@ -190,6 +194,7 @@ def disclosure_dataframe(
     use_fiscal_period: bool = True,
     entire_universe: bool = False,
     batch_size: int = 100,
+    all_disclosures: bool = False,
 ) -> "pd.DataFrame":
     """Disclosures/Footnotes in a DataFrame
 
@@ -205,6 +210,7 @@ def disclosure_dataframe(
     :param identifier_key: how to index the returned DataFrame.
     :param use_fiscal_period: Index disclosure by fiscal, as opposed to calendar periods.
     :param entire_universe: Data for all companies
+    :param all_disclosures: All disclosures, 10-K/Q XBRL notes, 10-K/Q non-XBRL sections and 8-Ks.  Does not include MD&A sections.
     :return: A DataFrame of DisclosureSearchResults indexed by document name -> company identifier.  An empty frame if no results are found.
 
     Usage::
@@ -246,6 +252,7 @@ def disclosure_dataframe(
             period_type=period_type,
             entire_universe=entire_universe,
             batch_size=batch_size,
+            all_disclosures=all_disclosures,
         )
     all_docs = []
     for doc in docs:
@@ -254,7 +261,7 @@ def disclosure_dataframe(
             logger.info(f"Bad year for {doc}")
             continue
         if period in ("Y", 0) or period_type == PeriodType.Annual:
-            p = pd.Period(year=period_year, freq="a")  # type: ignore
+            p = pd.Period(year=period_year, freq="A")  # type: ignore
         else:
             try:
                 if period_type == PeriodType.Quarterly:
