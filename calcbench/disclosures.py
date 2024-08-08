@@ -261,10 +261,10 @@ def disclosure_dataframe(
             logger.info(f"Bad year for {doc}")
             continue
         if period in ("Y", 0) or period_type == PeriodType.Annual:
-            p = pd.Period(year=period_year, freq="A")  # type: ignore
+            pandas_period = pd.Period(year=period_year, freq="A")  # type: ignore
         else:
             try:
-                if period_type == PeriodType.Quarterly:
+                if (period_type == PeriodType.Quarterly) or all_history:
                     # The server is not handling period type correctly.  Doing it here because it is easier.  akittredge, July 2021.
                     if use_fiscal_period:
                         if doc.fiscal_period == Period.Annual:
@@ -279,15 +279,15 @@ def disclosure_dataframe(
             except KeyError:
                 # This happens for non-XBRL companies
                 logger.info("Strange period for {ticker}".format(doc.ticker))
-                p = None
+                pandas_period = None
             else:
-                p = pd.Period(year=period_year, quarter=quarter, freq="q")  # type: ignore
+                pandas_period = pd.Period(year=period_year, quarter=quarter, freq="Q")  # type: ignore
         doc_dict = doc.model_dump()
         all_docs.append(
             {
                 **doc_dict,
                 **{
-                    "period": p,
+                    "period": pandas_period,
                     identifier_key: (doc_dict[identifier_key] or ""),
                     "value": doc,
                 },
