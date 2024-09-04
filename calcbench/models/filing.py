@@ -2,9 +2,9 @@ from datetime import datetime
 from typing import Optional, Sequence
 from pydantic import BaseModel, Field, validator
 from calcbench.api_client import _try_parse_timestamp
-from calcbench.api_query_params import Period
 
 from calcbench.models.filing_type import FilingType
+from calcbench.models.period import Period
 from calcbench.standardized_numeric import standardized
 
 

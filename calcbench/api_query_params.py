@@ -4,6 +4,9 @@ from typing import Generic, Optional, Sequence, TypeVar, Union
 
 from pydantic import BaseModel
 
+from calcbench.models.period import PeriodArgument
+from calcbench.models.period_type import PeriodType
+
 
 try:
     from typing import Literal
@@ -20,48 +23,6 @@ CompanyIdentifiers = Sequence[CompanyIdentifier]
 class CompanyIdentifierScheme(str, Enum):
     Ticker = "ticker"
     CentralIndexKey = "CIK"
-
-
-class PeriodType(str, Enum):
-    Annual = "annual"
-    Quarterly = "quarterly"
-    Combined = "combined"
-    TrailingTwelveMonths = "TTM"
-
-
-class Period(IntEnum):
-    """
-    Fiscal period.
-    """
-
-    Annual = 0
-    Q1 = 1
-    Q2 = 2
-    Q3 = 3
-    Q4 = 4
-    H1 = 5
-    """
-    First half of year
-    """
-    Q3Cum = 6
-    """
-    First three quarters of year
-    """
-    Other = 9
-    Failure = -1
-    """
-    Should be few and far between, indicates something went wrong during loading
-    """
-
-    @classmethod
-    def _missing_(cls, value: object):
-        """
-        There are other kinds of fiscal periods
-        """
-        return cls.Other
-
-
-PeriodArgument = Optional[Union[Period, Literal[0, 1, 2, 3, 4]]]
 
 
 class CompaniesParameters(BaseModel):

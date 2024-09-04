@@ -2,7 +2,7 @@ from datetime import date
 from typing import Optional
 from pydantic import BaseModel
 
-from calcbench.api_query_params import Period
+from calcbench.models.period import Period
 
 
 class Company(BaseModel, extra="allow"):

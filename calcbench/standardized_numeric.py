@@ -9,8 +9,8 @@ from calcbench.api_query_params import (
     DateRange,
     PeriodArgument,
     PeriodParameters,
-    PeriodType,
 )
+from calcbench.models.period_type import PeriodType
 from calcbench.models.revisions import Revisions
 from calcbench.models.standardized import StandardizedPoint
 from calcbench.standardized_parameters import StandardizedParameters

@@ -5,7 +5,8 @@ from enum import IntEnum
 from typing import Generator, Sequence
 
 from calcbench.api_client import _try_parse_timestamp
-from calcbench.api_query_params import CompanyIdentifiers, Period
+from calcbench.api_query_params import CompanyIdentifiers
+from calcbench.models.period import Period
 from calcbench.raw_numeric_XBRL import (
     RAW_NON_XBRL_END_POINT,
     RawDataClause,

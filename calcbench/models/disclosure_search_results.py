@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, Optional, Union
 from typing_extensions import Annotated
 
 from calcbench.models.disclosure_content import DisclosureContent
+from calcbench.models.period import Period
 
 
 if TYPE_CHECKING:
@@ -18,7 +19,6 @@ else:
 from pydantic import BaseModel, BeforeValidator, WrapValidator
 
 from calcbench.api_client import _json_POST
-from calcbench.api_query_params import Period
 from calcbench.models.disclosure import (
     FootnoteTypeTitle,
     _build_period,

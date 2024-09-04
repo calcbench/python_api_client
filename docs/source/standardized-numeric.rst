@@ -17,3 +17,9 @@ Calcbench standardizes +1000 metrics to handle differences in filers's tagging. 
 
 .. automodule:: calcbench.models.revisions
     :members:
+
+.. automodule:: calcbench.models.period_type
+    :members:
+
+.. automodule:: calcbench.models.period
+    :members:

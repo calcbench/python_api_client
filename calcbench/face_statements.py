@@ -1,6 +1,7 @@
 from calcbench.api_client import _json_GET
-from calcbench.api_query_params import CompanyIdentifier, PeriodType
+from calcbench.api_query_params import CompanyIdentifier
 from calcbench.models.face import FaceStatement, StatementType
+from calcbench.models.period_type import PeriodType
 
 
 def face_statement(

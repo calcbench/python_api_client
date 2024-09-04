@@ -4,6 +4,8 @@ from enum import Enum
 from typing import Generator, Sequence
 from decimal import Decimal
 
+from calcbench.models.period import Period
+
 try:
     import pandas as pd
 except ImportError:
@@ -14,7 +16,6 @@ from calcbench.api_client import _json_POST, set_field_values
 from calcbench.api_query_params import (
     APIQueryParams,
     CompanyIdentifiers,
-    Period,
     PeriodParameters,
 )
 

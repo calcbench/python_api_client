@@ -2,7 +2,8 @@ from enum import Enum
 from typing import Any, Callable, Optional, Sequence, Union
 
 from pydantic import BaseModel, ValidationError
-from calcbench.api_query_params import Period
+
+from calcbench.models.period import Period
 
 
 class FootnoteTypeTitle(str, Enum):

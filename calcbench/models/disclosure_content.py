@@ -2,8 +2,9 @@ from typing import Optional, Sequence
 from pydantic import BaseModel, BeforeValidator
 from typing_extensions import Annotated
 
-from calcbench.api_query_params import Period
+
 from calcbench.models.disclosure import _build_period
+from calcbench.models.period import Period
 
 
 class DisclosureContent(BaseModel, extra="allow"):

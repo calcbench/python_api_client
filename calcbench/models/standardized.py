@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional, Sequence, Union
 
 from pydantic import BaseModel
-from calcbench.api_query_params import Period
+from calcbench.models.period import Period
 from calcbench.models.trace import TraceData
 
 

@@ -5,15 +5,15 @@ from calcbench.api_query_params import (
     APIQueryParams,
     CompaniesParameters,
     CompanyIdentifiers,
-    Period,
     PeriodArgument,
     PeriodParameters,
-    PeriodType,
 )
 from calcbench.models.disclosure import (
     DisclosureAPIPageParameters,
 )
 from calcbench.models.disclosure_search_results import DisclosureSearchResults
+from calcbench.models.period import Period
+from calcbench.models.period_type import PeriodType
 
 try:
     from typing import Literal
