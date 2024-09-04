@@ -287,7 +287,7 @@ def standardized(
     :param fiscal_year: Fiscal year for which to get data.  If not specified get all history.
     :param fiscal_period: Fiscal period for which to get data.  If not specified get all history.
     :param start_date:  Restrict to records modified on or after (inclusive) this date/datetime
-    :param end_date:  Restric to records modified prior (exclusive) thie date/datetime
+    :param end_date:  Restrict to records modified prior (exclusive) thie date/datetime
     :param point_in_time: Include timestamps when data was published and revision chains.
     :param filing_id: Filing ID for which to get data.  Get all of the data reported in this filing.
     :param pit_V2: Defaults to True, use point in time V2, this only makes sense when point_in_time = True.  This will go away at some point.
