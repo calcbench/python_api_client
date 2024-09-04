@@ -41,6 +41,9 @@ class PeriodParameters(BaseModel):
     """
 
     year: Optional[int] = None
+    """
+    start year when passing an end year
+    """
     period: Optional[PeriodArgument] = None
     periodType: Optional[PeriodType] = None
     dateRange: Optional[DateRange] = None

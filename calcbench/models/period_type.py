@@ -12,7 +12,7 @@ class PeriodType(str, Enum):
     """
     Combined = "combined"
     """
-    Annual and quarter data
+    Annual and quarterly
     """
     TrailingTwelveMonths = "TTM"
     """

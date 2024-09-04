@@ -290,7 +290,7 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.standardized.StandardizedPoint.trace_facts">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trace_facts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceData</span></code><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.trace_facts" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">trace_facts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><a class="reference internal" href="#calcbench.models.trace.TraceData" title="calcbench.models.trace.TraceData"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceData</span></code></a><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.standardized.StandardizedPoint.trace_facts" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute pydantic_field">
@@ -343,7 +343,7 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 <dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.models.period_type.PeriodType.Combined">
 <span class="sig-name descname"><span class="pre">Combined</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'combined'</span></em><a class="headerlink" href="#calcbench.models.period_type.PeriodType.Combined" title="Link to this definition">¶</a></dt>
-<dd><p>Annual and quarter data</p>
+<dd><p>Annual and quarterly</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -417,6 +417,36 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 <span class="sig-name descname"><span class="pre">Q4</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#calcbench.models.period.Period.Q4" title="Link to this definition">¶</a></dt>
 <dd><p>Fourth quarter data</p>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model" id="module-calcbench.models.trace">
+<dt class="sig sig-object py" id="calcbench.models.trace.TraceData">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.trace.</span></span><span class="sig-name descname"><span class="pre">TraceData</span></span><a class="headerlink" href="#calcbench.models.trace.TraceData" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.trace.TraceData.XBRL_fact_value">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">XBRL_fact_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">,</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.trace.TraceData.XBRL_fact_value" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.trace.TraceData.dimensions">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.trace.TraceData.dimensions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.trace.TraceData.fact_id">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fact_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.trace.TraceData.fact_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.trace.TraceData.local_name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">local_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.trace.TraceData.local_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="calcbench.models.trace.TraceData.negative_weight">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">negative_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.trace.TraceData.negative_weight" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
