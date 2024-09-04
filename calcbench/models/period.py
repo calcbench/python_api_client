@@ -8,10 +8,25 @@ class Period(IntEnum):
     """
 
     Annual = 0
+    """
+    Annual data
+    """
     Q1 = 1
+    """
+    First quarter data
+    """
     Q2 = 2
+    """
+    Second quarter data
+    """
     Q3 = 3
+    """
+    Third quarter data
+    """
     Q4 = 4
+    """
+    Fourth quarter data
+    """
     H1 = 5
     """
     First half of year
@@ -21,6 +36,9 @@ class Period(IntEnum):
     First three quarters of year
     """
     Other = 9
+    """
+    Irregular period, not one of the above, 18 months for example.
+    """
     Failure = -1
     """
     Should be few and far between, indicates something went wrong during loading

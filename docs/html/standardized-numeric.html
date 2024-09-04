@@ -341,6 +341,12 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.period.</span></span><span class="sig-name descname"><span class="pre">Period</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#calcbench.models.period.Period" title="Link to this definition">¶</a></dt>
 <dd><p>Fiscal period.</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.period.Period.Annual">
+<span class="sig-name descname"><span class="pre">Annual</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#calcbench.models.period.Period.Annual" title="Link to this definition">¶</a></dt>
+<dd><p>Annual data</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.models.period.Period.Failure">
 <span class="sig-name descname"><span class="pre">Failure</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#calcbench.models.period.Period.Failure" title="Link to this definition">¶</a></dt>
 <dd><p>Should be few and far between, indicates something went wrong during loading</p>
@@ -353,9 +359,39 @@ If this is null, for points post April 2023, the point has not been confirmed.</
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.period.Period.Other">
+<span class="sig-name descname"><span class="pre">Other</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9</span></em><a class="headerlink" href="#calcbench.models.period.Period.Other" title="Link to this definition">¶</a></dt>
+<dd><p>Irregular period, not one of the above, 18 months for example.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.period.Period.Q1">
+<span class="sig-name descname"><span class="pre">Q1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#calcbench.models.period.Period.Q1" title="Link to this definition">¶</a></dt>
+<dd><p>First quarter data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.period.Period.Q2">
+<span class="sig-name descname"><span class="pre">Q2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#calcbench.models.period.Period.Q2" title="Link to this definition">¶</a></dt>
+<dd><p>Second quarter data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.period.Period.Q3">
+<span class="sig-name descname"><span class="pre">Q3</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#calcbench.models.period.Period.Q3" title="Link to this definition">¶</a></dt>
+<dd><p>Third quarter data</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="calcbench.models.period.Period.Q3Cum">
 <span class="sig-name descname"><span class="pre">Q3Cum</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">6</span></em><a class="headerlink" href="#calcbench.models.period.Period.Q3Cum" title="Link to this definition">¶</a></dt>
 <dd><p>First three quarters of year</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calcbench.models.period.Period.Q4">
+<span class="sig-name descname"><span class="pre">Q4</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#calcbench.models.period.Period.Q4" title="Link to this definition">¶</a></dt>
+<dd><p>Fourth quarter data</p>
 </dd></dl>
 
 </dd></dl>
