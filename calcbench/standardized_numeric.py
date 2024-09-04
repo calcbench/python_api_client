@@ -85,7 +85,7 @@ def standardized_raw(
     :param end_date: points modified until this date (exclusive).  If not time is specified point modified prior to this date are returned.
     :param XBRL_only: Only get data that appeared in an XBRL document.  If supplied with start_date and end_date it will filter by date_XBRL_confirmed, if a filing_id supplied it will filter by confirming_XBRL_filing_ID.
     :param all_modifications: Include data which was either written, modified, or confirmed as XBRL, in the specified date-range or filing_id.
-    :param revisions: Restrict results to first or last reported values.
+    :param revisions: Restrict results to first or last reported values.  Revisions puts you into pit_V2 mode, which means you get data from the standardized table on the back end.
 
     """
     if [
