@@ -86,7 +86,7 @@ class FinancialStatementColumn(BaseModel, extra="allow"):
 
 class Fact(BaseModel, extra="allow"):
     """
-    Individual fact in the statement
+    Individual fact(number) in the statement
     """
 
     fact_id: int

@@ -17,9 +17,9 @@ def face_statement(
 
 
     :param company_identifier: a ticker or a CIK code, eg 'msft'
-    :param statement_type: one of ('income', 'balance', 'cash', 'change-in-equity', 'comprehensive-income')
-    :param period_type: annual|quarterly|cummulative|combined
-    :param all_periods: get all history or only the last four, True or False.
+    :param statement_type: Statement type to retrieve.
+    :param period_type: Period type to retrieve.
+    :param all_history: Get all history or only the last four periods.
     :param descending_dates: return columns in oldest -> newest order.
     :return: Data for the statement
 
