@@ -45,9 +45,9 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>company_identifier</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – a ticker or a CIK code, eg ‘msft’</p></li>
-<li><p><strong>statement_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#calcbench.models.face.StatementType" title="calcbench.models.face.StatementType"><code class="xref py py-class docutils literal notranslate"><span class="pre">StatementType</span></code></a></span>) – one of (‘income’, ‘balance’, ‘cash’, ‘change-in-equity’, ‘comprehensive-income’)</p></li>
-<li><p><strong>period_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="standardized-numeric.html#calcbench.models.period_type.PeriodType" title="calcbench.models.period_type.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a></span>) – annual|quarterly|cummulative|combined</p></li>
-<li><p><strong>all_periods</strong> – get all history or only the last four, True or False.</p></li>
+<li><p><strong>statement_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#calcbench.models.face.StatementType" title="calcbench.models.face.StatementType"><code class="xref py py-class docutils literal notranslate"><span class="pre">StatementType</span></code></a></span>) – Statement type to retrieve.</p></li>
+<li><p><strong>period_type</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="standardized-numeric.html#calcbench.models.period_type.PeriodType" title="calcbench.models.period_type.PeriodType"><code class="xref py py-class docutils literal notranslate"><span class="pre">PeriodType</span></code></a></span>) – Period type to retrieve.</p></li>
+<li><p><strong>all_history</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – Get all history or only the last four periods.</p></li>
 <li><p><strong>descending_dates</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – return columns in oldest -&gt; newest order.</p></li>
 </ul>
 </dd>
@@ -102,7 +102,7 @@
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="calcbench.models.face.Fact">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.face.</span></span><span class="sig-name descname"><span class="pre">Fact</span></span><a class="headerlink" href="#calcbench.models.face.Fact" title="Link to this definition">¶</a></dt>
-<dd><p>Individual fact in the statement</p>
+<dd><p>Individual fact(number) in the statement</p>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.face.Fact.dimension_members">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimension_members</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.face.Fact.dimension_members" title="Link to this definition">¶</a></dt>

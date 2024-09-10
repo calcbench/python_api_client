@@ -14,15 +14,25 @@ except ImportError:
     from typing_extensions import Literal
 
 CentralIndexKey = Union[str, int]
+"""
+CIK, SEC/Edgar identifier.
+"""
 Ticker = str
+"""
+Ticker, "msft" for example.
+"""
 CalcbenchCompanyIdentifier = int
+"""
+Internal Calcbench identifier.
+"""
 CompanyIdentifier = Union[Ticker, CentralIndexKey, CalcbenchCompanyIdentifier]
+"""
+ticker, CIK or Calcbench identifier. 
+"""
 CompanyIdentifiers = Sequence[CompanyIdentifier]
-
-
-class CompanyIdentifierScheme(str, Enum):
-    Ticker = "ticker"
-    CentralIndexKey = "CIK"
+"""
+Sequence of identifiers
+"""
 
 
 class CompaniesParameters(BaseModel):
