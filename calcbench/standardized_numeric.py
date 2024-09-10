@@ -364,6 +364,8 @@ ORDERED_REGULAR_COLUMNS = [
     "fiscal_period",
     "value",
     "CIK",
+    "period_start",
+    "period_end",
     "calendar_year",
     "calendar_period",
 ]
