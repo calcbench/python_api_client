@@ -37,6 +37,9 @@ class StandardizedPoint(BaseModel, extra="allow"):
     fiscal_year: int
     fiscal_period: Period
     trace_facts: Optional[Sequence[TraceData]] = None
+    """
+    XBRL facts that went into the calculation of this point.  Specify `include_trace` for this field to be populated.
+    """
     ticker: str
     """
     Ticker of reporting company
