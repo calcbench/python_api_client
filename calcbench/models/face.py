@@ -14,11 +14,30 @@ from pydantic import BaseModel, validator
 
 
 class StatementType(str, Enum):
+    """
+    Face statement types
+    """
+
     Income = "Income"
+    """
+    Income statement
+    """
     Balance = "Balance"
+    """
+    Balance Sheet
+    """
     CashFlow = "CashFlow"
+    """
+    Statement of Cash Flows
+    """
     ChangeInEquity = "StockholdersEquity"
+    """
+    Statement of Stockholder's Equity
+    """
     ComprehensiveIncome = "StatementOfComprehensiveIncome"
+    """
+    Statement of Comprehensive Income.
+    """
 
 
 class SECLink(BaseModel, extra="allow"):
