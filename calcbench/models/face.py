@@ -54,25 +54,41 @@ class SECLink(BaseModel, extra="allow"):
 
 
 class FinancialStatementColumn(BaseModel, extra="allow"):
+    """
+    One column in the statement
+    """
+
     fiscal_period: str
     '''Human readable, like "Y 2018"'''
     period_start: Optional[date]
     period_end: date
     date_range: str
-    '''Human readable, like "7/1/2017 to 6/30/2018"'''
+    """
+    Human readable, like "7/1/2017 to 6/30/2018"
+    """
     instant: bool
-    """Does this refer to an instant in time or a period, balance sheet vs. income statment"""
+    """
+    Does this refer to an instant in time or a period, balance sheet vs. income statment
+    """
     calculated: bool
-    """Was this column calcuated by Calcbench, Q4 numbers for instance."""
+    """
+    Was this column calcuated by Calcbench, Q4 numbers for instance.
+    """
     sec_links: Sequence[SECLink]
     is_guidance_column: bool
-    """Is this column forward guidance"""
+    """
+    Is this column forward guidance
+    """
     fiscal_period_type: int
     fiscal_period_year: int
     fiscal_period_period: str
 
 
 class Fact(BaseModel, extra="allow"):
+    """
+    Individual fact in the statement
+    """
+
     fact_id: int
     effective_value: Optional[Decimal] = None
     negated_label: bool
@@ -89,6 +105,10 @@ class Fact(BaseModel, extra="allow"):
 
 
 class LineItem(BaseModel, extra="allow"):
+    """
+    One line in the financial statement
+    """
+
     tree_depth: int
     type: str
     label: str
@@ -106,6 +126,10 @@ class LineItem(BaseModel, extra="allow"):
 
 
 class FaceStatement(BaseModel, extra="allow"):
+    """
+    Individual face statement
+    """
+
     entity_name: str
     name: str
     """The name of the statement from the filer"""

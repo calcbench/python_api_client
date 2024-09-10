@@ -69,7 +69,8 @@
 <dl class="py class pydantic_model" id="module-calcbench.models.face">
 <dt class="sig sig-object py" id="calcbench.models.face.FaceStatement">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.face.</span></span><span class="sig-name descname"><span class="pre">FaceStatement</span></span><a class="headerlink" href="#calcbench.models.face.FaceStatement" title="Link to this definition">¶</a></dt>
-<dd><dl class="py attribute pydantic_field">
+<dd><p>Individual face statement</p>
+<dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.face.FaceStatement.columns">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">columns</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><a class="reference internal" href="#calcbench.models.face.FinancialStatementColumn" title="calcbench.models.face.FinancialStatementColumn"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialStatementColumn</span></code></a><span class="pre">]</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.face.FaceStatement.columns" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -101,7 +102,8 @@
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="calcbench.models.face.Fact">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.face.</span></span><span class="sig-name descname"><span class="pre">Fact</span></span><a class="headerlink" href="#calcbench.models.face.Fact" title="Link to this definition">¶</a></dt>
-<dd><dl class="py attribute pydantic_field">
+<dd><p>Individual fact in the statement</p>
+<dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.face.Fact.dimension_members">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dimension_members</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.face.Fact.dimension_members" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -171,7 +173,8 @@
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="calcbench.models.face.FinancialStatementColumn">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.face.</span></span><span class="sig-name descname"><span class="pre">FinancialStatementColumn</span></span><a class="headerlink" href="#calcbench.models.face.FinancialStatementColumn" title="Link to this definition">¶</a></dt>
-<dd><dl class="py attribute pydantic_field">
+<dd><p>One column in the statement</p>
+<dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.face.FinancialStatementColumn.calculated">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculated</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#calcbench.models.face.FinancialStatementColumn.calculated" title="Link to this definition">¶</a></dt>
 <dd><p>Was this column calcuated by Calcbench, Q4 numbers for instance.</p>
@@ -236,7 +239,8 @@
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="calcbench.models.face.LineItem">
 <em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calcbench.models.face.</span></span><span class="sig-name descname"><span class="pre">LineItem</span></span><a class="headerlink" href="#calcbench.models.face.LineItem" title="Link to this definition">¶</a></dt>
-<dd><dl class="py attribute pydantic_field">
+<dd><p>One line in the financial statement</p>
+<dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="calcbench.models.face.LineItem.facts">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">facts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><a class="reference internal" href="#calcbench.models.face.Fact" title="calcbench.models.face.Fact"><code class="xref py py-class docutils literal notranslate"><span class="pre">Fact</span></code></a><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#calcbench.models.face.LineItem.facts" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
