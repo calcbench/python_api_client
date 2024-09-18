@@ -2,6 +2,8 @@ from typing import Optional, Union
 
 from pydantic import BaseModel
 
+from calcbench.models.period import Period
+
 
 class TraceData(BaseModel, extra="allow"):
     local_name: Optional[str] = None
@@ -21,3 +23,12 @@ class TraceData(BaseModel, extra="allow"):
     calcbench XBRL fact ID
     """
     dimensions: Optional[str] = None
+
+    fiscal_period: Optional[Period] = None
+    """
+    fiscal period for this fact
+    """
+    fiscal_year: Optional[int] = None
+    """
+    fiscal year for this fact
+    """
