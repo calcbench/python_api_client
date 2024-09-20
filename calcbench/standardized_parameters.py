@@ -8,7 +8,12 @@ class StandardizedParameters(BaseModel):
     """
 
     metrics: Optional[Sequence[str]] = None
-    includeTrace: Optional[bool] = False
+    includeTraceV2: Optional[bool] = False
+    """
+    added september 2024 in version 14.1.1
+
+    We had includeTrace set to true in the standardized function and we added tracing to the PIT end-point so everybody was getting the tracing.
+    """
     pointInTime: Optional[bool] = False
     allFootnotes: Optional[bool] = False
     allFace: Optional[bool] = False
