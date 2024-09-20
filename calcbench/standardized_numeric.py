@@ -341,7 +341,7 @@ def standardized(
         filing_id=filing_id,
         all_metrics=not metrics,
         use_fiscal_period=True,
-        include_trace=True,
+        include_trace=False,
         pit_V2=pit_V2,
         start_date=start_date,
         end_date=end_date,
