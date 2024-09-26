@@ -12,7 +12,11 @@ class Filing(
     BaseModel,
     extra="allow",
 ):
-    """A filing with the SEC or a wire press-release"""
+    """A filing with the SEC or a wire press-release
+
+
+    everything except filing_id is basically optional becuase that is all you need to get the standardized data.
+    """
 
     is_xbrl: Optional[bool] = Field(repr=False, default=None)
     is_wire: Optional[bool] = Field(repr=False, default=None)
