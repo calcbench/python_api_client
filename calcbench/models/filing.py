@@ -15,7 +15,7 @@ class Filing(
     """A filing with the SEC or a wire press-release
 
 
-    everything except filing_id is basically optional becuase that is all you need to get the standardized data.
+    everything except filing_id is basically optional becuase that is all you need to get the standardized data when it comes through the service bus.
     """
 
     is_xbrl: Optional[bool] = Field(repr=False, default=None)
