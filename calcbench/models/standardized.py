@@ -11,10 +11,29 @@ class StandardizedPoint(BaseModel, extra="allow"):
     Replicates MappedDataPoint on the server
     """
 
+    ticker: str
+    """
+    Ticker of reporting company
+    """
+
     metric: str
     """
     The metric name, see the definitions @ https://www.calcbench.com/home/standardizedmetrics
     """
+
+    fiscal_year: int
+    fiscal_period: Period
+
+    date_reported: Optional[datetime] = None
+    """
+    Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.
+
+    In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
+
+
+    only on PIT points
+    """
+
     value: Union[str, float, int]
     """
     The value of the fact
@@ -34,16 +53,12 @@ class StandardizedPoint(BaseModel, extra="allow"):
     """
     The calendar period for this fact
     """
-    fiscal_year: int
-    fiscal_period: Period
+
     trace_facts: Optional[Sequence[TraceData]] = None
     """
     XBRL facts that went into the calculation of this point.  Specify `include_trace` for this field to be populated.
     """
-    ticker: str
-    """
-    Ticker of reporting company
-    """
+
     calcbench_entity_id: Optional[int] = None
     """
     Internal Calcbench identifier for reporting company
@@ -70,15 +85,7 @@ class StandardizedPoint(BaseModel, extra="allow"):
     """
     URL for a page showing the source document for this value.
     """
-    date_reported: Optional[datetime] = None
-    """
-    Timestamp (EST) when Calcbench finished processing the filing from which this value was parsed.
 
-    In some cases, particularly prior to 2015, this will be the filing date of the document as recorded by the SEC.  To exclude these points remove points where the hour is 0.
-
-
-    only on PIT points
-    """
     period_start: Optional[datetime] = None
     """
     First day of the fiscal period for this fact
@@ -117,3 +124,18 @@ class StandardizedPoint(BaseModel, extra="allow"):
     """
     A unique identifier Calcbench assigns to each standardized value.
     """
+
+    def __lt__(self, other):
+        return (
+            self.ticker,
+            self.metric,
+            self.fiscal_year,
+            self.fiscal_period,
+            self.date_reported,
+        ) < (
+            other.ticker,
+            other.metric,
+            other.fiscal_year,
+            other.fiscal_period,
+            other.date_reported,
+        )
