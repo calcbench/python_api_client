@@ -22,7 +22,14 @@ class StandardizedPoint(BaseModel, extra="allow"):
     """
 
     fiscal_year: int
+    """
+    Fiscal year for the fact
+    """
+
     fiscal_period: Period
+    """
+    Fiscal period for the fact
+    """
 
     date_reported: Optional[datetime] = None
     """
@@ -45,10 +52,12 @@ class StandardizedPoint(BaseModel, extra="allow"):
 
     Post November 2022, if this differs from the value Calcbench the fact was modified by Calcbench subsequent to the filing first being processed.
     """
+
     calendar_year: int
     """
     The calendar year for this fact.  https://knowledge.calcbench.com/hc/en-us/articles/223267767-What-are-Calendar-Years-and-Periods-What-is-TTM-
     """
+
     calendar_period: Period
     """
     The calendar period for this fact
