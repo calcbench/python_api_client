@@ -29,7 +29,7 @@ Use your Calcbench username (email) and password. Get a free two week Calcbench 
 
 ## Support
 
-andrew@calcbench.com
+support@calcbench.com
 
 ## Credit
 
