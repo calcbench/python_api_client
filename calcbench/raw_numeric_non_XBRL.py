@@ -123,7 +123,7 @@ class NonXBRLFact:
     """
 
     Value: float
-    XBRLfilingID: int
+
     column_label: str
     """
     full column label for that column
