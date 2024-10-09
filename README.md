@@ -21,8 +21,6 @@ https://github.com/calcbench/notebooks.
 
     pip install calcbench-api-client
 
-    conda install -c calcbench calcbench-api-client
-
 ## Credentials
 
 Use your Calcbench username (email) and password. Get a free two week Calcbench trial @ https://www.calcbench.com/join
