@@ -1,9 +1,8 @@
 # Calcbench API Client
 
-A Python client for Calcbench's API.
+Calcbench is an interface to the XBRL encoded 10-(K|Q) and press releases public companies file on the SEC's Edgar system.
 
-Calcbench is an interface to the XBRL encoded 10-(K|Q) documents public companies file on the SEC's Edgar system.
-
+    >>>%pip install "calcbench-api-client[Pandas]
     >>>import calcbench as cb
     >>>cb.standardized(company_identifiers=["MSFT", "GOOG"], point_in_time=True)
 
@@ -15,7 +14,7 @@ http://calcbench.github.io/python_api_client/html/index.html
 
 ## Examples
 
-https://github.com/calcbench/notebooks.
+https://github.com/calcbench/notebooks
 
 ## Installation
 
@@ -23,7 +22,9 @@ https://github.com/calcbench/notebooks.
 
 ## Credentials
 
-Use your Calcbench username (email) and password. Get a free two week Calcbench trial @ https://www.calcbench.com/join
+Use your Calcbench username (email) and password.
+
+Start a free two week Calcbench trial @ https://www.calcbench.com/join
 
 ## Support
 
