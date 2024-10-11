@@ -1,5 +1,4 @@
 from datetime import datetime, date
-from enum import Enum, IntEnum
 from typing import Generic, Optional, Sequence, TypeVar, Union
 
 from pydantic import BaseModel
@@ -7,11 +6,6 @@ from pydantic import BaseModel
 from calcbench.models.period import PeriodArgument
 from calcbench.models.period_type import PeriodType
 
-
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal
 
 CentralIndexKey = Union[str, int]
 """
