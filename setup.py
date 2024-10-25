@@ -4,7 +4,7 @@ Created on Mar 18, 2015
 
 @author: Andrew Kittredge
 @copyright: Calcbench, Inc.
-@contact: andrew@calcbench.com
+@contact: alex@calcbench.com
 """
 from setuptools import setup, find_packages
 
