@@ -50,7 +50,7 @@ from requests import RequestException
 
 logger = logging.getLogger(__name__)
 
-__version__ = "14.1.2"
+__version__ = "14.1.3"
 
 USER_AGENT = f"cb_python_api_client/{__version__}"
 
