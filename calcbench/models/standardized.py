@@ -41,9 +41,9 @@ class StandardizedPoint(BaseModel, extra="allow"):
     only on PIT points
     """
 
-    value: Union[str, float, int]
+    value: Optional[Union[str, float, int]] = None
     """
-    The value of the fact
+    The value of the fact.  Can be null, at least for dimensional points.
     """
 
     original_value: Optional[float] = None
