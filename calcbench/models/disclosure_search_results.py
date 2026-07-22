@@ -78,7 +78,7 @@ class DisclosureSearchResults(BaseModel, extra="allow"):
     guide_link: Optional[str]
     page_url: Optional[str]
     entity_id: int
-    id_detail: bool
+    is_detail: bool
     local_name: Optional[str]
     CIK: Optional[str]
     """
